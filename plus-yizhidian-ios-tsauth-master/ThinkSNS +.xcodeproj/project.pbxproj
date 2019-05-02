@@ -356,7 +356,7 @@
 		36E928D7205A73F500EFDED0 /* EMVideoInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E92856205A73F400EFDED0 /* EMVideoInfoViewController.xib */; };
 		36E928D8205A73F500EFDED0 /* DemoCallManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E92858205A73F400EFDED0 /* DemoCallManager.m */; };
 		36E928D9205A73F500EFDED0 /* EMCallOptions+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E9285A205A73F400EFDED0 /* EMCallOptions+NSCoding.m */; };
-		36E928DB205A7CA900EFDED0 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9274C205A73F300EFDED0 /* libopencore-amrnb.a */; };
+		36E928DA205A7C9C00EFDED0 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E92750205A73F300EFDED0 /* libopencore-amrwb.a */; };
 		36F14C231ED51E97009699C7 /* TSRootViewController+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F14C221ED51E97009699C7 /* TSRootViewController+Launch.swift */; };
 		36F87F292022E81F001F9EB4 /* IntegrationRechargeIAPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F87F222022E81E001F9EB4 /* IntegrationRechargeIAPController.swift */; };
 		36F87F2A2022E81F001F9EB4 /* IntegrationRechargeIAPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F87F242022E81E001F9EB4 /* IntegrationRechargeIAPModel.swift */; };
@@ -1202,7 +1202,7 @@
 		88ECCB5321414622002CB601 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 88ECCB5221414622002CB601 /* emoji.json */; };
 		89E795C6B47A1F93FD57A5D4 /* Pods_ThinkSNSPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CFB9FCD78322F351189F12 /* Pods_ThinkSNSPlus.framework */; };
 		A9FCC3CC3FB3B810EF2BEEA9 /* Pods_Thinksns_PlusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C4E689189BFC4A6E9544B9 /* Pods_Thinksns_PlusTests.framework */; };
-		B228ADB52273694D006F09AF /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B228ADB42273694C006F09AF /* libopencore-amrwb.a */; };
+		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -1532,9 +1532,9 @@
 		36E92748205A73F300EFDED0 /* EMVoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EMVoiceConverter.mm; sourceTree = "<group>"; };
 		36E9274A205A73F300EFDED0 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
 		36E9274B205A73F300EFDED0 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
-		36E9274C205A73F300EFDED0 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
 		36E9274E205A73F300EFDED0 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		36E9274F205A73F300EFDED0 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		36E92750205A73F300EFDED0 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		36E92752205A73F300EFDED0 /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
 		36E92753205A73F300EFDED0 /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
 		36E92754205A73F300EFDED0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -2640,7 +2640,7 @@
 		88ECCB5221414622002CB601 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
 		88FCE7FD21ABEC3C009BC9D9 /* ThinkSNSPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThinkSNSPlus.entitlements; sourceTree = "<group>"; };
 		96427937698E1D3C41CB78B5 /* Pods_Thinksns_Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thinksns_Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B228ADB42273694C006F09AF /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrwb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrwb.a"; sourceTree = SOURCE_ROOT; };
+		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -2701,7 +2701,6 @@
 				38BA061F20BED70E0042673D /* libz.tbd in Frameworks */,
 				38BA061E20BED7060042673D /* libboringssl.tbd in Frameworks */,
 				38BA061C20BED6F80042673D /* libc++.tbd in Frameworks */,
-				B228ADB52273694D006F09AF /* libopencore-amrwb.a in Frameworks */,
 				38BA061820BED6C60042673D /* CoreText.framework in Frameworks */,
 				38BA061620BED6BE0042673D /* CoreTelephony.framework in Frameworks */,
 				38BA061420BED6B50042673D /* CoreMotion.framework in Frameworks */,
@@ -2711,7 +2710,8 @@
 				38BA060C20BED68C0042673D /* Foundation.framework in Frameworks */,
 				38BA060A20BED6860042673D /* CFNetwork.framework in Frameworks */,
 				36F87F302024094D001F9EB4 /* StoreKit.framework in Frameworks */,
-				36E928DB205A7CA900EFDED0 /* libopencore-amrnb.a in Frameworks */,
+				B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */,
+				36E928DA205A7C9C00EFDED0 /* libopencore-amrwb.a in Frameworks */,
 				78563474201EC4C5000D8BE1 /* AVFoundation.framework in Frameworks */,
 				89E795C6B47A1F93FD57A5D4 /* Pods_ThinkSNSPlus.framework in Frameworks */,
 			);
@@ -4282,7 +4282,7 @@
 			children = (
 				36E9274A205A73F300EFDED0 /* interf_dec.h */,
 				36E9274B205A73F300EFDED0 /* interf_enc.h */,
-				36E9274C205A73F300EFDED0 /* libopencore-amrnb.a */,
+				B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */,
 			);
 			path = "opencore-amrnb";
 			sourceTree = "<group>";
@@ -4292,7 +4292,7 @@
 			children = (
 				36E9274E205A73F300EFDED0 /* dec_if.h */,
 				36E9274F205A73F300EFDED0 /* if_rom.h */,
-				B228ADB42273694C006F09AF /* libopencore-amrwb.a */,
+				36E92750205A73F300EFDED0 /* libopencore-amrwb.a */,
 			);
 			path = "opencore-amrwb";
 			sourceTree = "<group>";
@@ -7963,7 +7963,7 @@
 				368BEB431DFF9D0C0031379A /* Frameworks */,
 				368BEB441DFF9D0C0031379A /* Resources */,
 				3BF0D7699B116CB3356F3A3D /* [CP] Embed Pods Frameworks */,
-				689229A3B4B731EDF704660B /* [CP] Copy Pods Resources */,
+				6D01F19D7F6D428DDA8EA57A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -8210,7 +8210,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		689229A3B4B731EDF704660B /* [CP] Copy Pods Resources */ = {
+		6D01F19D7F6D428DDA8EA57A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -9616,7 +9616,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YT56S3ABUK;
+				DEVELOPMENT_TEAM = 5QQ23A4NX6;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9638,11 +9638,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
-					"$$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxyb.xingou;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhiyicx.TSPlus.Enterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -9663,7 +9663,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YT56S3ABUK;
+				DEVELOPMENT_TEAM = 5QQ23A4NX6;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9685,12 +9685,12 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PODS_CONFIGURATION_BUILD_DIR}/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
-					"${PODS_CONFIGURATION_BUILD_DIR}/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
+					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxyb.xingou;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhiyicx.TSPlus.Enterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f93df868-5b10-428a-8cc2-b1234b873f52";
 				PROVISIONING_PROFILE_SPECIFIER = "";
