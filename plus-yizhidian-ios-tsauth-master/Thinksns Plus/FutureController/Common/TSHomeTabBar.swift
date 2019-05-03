@@ -8,7 +8,6 @@
 //  首页 tabBar
 
 import UIKit
-
 /// 主页子页面标识
 ///
 /// - feed: 动态
@@ -34,6 +33,8 @@ class TSHomeTabBar: UITabBar {
     lazy var badgeViews = [UIView]()
     /// 小红点的尺寸
     let badgeSize = CGSize(width: 6, height: 6)
+    //数组
+    var barItems = NSMutableArray()
     /// 代理
     weak var centerButtonDelegate: HomeTabBarCenterButtonDelegate?
     // MARK: - Lifecycle
@@ -49,9 +50,17 @@ class TSHomeTabBar: UITabBar {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.insertSubview(tabBgImageView, at: 0) // 3 是测试出插入第三位置,方便排序等
+        
+        for subview in self.subviews
+        {
+            if !subview.isKind(of: NYTabBarItem.self) &&
+                !subview.isEqual(tabBgImageView)
+            {
+                subview.removeFromSuperview()
+            }
+        }
  
-        self.tabBgImageView.frame = self.bounds
+        self.tabBgImageView.frame =  CGRect(x: 0 , y: -30, width: UIScreen.main.bounds.width, height: self.height+20)
         itemWidth = UIScreen.main.bounds.size.width / CGFloat(5)
 
         let badgeLeftDistance = itemWidth / 2 + 4 // UI尺寸
@@ -60,6 +69,7 @@ class TSHomeTabBar: UITabBar {
             badge.frame = CGRect(x: badgeLeftDistance + itemWidth * CGFloat(index), y: 9, width: badgeSize.width, height: badgeSize.height)
             insertSubview(badge, at: self.subviews.count)
         }
+        
     }
 
     // MARK: - Custom user interface
@@ -72,13 +82,33 @@ class TSHomeTabBar: UITabBar {
    
     func setBar() {
          // 首页底部导航栏背景颜色
-//        self.barTintColor = InconspicuousColor().tabBar
+        self.barTintColor = UIColor.clear //InconspicuousColor().tabBar
         self.backgroundColor = UIColor.clear
         self.tabBgImageView.image = UIImage(named: "tab_bg")
+        self.tabBgImageView.contentMode = .top
+        self.addSubview(tabBgImageView) 
+    }
+    
+    override func setItems(_ items: [UITabBarItem]?, animated: Bool) {
+        super.setItems(items, animated: animated)
+        if barItems.count==0 {
+            for (index, value) in items!.enumerated() {
+                let item = NYTabBarItem.init(tabBarItem: value as UITabBarItem)
+                item.tag = index
+                item.addTarget(self, action: #selector(tabBarItemOnClick(_:)), for: .touchUpInside)
+                item.frame =  CGRect(x: 10 , y: 0, width: 50, height: 40)
+                self.addSubview(item)
+                barItems.add(item)
+            }
+        }
+
     }
 
-
-
+    func tabBarItemOnClick(_ barItem :NYTabBarItem)
+    {
+        
+    }
+    
     func setupBadge() {
         for _ in 0...4 {
             let badge = UIView(frame: CGRect.zero)
@@ -109,5 +139,9 @@ class TSHomeTabBar: UITabBar {
     func hiddenBadge(_ page: HomeChildPage) {
         let index = page.rawValue
         badgeViews[index].isHidden = true
+    }
+    
+    func setSelectedIndex(_ selectedIndex:Int){
+        
     }
 }

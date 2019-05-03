@@ -34,6 +34,9 @@
 #import "TZImagePickerController/LZImageCropping.h"
 #import "LabelLineText.h"
 
+#import "NYTabBarItem.h"
+#import "UIView+Extension.h"
+
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif

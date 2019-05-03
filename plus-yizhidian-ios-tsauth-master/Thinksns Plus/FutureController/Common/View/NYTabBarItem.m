@@ -10,7 +10,6 @@
 #import "Masonry.h"
 #import "UIView+Extension.h"
 #import <objc/runtime.h>
-
 #define WeakSelf                __weak __typeof(&*self)WSelf = self
 #define WeakObjc(objc,WObjc)    __weak __typeof(&*objc)WObjc = objc
 #define RotateAngle(angle)      ((angle) * M_PI / 180)
