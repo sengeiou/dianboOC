@@ -29,8 +29,7 @@ protocol HomeTabBarCenterButtonDelegate: class {
 }
 
 class TSHomeTabBar: UITabBar {
-    /// 中心按钮
-    let centerView = UIView()
+    let tabBgImageView = UIImageView()
     /// 所有的小红点
     lazy var badgeViews = [UIView]()
     /// 小红点的尺寸
@@ -50,17 +49,10 @@ class TSHomeTabBar: UITabBar {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.insertSubview(centerView, at: 3) // 3 是测试出插入第三位置,方便排序等
-        var itemCount = 0
-
+        self.insertSubview(tabBgImageView, at: 0) // 3 是测试出插入第三位置,方便排序等
+ 
+        self.tabBgImageView.frame = self.bounds
         itemWidth = UIScreen.main.bounds.size.width / CGFloat(5)
-        for subView in subviews {
-            // tabbarItem固定48.0标准高度
-            if subView.isKind(of: NSClassFromString("UITabBarButton")!) || subView.isEqual(centerView) {
-                itemCount += 1
-                subView.frame = CGRect(x: CGFloat(itemCount - 1) * itemWidth, y: 0, width: itemWidth, height: 48.0)
-            }
-        }
 
         let badgeLeftDistance = itemWidth / 2 + 4 // UI尺寸
         for index in 0..<badgeViews.count {
@@ -74,24 +66,18 @@ class TSHomeTabBar: UITabBar {
     func initialize() {
         centerButtonDelegate = nil
         setBar()
-        setCenterButton()
         setupBadge()
     }
 
    
     func setBar() {
          // 首页底部导航栏背景颜色
-        self.barTintColor = InconspicuousColor().tabBar
+//        self.barTintColor = InconspicuousColor().tabBar
+        self.backgroundColor = UIColor.clear
+        self.tabBgImageView.image = UIImage(named: "tab_bg")
     }
 
-    func setCenterButton() {
-        let image = UIImage(named: "IMG_common_ico_bottom_add")
-        centerView.layer.contents = image?.cgImage
-        centerView.layer.contentsGravity = kCAGravityResizeAspect
-        centerView.bounds.size = CGSize.zero
-        let tap = UITapGestureRecognizer(target: self, action: #selector(centerButtonTaped(_:)))
-        centerView.addGestureRecognizer(tap)
-    }
+
 
     func setupBadge() {
         for _ in 0...4 {

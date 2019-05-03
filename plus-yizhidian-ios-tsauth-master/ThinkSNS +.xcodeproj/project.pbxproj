@@ -1202,6 +1202,8 @@
 		88ECCB5321414622002CB601 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 88ECCB5221414622002CB601 /* emoji.json */; };
 		89E795C6B47A1F93FD57A5D4 /* Pods_ThinkSNSPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CFB9FCD78322F351189F12 /* Pods_ThinkSNSPlus.framework */; };
 		A9FCC3CC3FB3B810EF2BEEA9 /* Pods_Thinksns_PlusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C4E689189BFC4A6E9544B9 /* Pods_Thinksns_PlusTests.framework */; };
+		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
+		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
@@ -2640,6 +2642,10 @@
 		88ECCB5221414622002CB601 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
 		88FCE7FD21ABEC3C009BC9D9 /* ThinkSNSPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThinkSNSPlus.entitlements; sourceTree = "<group>"; };
 		96427937698E1D3C41CB78B5 /* Pods_Thinksns_Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thinksns_Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B23A135E227B4EE600805B85 /* NYTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NYTabBarItem.h; sourceTree = "<group>"; };
+		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
+		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		B23A1362227B51C600805B85 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -2697,16 +2703,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38BA060E20BED6930042673D /* UIKit.framework in Frameworks */,
+				38BA061C20BED6F80042673D /* libc++.tbd in Frameworks */,
 				38BA062020BEDB010042673D /* AlipaySDK.framework in Frameworks */,
 				38BA061F20BED70E0042673D /* libz.tbd in Frameworks */,
 				38BA061E20BED7060042673D /* libboringssl.tbd in Frameworks */,
-				38BA061C20BED6F80042673D /* libc++.tbd in Frameworks */,
 				38BA061820BED6C60042673D /* CoreText.framework in Frameworks */,
 				38BA061620BED6BE0042673D /* CoreTelephony.framework in Frameworks */,
 				38BA061420BED6B50042673D /* CoreMotion.framework in Frameworks */,
 				38BA061220BED6AA0042673D /* CoreGraphics.framework in Frameworks */,
 				38BA061020BED69A0042673D /* SystemConfiguration.framework in Frameworks */,
-				38BA060E20BED6930042673D /* UIKit.framework in Frameworks */,
 				38BA060C20BED68C0042673D /* Foundation.framework in Frameworks */,
 				38BA060A20BED6860042673D /* CFNetwork.framework in Frameworks */,
 				36F87F302024094D001F9EB4 /* StoreKit.framework in Frameworks */,
@@ -3856,6 +3862,7 @@
 		36659C4E1E027E640002B7FF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B23A135B227B462500805B85 /* View */,
 				537032D82060BC70000F6550 /* TSPopView */,
 				532055F71F3AA538008977FD /* TSSignin */,
 				6565E4511E7BD8D20027D826 /* TSLikeListTableVC.swift */,
@@ -7782,6 +7789,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B23A135B227B462500805B85 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B23A135E227B4EE600805B85 /* NYTabBarItem.h */,
+				B23A135F227B4EE600805B85 /* NYTabBarItem.m */,
+				B23A1361227B51C600805B85 /* UIView+Extension.h */,
+				B23A1362227B51C600805B85 /* UIView+Extension.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BB09DE181F287CE9002B77A0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -8393,6 +8411,7 @@
 				836B94BF1F7F3DC30006E3DC /* QuoraStackCellModel.swift in Sources */,
 				8342014C1F6A6A8200286138 /* RankListPreviewCell.swift in Sources */,
 				88246EE820DB59FB006CD251 /* TSNewFriendsCollectionViewCell.swift in Sources */,
+				B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */,
 				83DF43331E72537E009D7FA6 /* TSRegisterVC.swift in Sources */,
 				36E92881205A73F400EFDED0 /* MWPhoto.m in Sources */,
 				8359C0B51F58FE04001FD68D /* TSUserLocationModel.swift in Sources */,
@@ -8703,6 +8722,7 @@
 				3646D9981E124D290060F7FA /* TSAccountNetworkManager.swift in Sources */,
 				65DE0C151E9B797A00D150A5 /* TSUserDiggsrankListDetailObject.swift in Sources */,
 				537DF8A11FF37D8900FD5A1E /* PostableGroupSelectController.swift in Sources */,
+				B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */,
 				78A246D51FDE335900B8007F /* bitstream.c in Sources */,
 				178244321E7FBC2D00A20877 /* TSMomentDetailDiggView.swift in Sources */,
 				BB8304C91F4175A100BBA988 /* OtherLoginView.swift in Sources */,
@@ -9616,7 +9636,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5QQ23A4NX6;
+				DEVELOPMENT_TEAM = YT56S3ABUK;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9663,7 +9683,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5QQ23A4NX6;
+				DEVELOPMENT_TEAM = YT56S3ABUK;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

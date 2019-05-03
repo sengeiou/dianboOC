@@ -72,16 +72,18 @@ class TSHomeTabBarController: UITabBarController, HomeTabBarCenterButtonDelegate
     /// 设置子视图控制器
     func setChildViewController() {
 //        self.addChildViewController(TSMomentListVC(), "标题_首页".localized, "IMG_common_ico_bottom_home_normal", "IMG_common_ico_bottom_home_high")
-        self.addChildViewController(FeedPagesController(), "标题_首页".localized, "IMG_common_ico_bottom_home_normal", "IMG_common_ico_bottom_home_high")
+        
+        self.addChildViewController(FeedPagesController(), "标题_推荐".localized, "tab_tag1", "tab_tag1")
 
-        self.addChildViewController(TSDiscoverViewController(), "标题_发现".localized, "IMG_common_ico_bottom_discover_normal", "IMG_common_ico_bottom_discover_high")
+        self.addChildViewController(TSDiscoverViewController(), "标题_发现".localized, "tab_tag2", "tab_tag2")
 
         let messageVC = MessageViewController(labelTitleArray: ["通知", "聊天"], scrollViewFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 64 - self.tabBar.height), isChat: true)
-        addChildViewController(messageVC, "标题_消息".localized, "IMG_common_ico_bottom_message_normal", "IMG_common_ico_bottom_message_high")
+        addChildViewController(messageVC, "标题_游戏".localized, "tab_tag3", "tab_tag3")
 
-        self.addChildViewController(TSMeViewController(), "标题_我".localized, "IMG_common_ico_bottom_me_normal", "IMG_common_ico_bottom_me_high")
+        self.addChildViewController(TSMeViewController(), "标题_我的".localized, "tab_tag4", "tab_tag4")
 
-        customTabBar.tintColor = MainColor().theme
+//        customTabBar.tintColor = UIColor.clear MainColor().theme
+        
         customTabBar.centerButtonDelegate = self
         self.setValue(customTabBar, forKey: "tabBar")
     }

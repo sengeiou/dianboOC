@@ -34,12 +34,12 @@ class TSHomeBarView: UIView {
     /// 图片
     let images = [("IMG_common_ico_bottom_home_high", "IMG_common_ico_bottom_home_normal"), ("IMG_common_ico_bottom_discover_high", "IMG_common_ico_bottom_discover_normal"), ("IMG_common_ico_bottom_message_high", "IMG_common_ico_bottom_message_normal"), ("IMG_common_ico_bottom_me_high", "IMG_common_ico_bottom_me_normal")]
     /// 文字
-    let titles = ["首页", "发现", "消息", "我"]
+    let titles = ["推荐", "发现", "游戏", "我的"]
 
     /// life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = TSColor.inconspicuous.tabBar
+        self.backgroundColor = UIColor.clear //TSColor.inconspicuous.tabBar
         var buttonArr: [UIButton] = Array()
         for (index, title) in titles.enumerated() {
             let button = TSHomeButton(selectedImage: UIImage(named: images[index].0)!, normalImage: UIImage(named: images[index].1)!, title: title)
