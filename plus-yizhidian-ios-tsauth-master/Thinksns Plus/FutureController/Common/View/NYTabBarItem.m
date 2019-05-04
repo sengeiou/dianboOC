@@ -69,6 +69,12 @@
     return self;
 }
 
+- (CGFloat)barItemTitleLabelWidth
+{
+    CGSize sizeToFit = [_barItemTitleLabel.text sizeWithFont:_barItemTitleLabel.font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _barItemTitleLabel.height)];
+    return sizeToFit.width;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     

@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showBadgeValue:(NSString *)badgeValue;
 - (void)hideBadge;
 
+- (CGFloat)barItemTitleLabelWidth;
+
 @end
 
 NS_ASSUME_NONNULL_END

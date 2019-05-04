@@ -34,9 +34,13 @@ class TSHomeTabBar: UITabBar {
     /// 小红点的尺寸
     let badgeSize = CGSize(width: 6, height: 6)
     //数组
-    var barItems = NSMutableArray()
+    lazy var barItems = [NYTabBarItem]()
+    //滑块
+    let moveView = UIView()
     /// 代理
     weak var centerButtonDelegate: HomeTabBarCenterButtonDelegate?
+    //下标
+    var selectedIndex = 0
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,14 +58,24 @@ class TSHomeTabBar: UITabBar {
         for subview in self.subviews
         {
             if !subview.isKind(of: NYTabBarItem.self) &&
-                !subview.isEqual(tabBgImageView)
+                !subview.isEqual(tabBgImageView) &&
+                !subview.isEqual(moveView)
             {
                 subview.removeFromSuperview()
             }
         }
  
-        self.tabBgImageView.frame =  CGRect(x: 0 , y: -30, width: UIScreen.main.bounds.width, height: self.height+20)
+        self.tabBgImageView.frame =  CGRect(x: 0 , y: -30, width: UIScreen.main.bounds.size.width, height: self.height+20)
         itemWidth = UIScreen.main.bounds.size.width / CGFloat(5)
+        
+        let barItemWidth = UIScreen.main.bounds.size.width / CGFloat(self.barItems.count)
+        let barItemHeight = CGFloat(49.0)
+        
+        for index in 0..<barItems.count {
+            let barItem = barItems[index]
+            barItem.frame = CGRect(x: CGFloat(index) * barItemWidth, y: 0, width: barItemWidth, height: barItemHeight)
+            NSLog("%@", barItem)
+        }
 
         let badgeLeftDistance = itemWidth / 2 + 4 // UI尺寸
         for index in 0..<badgeViews.count {
@@ -69,7 +83,10 @@ class TSHomeTabBar: UITabBar {
             badge.frame = CGRect(x: badgeLeftDistance + itemWidth * CGFloat(index), y: 9, width: badgeSize.width, height: badgeSize.height)
             insertSubview(badge, at: self.subviews.count)
         }
-        
+        let moveY = barItemHeight - 5
+        let moveW = self.barItems[selectedIndex].barItemTitleLabelWidth()
+        let moveX = barItemWidth*CGFloat(selectedIndex) + (barItemWidth-moveW)*0.5
+        self.moveView.frame = CGRect(x: moveX, y: moveY, width: moveW, height:2)
     }
 
     // MARK: - Custom user interface
@@ -85,8 +102,12 @@ class TSHomeTabBar: UITabBar {
         self.barTintColor = UIColor.clear //InconspicuousColor().tabBar
         self.backgroundColor = UIColor.clear
         self.tabBgImageView.image = UIImage(named: "tab_bg")
+        self.tabBgImageView.backgroundColor = UIColor.red
         self.tabBgImageView.contentMode = .top
-        self.addSubview(tabBgImageView) 
+        self.addSubview(tabBgImageView)
+        
+        self.moveView.backgroundColor = UIColor.white
+        self.insertSubview(self.moveView, at: 10)
     }
     
     override func setItems(_ items: [UITabBarItem]?, animated: Bool) {
@@ -98,7 +119,7 @@ class TSHomeTabBar: UITabBar {
                 item.addTarget(self, action: #selector(tabBarItemOnClick(_:)), for: .touchUpInside)
                 item.frame =  CGRect(x: 10 , y: 0, width: 50, height: 40)
                 self.addSubview(item)
-                barItems.add(item)
+                barItems.append(item)
             }
         }
 
@@ -106,7 +127,15 @@ class TSHomeTabBar: UITabBar {
 
     func tabBarItemOnClick(_ barItem :NYTabBarItem)
     {
-        
+        selectedIndex = barItem.tag
+        let barItemWidth = UIScreen.main.bounds.size.width / CGFloat(self.barItems.count)
+        //滑动动画
+        let moveW = self.barItems[selectedIndex].barItemTitleLabelWidth()
+        let moveX = barItemWidth*CGFloat(selectedIndex) + (barItemWidth-moveW)*0.5
+        UIView.animate(withDuration: 0.3) {
+            self.moveView.mj_x = moveX
+            self.moveView.mj_w = moveW
+        }
     }
     
     func setupBadge() {
@@ -141,7 +170,5 @@ class TSHomeTabBar: UITabBar {
         badgeViews[index].isHidden = true
     }
     
-    func setSelectedIndex(_ selectedIndex:Int){
-        
-    }
+
 }
