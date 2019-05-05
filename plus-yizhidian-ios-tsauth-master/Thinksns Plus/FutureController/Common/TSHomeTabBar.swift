@@ -107,7 +107,7 @@ class TSHomeTabBar: UITabBar {
         self.barTintColor = UIColor.clear //InconspicuousColor().tabBar
         self.backgroundColor = UIColor.clear
         self.tabBgImageView.image = UIImage(named: "tab_bg")
-        self.tabBgImageView.backgroundColor = UIColor.red
+        self.tabBgImageView.backgroundColor = UIColor.clear
         self.tabBgImageView.contentMode = .top
         self.addSubview(tabBgImageView)
         
@@ -127,7 +127,6 @@ class TSHomeTabBar: UITabBar {
                 barItems.append(item)
             }
         }
-
     }
 
     //点击tabbar

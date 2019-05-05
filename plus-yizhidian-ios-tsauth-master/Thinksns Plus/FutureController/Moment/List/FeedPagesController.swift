@@ -41,8 +41,14 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     var isFirstLoadSuccess: Bool = false
     // MARK: - 生命周期
     init() {
-        let height = UIScreen.main.bounds.height - (64 + 49)
-        super.init(labelTitleArray: ["最新", "热门", "关注"], scrollViewFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: height))
+        
+
+        let height = Int(UIScreen.main.bounds.height) - (49+topContentHeight)
+        super.init(labelTitleArray: ["推荐_精选".localized,
+                                     "推荐_短视频".localized,
+                                     "推荐_明星".localized,
+                                     "推荐_电视剧".localized,
+                                     "推荐_电影".localized], scrollViewFrame: CGRect(x: 0, y: 132, width: Int(UIScreen.main.bounds.width), height: height))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +67,9 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         if self.navigationController?.viewControllers.count == 1 && self.playerView != nil && self.isPlaying {
             self.isPlaying = false
             self.playerView.playerPushedOrPresented = false

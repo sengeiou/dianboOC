@@ -12,14 +12,22 @@
 
 import UIKit
 
+let topContentHeight = 132
+
 fileprivate struct SizeDesign {
     let badgeSize: CGSize = CGSize(width: 6, height: 6)
 }
 
 class TSLabelViewController: TSViewController, UIScrollViewDelegate {
 
+    ///整个 top view
+    let topContentView = UIView()
+    ///背景
+    let topContentBgImageView = UIImageView()
     /// 滚动视图
-    var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
+    var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.size.width), height: Int(UIScreen.main.bounds.size.height)))
+
+    let img_search = UIImageView()
     /// 标签视图
     let labelView = UIView()
     /// 标签下方的蓝线
@@ -43,7 +51,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
     init(labelTitleArray: [String], scrollViewFrame: CGRect?, isChat: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         if isChat {
-            let frame = scrollViewFrame ?? CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
+            let frame = scrollViewFrame ?? CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.size.width), height: Int(UIScreen.main.bounds.size.height) - topContentHeight)
             self.scrollView = ChatScrollView(frame: frame)
         }
 
@@ -75,7 +83,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
 
     func changeStatuBar() {
         if UIApplication.shared.statusBarFrame.size.height == 20 {
-            scrollView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64 - 49)
+            scrollView.frame = CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.size.width), height: Int(UIScreen.main.bounds.size.height) - topContentHeight)
         }
     }
 
@@ -88,6 +96,20 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
             if titleArray.isEmpty {
                 return
             }
+            //设置 top content view
+            topContentView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.size.width) , height: topContentHeight)
+            self.view.addSubview(topContentView)
+            
+            //topContentBgImageView
+            topContentBgImageView.image = UIImage(named: "nav_home")
+            topContentBgImageView.frame = topContentView.frame
+            topContentView.addSubview(topContentBgImageView)
+            
+            
+            img_search.image = UIImage(named: "searchAAA")
+            img_search.frame = CGRect(x: 20, y: 80, width: 120, height: 40)
+            topContentView.addSubview(img_search)
+            
             // 设计已确认,该数组内字数的宽度(字符数量)是一致的,出现别的情况概不负责 :)
             let labelButtonWidth = 40 + (titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))).width // 单边间距，参见 TS 设计文档第二版第 7 页
             let buttonTitleSize = titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))
@@ -120,12 +142,15 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
 
             // labelView
             labelView.frame = CGRect(x: CGFloat(0), y: CGFloat(-3), width: labelButtonWidth * CGFloat(titleArray.count), height: labelHeight)
-            labelView.backgroundColor = UIColor.white
-            navigationItem.titleView = labelView
+            labelView.backgroundColor = UIColor.clear
+//            navigationItem.titleView = labelView
+            
+            topContentView.addSubview(labelView)
 
             // scrollView
+            
             scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(titleArray.count), height: scrollView.frame.size.height)
-            scrollView.backgroundColor = UIColor.white
+            scrollView.backgroundColor = UIColor.blue
             scrollView.isPagingEnabled = true
             scrollView.showsVerticalScrollIndicator = false
             scrollView.showsHorizontalScrollIndicator = false
@@ -195,11 +220,11 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
             return
         }
         selectedPageChangedTo(index: index)
-        let oldButton = (labelView.viewWithTag(tagBasicForButton + oldIndex) as? UIButton)!
-        oldButton.setTitleColor(TSColor.normal.minor, for: .normal)
-        oldIndex = index
-        let button = (labelView.viewWithTag(tagBasicForButton + index) as? UIButton)!
-        button.setTitleColor(TSColor.inconspicuous.navHighlightTitle, for: .normal)
+//        let oldButton = (labelView.viewWithTag(tagBasicForButton + oldIndex) as? UIButton)!
+//        oldButton.setTitleColor(TSColor.normal.minor, for: .normal)
+//        oldIndex = index
+//        let button = (labelView.viewWithTag(tagBasicForButton + index) as? UIButton)!
+//        button.setTitleColor(TSColor.inconspicuous.navHighlightTitle, for: .normal)
     }
 
     // MARK: - Delegate
