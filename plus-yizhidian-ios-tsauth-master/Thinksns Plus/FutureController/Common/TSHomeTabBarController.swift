@@ -153,6 +153,18 @@ class TSHomeTabBarController: UITabBarController, HomeTabBarCenterButtonDelegate
         thebfview.TSBeforeReleaseViewDelegate = self
         self.view.addSubview(thebfview)
     }
+    
+    //新tabbar do 切换
+    internal func tabBarSelectItemClick(_ tabbar: TSHomeTabBar, item: NYTabBarItem, index: Int) {
+        if self.selectedIndex == index
+        {
+            //相同
+        }
+        else
+        {
+            self.selectedIndex = index
+        }
+    }
 
     // TSBeforeReleaseViewDelegate
     func indexOfBtnArray(_ releaseView: TSBeforeReleaseView, _ index: Int?, _ title: String?) {

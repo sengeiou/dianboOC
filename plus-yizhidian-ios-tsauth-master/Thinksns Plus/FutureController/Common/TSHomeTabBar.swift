@@ -25,6 +25,8 @@ enum HomeChildPage: Int {
 
 protocol HomeTabBarCenterButtonDelegate: class {
     func tabbarCenterButtonTap(_ tabbar: TSHomeTabBar)
+    //选中，代理
+    func tabBarSelectItemClick(_ tabbar: TSHomeTabBar,item:NYTabBarItem,index:Int)
 }
 
 class TSHomeTabBar: UITabBar {
@@ -37,6 +39,9 @@ class TSHomeTabBar: UITabBar {
     lazy var barItems = [NYTabBarItem]()
     //滑块
     let moveView = UIView()
+    //选中的button
+    private var selectedItemBtn:UIButton?
+    
     /// 代理
     weak var centerButtonDelegate: HomeTabBarCenterButtonDelegate?
     //下标
@@ -125,17 +130,26 @@ class TSHomeTabBar: UITabBar {
 
     }
 
+    //点击tabbar
     func tabBarItemOnClick(_ barItem :NYTabBarItem)
     {
         selectedIndex = barItem.tag
+        selectedItemBtn?.isSelected = false
+        selectedItemBtn = barItem
+        selectedItemBtn?.isSelected = true
         let barItemWidth = UIScreen.main.bounds.size.width / CGFloat(self.barItems.count)
         //滑动动画
-        let moveW = self.barItems[selectedIndex].barItemTitleLabelWidth()
+        let barItem = self.barItems[selectedIndex]
+        let moveW = barItem.barItemTitleLabelWidth()
         let moveX = barItemWidth*CGFloat(selectedIndex) + (barItemWidth-moveW)*0.5
         UIView.animate(withDuration: 0.3) {
             self.moveView.mj_x = moveX
             self.moveView.mj_w = moveW
         }
+        if self.centerButtonDelegate == nil {
+            return
+        }
+        self.centerButtonDelegate?.tabBarSelectItemClick(self, item: barItem, index: selectedIndex)
     }
     
     func setupBadge() {
