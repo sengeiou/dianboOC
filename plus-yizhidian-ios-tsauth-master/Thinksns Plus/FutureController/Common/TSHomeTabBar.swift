@@ -70,7 +70,7 @@ class TSHomeTabBar: UITabBar {
             }
         }
  
-        self.tabBgImageView.frame =  CGRect(x: 0 , y: -30, width: UIScreen.main.bounds.size.width, height: self.height+20)
+        self.tabBgImageView.frame =  CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height: self.height+20)
         itemWidth = UIScreen.main.bounds.size.width / CGFloat(5)
         
         let barItemWidth = UIScreen.main.bounds.size.width / CGFloat(self.barItems.count)
@@ -108,7 +108,7 @@ class TSHomeTabBar: UITabBar {
         self.backgroundColor = UIColor.clear
         self.tabBgImageView.image = UIImage(named: "tab_bg")
         self.tabBgImageView.backgroundColor = UIColor.clear
-        self.tabBgImageView.contentMode = .top
+        self.tabBgImageView.contentMode = .scaleToFill
         self.addSubview(tabBgImageView)
         
         self.moveView.backgroundColor = UIColor.white

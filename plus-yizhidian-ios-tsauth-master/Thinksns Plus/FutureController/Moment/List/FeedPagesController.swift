@@ -62,7 +62,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         loadDatabase()
         setPlayerView()
         currentShowPage = hotPage
-        setSelectedAt(1)
+//        setSelectedAt(1)
     }
 
     override func viewWillAppear(_ animated: Bool) {

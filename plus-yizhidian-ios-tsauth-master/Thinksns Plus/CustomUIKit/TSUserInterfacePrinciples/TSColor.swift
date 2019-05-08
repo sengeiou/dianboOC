@@ -40,6 +40,10 @@ class MainColor {
     var theme: UIColor {
         return UIColor(hex: 0x59b6d7)
     }
+    
+    var themeTB: UIColor {
+        return UIColor(red: 35, green: 34, blue: 36)
+    }
     /// 正文, 内容以及标题颜色
     ///
     /// - 重要的列表标题文字、正文内容

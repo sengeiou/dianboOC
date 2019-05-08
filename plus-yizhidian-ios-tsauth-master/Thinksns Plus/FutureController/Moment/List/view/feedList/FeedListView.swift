@@ -169,7 +169,7 @@ class FeedListView: TSTableView {
 
     // MARK: - UI
     func setUI() {
-        backgroundColor = TSColor.inconspicuous.background
+        backgroundColor = TSColor.main.themeTB
         separatorStyle = .none
         delegate = self
         dataSource = self
