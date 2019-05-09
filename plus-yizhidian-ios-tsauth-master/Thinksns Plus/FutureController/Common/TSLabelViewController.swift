@@ -214,7 +214,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         //搜索按钮
         sa_searchBtn.frame = CGRect(x:searchA.width-searchH, y:0, width:searchH, height:searchH)
         sa_searchBtn.setImage(UIImage(named: "nav_search"), for: .normal)
-        sa_searchBtn.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+        sa_searchBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7)
         searchA.addSubview(sa_searchBtn)
         
         sa_ImageL.frame = CGRect(x: sa_searchBtn.x - 4, y:8, width:2, height:searchH-16)
@@ -252,7 +252,10 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         //全部
         tag_ALLBtn.frame = CGRect(x: tagW*2, y:0, width:tagW, height:searchH)
         tag_ALLBtn.setImage(UIImage(named: "nav_loc"), for: .normal)
-        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        tag_ALLBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+        tag_ALLBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0)
+        tag_ALLBtn.contentHorizontalAlignment = .left
         tag_ALLBtn.setTitle("精选_全部".localized, for: .normal)
         tag_ALLBtn.setTitleColor(UIColor.white, for: .normal)
         tag_ALLBtn.titleLabel?.font = UIFont.systemFont(ofSize:12)

@@ -1202,6 +1202,9 @@
 		88ECCB5321414622002CB601 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 88ECCB5221414622002CB601 /* emoji.json */; };
 		89E795C6B47A1F93FD57A5D4 /* Pods_ThinkSNSPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CFB9FCD78322F351189F12 /* Pods_ThinkSNSPlus.framework */; };
 		A9FCC3CC3FB3B810EF2BEEA9 /* Pods_Thinksns_PlusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C4E689189BFC4A6E9544B9 /* Pods_Thinksns_PlusTests.framework */; };
+		B201BC8A228487F5008D83CE /* NYSelFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC89228487F5008D83CE /* NYSelFocusView.swift */; };
+		B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC8C228493F7008D83CE /* NYSelCell.swift */; };
+		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
 		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
@@ -2642,6 +2645,9 @@
 		88ECCB5221414622002CB601 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
 		88FCE7FD21ABEC3C009BC9D9 /* ThinkSNSPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThinkSNSPlus.entitlements; sourceTree = "<group>"; };
 		96427937698E1D3C41CB78B5 /* Pods_Thinksns_Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thinksns_Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B201BC89228487F5008D83CE /* NYSelFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelFocusView.swift; sourceTree = "<group>"; };
+		B201BC8C228493F7008D83CE /* NYSelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelCell.swift; sourceTree = "<group>"; };
+		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
 		B23A135E227B4EE600805B85 /* NYTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NYTabBarItem.h; sourceTree = "<group>"; };
 		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
 		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -6927,6 +6933,7 @@
 		83828E621FC6AC7700894F42 /* feedList */ = {
 			isa = PBXGroup;
 			children = (
+				B201BC8B22849397008D83CE /* NYCell */,
 				83828E631FC6AC7700894F42 /* FeedListActionView.swift */,
 				83828E641FC6AC7700894F42 /* FeedListCell.swift */,
 				83828E651FC6AC7700894F42 /* FeedListCellModel.swift */,
@@ -6934,6 +6941,7 @@
 				83BF5AD01FCEA87B00EF8F14 /* FilterSectionView.swift */,
 				83BF5AD21FCEAB8900EF8F14 /* FilterSectionViewModel.swift */,
 				830B31E01FFF7BA5001D6B12 /* TSMomentResendButton.swift */,
+				B201BC89228487F5008D83CE /* NYSelFocusView.swift */,
 			);
 			path = feedList;
 			sourceTree = "<group>";
@@ -7789,6 +7797,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B201BC8B22849397008D83CE /* NYCell */ = {
+			isa = PBXGroup;
+			children = (
+				B201BC8C228493F7008D83CE /* NYSelCell.swift */,
+				B201BC8D228493F7008D83CE /* NYSelCell.xib */,
+			);
+			path = NYCell;
+			sourceTree = "<group>";
+		};
 		B23A135B227B462500805B85 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -8067,6 +8084,7 @@
 				880C08BC211BD502003663F0 /* TSMessagePopCell.xib in Resources */,
 				535D499C1FD7F19100499621 /* ZSS_jQuery.js in Resources */,
 				535D499D1FD7F19100499621 /* ZSS_JSBeautifier.js in Resources */,
+				B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */,
 				535D499E1FD7F19100499621 /* ZSS_RichTextEditor.js in Resources */,
 				830172691F4421670025CF56 /* TSContactsSectionView.xib in Resources */,
 				1765F36C1E97699A0066FE03 /* TSSongListCell.xib in Resources */,
@@ -8439,6 +8457,7 @@
 				83BE160B1F0CDE0E00BB203C /* PHPreviewVC+CollectionView.swift in Sources */,
 				83371E2B1E6CF1B800C19CE7 /* TSLabel.swift in Sources */,
 				36E928AB205A73F400EFDED0 /* NSString+Valid.m in Sources */,
+				B201BC8A228487F5008D83CE /* NYSelFocusView.swift in Sources */,
 				36E9286D205A73F400EFDED0 /* MJRefreshComponent.m in Sources */,
 				36E928C7205A73F500EFDED0 /* EaseBubbleView+Voice.m in Sources */,
 				8390EAF01FF09CBD008387DA /* PostListHeaderView.swift in Sources */,
@@ -9239,6 +9258,7 @@
 				36FB53521F69326D00B25A8D /* NoticeTableViewController.swift in Sources */,
 				1765F3671E9769700066FE03 /* TSSongInfoNetModel.swift in Sources */,
 				172C9FD21E9F58CC00806E7F /* TSMusicAlbumConllectionTaskObject.swift in Sources */,
+				B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */,
 				838EABA11F134C54001D2757 /* TSPayNetworkManager.swift in Sources */,
 				83E310241F61538F0065A445 /* TopicExpertsListController.swift in Sources */,
 				83ACDFCB1EE154BA00BC3803 /* WalletNetworkManager.swift in Sources */,

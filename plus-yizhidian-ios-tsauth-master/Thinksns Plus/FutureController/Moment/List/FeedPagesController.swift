@@ -22,7 +22,8 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 热门列表
     let hotPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 最新列表
-    let newPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
+    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "dssssPP")
+        //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
     let followPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.follow.rawValue)
     /// 广告 Banner
@@ -43,12 +44,12 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     init() {
         
 
-        let height = Int(UIScreen.main.bounds.height) - (49+topContentHeight)
+        let height = Int(UIScreen.main.bounds.height) - topContentHeight
         super.init(labelTitleArray: ["推荐_精选".localized,
                                      "推荐_短视频".localized,
                                      "推荐_明星".localized,
                                      "推荐_电视剧".localized,
-                                     "推荐_电影".localized], scrollViewFrame: CGRect(x: 0, y: 132, width: Int(UIScreen.main.bounds.width), height: height))
+                                     "推荐_电影".localized], scrollViewFrame: CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.width), height: height))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -118,14 +119,14 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         followPage.refreshDelegate = self
         hotPage.refreshDelegate = self
         newPage.refreshDelegate = self
-        followPage.backgroundColor = UIColor.white
-        hotPage.backgroundColor = UIColor.white
-        newPage.backgroundColor = UIColor.white
+//        followPage.backgroundColor = UIColor.white
+//        hotPage.backgroundColor = UIColor.white
+//        newPage.backgroundColor = UIColor.white
         add(childView: followPage, at: 2)
         add(childView: hotPage, at: 1)
         add(childView: newPage, at: 0)
         hotPage.feedListViewDelegate = self
-        newPage.feedListViewDelegate = self
+//        newPage.feedListViewDelegate = self
         followPage.feedListViewDelegate = self
     }
 
@@ -147,7 +148,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             return
         }
         banner.setModels(models: bannerAdverts.map { TSAdvertBannerModel(object: $0) })
-        hotPage.tableHeaderView = banner
+        newPage.tableHeaderView = banner
     }
 
     // MARK: - Data
@@ -189,7 +190,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         // 1.最新列表加载数据库数据
         let newDatas = FeedListRealmManager().get(feedlist: .new).map { FeedListCellModel(object: $0) }
         // 最新要显示加载失败的动态
-        newPage.datas = getFaildFeedModels() + newDatas
+//        newPage.datas = getFaildFeedModels() + newDatas
         newPage.reloadData()
     }
 
@@ -330,7 +331,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         // 如果信息里有 newFeedId，说明某个动态刚刚创建，正在发送中
         if let feedId = notification.userInfo?["newFeedId"] as? Int {
             self.addNewFeedToList(newFeedId: feedId)
-            self.newPage.scrollToRow(at: IndexPath(item: self.newPage.pinnedCounts, section: 0), at: .top, animated: false)
+//            self.newPage.scrollToRow(at: IndexPath(item: self.newPage.pinnedCounts, section: 0), at: .top, animated: false)
             return
         }
     }
@@ -353,7 +354,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         if let feedId = notification.userInfo?["newFeedId"] as? Int {
             self.addNewFeedToList(newFeedId: feedId)
             self.setSelectedAt(0)
-            self.newPage.scrollToRow(at: IndexPath(item: self.newPage.pinnedCounts, section: 0), at: .top, animated: false)
+//            self.newPage.scrollToRow(at: IndexPath(item: self.newPage.pinnedCounts, section: 0), at: .top, animated: false)
             /// 如果是转发的内容，就保持当前的视图结构不变，不做跳转
             if let isRepost = notification.userInfo?["isRepost"] as? Bool, isRepost == true {
                 // 不跳转
@@ -367,15 +368,15 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 更新某个新发动态的发送状态，newId 为 nil 表示动态发送失败
     func updateNewFeedSendStatus(oldId: Int, newId: Int?) {
         // 1.最新列表
-        if let newFeedModel = newPage.datas.first(where: { $0.id["feedId"] == oldId }) {
-            if let newId = newId {
-                newFeedModel.id = .feed(feedId: newId)
-                newFeedModel.sendStatus = .success
-            } else {
-                newFeedModel.sendStatus = .faild
-            }
-            newPage.reloadData()
-        }
+//        if let newFeedModel = newPage.datas.first(where: { $0.id["feedId"] == oldId }) {
+//            if let newId = newId {
+//                newFeedModel.id = .feed(feedId: newId)
+//                newFeedModel.sendStatus = .success
+//            } else {
+//                newFeedModel.sendStatus = .faild
+//            }
+//            newPage.reloadData()
+//        }
         // 2.关注列表
         if let newFeedModel = followPage.datas.first(where: { $0.id["feedId"] == oldId }) {
             if let newId = newId {
@@ -419,9 +420,9 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         newFeedModel.repostModel = feedObject.repostModel
         // 4.将 newFeedModel 添加到列表中
         // 新加入的内容为置顶内容的下一条，并滚动到该行
-        newPage.datas.insert(newFeedModel, at: newPage.pinnedCounts)
+//        newPage.datas.insert(newFeedModel, at: newPage.pinnedCounts)
         followPage.datas.insert(newFeedModel, at: followPage.pinnedCounts)
-        newPage.insertRow(at: IndexPath(item: newPage.pinnedCounts, section: 0), with: .none)
+//        newPage.insertRow(at: IndexPath(item: newPage.pinnedCounts, section: 0), with: .none)
         followPage.insertRow(at: IndexPath(item: followPage.pinnedCounts, section: 0), with: .none)
     }
 
@@ -460,7 +461,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         var feedListView: FeedListActionView?
         switch index {
         case 0:
-            feedListView = newPage
+            feedListView = hotPage
         case 1:
             feedListView = hotPage
         case 2:

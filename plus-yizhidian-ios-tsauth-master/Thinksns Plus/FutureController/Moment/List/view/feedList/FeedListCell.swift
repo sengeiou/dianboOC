@@ -123,7 +123,8 @@ class FeedListCell: UITableViewCell {
 
     /// 设置视图
     internal func setUI() {
-        contentView.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
         let toolbarFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 58, height: 45)
         toolbar.set(items: [TSToolbarItemModel(image: "", title: "", index: 0), TSToolbarItemModel(image: "IMG_home_ico_comment_normal", title: "", index: 1), TSToolbarItemModel(image: "IMG_home_ico_eye_normal", title: "", index: 2), TSToolbarItemModel(image: "IMG_home_ico_more", title: "", index: 3)], frame: toolbarFrame)
         toolbar.set(isUserInteractionEnabled: false, at: 2)
