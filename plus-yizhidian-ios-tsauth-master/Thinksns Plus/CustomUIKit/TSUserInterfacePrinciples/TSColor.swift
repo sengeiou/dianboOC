@@ -42,7 +42,7 @@ class MainColor {
     }
     
     var themeTB: UIColor {
-        return UIColor(red: 35, green: 34, blue: 36)
+        return UIColor(red: 34, green: 34, blue: 35)
     }
     /// 正文, 内容以及标题颜色
     ///

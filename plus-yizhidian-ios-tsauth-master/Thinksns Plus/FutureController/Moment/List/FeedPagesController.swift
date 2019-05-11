@@ -494,6 +494,12 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     func zf_playerDownload(_ url: String!) {
         TSUtil.share().showDownloadVC(videoUrl: url)
     }
+    //搜索
+    override func searchClickdo(_ btn: UIButton) {
+        NSLog("搜索")
+        let SearchListVC = NYSearchListVC()
+        self.navigationController?.pushViewController(SearchListVC, animated: true)   
+    }
 }
 
 extension FeedPagesController: FeedListActionViewDelegate {

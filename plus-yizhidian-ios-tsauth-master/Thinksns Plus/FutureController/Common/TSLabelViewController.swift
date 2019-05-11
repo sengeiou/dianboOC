@@ -215,6 +215,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         sa_searchBtn.frame = CGRect(x:searchA.width-searchH, y:0, width:searchH, height:searchH)
         sa_searchBtn.setImage(UIImage(named: "nav_search"), for: .normal)
         sa_searchBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7)
+        sa_searchBtn.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
         searchA.addSubview(sa_searchBtn)
         
         sa_ImageL.frame = CGRect(x: sa_searchBtn.x - 4, y:8, width:2, height:searchH-16)
@@ -226,6 +227,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         sa_Field.setTitle("精选_推荐搜索".localized, for: .normal)
         sa_Field.setTitleColor(UIColor.white, for: .normal)
         sa_Field.titleLabel?.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
+        sa_Field.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
         searchA.addSubview(sa_Field)
         
         ////BBBB
@@ -299,10 +301,17 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         update(childViewsAt: index)
     }
     
+    /// 搜索
+    ///
+    ///
+    func searchClickdo(_ btn: UIButton) {
+        
+    }
+    
     ///  右边菜单
     ///
     /// - Parameter btn:
-    public func rightMunClickdo(_ btn: UIButton) {
+    func rightMunClickdo(_ btn: UIButton) {
         
     }
     /// 切换了选中的页面

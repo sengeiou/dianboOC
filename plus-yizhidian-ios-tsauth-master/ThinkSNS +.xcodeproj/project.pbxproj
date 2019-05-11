@@ -1207,6 +1207,7 @@
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
 		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
+		B244258A228732FD00500D08 /* NYSearchListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2442589228732FD00500D08 /* NYSearchListVC.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
@@ -2652,6 +2653,7 @@
 		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
 		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B23A1362227B51C600805B85 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		B2442589228732FD00500D08 /* NYSearchListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchListVC.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -6317,6 +6319,7 @@
 				88C7EBBA21182B99009D5185 /* TSMomentSearchView.swift */,
 				885FC3612192D19500684DE1 /* TSDownloadVC.swift */,
 				885FC3622192D19500684DE1 /* TSDownloadVC.xib */,
+				B2442589228732FD00500D08 /* NYSearchListVC.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -9119,6 +9122,7 @@
 				BB8304CB1F41A37B00BBA988 /* TSBeforeReleaseView.swift in Sources */,
 				365795B01E63D75B00B8D409 /* TSKeyboardToolbar.swift in Sources */,
 				8308B2AC1F2F04DF0049BC69 /* TSAdvertItemView.swift in Sources */,
+				B244258A228732FD00500D08 /* NYSearchListVC.swift in Sources */,
 				78FE6C5D1FF0ED230018105B /* TSMyFriendListCell.swift in Sources */,
 				8306BD12201EBDBB00E3737F /* TSURLExtension.swift in Sources */,
 				659387341E73F6690095BDE2 /* TSDeleteCommentObject.swift in Sources */,

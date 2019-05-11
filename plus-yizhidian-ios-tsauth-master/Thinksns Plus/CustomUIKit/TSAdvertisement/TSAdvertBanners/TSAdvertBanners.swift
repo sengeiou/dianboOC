@@ -170,7 +170,7 @@ class TSAdvertBanners: UIView, UIScrollViewDelegate {
         super.layoutSubviews()
         let pageControlWidth: CGFloat = CGFloat(models.count) * 15
         // item.frame.height - 30
-        pageControl.frame = CGRect(x: self.frame.width - pageControlWidth - 16, y: self.frame.height - 30, width: pageControlWidth, height: 16)
+        pageControl.frame = CGRect(x: (self.frame.width - pageControlWidth) * 0.5, y: self.frame.height - 30, width: pageControlWidth, height: 16)
     }
 
     /// 启动动画
