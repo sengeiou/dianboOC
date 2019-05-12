@@ -21,7 +21,7 @@ class TSNavigationController: UINavigationController, TSIndicatorAProrocol {
         super.initialize()
         let navigationBar = UINavigationBar.appearance()
         let navigationBarTitleAttributes = [NSForegroundColorAttributeName: InconspicuousColor().navTitle, NSFontAttributeName: UIFont.boldSystemFont(ofSize: TSFont.Navigation.headline.rawValue)]
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        navigationBar.setBackgroundImage(UIImage(named: "nav_nav2"), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationBar.titleTextAttributes = navigationBarTitleAttributes
         navigationBar.barTintColor = UIColor.white
         navigationBar.tintColor = InconspicuousColor().navTitle
@@ -106,7 +106,7 @@ class TSNavigationController: UINavigationController, TSIndicatorAProrocol {
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         if self.viewControllers.isEmpty == false {
-            let backBarItem = UIBarButtonItem(image: UIImage(named: "IMG_topbar_back"), style: .plain, target: self, action: #selector(popBack))
+            let backBarItem = UIBarButtonItem(image: UIImage(named: "nav_back"), style: .plain, target: self, action: #selector(popBack))
             viewController.navigationItem.leftBarButtonItem = backBarItem
             viewController.hidesBottomBarWhenPushed = true
         }

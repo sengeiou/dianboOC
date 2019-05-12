@@ -35,7 +35,7 @@ class AppDeleguate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, E
             UITextView.appearance().tintColor = TSColor.main.theme
         }
         setupDataBaseVersion()
-
+        UIApplication.shared.statusBarStyle = .lightContent
         let apiKey = TSAppConfig.share.environment.aMapApiKey
         guard apiKey.count.isEqualZero == false else {
             fatalError("环境配置错误,检查 AppEnvironment.plist 文件")

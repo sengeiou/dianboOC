@@ -152,11 +152,11 @@ class InconspicuousColor {
     }
     /// 导航栏标题色
     var navTitle: UIColor {
-        return UIColor(hex: 0x333333)
+        return UIColor(hex: 0xffffff)
     }
     /// 导航栏标题色
     var navHighlightTitle: UIColor {
-        return UIColor(hex: 0x000000)
+        return UIColor(hex: 0xffffff)
     }
 }
 
