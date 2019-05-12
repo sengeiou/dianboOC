@@ -1209,6 +1209,8 @@
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
 		B244258A228732FD00500D08 /* NYSearchListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2442589228732FD00500D08 /* NYSearchListVC.swift */; };
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
+		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
+		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
@@ -2656,6 +2658,8 @@
 		B23A1362227B51C600805B85 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B2442589228732FD00500D08 /* NYSearchListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchListVC.swift; sourceTree = "<group>"; };
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
+		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
+		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -6322,6 +6326,7 @@
 				885FC3612192D19500684DE1 /* TSDownloadVC.swift */,
 				885FC3622192D19500684DE1 /* TSDownloadVC.xib */,
 				B2442589228732FD00500D08 /* NYSearchListVC.swift */,
+				B24425902288588500500D08 /* NYSearchListVC.xib */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -7827,6 +7832,7 @@
 			isa = PBXGroup;
 			children = (
 				B244258C22880D3E00500D08 /* NYSearchBarView.swift */,
+				B24425922288685200500D08 /* NYWordItem.swift */,
 			);
 			path = searchBar;
 			sourceTree = "<group>";
@@ -8155,6 +8161,7 @@
 				8303E7131E30C38C00A02BB6 /* TSSetPasswordVC.xib in Resources */,
 				36E9285C205A73F400EFDED0 /* EaseUI.podspec in Resources */,
 				83549A27202ACD9000590D81 /* WalletHomeController.storyboard in Resources */,
+				B24425912288588500500D08 /* NYSearchListVC.xib in Resources */,
 				831653F11FC5108700150D70 /* GroupHomeCountCell.xib in Resources */,
 				832ADE101E1E298B009804F7 /* TSLoginVC.xib in Resources */,
 				25E4A5A220E32CFF0028F758 /* TSSeachBar.xib in Resources */,
@@ -8459,6 +8466,7 @@
 				532055FB1F3AA547008977FD /* TSSigninView.swift in Sources */,
 				8897E0102106F71F00016D84 /* TopicSearchCell.swift in Sources */,
 				36AAC26A1EA3039500E5EF8E /* TSConversationUtilDataObject.swift in Sources */,
+				B24425932288685200500D08 /* NYWordItem.swift in Sources */,
 				36E928D6205A73F500EFDED0 /* EMVideoInfoViewController.m in Sources */,
 				539B10C21FB0412E00CCFFAC /* CommentNetworkRequest.swift in Sources */,
 				1734A3581E81031200632B5B /* TSNetworkURLPath.swift in Sources */,

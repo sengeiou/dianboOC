@@ -254,9 +254,9 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         //全部
         tag_ALLBtn.frame = CGRect(x: tagW*2, y:0, width:tagW, height:searchH)
         tag_ALLBtn.setImage(UIImage(named: "nav_loc"), for: .normal)
-        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-        tag_ALLBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
-        tag_ALLBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0)
+//        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        tag_ALLBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+//        tag_ALLBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0)
         tag_ALLBtn.contentHorizontalAlignment = .left
         tag_ALLBtn.setTitle("精选_全部".localized, for: .normal)
         tag_ALLBtn.setTitleColor(UIColor.white, for: .normal)

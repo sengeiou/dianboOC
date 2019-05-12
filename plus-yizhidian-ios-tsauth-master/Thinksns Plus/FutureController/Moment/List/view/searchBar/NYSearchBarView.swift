@@ -40,25 +40,29 @@ class NYSearchBarView: UIView
         searchTextFiled.placeholder = "Keyword"
         searchTextFiled.backgroundColor = UIColor.clear
         searchTextFiled.layer.cornerRadius = 5
-        
-//        let searchIcon = UIImageView()
-//        searchIcon.image = #imageLiteral(resourceName: "IMG_search_icon_search")
-//        searchIcon.contentMode = .center
-//        searchIcon.frame = CGRect(x: 0, y: 0, width: 27, height: 27)
-//        searchTextFiled.leftView = searchIcon
-//        searchTextFiled.leftViewMode = .always
+        searchTextFiled.setValue(UIColor.white, forKeyPath: "_placeholderLabel.textColor")        
         
         rightButton.setImage(UIImage(named: "nav_close"), for: .normal)
-        rightButton.setTitleColor(TSColor.main.theme, for: .normal)
-        let separator = TSSeparatorView()
+        rightButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        rightButton.setTitleColor(TSColor.main.theme, for: .normal)
+        let sa_ImageL = UIImageView()
         
         self.addSubview(searchTextFiled)
         self.addSubview(rightButton)
-        self.addSubview(separator)
+        self.addSubview(sa_ImageL)
         
+        
+//        sa_ImageL.frame = CGRect(x: sa_searchBtn.x - 4, y:8, width:2, height:searchH-16)
+        sa_ImageL.image = UIImage(named: "nav_search_l")
         
         searchBgImageView.snp.makeConstraints { (make) in
             make.top.right.left.bottom.equalTo(self)
+        }
+        sa_ImageL.snp.makeConstraints { (make) in
+            make.top.equalTo(searchBgImageView).offset(6)
+            make.bottom.equalTo(searchBgImageView).offset(-6)
+            make.width.equalTo(2)
+            make.right.equalTo(rightButton.snp.left).offset(-2)
         }
         searchTextFiled.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(1)
@@ -67,15 +71,12 @@ class NYSearchBarView: UIView
             make.bottom.equalTo(self).offset(1)
         }
         rightButton.snp.makeConstraints { (make) in
-//            make.top.bottom.equalTo(self)
-//            make.right.equalTo(self).offset(-10)
-            make.width.equalTo(self.height)
-            make.height.equalTo(self.height)
+            make.top.equalTo(searchBgImageView)
+            make.right.equalTo(searchBgImageView)
+            make.width.equalTo(30)
+            make.height.equalTo(30)
         }
-        separator.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self)
-            make.top.equalTo(self).offset(TSNavigationBarHeight - 0.5)
-        }
+  
     }
     
 }
