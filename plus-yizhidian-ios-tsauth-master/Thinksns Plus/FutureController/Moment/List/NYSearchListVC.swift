@@ -75,6 +75,31 @@ class NYSearchListVC: UIViewController {
             top_contentView.addSubview(item)
             keywordViews.append(item)
         }
+        
+        //热门搜索
+        let hotwordList = ["热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词"]
+        let labW:CGFloat = (UIScreen.main.bounds.size.width-40)*0.5
+        let labH:CGFloat = 20
+        let column:CGFloat=2
+        let margin:CGFloat=20
+        for (index, title) in hotwordList.enumerated() {
+            let row=index/Int(column)
+            let col=index%Int(column)
+            let labX:CGFloat  = margin+(labW+margin)*CGFloat(col)
+            let labY:CGFloat  = 10+(labH+10)*CGFloat(row)
+            let label = UILabel(frame: CGRect(x:labX,y:labY,width:labW,height:labH))
+            let highlightedStr = "\(index+1)"
+            let superString = "\(highlightedStr)  \(title)"
+            label.textColor = UIColor.white
+            if(index<3){
+                label.attributedText = NYUtils.superStringAttributedString(superString: superString, highlightedStr: highlightedStr, color: UIColor(hex: 0xF2125A))
+            }
+            else{
+                label.text = superString
+            }
+            label.font = UIFont.systemFont(ofSize: 12)
+            hot_contentView.addSubview(label);
+        }
     }
     
     func searchClickdo(_ button:UIButton) {

@@ -1211,6 +1211,7 @@
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
+		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
@@ -2660,6 +2661,7 @@
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
+		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -3800,6 +3802,7 @@
 				53EF505E1F5E5904000235CA /* TSInputView.swift */,
 				53C59BCC1F9AFD72006C673E /* TSOriginalCenterOneInputView.swift */,
 				531325131F7DF40300B5EF73 /* TextFieldHelper.swift */,
+				B2A15817228C885C00A2AFD7 /* NYUtils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -8686,6 +8689,7 @@
 				5314EBA6201C8ECF000A1A94 /* TSEditorTextStyleView.swift in Sources */,
 				832123531F4BDFDB0090C367 /* TSAdvertImageObject.swift in Sources */,
 				78BBE056201B134E0099CD4C /* TSSingleChatDataVC.swift in Sources */,
+				B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */,
 				83B8B6311E94D52700D454FA /* TSMomentDeleteTaskObject.swift in Sources */,
 				530D8B681F5D3E630022323C /* TSQuestionInvitationSearchController.swift in Sources */,
 				530BBB801FB19ADD00EE96D4 /* TSListEmptyCell.swift in Sources */,
