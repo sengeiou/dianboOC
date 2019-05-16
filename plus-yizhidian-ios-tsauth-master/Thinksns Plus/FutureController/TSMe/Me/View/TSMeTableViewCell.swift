@@ -30,10 +30,13 @@ class TSMeTableViewCell: UITableViewCell {
     }
 
     func setUI() {
+        self.backgroundColor = TSColor.main.themeTBCellBg
+        self.backgroundView?.backgroundColor = TSColor.main.themeTBCellBg
+        self.contentView.backgroundColor = TSColor.main.themeTBCellBg
         vcImage.contentMode = .scaleAspectFill
         vcName.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
-        vcName.textColor = TSColor.main.content
-        moenylabel.textColor = TSColor.normal.minor
+        vcName.textColor = UIColor.white
+        moenylabel.textColor =  UIColor.white
         moenylabel.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
         moenylabel.textAlignment = .right
         accessory.contentMode = .scaleAspectFill

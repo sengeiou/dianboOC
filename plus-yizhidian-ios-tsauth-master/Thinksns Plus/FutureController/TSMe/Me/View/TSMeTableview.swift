@@ -19,9 +19,9 @@ protocol didMeSelectCellDelegate: NSObjectProtocol {
 class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHeaderViewDelegate {
     // MARK: - CELL显示的配置
     /// 所有cell的高度
-    let cellHeight: CGFloat = 50
+    let cellHeight: CGFloat = 60
     /// section = 0 的头视图高度
-    let cellHeaderZero: CGFloat = 206
+    let cellHeaderZero: CGFloat = 303
     /// 需要显示【钱】的IndexPath
     let showMoneyLabel: IndexPath = [0, 2]
     /// 需要显示认证信息的 IndexPath

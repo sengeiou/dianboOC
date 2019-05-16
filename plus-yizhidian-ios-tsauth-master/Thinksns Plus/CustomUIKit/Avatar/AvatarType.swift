@@ -38,6 +38,12 @@ enum AvatarType {
 // MARK: - 常用的头像类型
 extension AvatarType {
 
+    static func widt90(showBorderLine: Bool) -> AvatarType {
+        return AvatarType.custom(avatarWidth: 90, showBorderLine: showBorderLine)
+    }
+    static func widt80(showBorderLine: Bool) -> AvatarType {
+        return AvatarType.custom(avatarWidth: 80, showBorderLine: showBorderLine)
+    }
     static func width70(showBorderLine: Bool) -> AvatarType {
         return AvatarType.custom(avatarWidth: 70, showBorderLine: showBorderLine)
     }

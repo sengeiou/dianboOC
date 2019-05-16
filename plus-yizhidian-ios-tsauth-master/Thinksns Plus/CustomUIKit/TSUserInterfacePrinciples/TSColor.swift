@@ -44,6 +44,9 @@ class MainColor {
     var themeTB: UIColor {
         return UIColor(red: 34, green: 34, blue: 35)
     }
+    var themeTBCellBg: UIColor {
+        return UIColor(red: 42, green: 42, blue: 44)
+    }
     /// 正文, 内容以及标题颜色
     ///
     /// - 重要的列表标题文字、正文内容
@@ -140,7 +143,7 @@ class InconspicuousColor {
     ///
     /// - 页面内的浅色分割线
     var disabled: UIColor {
-        return UIColor(hex: 0xededed)
+        return UIColor(red: 46, green: 46, blue: 48)
     }
     /// 背景色
     var background: UIColor {

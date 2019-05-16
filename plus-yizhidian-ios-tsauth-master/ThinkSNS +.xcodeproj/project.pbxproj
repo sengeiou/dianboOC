@@ -9684,7 +9684,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YT56S3ABUK;
+				DEVELOPMENT_TEAM = VHC5H2GT68;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9710,7 +9710,7 @@
 					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxyb.xingou;
+				PRODUCT_BUNDLE_IDENTIFIER = www.fysdkapp.com.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -9731,7 +9731,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YT56S3ABUK;
+				DEVELOPMENT_TEAM = VHC5H2GT68;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9758,7 +9758,7 @@
 					"$(PROJECT_DIR)/Thinksns\\ Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxyb.xingou;
+				PRODUCT_BUNDLE_IDENTIFIER = www.fysdkapp.com.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f93df868-5b10-428a-8cc2-b1234b873f52";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -27,16 +27,22 @@ enum MeHeaderView: Int {
 }
 
 class TSMeTableViewHeader: UIView {
+    
+    let topView = UIView()
+    let logoView = UIButton(type: .custom)
+    let msgView = UIButton(type: .custom)
+    let settingView = UIButton(type: .custom)
     /// 用户信息展示view
     let userInfoView: UIView = UIView()
+    let headbgimgView = UIImageView(image: UIImage(named: "me_bg"))
     /// 头像图片
     var avatar: AvatarView!
     /// 名字
     var name: UILabel = UILabel()
     /// 简介
-    var intro: TYAttributedLabel = TYAttributedLabel()
+//    var intro: TYAttributedLabel = TYAttributedLabel()
     /// >
-    var accessory: UIImageView = UIImageView()
+//    var accessory: UIImageView = UIImageView()
     ///  用户id
     let id = TSCurrentUserInfo.share.userInfo?.userIdentity
     weak var didHeaderViewDelegate: didHeaderViewDelegate? = nil
@@ -77,13 +83,14 @@ class TSMeTableViewHeader: UIView {
 
     /// load用户信息展示
     func  setUserInfo() {
-        userInfoView.backgroundColor = TSColor.main.white
+        self.backgroundColor = UIColor.clear
+        userInfoView.backgroundColor = UIColor.clear // TSColor.main.white
         /// 给用户信息展示view添加点击手势
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapUser))
         userInfoView.addGestureRecognizer(tap)
 
         // 头像
-        avatar = AvatarView(type: AvatarType.width60(showBorderLine: false))
+        avatar = AvatarView(type: AvatarType.widt90(showBorderLine: false))
         avatar.avatarPlaceholderType = AvatarView.PlaceholderType(sexNumber: (TSCurrentUserInfo.share.userInfo?.sex ?? 0))
         let avatarInfo = AvatarInfo()
         avatarInfo.avatarURL = TSUtil.praseTSNetFileUrl(netFile: TSCurrentUserInfo.share.userInfo?.avatar)
@@ -94,58 +101,94 @@ class TSMeTableViewHeader: UIView {
 
         // 名字
         name.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
-        name.textColor = TSColor.normal.blackTitle
+        name.textAlignment = .center
+        name.textColor = UIColor.white
 
-        // 简介
-        intro.numberOfLines = 2
-        intro.linesSpacing = 10
-        intro.verticalAlignment = .top
-        intro.font = UIFont.systemFont(ofSize: TSFont.SubInfo.footnote.rawValue)
-        intro.textColor = TSColor.normal.minor
-        intro.lineBreakMode = .byTruncatingTail
+//        // 简介
+//        intro.numberOfLines = 2
+//        intro.linesSpacing = 10
+//        intro.verticalAlignment = .top
+//        intro.font = UIFont.systemFont(ofSize: TSFont.SubInfo.footnote.rawValue)
+//        intro.textColor = TSColor.normal.minor
+//        intro.lineBreakMode = .byTruncatingTail
 
-        accessory.image = #imageLiteral(resourceName: "IMG_ic_arrow_smallgrey")
-        accessory.contentMode = .scaleAspectFill
-        userInfoView.addSubview(accessory)
-
+//        accessory.image = #imageLiteral(resourceName: "IMG_ic_arrow_smallgrey")
+//        accessory.contentMode = .scaleAspectFill
+//        userInfoView.addSubview(accessory)
+        topView.backgroundColor = UIColor.clear
+        logoView.setImage(UIImage(named: "me_logo"), for: .normal)
+//        logoView.contentEdgeInsets = UIEdgeInsetsMake(20, 15, 20, 15)
+        msgView.setImage(UIImage(named: "me_msg"), for: .normal)
+        settingView.setImage(UIImage(named: "me_setting"), for: .normal)
+        
+        self.addSubview(headbgimgView)
+        self.addSubview(topView)
         self.addSubview(userInfoView)
         userInfoView.addSubview(avatar)
         userInfoView.addSubview(name)
-        userInfoView.addSubview(intro)
+        topView.addSubview(logoView)
+        topView.addSubview(msgView)
+        topView.addSubview(settingView)
+//        userInfoView.addSubview(intro)
 
-        userInfoView.snp.makeConstraints { (make) in
-            make.top.equalTo(self)
-            make.left.right.equalTo(self)
-            make.height.equalTo(120)
+        headbgimgView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalTo(self)
         }
-        avatar.snp.makeConstraints { (make) in
-            make.top.equalTo(userInfoView).offset(30)
-            make.left.equalTo(userInfoView).offset(11)
+        
+        topView.snp.makeConstraints { (make) in
+            make.top.left.right.equalTo(self)
+            make.height.equalTo(60)
+        }
+        
+        logoView.snp.makeConstraints { (make) in
+            make.top.left.equalTo(topView)
             make.width.height.equalTo(60)
         }
+        
+        msgView.snp.makeConstraints { (make) in
+            make.top.equalTo(topView)
+            make.right.equalTo(settingView.snp.left)
+            make.width.height.equalTo(60)
+        }
+        
+        settingView.snp.makeConstraints { (make) in
+            make.top.right.equalTo(topView)
+            make.width.height.equalTo(60)
+        }
+        
+        userInfoView.snp.makeConstraints { (make) in
+            make.top.equalTo(topView.snp.bottom)
+            make.left.right.equalTo(self)
+            make.height.equalTo(150)
+        }
+        avatar.snp.makeConstraints { (make) in
+            make.top.equalTo(userInfoView).offset(10)
+            make.centerX.equalTo(userInfoView.snp.centerX)
+            make.width.height.equalTo(100)
+        }
         name.snp.makeConstraints { (make) in
-            make.top.equalTo(userInfoView).offset(40)
-            make.left.equalTo(avatar.snp.right).offset(10)
-            make.right.equalTo(accessory.snp.left).offset(-14)
+            make.top.equalTo(avatar.snp.bottom).offset(0)
+            make.left.equalTo(userInfoView)
+            make.right.equalTo(userInfoView)
             make.height.equalTo(17.5)
         }
-        intro.snp.makeConstraints { (make) in
-            make.top.equalTo(name.snp.bottom).offset(9)
-            make.left.equalTo(avatar.snp.right).offset(10)
-            make.right.equalTo(accessory.snp.left).offset(-14)
-            make.height.equalTo(40.5)
-        }
-        accessory.snp.makeConstraints { (make) in
-            make.top.equalTo(userInfoView).offset(39.5)
-            make.right.equalTo(userInfoView.snp.right).offset(-16)
-            make.width.equalTo(10)
-            make.height.equalTo(20)
-        }
+//        intro.snp.makeConstraints { (make) in
+//            make.top.equalTo(name.snp.bottom).offset(9)
+//            make.left.equalTo(avatar.snp.right).offset(10)
+//            make.right.equalTo(accessory.snp.left).offset(-14)
+//            make.height.equalTo(40.5)
+//        }
+//        accessory.snp.makeConstraints { (make) in
+//            make.top.equalTo(userInfoView).offset(39.5)
+//            make.right.equalTo(userInfoView.snp.right).offset(-16)
+//            make.width.equalTo(10)
+//            make.height.equalTo(20)
+//        }
     }
 
     /// 创建粉丝和关注BG
     func setUserFansAndFollow() {
-        userFansAndFollowBackGround.backgroundColor = TSColor.main.white
+        userFansAndFollowBackGround.backgroundColor = UIColor.clear
         fansView.backgroundColor = UIColor.clear
         followView.backgroundColor = UIColor.clear
         friendView.backgroundColor = UIColor.clear
@@ -158,7 +201,7 @@ class TSMeTableViewHeader: UIView {
         userFansAndFollowBackGround.snp.makeConstraints { (make) in
             make.top.equalTo(userInfoView.snp.bottom)
             make.left.right.equalTo(self)
-            make.bottom.equalTo(self.snp.bottom).offset(-15)
+            make.bottom.equalTo(self.snp.bottom)
         }
         fansView.snp.makeConstraints { (make) in
             make.top.left.height.equalTo(userFansAndFollowBackGround)
@@ -293,7 +336,7 @@ class TSMeTableViewHeader: UIView {
         // 更新用户名
         name.text = userInfo.name
         // 更新用户简介
-        intro.text = userInfo.shortDesc()
+//        intro.text = userInfo.shortDesc()
 //        var introHeight: CGFloat = intro.text?.heightWithConstrainedWidth(width: intro.width, font: intro.font) ?? 0
 //        if introHeight > 20 {
 //            introHeight = 34.5

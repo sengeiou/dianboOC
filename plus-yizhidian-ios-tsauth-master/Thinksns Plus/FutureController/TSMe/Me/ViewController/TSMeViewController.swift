@@ -12,7 +12,7 @@ import RealmSwift
 
 class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccessImageDelegate, TSFansAndFollowVCProtocol, TSCustomAcionSheetDelegate {
     //二维码按钮
-    fileprivate weak var erweimaButton: UIButton!
+//    fileprivate weak var erweimaButton: UIButton!
     /// 系统消息按钮
     var meMessageButton = TSImageButton()
     /// 显示的这个页面UI
@@ -22,40 +22,34 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
     /// 用户认证信息通知口令
     var userCertificateToken: NotificationToken? = nil
     /// 页面展示标题数据
-
-    var tableViewTitleSource = [["个人主页", "用户认证", "我的\(TSAppConfig.share.localInfo.goldName)"], ["我的文章", "我的圈子", "我的收藏", "我的问答"], ["草稿箱", "设置"]]
+    
+    var tableViewTitleSource = [["我的_观看历史".localized,
+                                 "我的_我的帖子".localized,
+                                 "我的_我的下载".localized,
+                                 "我的_我的收藏".localized,
+                                 "我的_意见反馈".localized,
+                                 "我的_关于我们".localized]
+                                ]
+    //["我的文章", "我的圈子", "我的收藏", "我的问答"], ["草稿箱", "设置"]
 
     /// 页面展示的图片数据
-    var tableViewImgSource = [[#imageLiteral(resourceName: "IMG_ico_me_homepage"), #imageLiteral(resourceName: "IMG_ico_me_identification"), #imageLiteral(resourceName: "IMG_ico_me_integral.png")], [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect"), #imageLiteral(resourceName: "IMG_ico_me_q&a")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]]
+    
+    var tableViewImgSource = [[#imageLiteral(resourceName: "me_history"), #imageLiteral(resourceName: "me_post"), #imageLiteral(resourceName: "me_down"),#imageLiteral(resourceName: "me_collect"),#imageLiteral(resourceName: "me_opinion"),#imageLiteral(resourceName: "me_about")]]
+    //, [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect"), #imageLiteral(resourceName: "IMG_ico_me_q&a")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]
     /// 仅仅是更新了头像
 
     // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = TSColor.inconspicuous.background
-        if TSAppConfig.share.localInfo.showOnlyIAP {
-            if TSAppConfig.share.localInfo.quoraSwitch {
-                tableViewTitleSource = [["个人主页", "用户认证", "我的\(TSAppConfig.share.localInfo.goldName)"], ["我的文章", "我的圈子", "我的收藏", "我的问答"], ["草稿箱", "设置"]]
-                tableViewImgSource = [[#imageLiteral(resourceName: "IMG_ico_me_homepage"), #imageLiteral(resourceName: "IMG_ico_me_identification"), #imageLiteral(resourceName: "IMG_ico_me_integral.png")], [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect"), #imageLiteral(resourceName: "IMG_ico_me_q&a")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]]
-            } else {
-                tableViewTitleSource = [["个人主页", "用户认证", "我的\(TSAppConfig.share.localInfo.goldName)"], ["我的文章", "我的圈子", "我的收藏"], ["草稿箱", "设置"]]
-                tableViewImgSource = [[#imageLiteral(resourceName: "IMG_ico_me_homepage"), #imageLiteral(resourceName: "IMG_ico_me_identification"), #imageLiteral(resourceName: "IMG_ico_me_integral.png")], [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]]
-            }
-        } else {
-            if TSAppConfig.share.localInfo.quoraSwitch {
-                tableViewTitleSource = [["个人主页", "用户认证", "钱包", "我的\(TSAppConfig.share.localInfo.goldName)"], ["我的文章", "我的圈子", "我的收藏", "我的问答"], ["草稿箱", "设置"]]
-                tableViewImgSource = [[#imageLiteral(resourceName: "IMG_ico_me_homepage"), #imageLiteral(resourceName: "IMG_ico_me_identification"), #imageLiteral(resourceName: "IMG_ico_me_wallet"), #imageLiteral(resourceName: "IMG_ico_me_integral.png")], [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect"), #imageLiteral(resourceName: "IMG_ico_me_q&a")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]]
-            } else {
-                tableViewTitleSource = [["个人主页", "用户认证", "钱包", "我的\(TSAppConfig.share.localInfo.goldName)"], ["我的文章", "我的圈子", "我的收藏"], ["草稿箱", "设置"]]
-                tableViewImgSource = [[#imageLiteral(resourceName: "IMG_ico_me_homepage"), #imageLiteral(resourceName: "IMG_ico_me_identification"), #imageLiteral(resourceName: "IMG_ico_me_wallet"), #imageLiteral(resourceName: "IMG_ico_me_integral.png")], [ #imageLiteral(resourceName: "IMG_ico_me_contribute"), #imageLiteral(resourceName: "IMG_ico_me_circle"), #imageLiteral(resourceName: "IMG_ico_me_collect")], [#imageLiteral(resourceName: "IMG_ico_me_draft"), #imageLiteral(resourceName: "IMG_ico_me_setting")]]
-            }
-        }
+        self.title = ""
         setQRCodeButton()
         setUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         // 1.监听音乐消失动画
         NotificationCenter.default.addObserver(self, selector: #selector(ifViewHiden), name: NSNotification.Name(rawValue: TSMusicStatusViewAutoHidenName), object: nil)
         // 2.判断音乐按钮是否显示，更改音乐按的颜色
@@ -102,18 +96,22 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
 
     // MARK: - 设置扫码按钮（设置右上角按钮）
     func setQRCodeButton() {
-        let erweimaItem = UIButton(type: .custom)
-        erweimaItem.addTarget(self, action: #selector(rightButtonClick), for: .touchUpInside)
-        self.setupNavigationTitleItem(erweimaItem, title: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: erweimaItem)
-        self.erweimaButton = erweimaItem
-        self.erweimaButton.setImage(UIImage(named: "ico_code"), for: UIControlState.normal)
-        self.erweimaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: self.erweimaButton.width - (self.erweimaButton.currentImage?.size.width)!, bottom: 0, right: 0)
+//        let erweimaItem = UIButton(type: .custom)
+//        erweimaItem.addTarget(self, action: #selector(rightButtonClick), for: .touchUpInside)
+//        self.setupNavigationTitleItem(erweimaItem, title: nil)
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: erweimaItem)
+//        self.erweimaButton = erweimaItem
+//        self.erweimaButton.setImage(UIImage(named: "ico_code"), for: UIControlState.normal)
+//        self.erweimaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: self.erweimaButton.width - (self.erweimaButton.currentImage?.size.width)!, bottom: 0, right: 0)
+        
     }
 
     // MARK: - UI
     func setUI() {
+        self.view.backgroundColor = TSColor.main.themeTB
         let meView = TSMeTableview(frame: CGRect.zero, dataSource: tableViewTitleSource, imageDataSource: tableViewImgSource)
+        meView.backgroundColor = TSColor.main.themeTB
+        meView.meTableView.backgroundColor = TSColor.main.themeTB
         meView.meTableView.sectionFooterHeight = 15
         // sectionHeaderHeight  not work
         meView.meTableView.sectionHeaderHeight = 15
