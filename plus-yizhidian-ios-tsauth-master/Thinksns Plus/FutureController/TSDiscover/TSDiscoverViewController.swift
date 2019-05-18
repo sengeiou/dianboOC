@@ -47,6 +47,22 @@ class TSDiscoverViewController: TSViewController, UITableViewDelegate, UITableVi
         self.tableView.tableFooterView = UIView()
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.view.addSubview(self.tableView)
+        //测试
+        NYPopularNetworkManager.getPopularData(complete: { (list: [StarsHotModel]?, error,isobl) in
+            if let models = list {
+                 NSLog("\(error)======\(list)")
+            }
+        })
+        NYPopularNetworkManager.getStarsListData(complete: { (list: [StarsHotModel]?, error,isobl) in
+            if let models = list {
+                NSLog("\(error)======\(list)")
+            }
+        })
+        NYPopularNetworkManager.getChannelsListData(complete: { (list: [ChannelsModel]?, error,isobl) in
+            if let models = list {
+                NSLog("\(error)======\(list)")
+            }
+        })
     }
 
     // MARK: - UITableViewDataSource

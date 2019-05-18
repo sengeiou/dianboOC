@@ -7,7 +7,7 @@
 		<key>develop</key>
 		<dict>
 			<key>address</key>
-			<string>http://test-plus.zhibocloud.cn/</string>
+			<string>http://47.97.249.200/</string>
 			<key>imAppKey</key>
 			<string>1139171207178196#test-plus</string>
 			<key>imApnsName</key>

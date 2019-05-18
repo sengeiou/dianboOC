@@ -75,7 +75,8 @@ class TSHomeTabBarController: UITabBarController, HomeTabBarCenterButtonDelegate
         
         self.addChildViewController(FeedPagesController(), "标题_推荐".localized, "tab_tag1", "tab_tag1")
 
-        self.addChildViewController(TSDiscoverViewController(), "标题_发现".localized, "tab_tag2", "tab_tag2")
+        
+        self.addChildViewController(TSTopicGroupVCViewController(), "标题_发现".localized, "tab_tag2", "tab_tag2")
 
         let messageVC = MessageViewController(labelTitleArray: ["通知", "聊天"], scrollViewFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 64 - self.tabBar.height), isChat: true)
         addChildViewController(messageVC, "标题_游戏".localized, "tab_tag3", "tab_tag3")

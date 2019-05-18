@@ -1213,6 +1213,10 @@
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
+		B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */; };
+		B2E6258F228FCCFE003A5546 /* PopularNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */; };
+		B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62592228FD31E003A5546 /* StarsHotModel.swift */; };
+		B2E62595228FE4D3003A5546 /* ChannelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62594228FE4D3003A5546 /* ChannelsModel.swift */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -2663,6 +2667,10 @@
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
+		B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPopularNetworkManager.swift; sourceTree = "<group>"; };
+		B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularNetworkRequest.swift; sourceTree = "<group>"; };
+		B2E62592228FD31E003A5546 /* StarsHotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsHotModel.swift; sourceTree = "<group>"; };
+		B2E62594228FE4D3003A5546 /* ChannelsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsModel.swift; sourceTree = "<group>"; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -3641,6 +3649,7 @@
 				53F76F0A1FDA93F3006AC0E7 /* TSCollectionNetworkManager.swift */,
 				53F76F0C1FDA94E3006AC0E7 /* TSFollowNetworkManager.swift */,
 				53A0FF8F1FE39C460065C94B /* TSReportNetworkManager.swift */,
+				B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -4051,6 +4060,7 @@
 				53A209AC1FDE6C82008AA10D /* TSPinnedNetworkRequest.swift */,
 				53A0FF8D1FE399600065C94B /* TSReportNetworkRequest.swift */,
 				83A3EAA1200F240E003CE99B /* WalletNetworkRequest.swift */,
+				B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */,
 				83342CED2016CA08000C0951 /* IntegrationNetworkRequest.swift */,
 				8830166D20873006005EFC27 /* TSMomentNetworkRequest.swift */,
 				88CFB61F20A28B25008AEDC1 /* TopNetworkRequest.swift */,
@@ -6807,6 +6817,7 @@
 		837D0C4C1FC3C0D500B510C9 /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				B2E62590228FD226003A5546 /* Popular */,
 				53A0FF911FE3A6730065C94B /* Report */,
 				53F326441FDFD12F000715C2 /* Member */,
 				53F326281FDFD0F5000715C2 /* Income */,
@@ -7840,6 +7851,23 @@
 			path = searchBar;
 			sourceTree = "<group>";
 		};
+		B2E62590228FD226003A5546 /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				B2E62591228FD308003A5546 /* Model */,
+			);
+			path = Popular;
+			sourceTree = "<group>";
+		};
+		B2E62591228FD308003A5546 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2E62592228FD31E003A5546 /* StarsHotModel.swift */,
+				B2E62594228FE4D3003A5546 /* ChannelsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BB09DE181F287CE9002B77A0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -8720,6 +8748,7 @@
 				8306BD05201EBDBB00E3737F /* ServerResponseDataTransforms.swift in Sources */,
 				83AB1AF31FD1221A00CC2952 /* GroupRealmManager.swift in Sources */,
 				53B80D341FDA317B007F02F8 /* GroupTaskManager.swift in Sources */,
+				B2E6258F228FCCFE003A5546 /* PopularNetworkRequest.swift in Sources */,
 				36E92862205A73F400EFDED0 /* EMCDDeviceManager+Remind.m in Sources */,
 				17158FC61EA06B89005799D8 /* TSMusicCommentIntroCell.swift in Sources */,
 				8373FC381FAFF9FD00DA2F51 /* PictureViewer.swift in Sources */,
@@ -9294,6 +9323,7 @@
 				536152CC1F31FADA004BD85B /* TSMusicSingerModel.swift in Sources */,
 				53CB08B920284A1D008A5DF1 /* TSEditorCacheImageNodeObject.swift in Sources */,
 				8897E00B2106F1DF00016D84 /* TopicSearchVC.swift in Sources */,
+				B2E62595228FE4D3003A5546 /* ChannelsModel.swift in Sources */,
 				36E928C9205A73F500EFDED0 /* EaseChatToolbar.m in Sources */,
 				884DFD6521428EC900759191 /* GroupPreviewVC.swift in Sources */,
 				83C4BED31F66A49500ABB6F0 /* MyFollowQuora.swift in Sources */,
@@ -9516,7 +9546,9 @@
 				1A293D821B1EDD70718B1BED /* ReceivePendingNetworkRequest.swift in Sources */,
 				1A293923F58812D36E48BFD8 /* ThreeUserFillInfoVC.swift in Sources */,
 				1A2932EB588983E51E3A606F /* TSUnreadCount.swift in Sources */,
+				B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */,
 				1A2938F390E42B08DDDFB8EF /* TSFollowFansListModel.swift in Sources */,
+				B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */,
 				1A2931979A183C29EA1EEE0A /* TSUserInfoModel.swift in Sources */,
 				1A29363A46C5A4BB4164528E /* TSCurrentUserInfoModel.swift in Sources */,
 				1A29384F1EBC003F08833664 /* TSUserInfoWalletModel.swift in Sources */,

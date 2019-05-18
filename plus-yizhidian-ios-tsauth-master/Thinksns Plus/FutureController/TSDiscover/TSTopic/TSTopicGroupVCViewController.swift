@@ -12,7 +12,7 @@ import YYKit
 class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
 
     /// 导航栏右边视图
-    let rightNavView = TopicNavRightView()
+//    let rightNavView = TopicNavRightView()
     var hotVC: TopicHotListVCViewController!
     var newVC: TopicNewListVC!
     /// 顶部选择分类背景视图
@@ -46,34 +46,33 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - UI
     func setUI() {
         title = "话题"
-        // 2.1导航栏右边视图
-        rightNavView.searchButton.addTarget(self, action: #selector(searchButtonTaped), for: .touchUpInside)
-        rightNavView.buildButton.addTarget(self, action: #selector(buildButtonTaped), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavView)
-        // 2.2 导航栏左侧按钮
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "IMG_topbar_back"), style: .plain, target: self, action: #selector(backItemClick))
+//        // 2.1导航栏右边视图
+//        rightNavView.searchButton.addTarget(self, action: #selector(searchButtonTaped), for: .touchUpInside)
+//        rightNavView.buildButton.addTarget(self, action: #selector(buildButtonTaped), for: .touchUpInside)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavView)
+//        // 2.2 导航栏左侧按钮
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "IMG_topbar_back"), style: .plain, target: self, action: #selector(backItemClick))
 
         topBgView = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth - 120, height: 45))
         self.view.addSubview(topBgView)
-
         hotButton.frame = CGRect(x:topBgView.width / 4.0, y: 0, width: topBgView.width / 4.0, height: 43)
         hotButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        hotButton.setTitleColor(UIColor(hex: 0x333333), for: .selected)
-        hotButton.setTitleColor(UIColor(hex: 0x999999), for: .normal)
+        hotButton.setTitleColor(UIColor.white, for: .selected)
+        hotButton.setTitleColor(UIColor(hex:0xffffff,alpha:0.5), for: .normal)
         hotButton.setTitle("热门", for: .normal)
         hotButton.tag = 666
         hotButton.addTarget(self, action: #selector(hotOrNewButtonClick(sender:)), for: UIControlEvents.touchUpInside)
 
         newButton.frame = CGRect(x: topBgView.width / 2.0, y: 0, width: topBgView.width / 4.0, height: 43)
         newButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        newButton.setTitleColor(UIColor(hex: 0x333333), for: .selected)
-        newButton.setTitleColor(UIColor(hex: 0x999999), for: .normal)
+        newButton.setTitleColor(UIColor.white, for: .selected)
+        newButton.setTitleColor(UIColor(hex:0xffffff,alpha:0.5), for: .normal)
         newButton.setTitle("最新", for: .normal)
         newButton.tag = 999
         newButton.addTarget(self, action: #selector(hotOrNewButtonClick(sender:)), for: UIControlEvents.touchUpInside)
 
         blueLine = UIView(frame: CGRect(x: 0, y: 42, width: 36, height: 3))
-        blueLine.backgroundColor = TSColor.main.theme
+        blueLine.backgroundColor = UIColor.white
         blueLine.centerX = hotButton.centerX
         hotButton.isSelected = true
         newButton.isSelected = false
