@@ -8,80 +8,65 @@
 
 import UIKit
 
-class TopicHotListVCViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-
-    var topicCollectionView: UICollectionView!
+class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+{
+    //明星
+    let starHead = HotListHeadView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
+    var me_tablview :TSTableView!
     /// 数据源
-    var dataSource: [TopicListModel] = []
+    var dataStars: [StarsHotModel] = []
+    var dataSource: [Int] = []
     /// 占位图
     let occupiedView = UIImageView()
-
+    /// table 区分标识符，当多个 TSQuoraTableView 同时存在同一个界面时区分彼此
+    var tableIdentifier = "ABCSSS"
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTopicList(notice:)), name: NSNotification.Name(rawValue: "reloadTopicList"), object: nil)
-        self.view.backgroundColor = UIColor.white
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: ScreenWidth, height: 195)
-        // 3.设置滚动方向
-        layout.scrollDirection = .vertical
-        topicCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - TSNavigationBarHeight), collectionViewLayout: layout)
-        topicCollectionView.backgroundColor = UIColor.white
-        topicCollectionView.delegate = self
-        topicCollectionView.dataSource = self
-        topicCollectionView.register(TopicCollectionCell.self, forCellWithReuseIdentifier: TopicCollectionCell.identifier)
-        self.view.addSubview(topicCollectionView)
-        topicCollectionView.mj_header = TSRefreshHeader(refreshingTarget: self, refreshingAction: #selector(refresh))
-        topicCollectionView.mj_header.beginRefreshing()
-        // Do any additional setup after loading the view.
+        setUI()
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: TopicCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionCell.identifier, for: indexPath) as! TopicCollectionCell
-        cell.setInfo(model: dataSource[indexPath.row], index: indexPath)
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 游客触发登录
-        if !TSCurrentUserInfo.share.isLogin {
-            TSRootViewController.share.guestJoinLoginVC()
-            return
+    // MARK: - UI
+    func setUI() {
+        dataSource = [0,2,3,4,3,5,53,5]
+//        NYSelFocusView.init(frame: .zero, tableIdentifier: "dssssPP")
+//        init(frame: frame, style: .plain)
+        me_tablview = TSTableView(frame: CGRect.zero, style: .plain)
+        self.view.backgroundColor = TSColor.main.themeTB
+        self.view.addSubview(me_tablview)
+        me_tablview.delegate = self
+        me_tablview.dataSource = self
+        me_tablview.separatorStyle = UITableViewCell.SeparatorStyle.none
+        me_tablview.register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+        me_tablview.backgroundColor = TSColor.main.themeTB
+        me_tablview.backgroundView?.backgroundColor = TSColor.main.themeTB
+        me_tablview.tableHeaderView = starHead
+        me_tablview.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0))
         }
-        let postListVC = TopicPostListVC(groupId: dataSource[indexPath.row].topicId)
-        navigationController?.pushViewController(postListVC, animated: true)
     }
-
+   
     func refresh() {
-        TSUserNetworkingManager().getTopicList(index: nil, keyWordString: nil, limit: 15, direction: "desc", only: "hot") { (topicModel, networkError) in
-            self.processRefresh(datas: topicModel, message: networkError)
-        }
-        topicCollectionView.mj_header.endRefreshing()
+//        TSUserNetworkingManager().getTopicList(index: nil, keyWordString: nil, limit: 15, direction: "desc", only: "hot") { (topicModel, networkError) in
+//            self.processRefresh(datas: topicModel, message: networkError)
+//        }
+//        topicCollectionView.mj_header.endRefreshing()
     }
 
     func processRefresh(datas: [TopicListModel]?, message: NetworkError?) {
-        // 获取数据成功
-        if let datas = datas {
-            dataSource = datas
-            if dataSource.isEmpty {
-                showOccupiedView(type: .empty)
-            }
-        }
-        // 获取数据失败
-        if message != nil {
-            dataSource = []
-            showOccupiedView(type: .network)
-        }
-        topicCollectionView.reloadData()
+//        // 获取数据成功
+//        if let datas = datas {
+//            dataSource = datas
+//            if dataSource.isEmpty {
+//                showOccupiedView(type: .empty)
+//            }
+//        }
+//        // 获取数据失败
+//        if message != nil {
+//            dataSource = []
+//            showOccupiedView(type: .network)
+//        }
+//        topicCollectionView.reloadData()
     }
 
     /// 显示占位图
@@ -96,42 +81,56 @@ class TopicHotListVCViewController: UIViewController, UICollectionViewDataSource
         occupiedView.image = UIImage(named: image)
         occupiedView.contentMode = .center
         if occupiedView.superview == nil {
-            occupiedView.frame = topicCollectionView.bounds
-            topicCollectionView.addSubview(occupiedView)
+            occupiedView.frame = me_tablview.bounds
+            me_tablview.addSubview(occupiedView)
         }
     }
 
-    func reloadTopicList(notice: Notification) {
-        let dict: NSDictionary = notice.userInfo! as NSDictionary
-        guard let topicId = dict["topicId"] else {
+    // MARK: - UITableViewDelegate, UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !dataSource.isEmpty {
+            me_tablview.removePlaceholderViews()
+        }
+        if me_tablview.mj_footer != nil {
+            me_tablview.mj_footer.isHidden = true //datas.count < listLimit
+        }
+        return dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellHeight = NYSelCell.cellHeight // datas[indexPath.row].cellHeight
+        if cellHeight == 0 {
+            return UITableViewAutomaticDimension
+        }
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellHeight = CGFloat(20) // datas[indexPath.row].cellHeight
+        if cellHeight == 0 {
+            return UITableViewAutomaticDimension
+        }
+        return cellHeight
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelCell
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? NYSelCell else {
             return
         }
-        let topicIIID = "\(topicId)"
-        let follow = "\(dict["follow"] ?? "")"
-        let followStatus = follow == "1" ? true : false
-        for (index, item) in self.dataSource.enumerated() {
-            if "\(item.topicId)" == topicIIID {
-                item.topicFollow = followStatus
-                self.dataSource.insert(item, at: index)
-                self.dataSource.remove(at: index + 1)
-                break
-            }
-        }
-        self.topicCollectionView.reloadData()
+        //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

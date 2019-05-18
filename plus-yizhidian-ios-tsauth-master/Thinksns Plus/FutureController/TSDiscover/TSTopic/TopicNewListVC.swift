@@ -11,7 +11,7 @@ import UIKit
 class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var topicCollectionView: UICollectionView!
     /// 数据源
-    var dataSource: [TopicListModel] = []
+    var dataSource: [StarsHotModel] = []
     /// 占位图
     let occupiedView = UIImageView()
     var listLimit = TSAppConfig.share.localInfo.limit
@@ -63,8 +63,8 @@ class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollection
             TSRootViewController.share.guestJoinLoginVC()
             return
         }
-        let postListVC = TopicPostListVC(groupId: dataSource[indexPath.row].topicId)
-        navigationController?.pushViewController(postListVC, animated: true)
+//        let postListVC = TopicPostListVC(groupId: dataSource[indexPath.row].topicId)
+//        navigationController?.pushViewController(postListVC, animated: true)
     }
 
     func refresh() {
@@ -77,12 +77,12 @@ class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollection
     func processRefresh(datas: [TopicListModel]?, message: NetworkError?) {
         topicCollectionView.mj_footer.resetNoMoreData()
         // 获取数据成功
-        if let datas = datas {
-            dataSource = datas
-            if dataSource.isEmpty {
-                showOccupiedView(type: .empty)
-            }
-        }
+//        if let datas = datas {
+//            dataSource = datas
+//            if dataSource.isEmpty {
+//                showOccupiedView(type: .empty)
+//            }
+//        }
         topicCollectionView.mj_footer.resetNoMoreData()
         // 获取数据失败
         if message != nil {
@@ -116,30 +116,30 @@ class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func loadMore() {
-        // 游客模式下不能刷新
-        if  !TSCurrentUserInfo.share.isLogin {
-            TSRootViewController.share.guestJoinLoginVC()
-            topicCollectionView.mj_footer.endRefreshing()
-            return
-        }
-        guard let indexId = dataSource.last?.topicId else {
-            topicCollectionView.mj_footer.endRefreshingWithNoMoreData()
-            return
-        }
-        TSUserNetworkingManager().getTopicList(index: indexId, keyWordString: nil, limit: 15, direction: "desc", only: nil) { (topicModel, networkError) in
-            guard let datas = topicModel else {
-                self.topicCollectionView.mj_footer.endRefreshing()
-                return
-            }
-            if datas.count < TSNewFriendsNetworkManager.limit {
-                self.topicCollectionView.mj_footer.endRefreshingWithNoMoreData()
-            } else {
-                self.topicCollectionView.mj_footer.endRefreshing()
-            }
-            self.dataSource = self.dataSource + datas
-            self.topicCollectionView.reloadData()
-        }
-        topicCollectionView.mj_footer.endRefreshing()
+//        // 游客模式下不能刷新
+//        if  !TSCurrentUserInfo.share.isLogin {
+//            TSRootViewController.share.guestJoinLoginVC()
+//            topicCollectionView.mj_footer.endRefreshing()
+//            return
+//        }
+//        guard let indexId = dataSource.last?.topicId else {
+//            topicCollectionView.mj_footer.endRefreshingWithNoMoreData()
+//            return
+//        }
+//        TSUserNetworkingManager().getTopicList(index: indexId, keyWordString: nil, limit: 15, direction: "desc", only: nil) { (topicModel, networkError) in
+//            guard let datas = topicModel else {
+//                self.topicCollectionView.mj_footer.endRefreshing()
+//                return
+//            }
+//            if datas.count < TSNewFriendsNetworkManager.limit {
+//                self.topicCollectionView.mj_footer.endRefreshingWithNoMoreData()
+//            } else {
+//                self.topicCollectionView.mj_footer.endRefreshing()
+//            }
+//            self.dataSource = self.dataSource + datas
+//            self.topicCollectionView.reloadData()
+//        }
+//        topicCollectionView.mj_footer.endRefreshing()
     }
 
     func reloadTopicList(notice: Notification) {
@@ -147,17 +147,17 @@ class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollection
         guard let topicId = dict["topicId"] else {
             return
         }
-        let topicIIID = "\(topicId)"
-        let follow = "\(dict["follow"] ?? "")"
-        let followStatus = follow == "1" ? true : false
-        for (index, item) in self.dataSource.enumerated() {
-            if "\(item.topicId)" == topicIIID {
-                item.topicFollow = followStatus
-                self.dataSource.insert(item, at: index)
-                self.dataSource.remove(at: index + 1)
-                break
-            }
-        }
+//        let topicIIID = "\(topicId)"
+//        let follow = "\(dict["follow"] ?? "")"
+//        let followStatus = follow == "1" ? true : false
+//        for (index, item) in self.dataSource.enumerated() {
+//            if "\(item.topicId)" == topicIIID {
+//                item.topicFollow = followStatus
+//                self.dataSource.insert(item, at: index)
+//                self.dataSource.remove(at: index + 1)
+//                break
+//            }
+//        }
         self.topicCollectionView.reloadData()
     }
 

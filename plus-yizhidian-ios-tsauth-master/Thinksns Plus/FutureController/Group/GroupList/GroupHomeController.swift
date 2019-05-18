@@ -49,6 +49,8 @@ class GroupHomeController: UIViewController {
 
     // MARK: - UI
     func setUI() {
+        self.view.backgroundColor = TSColor.main.themeTB
+        
         title = "圈子"
 
         // 1.广告视图
@@ -56,7 +58,7 @@ class GroupHomeController: UIViewController {
 
         // 2.列表
         view = table
-        table.backgroundColor = TSColor.inconspicuous.background
+        table.backgroundColor = TSColor.main.themeTB
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none

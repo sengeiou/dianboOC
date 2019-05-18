@@ -1217,6 +1217,8 @@
 		B2E6258F228FCCFE003A5546 /* PopularNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */; };
 		B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62592228FD31E003A5546 /* StarsHotModel.swift */; };
 		B2E62595228FE4D3003A5546 /* ChannelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62594228FE4D3003A5546 /* ChannelsModel.swift */; };
+		B2E6259722905161003A5546 /* HotListHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6259622905161003A5546 /* HotListHeadView.swift */; };
+		B2E6259922907950003A5546 /* HotStarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6259822907950003A5546 /* HotStarTableViewCell.swift */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -2671,6 +2673,8 @@
 		B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularNetworkRequest.swift; sourceTree = "<group>"; };
 		B2E62592228FD31E003A5546 /* StarsHotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsHotModel.swift; sourceTree = "<group>"; };
 		B2E62594228FE4D3003A5546 /* ChannelsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsModel.swift; sourceTree = "<group>"; };
+		B2E6259622905161003A5546 /* HotListHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotListHeadView.swift; sourceTree = "<group>"; };
+		B2E6259822907950003A5546 /* HotStarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotStarTableViewCell.swift; sourceTree = "<group>"; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -7818,6 +7822,8 @@
 				8897E01A2107186300016D84 /* TopicListFixedHeaderView.swift */,
 				8897E01C21072EC800016D84 /* TopicListHeaderView.swift */,
 				885C63D12108101F00CDCE13 /* TopicListNavView.swift */,
+				B2E6259622905161003A5546 /* HotListHeadView.swift */,
+				B2E6259822907950003A5546 /* HotStarTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -8462,6 +8468,7 @@
 				83913530201C0E51003D76DE /* IntegrationCreateCharegeModel.swift in Sources */,
 				36E928B8205A73F400EFDED0 /* EaseMessageViewController.m in Sources */,
 				53FD1A501F8C5CB600BBB7BF /* TSNewsDetailView.swift in Sources */,
+				B2E6259722905161003A5546 /* HotListHeadView.swift in Sources */,
 				536A9FE92008AF610013D87C /* ReceivePendingCommentTopController.swift in Sources */,
 				83B96EAE1E78F4CF0057C57F /* TSUserNetworkingManager.swift in Sources */,
 				6565E4521E7BD8D20027D826 /* TSLikeListTableVC.swift in Sources */,
@@ -9419,6 +9426,7 @@
 				36A33D071F305791007AE4B3 /* TSAccountDataBase.swift in Sources */,
 				53B272221F43E5EF0008ABC0 /* TSNewsSelectedSingleTagView.swift in Sources */,
 				36FB53431F69326D00B25A8D /* TSQMessage.swift in Sources */,
+				B2E6259922907950003A5546 /* HotStarTableViewCell.swift in Sources */,
 				5306EE4A1FEBA1490017A0A6 /* TSTestViewController.swift in Sources */,
 				36E92880205A73F400EFDED0 /* MWGridViewController.m in Sources */,
 				88B223FD2105B70700763C1E /* TopicCollectionCell.swift in Sources */,

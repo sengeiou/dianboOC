@@ -14,12 +14,11 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
     /// 导航栏右边视图
 //    let rightNavView = TopicNavRightView()
     var hotVC: TopicHotListVCViewController!
-    var newVC: TopicNewListVC!
+    var newVC: GroupHomeController!
     /// 顶部选择分类背景视图
     var topBgView: UIView!
     let hotButton = UIButton(type: .custom)
     let newButton = UIButton(type: .custom)
-    var grayLine: UIView!
     var blueLine: UIView!
     var bgScrollView: UIScrollView!
 
@@ -45,7 +44,7 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: - UI
     func setUI() {
-        title = "话题"
+//        title = "话题"
 //        // 2.1导航栏右边视图
 //        rightNavView.searchButton.addTarget(self, action: #selector(searchButtonTaped), for: .touchUpInside)
 //        rightNavView.buildButton.addTarget(self, action: #selector(buildButtonTaped), for: .touchUpInside)
@@ -59,7 +58,7 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
         hotButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         hotButton.setTitleColor(UIColor.white, for: .selected)
         hotButton.setTitleColor(UIColor(hex:0xffffff,alpha:0.5), for: .normal)
-        hotButton.setTitle("热门", for: .normal)
+        hotButton.setTitle("显示_热门".localized, for: .normal)
         hotButton.tag = 666
         hotButton.addTarget(self, action: #selector(hotOrNewButtonClick(sender:)), for: UIControlEvents.touchUpInside)
 
@@ -67,7 +66,7 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
         newButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         newButton.setTitleColor(UIColor.white, for: .selected)
         newButton.setTitleColor(UIColor(hex:0xffffff,alpha:0.5), for: .normal)
-        newButton.setTitle("最新", for: .normal)
+        newButton.setTitle("显示_圈子".localized, for: .normal)
         newButton.tag = 999
         newButton.addTarget(self, action: #selector(hotOrNewButtonClick(sender:)), for: UIControlEvents.touchUpInside)
 
@@ -86,13 +85,13 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: - 创建 scrollview 背景视图
     func initBgScrollView() {
-        // 顶部分割线
-        let titleLine = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 1))
-        titleLine.backgroundColor = TSColor.inconspicuous.highlight
-        self.view.addSubview(titleLine)
+//        // 顶部分割线
+//        let titleLine = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 1))
+//        titleLine.backgroundColor = TSColor.inconspicuous.highlight
+//        self.view.addSubview(titleLine)
         // 翻页内容
-        bgScrollView = UIScrollView(frame: CGRect(x: 0, y: 1, width: ScreenWidth, height: ScreenHeight))
-        bgScrollView.backgroundColor = UIColor.white
+        bgScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight))
+        bgScrollView.backgroundColor = TSColor.main.themeTB
         bgScrollView.delegate = self
         bgScrollView.contentSize = CGSize(width: ScreenWidth * 2, height: 0)
         bgScrollView.isPagingEnabled = true
@@ -113,7 +112,7 @@ class TSTopicGroupVCViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             if newVC == nil {
-                newVC = TopicNewListVC()
+                newVC = GroupHomeController()
                 newVC.view.left = ScreenWidth
                 self.addChildViewController(newVC)
                 newVC.didMove(toParentViewController: self)
