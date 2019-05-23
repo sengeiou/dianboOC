@@ -456,7 +456,13 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         self.currentPlayingView = feedListView
         self.currentPlayingCell = feedListView.cellForRow(at: indexPath) as? FeedListCell
     }
-
+    
+    override func rightMunClickdo(_ btn: UIButton)
+    {
+        let channelManageVC = NYChannelManageVC()
+        self.navigationController?.pushViewController(channelManageVC, animated: true)
+    }
+    
     override func selectedPageChangedTo(index: Int) {
         var feedListView: FeedListActionView?
         switch index {

@@ -1219,6 +1219,10 @@
 		B2E62595228FE4D3003A5546 /* ChannelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62594228FE4D3003A5546 /* ChannelsModel.swift */; };
 		B2E6259722905161003A5546 /* HotListHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6259622905161003A5546 /* HotListHeadView.swift */; };
 		B2E6259922907950003A5546 /* HotStarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6259822907950003A5546 /* HotStarTableViewCell.swift */; };
+		B2F5B5AC2296F59D00B42482 /* NYChannelManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5AB2296F59D00B42482 /* NYChannelManageVC.swift */; };
+		B2F5B5B42297069A00B42482 /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5AE2297069800B42482 /* ChannelCell.m */; };
+		B2F5B5B52297069A00B42482 /* ChannelTags.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5B02297069900B42482 /* ChannelTags.m */; };
+		B2F5B5B62297069A00B42482 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5B32297069900B42482 /* Channel.m */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -2675,6 +2679,13 @@
 		B2E62594228FE4D3003A5546 /* ChannelsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsModel.swift; sourceTree = "<group>"; };
 		B2E6259622905161003A5546 /* HotListHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotListHeadView.swift; sourceTree = "<group>"; };
 		B2E6259822907950003A5546 /* HotStarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotStarTableViewCell.swift; sourceTree = "<group>"; };
+		B2F5B5AB2296F59D00B42482 /* NYChannelManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelManageVC.swift; sourceTree = "<group>"; };
+		B2F5B5AE2297069800B42482 /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
+		B2F5B5AF2297069800B42482 /* ChannelTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelTags.h; sourceTree = "<group>"; };
+		B2F5B5B02297069900B42482 /* ChannelTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelTags.m; sourceTree = "<group>"; };
+		B2F5B5B12297069900B42482 /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCell.h; sourceTree = "<group>"; };
+		B2F5B5B22297069900B42482 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		B2F5B5B32297069900B42482 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -3872,6 +3883,7 @@
 		36659C4D1E027E640002B7FF /* FutureController */ = {
 			isa = PBXGroup;
 			children = (
+				B2F5B5A42296F08D00B42482 /* Channel */,
 				365A63F8206A2034005E8767 /* ShortVideo */,
 				5314EB7E201C8E88000A1A94 /* Modules */,
 				5306EE471FEBA12B0017A0A6 /* Test */,
@@ -7874,6 +7886,52 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B2F5B5A42296F08D00B42482 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				B2F5B5A72296F0BF00B42482 /* View */,
+				B2F5B5A62296F0B600B42482 /* Model */,
+				B2F5B5A52296F09900B42482 /* Controller */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		B2F5B5A52296F09900B42482 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B2F5B5AD2297064200B42482 /* ChannelTag */,
+				B2F5B5AB2296F59D00B42482 /* NYChannelManageVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B2F5B5A62296F0B600B42482 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B2F5B5A72296F0BF00B42482 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2F5B5AD2297064200B42482 /* ChannelTag */ = {
+			isa = PBXGroup;
+			children = (
+				B2F5B5B22297069900B42482 /* Channel.h */,
+				B2F5B5B32297069900B42482 /* Channel.m */,
+				B2F5B5B12297069900B42482 /* ChannelCell.h */,
+				B2F5B5AE2297069800B42482 /* ChannelCell.m */,
+				B2F5B5AF2297069800B42482 /* ChannelTags.h */,
+				B2F5B5B02297069900B42482 /* ChannelTags.m */,
+			);
+			path = ChannelTag;
+			sourceTree = "<group>";
+		};
 		BB09DE181F287CE9002B77A0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -9044,6 +9102,7 @@
 				36E928CE205A73F500EFDED0 /* EaseFacialView.m in Sources */,
 				8383DD2A1EEFC09D0012E345 /* TSWalletHistoryObject.swift in Sources */,
 				78A246DD1FDE335900B8007F /* QRCodeScanVC.swift in Sources */,
+				B2F5B5AC2296F59D00B42482 /* NYChannelManageVC.swift in Sources */,
 				65AB94431E71029600D2A798 /* TSMomentCommnetObject.swift in Sources */,
 				83CF6C491F302DAE00165F8C /* TSDatabaseAdvert.swift in Sources */,
 				5350BF1A1FA301E10089EBC4 /* TSNewsHelper.swift in Sources */,
@@ -9155,6 +9214,7 @@
 				834208F71FB4512300E9C723 /* FeedListModel.swift in Sources */,
 				53E0B2A61F75F4DE001ABDDC /* TSDraftController.swift in Sources */,
 				36E9287D205A73F400EFDED0 /* UIView+MJExtension.m in Sources */,
+				B2F5B5B52297069A00B42482 /* ChannelTags.m in Sources */,
 				36E92883205A73F400EFDED0 /* MWTapDetectingImageView.m in Sources */,
 				884DFD6721428FB200759191 /* GroupPreviewHeaderView.swift in Sources */,
 				83BE15F11F0CDE0E00BB203C /* TSIMagePickerUX.swift in Sources */,
@@ -9254,6 +9314,7 @@
 				8373FC3B1FB00E1900DA2F51 /* FeedCommentListCellModel.swift in Sources */,
 				88B223F82105810100763C1E /* TopicNewListVC.swift in Sources */,
 				83AD1B2E1F66950800831941 /* MyQuestionsListView.swift in Sources */,
+				B2F5B5B62297069A00B42482 /* Channel.m in Sources */,
 				8390EAF51FF0F6DB008387DA /* GroupAgreementModel.swift in Sources */,
 				36CA81D31F33581300F93A5D /* TSRewardListVC.swift in Sources */,
 				881B498F2147A088001441A8 /* GroupDetailRootTableView.swift in Sources */,
@@ -9436,6 +9497,7 @@
 				178243EF1E7FB9DE00A20877 /* TSNewsTagModel.swift in Sources */,
 				530BBB7C1FB1948900EE96D4 /* TSDetailCommentCell.swift in Sources */,
 				36E928AA205A73F400EFDED0 /* NSDateFormatter+Category.m in Sources */,
+				B2F5B5B42297069A00B42482 /* ChannelCell.m in Sources */,
 				531325141F7DF40300B5EF73 /* TextFieldHelper.swift in Sources */,
 				BBD39ABC1F503FE1008758BE /* TSUnbindPhoneOrEmailView.swift in Sources */,
 				5314EB9B201C8ECF000A1A94 /* TSWebEditorBaseController.swift in Sources */,
@@ -9768,7 +9830,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = VHC5H2GT68;
