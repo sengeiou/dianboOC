@@ -11,6 +11,9 @@ import UIKit
 class NYChannelManageVC: UIViewController {
     var rightItem:UIButton?
     var channelTagsVC :ChannelTags?
+    var _myTags:NSMutableArray?
+    var _recommandTags:NSMutableArray?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,9 +27,9 @@ class NYChannelManageVC: UIViewController {
         self.view.backgroundColor = TSColor.main.themeTB
         setChatButton()
         
-        let  _myTags = ["关注","推荐","热点","北京","视频","社会","图片","娱乐","问答","科技","汽车","财经","军事","体育","段子","国际","趣图","健康","特卖","房产","美食"];
-        let  _recommandTags = ["小说","时尚","历史","育儿","直播","搞笑","数码","养生","电影","手机","旅游","宠物","情感","家居","教育","三农"];
-        channelTagsVC = ChannelTags.init(myTags: _myTags, andRecommandTags: _recommandTags)
+        _myTags = ["关注","推荐","热点","北京","视频","社会","图片","娱乐","问答","科技","汽车"];
+        _recommandTags = ["小说","时尚","历史","育儿","直播","搞笑","数码","养生","电影","手机","旅游","宠物","情感","家居","教育","三农"];
+        channelTagsVC = ChannelTags.init(myTags: _myTags as! [Any], andRecommandTags: _recommandTags as! [Any])
         channelTagsVC!.bgColor = TSColor.main.themeTB
         channelTagsVC!.view.backgroundColor = TSColor.main.themeTB
         self.view.addSubview((channelTagsVC?.view)!)
@@ -45,8 +48,16 @@ class NYChannelManageVC: UIViewController {
 //     self.rightItem?.titleEdgeInsets = UIEdgeInsets(top: 0, left:40, bottom: 0, right: 0)
     }
     
-    func rightButtonClick() {
-        
+    func rightButtonClick()
+    {
+        if (channelTagsVC?.onEdit)! {
+            self.rightItem?.set(title: "选择_编辑".localized, titleColor: UIColor.white, for: .normal)
+        }
+        else
+        {
+            self.rightItem?.set(title: "选择_保存".localized, titleColor: UIColor.white, for: .normal)
+        }
+        channelTagsVC?.edit(nil)
     }
 
 }

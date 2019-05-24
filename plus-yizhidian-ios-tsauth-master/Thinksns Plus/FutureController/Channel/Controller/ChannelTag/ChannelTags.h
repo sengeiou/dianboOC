@@ -41,6 +41,9 @@ typedef void(^SelectedTag)(Channel *channel);
 
 @property (nonatomic, strong) UIColor *bgColor;
 
+@property (nonatomic, assign) BOOL onEdit;
+
+- (void)editTags:(UIButton *)sender;
 /**
  初始化器
 

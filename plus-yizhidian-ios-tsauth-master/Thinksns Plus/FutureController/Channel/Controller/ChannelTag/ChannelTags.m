@@ -16,7 +16,7 @@
     NSMutableArray *_recommandTags;
     
     
-    BOOL _onEdit;//tag处在编辑状态
+//    BOOL _onEdit;//tag处在编辑状态
     BOOL _tagDeletable;//在长按tag的时候是否可以删除该tag
 }
 
@@ -136,11 +136,11 @@
     
     static NSString * CellIdentifier = @"cellIdentifier";
     ChannelCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.delBtn.tag = indexPath.item;
     if (indexPath.section == 0) {
         if (_myTags.count>indexPath.item) {
             cell.model = _myTags[indexPath.item];
-            cell.delBtn.tag = indexPath.item;
-            cell.delegate = self;
             if (_onEdit) {
                 if (cell.model.resident) {
                     cell.delBtn.hidden = YES;
@@ -175,16 +175,16 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(SCREENWIDTH/4-10, 53);
+    return CGSizeMake(SCREENWIDTH/5-10, 35);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     return UIEdgeInsetsMake(0, 10, 4, 10);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 4;
+    return 2;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 5;
+    return 3;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     return CGSizeMake(collectionView.bounds.size.width, 50);
@@ -198,18 +198,19 @@
             header=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:CellIdentifier forIndexPath:indexPath];
             UILabel *lab1 = [[UILabel alloc]init];
             [header addSubview:lab1];
-            lab1.text = @"我的频道";
-            lab1.frame = CGRectMake(20, 0, 100, 60);
-            lab1.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
+            lab1.text = NSLocalizedString(@"显示_我的频道", nil) ;
+            lab1.frame = CGRectMake(20, 0, 150, 60);
+            lab1.textColor = [UIColor colorWithRed:0.94 green:0.07 blue:0.35 alpha:1.00];
             
             UILabel *lab2 = [[UILabel alloc]init];
             [header addSubview:lab2];
-            lab2.text = @"点击进入频道";
+//            lab2.text = @"点击进入频道";
             lab2.font = [UIFont systemFontOfSize:13];
             lab2.frame = CGRectMake(100, 2, 200, 60);
             lab2.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
             
             _editBtn = [[UIButton alloc]init];
+            _editBtn.hidden = YES;
             _editBtn.frame = CGRectMake(collectionView.frame.size.width-60, 13, 44, 28);
             [header addSubview:_editBtn];
             [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
@@ -227,16 +228,16 @@
             header=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:CellIdentifier forIndexPath:indexPath];
             UILabel *lab1 = [[UILabel alloc]init];
             [header addSubview:lab1];
-            lab1.text = @"频道推荐";
-            lab1.frame = CGRectMake(20, 0, 100, 60);
-            lab1.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
+            lab1.text = NSLocalizedString(@"显示_其他频道", nil) ;
+            lab1.frame = CGRectMake(20, 0, 150, 60);
+            lab1.textColor = [UIColor whiteColor];
             
             UILabel *lab2 = [[UILabel alloc]init];
+            lab2.backgroundColor = [UIColor lightGrayColor];
             [header addSubview:lab2];
-            lab2.text = @"点击添加频道";
+//            lab2.text = @"点击添加频道";
             lab2.font = [UIFont systemFontOfSize:13];
-            lab2.frame = CGRectMake(100, 2, 200, 60);
-            lab2.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
+            lab2.frame = CGRectMake(15, 15, SCREENWIDTH-30, 0.5);
         }
     }
     return header;
@@ -247,22 +248,16 @@
     
     if (!_onEdit) {
         for (ChannelCell *items in _mainView.visibleCells) {
-            if (items.model.tagType == MyChannel) {
-                if (items.model.resident) {
-                    items.delBtn.hidden = YES;
-                }else{
-                    items.delBtn.hidden = NO;
-                }
+            if (items.model.resident) {
+                items.delBtn.hidden = YES;
+            }else{
+                items.delBtn.hidden = NO;
             }
         }
-        [sender setTitle:@"完成" forState:UIControlStateNormal];
     }else{
         for (ChannelCell *items in _mainView.visibleCells) {
-            if (items.model.tagType == MyChannel) {
-                items.delBtn.hidden = YES;
-            }
+            items.delBtn.hidden = YES;
         }
-        [sender setTitle:@"编辑" forState:UIControlStateNormal];
     }
     _onEdit = !_onEdit;
     
@@ -333,20 +328,38 @@
     [self refreshDelBtnsTag];
 }
 
+//添加 或 删除
 -(void)deleteCell:(UIButton *)sender{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    ChannelCell *cell = (ChannelCell *)[_mainView cellForItemAtIndexPath:indexPath];
-    cell.model.editable = NO;
-    cell.model.tagType = RecommandChannel;
-    cell.model.selected = NO;
-    cell.delBtn.hidden = YES;
-    [_mainView reloadItemsAtIndexPaths:@[indexPath]];
-    
-    id object = _myTags[indexPath.item];
-    [_myTags removeObjectAtIndex:indexPath.item];
-    [_recommandTags insertObject:object atIndex:0];
-    NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:0 inSection:1];
-    [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+    if (sender.selected)
+    { //add
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:1];
+        ChannelCell *cell = (ChannelCell *)[_mainView cellForItemAtIndexPath:indexPath];
+        cell.model.editable = YES;
+        cell.model.tagType = MyChannel;
+        cell.delBtn.selected = NO;
+        cell.delBtn.hidden = YES;
+        [_mainView reloadItemsAtIndexPaths:@[indexPath]];
+        [_recommandTags removeObjectAtIndex:indexPath.item];
+        [_myTags addObject:cell.model];
+        NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:_myTags.count-1 inSection:0];
+        cell.delBtn.tag = targetIndexPage.item;
+        [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+    }else
+    {//del
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+        ChannelCell *cell = (ChannelCell *)[_mainView cellForItemAtIndexPath:indexPath];
+        cell.model.editable = NO;
+        cell.model.tagType = RecommandChannel;
+        cell.model.selected = YES;
+        cell.delBtn.hidden = NO;
+        [_mainView reloadItemsAtIndexPaths:@[indexPath]];
+        
+        id object = _myTags[indexPath.item];
+        [_myTags removeObjectAtIndex:indexPath.item];
+        [_recommandTags insertObject:object atIndex:0];
+        NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:0 inSection:1];
+        [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+    }
     [self refreshDelBtnsTag];
 }
 

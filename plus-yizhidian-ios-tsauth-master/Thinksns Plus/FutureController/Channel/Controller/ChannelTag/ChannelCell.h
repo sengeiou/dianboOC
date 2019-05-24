@@ -26,8 +26,8 @@
 /**
  标题
  */
-@property (nonatomic, strong) UILabel *title ;
-/** 右上角的删除按钮 */
+@property (nonatomic, strong) UIButton *title ;
+/** 右上角的删除按钮 add */
 @property (nonatomic, strong) UIButton * delBtn ;
 
 

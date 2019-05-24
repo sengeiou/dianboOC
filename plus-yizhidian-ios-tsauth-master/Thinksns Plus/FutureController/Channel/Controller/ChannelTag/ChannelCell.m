@@ -24,21 +24,23 @@
     if (self) {
         
         //title
-        _title = [[UILabel alloc]init];
+        _title = [UIButton buttonWithType:UIButtonTypeCustom]; //[[UIButton alloc]init];
         [self.contentView addSubview:_title];
         _title.frame = CGRectMake(5, 5, frame.size.width-10, frame.size.height-10);
-        _title.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1.0];
+        [_title setBackgroundImage:[UIImage imageNamed:@"com_bg"] forState:UIControlStateNormal];
+        [_title setBackgroundImage:[UIImage imageNamed:@"com_bg_sel"] forState:UIControlStateSelected];
         _title.layer.masksToBounds = YES;
         _title.layer.cornerRadius = M_PI;
-        _title.font = [UIFont systemFontOfSize:16];
-        _title.textAlignment = NSTextAlignmentCenter;
-        _title.numberOfLines = 0;
-        _title.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
+        _title.titleLabel.font =  [UIFont systemFontOfSize:14];
+        [_title setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+//        _title.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
         
         _delBtn = [[UIButton alloc]init];
         [self.contentView addSubview:_delBtn];
-        _delBtn.frame = CGRectMake(frame.size.width-18, 0, 18, 18);
-        [_delBtn setImage:[UIImage imageNamed:@"del"] forState:UIControlStateNormal];
+        _delBtn.frame = CGRectMake(frame.size.width-16, 0, 16, 16);
+        [_delBtn setImage:[UIImage imageNamed:@"cell_del"] forState:UIControlStateNormal];
+        [_delBtn setImage:[UIImage imageNamed:@"cell_add"] forState:UIControlStateSelected];
         [_delBtn addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
@@ -63,11 +65,7 @@
         }
         
         //选择出来的tag高亮显示
-        if (model.selected) {
-            _title.textColor = [UIColor colorWithRed:0.5 green:0.26 blue:0.27 alpha:1.0];
-        }else{
-            _title.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.0];
-        }
+        _title.selected = model.selected;
         
     }else if (model.tagType == RecommandChannel){
         if (![model.title containsString:@"＋"]) {
@@ -77,14 +75,14 @@
             model.editable = NO;
         }else{
         }
-//        if (model.resident) {
-//            _delBtn.hidden = YES;
-//        }else{
-//            _delBtn.hidden = NO;
-//        }
-        _delBtn.hidden = YES;
+        _delBtn.selected = YES;
+        if (model.resident) {
+            _delBtn.hidden = YES;
+        }else{
+            _delBtn.hidden = NO;
+        }
     }
-    _title.text = model.title;
+    [_title setTitle:model.title forState:UIControlStateNormal];
     
 }
 

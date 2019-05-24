@@ -47,6 +47,10 @@ class MainColor {
     var themeTBCellBg: UIColor {
         return UIColor(red: 42, green: 42, blue: 44)
     }
+    
+    var themeZsColor: UIColor {
+        return UIColor(red: 242, green: 18, blue: 90)
+    }
     /// 正文, 内容以及标题颜色
     ///
     /// - 重要的列表标题文字、正文内容
