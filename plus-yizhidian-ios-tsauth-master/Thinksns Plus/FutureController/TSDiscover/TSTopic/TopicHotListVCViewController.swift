@@ -15,20 +15,20 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
     var me_tablview :TSTableView!
     /// 数据源
     var dataStars: [StarsHotModel] = []
-    var dataSource: [Int] = []
+    var dataSource = NSMutableArray()
     /// 占位图
     let occupiedView = UIImageView()
     /// table 区分标识符，当多个 TSQuoraTableView 同时存在同一个界面时区分彼此
-    var tableIdentifier = "ABCSSS"
+    var tableIdentifier = "NYHotTopicCell_hot"
    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        refresh()
     }
 
     // MARK: - UI
     func setUI() {
-        dataSource = [0,2,3,4,3,5,53,5]
 //        NYSelFocusView.init(frame: .zero, tableIdentifier: "dssssPP")
 //        init(frame: frame, style: .plain)
         me_tablview = TSTableView(frame: CGRect.zero, style: .plain)
@@ -37,7 +37,8 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         me_tablview.delegate = self
         me_tablview.dataSource = self
         me_tablview.separatorStyle = UITableViewCell.SeparatorStyle.none
-        me_tablview.register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+//        me_tablview.register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+        me_tablview.register(NYHotTopicCell, forCellReuseIdentifier: tableIdentifier)
         me_tablview.backgroundColor = TSColor.main.themeTB
         me_tablview.backgroundView?.backgroundColor = TSColor.main.themeTB
         me_tablview.tableHeaderView = starHead
@@ -47,10 +48,21 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
     }
    
     func refresh() {
+        NYPopularNetworkManager.getHotPostListData( offset: 0,complete:{(list: [HotTopicModel]?, error,isobl) in
+            if let models = list {
+                for obj in models {
+                    let hotF = HotTopicFrameModel()
+                    hotF.setHotTopicModel(hotTModel: obj)
+                    self.dataSource.add(hotF)
+                }
+                self.me_tablview.reloadData()
+            }
+        })
+        me_tablview.mj_header.endRefreshing()
 //        TSUserNetworkingManager().getTopicList(index: nil, keyWordString: nil, limit: 15, direction: "desc", only: "hot") { (topicModel, networkError) in
 //            self.processRefresh(datas: topicModel, message: networkError)
 //        }
-//        topicCollectionView.mj_header.endRefreshing()
+//
     }
 
     func processRefresh(datas: [TopicListModel]?, message: NetworkError?) {
@@ -88,7 +100,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
 
     // MARK: - UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !dataSource.isEmpty {
+        if dataSource.count>0 {
             me_tablview.removePlaceholderViews()
         }
         if me_tablview.mj_footer != nil {
@@ -120,14 +132,14 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYHotTopicCell
+        cell.setHotTopicFrameModel(hotTopicFrame: self.dataSource[indexPath.row] as! HotTopicFrameModel)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) as? NYSelCell else {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NYHotTopicCell else {
             return
         }
         //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)

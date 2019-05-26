@@ -1211,6 +1211,9 @@
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
+		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
+		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
+		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */; };
@@ -2671,6 +2674,9 @@
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
+		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
+		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
+		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPopularNetworkManager.swift; sourceTree = "<group>"; };
@@ -7802,6 +7808,8 @@
 				885C63D72108523400CDCE13 /* TopicModel.swift */,
 				8826F536210B039C005A6B7B /* TopicPostListModel.swift */,
 				8801BE41210F10CA0018AA63 /* TopicCommonModel.swift */,
+				B271E143229953E500A1A7E2 /* HotTopicModel.swift */,
+				B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7836,6 +7844,7 @@
 				885C63D12108101F00CDCE13 /* TopicListNavView.swift */,
 				B2E6259622905161003A5546 /* HotListHeadView.swift */,
 				B2E6259822907950003A5546 /* HotStarTableViewCell.swift */,
+				B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -8609,6 +8618,7 @@
 				36E92875205A73F400EFDED0 /* MJRefreshBackStateFooter.m in Sources */,
 				83BF5AD11FCEA87B00EF8F14 /* FilterSectionView.swift in Sources */,
 				36E928CF205A73F500EFDED0 /* EaseChatBarMoreView.m in Sources */,
+				B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */,
 				78BBE04E201968810099CD4C /* TSGroupNameEditVC.swift in Sources */,
 				78FE6C4F1FF09ADE0018105B /* TSFriendsListVC.swift in Sources */,
 				530D8B641F5D3DA80022323C /* TSQuestionTopicSelectController.swift in Sources */,
@@ -8702,6 +8712,7 @@
 				36E9289F205A73F400EFDED0 /* PSTCollectionViewUpdateItem.m in Sources */,
 				36E92895205A73F400EFDED0 /* UIImageView+EMWebCache.m in Sources */,
 				83549A26202ACD9000590D81 /* TSWalletRuleVCViewController.swift in Sources */,
+				B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */,
 				8897E01B2107186300016D84 /* TopicListFixedHeaderView.swift in Sources */,
 				83F11DD51FB296B1000504E9 /* FeedNetworkRequest.swift in Sources */,
 				535275312058C68C00066639 /* TSCheckinModel.swift in Sources */,
@@ -8921,6 +8932,7 @@
 				367AB62C1E16050900E86239 /* TSHomeTabBarController.swift in Sources */,
 				83E1578B1F452A2A00930A8C /* TSNewFriendsDetailVC.swift in Sources */,
 				3876A67E20A3F1EC0077E1F9 /* TSMomentExtension.swift in Sources */,
+				B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */,
 				5314EB98201C8ECF000A1A94 /* TSNewsWebEditorController.swift in Sources */,
 				880C08C7211BE5C0003663F0 /* TSMessagePopNewChatCell.swift in Sources */,
 				83828E671FC6AC7800894F42 /* FeedListActionView.swift in Sources */,

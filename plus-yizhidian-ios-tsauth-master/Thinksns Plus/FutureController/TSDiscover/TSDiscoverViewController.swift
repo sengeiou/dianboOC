@@ -59,6 +59,9 @@ class TSDiscoverViewController: TSViewController, UITableViewDelegate, UITableVi
                 NSLog("\(error)======\(list)")
             }
         })
+        
+       
+        
     }
 
     // MARK: - UITableViewDataSource

@@ -56,6 +56,7 @@ class TopicCollectionCell: UICollectionViewCell {
 
     func setInfo(model: StarsHotModel, index: IndexPath) {
         titleLabel.text = model.name
-        imageShadow.kf.setImage(with: URL(string:model.avatar ?? ""), placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+        let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: model.avatar)!)
+        imageShadow.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
     }
 }

@@ -10,8 +10,8 @@ import UIKit
 
 class NYWordItem: UIView {
     
-    let word_button = UIButton(type: .system)
-    let close_button = UIButton(type: .system)
+    let word_button = UIButton(type: .custom)
+    let close_button = UIButton(type: .custom)
     let sizeFont = UIFont.systemFont(ofSize: 12)
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,8 +35,8 @@ class NYWordItem: UIView {
         word_button.layer.cornerRadius = 15
         word_button.layer.masksToBounds = true
         
-        close_button.setImage(UIImage(named: "item_close"), for: .normal)
-        close_button.frame = CGRect(x:0,y:0,width:20,height:20)
+        close_button.setImage(UIImage(named: "cell_del"), for: .normal)
+        close_button.frame = CGRect(x:0,y:0,width:16,height:16)
         self.addSubview(word_button)
         self.addSubview(close_button)
     }
@@ -47,7 +47,7 @@ class NYWordItem: UIView {
         let size = word.sizeOfString(usingFont: sizeFont)
         word_button.frame = CGRect(x:0,y:0,width:size.width+20,height:self.height)
         let width = word_button.width + close_button.width*0.5
-        close_button.mj_x = width - close_button.width
+        close_button.mj_x = width - close_button.width-2
         return CGSize(width:width,height:self.height)
     }
 //    override func layoutSubviews() {

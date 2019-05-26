@@ -74,7 +74,7 @@ class AbstractRankingListTableViewCell: TSTableViewCell {
     var praiseButton: TSButton?
     /// 代理
     weak var delegate: AbstractRankingListTableViewCellDelegate?
-
+ 
     private init() {
         super.init(style: .default, reuseIdentifier: nil)
     }
