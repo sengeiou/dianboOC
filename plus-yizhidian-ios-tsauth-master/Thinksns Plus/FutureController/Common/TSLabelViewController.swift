@@ -244,12 +244,14 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         tag_ABtn.setTitle("精选_喜剧".localized, for: .normal)
         tag_ABtn.setTitleColor(UIColor.white, for: .normal)
         tag_ABtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        tag_ABtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
         searchB.addSubview(tag_ABtn)
         //标签二
         tag_BBtn.frame = CGRect(x: tagW, y:0, width:tagW, height:searchH)
         tag_BBtn.setTitle("精选_标签二".localized, for: .normal)
         tag_BBtn.setTitleColor(UIColor.white, for: .normal)
         tag_BBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        tag_BBtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
         searchB.addSubview(tag_BBtn)
         //全部
         tag_ALLBtn.frame = CGRect(x: tagW*2, y:0, width:tagW, height:searchH)
@@ -261,6 +263,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         tag_ALLBtn.setTitle("精选_全部".localized, for: .normal)
         tag_ALLBtn.setTitleColor(UIColor.white, for: .normal)
         tag_ALLBtn.titleLabel?.font = UIFont.systemFont(ofSize:12)
+        tag_ALLBtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
         searchB.addSubview(tag_ALLBtn)
     }
     // MARK: - Button click
@@ -294,6 +297,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         }
     }
 
+
     /// 切换选中的分页
     ///
     /// - Parameter index: 分页下标
@@ -305,6 +309,13 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
     ///
     ///
     func searchClickdo(_ btn: UIButton) {
+        
+    }
+    
+    /// 分类
+    ///
+    ///
+    func sortClickdo(_ btn: UIButton) {
         
     }
     

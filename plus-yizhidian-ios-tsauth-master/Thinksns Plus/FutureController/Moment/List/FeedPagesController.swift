@@ -502,9 +502,14 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     }
     //搜索
     override func searchClickdo(_ btn: UIButton) {
-        NSLog("搜索")
         let SearchListVC = NYSearchListVC()
         self.navigationController?.pushViewController(SearchListVC, animated: true)   
+    }
+    //分类
+    override func sortClickdo(_ btn: UIButton) {
+        let channelSelManageVC = NYChannelSelectManageVC()
+        channelSelManageVC.title = btn.currentTitle
+        self.navigationController?.pushViewController(channelSelManageVC, animated: true)
     }
 }
 

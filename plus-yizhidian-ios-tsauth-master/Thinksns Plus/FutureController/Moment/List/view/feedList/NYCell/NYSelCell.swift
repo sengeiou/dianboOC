@@ -28,6 +28,7 @@ class NYSelCell: UITableViewCell {
     /// 设置视图
     internal func setUI() {
         self.contentView.backgroundColor = TSColor.main.themeTB
+        self.cellContentView.backgroundColor = TSColor.main.themeTBCellBg
         self.cellContentView.layer.cornerRadius = 10
         self.cellContentView.layer.masksToBounds = true
     }

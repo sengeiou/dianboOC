@@ -46,8 +46,10 @@ class NYSearchListVC: UIViewController {
         }
         
         searchBtton.setTitle("显示_搜索".localized, for: .normal)
+        searchBtton.frame = CGRect(x:0,y:0,width:60,height:30)
         searchBtton.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
-        searchBtton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10)
+        searchBtton.titleLabel?.font = UIFont.systemFont(ofSize: 12);
+        searchBtton.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: searchBtton)
         
         self.top_titleLabel.text = "显示_搜索历史".localized

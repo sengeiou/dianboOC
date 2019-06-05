@@ -45,7 +45,7 @@ class GroupListSectionView: UITableViewHeaderFooterView {
     }
 
     func setUI() {
-        contentView.backgroundColor = UIColor.white
+        contentView.backgroundColor = TSColor.main.themeTBCellBg
         contentView.addSubview(titleLabel)
         contentView.addSubview(rightButton)
         contentView.addSubview(seperator)
@@ -54,7 +54,7 @@ class GroupListSectionView: UITableViewHeaderFooterView {
     func loadModel() {
         // 1.标题 label
         titleLabel.font = UIFont.systemFont(ofSize: 13)
-        titleLabel.textColor = UIColor(hex: 0x999999)
+        titleLabel.textColor = model.titleColor
         titleLabel.text = model.title
         titleLabel.sizeToFit()
         let titleY = (contentView.frame.height - titleLabel.size.height) / 2
@@ -95,8 +95,8 @@ class GroupListSectionView: UITableViewHeaderFooterView {
         rightButton.frame = CGRect(origin: CGPoint(x: rightX, y: rightY), size: rightButton.size)
 
         // 3.分割线
-        seperator.backgroundColor = UIColor(hex: 0xededed)
-        seperator.frame = CGRect(x: 0, y: 35, width: UIScreen.main.bounds.width, height: 1)
+        seperator.backgroundColor =  UIColor.lightGray
+        seperator.frame = CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width, height: 0.5)
     }
 
     /// 点击了右边按钮

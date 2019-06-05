@@ -1214,6 +1214,9 @@
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
 		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
+		B28D87E722A3BC21003FE63A /* NYChannelSelectManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */; };
+		B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E822A3C584003FE63A /* NYTopChannelView.swift */; };
+		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */; };
@@ -2677,6 +2680,9 @@
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
 		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
+		B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelSelectManageVC.swift; sourceTree = "<group>"; };
+		B28D87E822A3C584003FE63A /* NYTopChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTopChannelView.swift; sourceTree = "<group>"; };
+		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPopularNetworkManager.swift; sourceTree = "<group>"; };
@@ -7910,6 +7916,7 @@
 			children = (
 				B2F5B5AD2297064200B42482 /* ChannelTag */,
 				B2F5B5AB2296F59D00B42482 /* NYChannelManageVC.swift */,
+				B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -7924,6 +7931,8 @@
 		B2F5B5A72296F0BF00B42482 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B28D87E822A3C584003FE63A /* NYTopChannelView.swift */,
+				B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -8906,6 +8915,7 @@
 				36E9289A205A73F400EFDED0 /* PSTCollectionViewController.m in Sources */,
 				36E9288B205A73F400EFDED0 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				8383CC0420035F9E001D7081 /* DoubleCollectionsView.swift in Sources */,
+				B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */,
 				83549A20202ACD9000590D81 /* TSWalletTransitionVC.swift in Sources */,
 				8307CF371F2F30A7004FAB3B /* TSAdvertNormal.swift in Sources */,
 				8814F8D52087663300151A8B /* HostDownViewController.swift in Sources */,
@@ -9400,6 +9410,7 @@
 				83E310241F61538F0065A445 /* TopicExpertsListController.swift in Sources */,
 				83ACDFCB1EE154BA00BC3803 /* WalletNetworkManager.swift in Sources */,
 				178243CE1E7FB9DE00A20877 /* TSDiscoverCell.swift in Sources */,
+				B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */,
 				536152CC1F31FADA004BD85B /* TSMusicSingerModel.swift in Sources */,
 				53CB08B920284A1D008A5DF1 /* TSEditorCacheImageNodeObject.swift in Sources */,
 				8897E00B2106F1DF00016D84 /* TopicSearchVC.swift in Sources */,
@@ -9414,6 +9425,7 @@
 				365795A71E63D75A00B8D409 /* TSProgressButton.swift in Sources */,
 				8367ECD51F70CB3600CB541D /* LoadingView.swift in Sources */,
 				83AA7DB520197478007E1F97 /* IntegrationCashRecordTable.swift in Sources */,
+				B28D87E722A3BC21003FE63A /* NYChannelSelectManageVC.swift in Sources */,
 				8306BD11201EBDBB00E3737F /* TSUIImageExtension.swift in Sources */,
 				8828741720F89204006BCF1A /* UIImagextension.swift in Sources */,
 				83B8696A1F67BD15002E4A6F /* QuoraAnswersListView.swift in Sources */,

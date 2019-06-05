@@ -25,6 +25,6 @@ class GroupListSectionViewModel: NSObject {
     var rightType = RightType.seeAll
     /// 左边 label 标题
     var title = ""
-
+    var titleColor = UIColor.white
     var cellModels: [GroupListCellModel] = []
 }

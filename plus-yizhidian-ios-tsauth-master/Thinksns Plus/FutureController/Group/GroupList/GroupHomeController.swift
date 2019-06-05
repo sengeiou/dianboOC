@@ -194,14 +194,14 @@ class GroupHomeController: UIViewController {
                 let model = GroupListSectionViewModel()
                 model.maxCount = 5
                 model.rightType = .seeAll
-                model.title = "我加入的"
+                model.title = "已加入"
                 model.cellModels = myGroups
                 self?.datas.append(model)
             } else {
                 let model = GroupListSectionViewModel()
                 model.maxCount = 5
                 model.rightType = .seeAll
-                model.title = "我加入的"
+                model.title = "已加入"
                 model.cellModels = []
                 self?.datas.append(model)
             }
@@ -210,6 +210,7 @@ class GroupHomeController: UIViewController {
                 model.maxCount = 5
                 model.rightType = .change
                 model.title = "热门推荐"
+                model.titleColor = TSColor.main.themeZsColor
                 model.cellModels = recommendGroups
                 self?.datas.append(model)
             }
@@ -286,14 +287,14 @@ extension GroupHomeController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 0
         }
-        return 36
+        return 45
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 60
+            return 65
         }
-        return 91
+        return 120
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -328,8 +329,9 @@ extension GroupHomeController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+//            nav_nav2
             let cell = tableView.dequeueReusableCell(withIdentifier: "GroupHomeCountCell", for: indexPath) as! GroupHomeCountCell
-            cell.titleLabel.attributedText = NSMutableAttributedString.attributeStringWith(strings: ["\(groupsCount)", "个兴趣小组，等待你的加入！"], colors: [UIColor(hex: 0xf4504d), UIColor(hex: 0x999999)], fonts: [20, 12])
+            cell.titleLabel.attributedText = NSMutableAttributedString.attributeStringWith(strings: ["\(groupsCount) ", "显示_个兴趣小组_等待你的加入".localized], colors: [UIColor.white, UIColor.white], fonts: [20, 12])
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupListCell.identifier, for: indexPath) as! GroupListCell

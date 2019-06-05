@@ -18,6 +18,9 @@ class PopularNetworkRequest {
     /// 获取频道
     let channelsList = Request<ChannelsModel>(method: .get, path: "dianbo/channels", replacers: [])
     
+    /// 获取频道-删除添加
+     let channelsAddDel = Request<ChannelsModel>(method: .get, path: "dianbo/channels", replacers: [])
+    
     /// 获取热门帖子
     ///
     /// - RouteParameter: None

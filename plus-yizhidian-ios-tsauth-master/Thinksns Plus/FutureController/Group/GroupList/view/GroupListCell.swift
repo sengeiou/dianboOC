@@ -56,6 +56,8 @@ class GroupListCell: UITableViewCell {
 
     // MARK: - UI
     func setUI() {
+        self.backgroundColor = TSColor.main.themeTBCellBg
+        self.contentView.backgroundColor = TSColor.main.themeTBCellBg
         contentView.addSubview(coverImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(detailLabel)
@@ -72,17 +74,18 @@ class GroupListCell: UITableViewCell {
 
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
-        coverImageView.frame = CGRect(x: 10, y: 15, width: 60, height: 60)
-
+        coverImageView.frame = CGRect(x: 10, y: 30, width: 60, height: 60)
+        coverImageView.layer.cornerRadius = coverImageView.width*0.5
+        coverImageView.layer.masksToBounds = true
         // 2.圈子名称
-        nameLabel.textColor = UIColor(hex: 0x333333)
+        nameLabel.textColor = TSColor.main.themeZsColor
         nameLabel.font = UIFont.systemFont(ofSize: 16)
         nameLabel.numberOfLines = 1
         let name = NSString(string: model.name)
         nameLabel.text = name.replacingOccurrences(of: "\n", with: "")
         nameLabel.sizeToFit()
         let nameWidth = min(UIScreen.main.bounds.width - 200, nameLabel.width)
-        nameLabel.frame = CGRect(x: coverImageView.frame.maxX + 10, y: 25, width: nameWidth, height: nameLabel.height)
+        nameLabel.frame = CGRect(x: coverImageView.frame.maxX + 10, y: 45, width: nameWidth, height: nameLabel.height)
         nameLabel.lineBreakMode = .byTruncatingTail
 
         // 3.圈子标签图片
@@ -101,8 +104,8 @@ class GroupListCell: UITableViewCell {
         loadRightView()
 
         // 6.分割线
-        seperator.backgroundColor = UIColor(hex: 0xededed)
-        seperator.frame = CGRect(x: 0, y: 90, width: UIScreen.main.bounds.width, height: 1)
+        seperator.backgroundColor = UIColor.lightGray
+        seperator.frame = CGRect(x: 0, y: 120, width: UIScreen.main.bounds.width, height: 0.5)
     }
 
     /// 加载详情信息
