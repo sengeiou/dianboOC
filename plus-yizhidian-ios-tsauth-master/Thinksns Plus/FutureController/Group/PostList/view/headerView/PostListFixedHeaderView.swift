@@ -32,15 +32,21 @@ class PostListFixedHeaderView: UIView {
 
     /// 代理
     weak var delegate: PostListFixedHeaderViewDelegate?
-
+    
+    let itemHeit: CGFloat = 60
     /// 封面图
+    var imageBg = UIImageView()
     let coverImageView = UIImageView()
     /// 圈名
     let nameLabel = UILabel()
     /// 成员
-    let memberLabel = UILabel()
+//    let memberLabel = UILabel()
+    ///帖子
+    let postButton = UIButton(type: .custom)
+    ///成员
+    let memberButton = UIButton(type: .custom)
     /// 地址
-    let locationLabel = UILabel()
+//    let locationLabel = UILabel()
     /// 圈主
     let ownerLabel = UILabel()
     /// 简介
@@ -79,16 +85,19 @@ class PostListFixedHeaderView: UIView {
     func setUI() {
         backgroundColor = UIColor.clear
         addSubview(whiteView)
+        addSubview(imageBg)
         addSubview(coverImageView)
+        addSubview(postButton)
+        addSubview(memberButton)
         addSubview(nameLabel)
-        addSubview(memberLabel)
-        addSubview(locationLabel)
-        addSubview(ownerLabel)
+//        addSubview(memberLabel)
+//        addSubview(locationLabel)
+//        addSubview(ownerLabel)
         addSubview(introlTitleLabel)
         addSubview(introLabel)
         addSubview(seperatorLine)
         addSubview(joinButton)
-        addSubview(chatButton)
+//        addSubview(chatButton)
     }
 
     func loadModel() {
@@ -103,7 +112,7 @@ class PostListFixedHeaderView: UIView {
         loadMemberCountLabel()
 
         // 4.地址
-        loadLocationLabel()
+//        loadLocationLabel()
 
         // 5.加入按钮
         loadJoinButton()
@@ -112,13 +121,12 @@ class PostListFixedHeaderView: UIView {
         loadChatButton(yRecord: yRecord)
         loadOwnerLabel(yRecord: &yRecord)
 
-        if !model.intro.isEmpty {
-            // 6.分割线
-            loadSeperatorLine(yRecord: &yRecord)
+        // 6.分割线
+        loadSeperatorLine(yRecord: &yRecord)
+        
+        // 7.简介
+        loadIntroLabel(yRecord: &yRecord)
 
-            // 7.简介
-            loadIntroLabel(yRecord: &yRecord)
-        }
 
         // 8.白色背景图
         loadWhiteView(yRecord: &yRecord)
@@ -129,13 +137,21 @@ class PostListFixedHeaderView: UIView {
 
     /// 加载封面图
     func loadCoverImage(yRecord: inout CGFloat) {
+        
+        imageBg.frame = CGRect(x: 10, y: 15, width:itemHeit, height: itemHeit)
+        imageBg.image = UIImage(named: "item_Imgbg")
+        imageBg.layer.cornerRadius = itemHeit*0.5
+        imageBg.contentMode = UIViewContentMode.scaleAspectFill
+        imageBg.clipsToBounds = true
+        let coverWH = itemHeit-2
+        
         let coverUrl = URL(string: model.coverImage)
         coverImageView.contentMode = .scaleAspectFill
+        coverImageView.layer.cornerRadius = itemHeit*0.5
         coverImageView.clipsToBounds = true
-        coverImageView.layer.borderColor = UIColor.white.cgColor
-        coverImageView.layer.borderWidth = 1
         coverImageView.kf.setImage(with: coverUrl, placeholder: UIImage.imageWithColor(TSColor.inconspicuous.disabled, cornerRadius: 0), options: nil, progressBlock: nil, completionHandler: nil)
-        coverImageView.frame = CGRect(x: 10, y: 83, width: 63, height: 63)
+        coverImageView.frame = CGRect(x: 10, y: 10, width: coverWH, height: coverWH)
+        coverImageView.center = imageBg.center
         // 更新高度设置
         yRecord = coverImageView.frame.maxY
     }
@@ -143,54 +159,67 @@ class PostListFixedHeaderView: UIView {
     /// 加载圈名
     func loadNameLabel() {
         nameLabel.font = UIFont.systemFont(ofSize: 16)
-        nameLabel.textColor = UIColor(hex: 0xf4f5f5)
+        nameLabel.textColor = TSColor.main.themeZsColor
         let  name = NSString(string: model.name)
         nameLabel.text = name.replacingOccurrences(of: "\n", with: "")
         nameLabel.sizeToFit()
-        nameLabel.frame = CGRect(x: 85, y: 82, width: UIScreen.main.bounds.width - 85 - 100, height: nameLabel.size.height)
+        nameLabel.frame = CGRect(x: coverImageView.frame.maxX+10, y: 20, width: UIScreen.main.bounds.width - 85 - 100, height: nameLabel.size.height)
         if model.isJoin {
             //已经加入就没有加入按钮，圈名可以多显示一点
             nameLabel.width = UIScreen.main.bounds.width - 85 - 20
         }
-        /// 设置阴影颜色
-        nameLabel.shadowColor = UIColor.black
-        ///设置阴影大小
-        nameLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
+//        /// 设置阴影颜色
+//        nameLabel.shadowColor = UIColor.black
+//        ///设置阴影大小
+//        nameLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
     }
 
     /// 加载成员数
     func loadMemberCountLabel() {
-        memberLabel.font = UIFont.systemFont(ofSize: 12)
-        memberLabel.textColor = UIColor(hex: 0xf4f5f5)
-        memberLabel.text =  "成员 \(model.memberCount) 帖子 \(model.postCount)"
-        memberLabel.sizeToFit()
-        memberLabel.frame = CGRect(origin: CGPoint(x: 85, y: nameLabel.frame.maxY + 10), size: memberLabel.size)
-        /// 设置阴影颜色
-        memberLabel.shadowColor = UIColor.black
-        ///设置阴影大小
-        memberLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
+        
+        ///帖子
+        postButton.setImage(UIImage(named: "group_tz"), for: .normal)
+        postButton.setTitle("帖子: \(model.postCount)", for: .normal)
+        postButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        postButton.backgroundColor = UIColor(red: 59, green: 59, blue: 61)
+        postButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0)
+        postButton.layer.cornerRadius = 12
+        postButton.layer.masksToBounds = true
+        ///成员
+        memberButton.setImage(UIImage(named: "group_cy"), for: .normal)
+        memberButton.setTitle("成员: \(model.memberCount)", for: .normal)
+        memberButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        memberButton.backgroundColor = UIColor(red: 59, green: 59, blue: 61)
+        memberButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0)
+        memberButton.layer.cornerRadius = 12
+        memberButton.layer.masksToBounds = true
+        
+        let postSize = postButton.titleLabel?.text?.sizeOfString(usingFont: (postButton.titleLabel?.font)!)
+        let memSize = memberButton.titleLabel?.text?.sizeOfString(usingFont: (memberButton.titleLabel?.font)!)
+        postButton.frame = CGRect(origin: CGPoint(x: nameLabel.frame.minX, y: nameLabel.frame.maxY + 8), size: CGSize(width: (postSize?.width)!+45, height: 25))
+        memberButton.frame = CGRect(origin: CGPoint(x: postButton.frame.maxX+10, y: nameLabel.frame.maxY + 8), size: CGSize(width: (memSize?.width)!+45, height: 25))
     }
 
     /// 加载地址
-    func loadLocationLabel() {
-        locationLabel.font = UIFont.systemFont(ofSize: 12)
-        locationLabel.textColor = UIColor(hex: 0xf4f5f5)
-        var locationStr: String
-        if model.location.isEmpty {
-           let defautLocations = ["金星", "水星", "火星", "土星", "地球"]
-           let romandIndex = Int(arc4random_uniform(5))
-           locationStr = "位置: \(defautLocations[romandIndex])"
-        } else {
-           locationStr = "位置: \(model.location)"
-        }
-        locationLabel.text = locationStr
-        let localWidth = UIScreen.main.bounds.width - 85 - 95
-        locationLabel.frame = CGRect(x: 85, y: memberLabel.frame.maxY + 5, width: localWidth, height: 15)
-        /// 设置阴影颜色
-        locationLabel.shadowColor = UIColor.black
-        ///设置阴影大小
-        locationLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
-    }
+//    func loadLocationLabel() {
+//        locationLabel.font = UIFont.systemFont(ofSize: 12)
+//        locationLabel.textColor = UIColor(hex: 0xf4f5f5)
+//        var locationStr: String
+//        if model.location.isEmpty {
+//           let defautLocations = ["金星", "水星", "火星", "土星", "地球"]
+//           let romandIndex = Int(arc4random_uniform(5))
+//           locationStr = "位置: \(defautLocations[romandIndex])"
+//        } else {
+//           locationStr = "位置: \(model.location)"
+//        }
+//        locationLabel.text = locationStr
+//        let localWidth = UIScreen.main.bounds.width - 85 - 95
+//        locationLabel.frame = CGRect(x: 85, y: postButton.frame.maxY + 5, width: localWidth, height: 15)
+//        /// 设置阴影颜色
+//        locationLabel.shadowColor = UIColor.black
+//        ///设置阴影大小
+//        locationLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
+//    }
 
     /// 加载加入按钮
     func loadJoinButton() {
@@ -247,9 +276,9 @@ class PostListFixedHeaderView: UIView {
     /// 加载分割线
     func loadSeperatorLine(yRecord: inout CGFloat) {
         seperatorLine.backgroundColor = UIColor(hex: 0xededed)
-        seperatorLine.frame = CGRect(x: 50, y: yRecord + 12, width: UIScreen.main.bounds.width - 50, height: 0.5)
-        /// 更新 yRecord
-        yRecord = seperatorLine.frame.maxY
+        seperatorLine.frame = CGRect(x: 10, y: coverImageView.frame.maxY + 12, width: UIScreen.main.bounds.width - 20, height: 0.5)
+//        /// 更新 yRecord
+//        yRecord = seperatorLine.frame.maxY
     }
 
     /// 加载简介
@@ -257,19 +286,19 @@ class PostListFixedHeaderView: UIView {
         // 1.设置简介标题
         introlTitleLabel.text = "简介"
         introlTitleLabel.font = UIFont.systemFont(ofSize: 14)
-        introlTitleLabel.textColor = UIColor(hex: 0x999999)
+        introlTitleLabel.textColor = TSColor.main.themeZsColor
         introlTitleLabel.sizeToFit()
-        introlTitleLabel.frame = CGRect(origin: CGPoint(x: 10, y: seperatorLine.frame.maxY + 11), size: introlTitleLabel.size)
+        introlTitleLabel.frame = CGRect(origin: CGPoint(x: coverImageView.frame.minX, y: seperatorLine.frame.maxY + 11), size: introlTitleLabel.size)
 
         // 2.设置简介内容
         introLabel.font = UIFont.systemFont(ofSize: 14)
-        introLabel.textColor = UIColor(hex: 0x333333)
+        introLabel.textColor = UIColor.white
         introLabel.isUserInteractionEnabled = true
         introLabel.numberOfLines = 2
         introLabel.textVerticalAlignment = .top
         introLabel.size = CGSize(width: UIScreen.main.bounds.width - 65, height: 1_000)
         introLabel.attributedText = model.intro.attributonString().setTextFont(15).setlineSpacing(6)
-        introLabel.textColor = UIColor(hex: 0x333333)
+        
 
         // 计算 frame
         let contentWidth = UIScreen.main.bounds.width - 65
@@ -292,8 +321,8 @@ class PostListFixedHeaderView: UIView {
         introLabel.frame = CGRect(x: 50, y: seperatorLine.frame.maxY + 12, width: introLabel.width, height: labelHeight)
         addUnfoldButton()
 
-        // 更新 yRecord
-        yRecord = introLabel.frame.maxY
+//        // 更新 yRecord
+//        yRecord = introLabel.frame.maxY
     }
     // 展开按钮
     func addUnfoldButton() {
@@ -359,7 +388,7 @@ class PostListFixedHeaderView: UIView {
     }
 
     func loadWhiteView(yRecord: inout CGFloat) {
-        whiteView.backgroundColor = UIColor.white
+        whiteView.backgroundColor =  TSColor.main.themeTBCellBg
         whiteView.frame = CGRect(x: 0, y: 160, width: UIScreen.main.bounds.width, height: yRecord - 160 + 13)
         // 更新 yRecord
         yRecord = whiteView.frame.maxY

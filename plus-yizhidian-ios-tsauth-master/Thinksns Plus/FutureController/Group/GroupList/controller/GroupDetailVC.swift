@@ -25,12 +25,12 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     fileprivate var model = PostListControllerModel()
     /// header view
     fileprivate let headerView = PostListHeaderView()
-    /// 导航视图
-    fileprivate let navView = PostListNavView()
+//    /// 导航视图
+//    fileprivate let navView = PostListNavView()
     /// 列表视图
     fileprivate let table = GroupDetailRootTableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight), style: .plain)
     /// 分栏高度
-    fileprivate let styleSelectedBarHeight: CGFloat = 45
+    fileprivate let styleSelectedBarHeight: CGFloat = 55
     /// 背景滚动视图
     fileprivate let bgScrollView = UIScrollView(frame: .zero)
     /// 左边视图
@@ -41,12 +41,16 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     fileprivate let maskView = UIControl()
     /// 发布按钮
     fileprivate var buttonForRelease = TSButton(type: .custom)
+    /// 发布视频
+    fileprivate var videoForButton = TSButton(type: .custom)
+    /// 发布照片
+    fileprivate var photoForButton = TSButton(type: .custom)
     /// 最新发布
-    fileprivate var lastPostTable: PostListActionView!
+    fileprivate var lastPostTable: NYPostListActionView!
     /// 最新回复
-    fileprivate var lastCommentTable: PostListActionView!
+    fileprivate var lastCommentTable: NYPostListActionView!
     /// 精华帖子
-    fileprivate var recommendTable: PostListActionView!
+    fileprivate var recommendTable: NYPostListActionView!
     /// 分类按钮数组
     fileprivate var seletedTypeBtns: [UIButton] = []
     fileprivate var seletedTypeBtn = UIButton()
@@ -77,15 +81,60 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setRightUI()
         NotificationCenter.default.addObserver(self, selector: #selector(notiResLeaveTop), name: NSNotification.Name(rawValue: "leaveTop"), object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
         // 更新导航栏右方按钮的位置
-        navView.updateRightButtonFrame()
+//        navView.updateRightButtonFrame()
     }
-
+    
+    func setRightUI()
+    {
+        let shareButton = UIButton(type: .custom)
+        shareButton.setImage(UIImage(named: "com_share"), for: .normal)
+        shareButton.frame = CGRect(x:0,y:0,width:30,height:30)
+        shareButton.addTarget(self, action: #selector(shareClickdo(_:)), for: .touchUpInside)
+        let moreButton = UIButton(type: .custom)
+        moreButton.setImage(UIImage(named: "com_more"), for: .normal)
+        moreButton.frame = CGRect(x:0,y:0,width:30,height:30)
+        moreButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10)
+        moreButton.addTarget(self, action: #selector(moreClickdo(_:)), for: .touchUpInside)
+        self.navigationItem.setRightBarButtonItems([UIBarButtonItem.init(customView: moreButton),UIBarButtonItem.init(customView: shareButton)],animated: false)
+    }
+    //分享
+    func shareClickdo(_ btn:UIButton) {
+        guard let image = headerView.contentView.coverImageView.image else {
+            return
+        }
+        var currenType = PostsType.latest
+        let seletedIndex = seletedTypeBtn.tag - 100
+        if seletedIndex == 0 {
+            currenType = .latest
+        } else if seletedIndex == 1 {
+            currenType = .reply
+        } else if seletedIndex == 2 {
+            currenType = .recommend
+        }
+        var defaultContent = "默认分享内容".localized
+        defaultContent.replaceAll(matching: "kAppName", with: TSAppSettingInfoModel().appDisplayName)
+        var url = ShareURL.groupsList.rawValue
+        url.replaceAll(matching: "replacegroup", with: "\(model.id)")
+        url.replaceAll(matching: "replacefetch", with: currenType.rawValue)
+        let shareContent = model.intro.count > 0 ? model.intro : defaultContent
+        let shareTitle = model.name.count > 0 ? model.name : TSAppSettingInfoModel().appDisplayName + " " + "帖子"
+        
+        let messageModel = TSmessagePopModel(groupDetail: model)
+        let shareView = ShareListView(isMineSend: true, isCollection: false, shareType: ShareListType.momenDetail)
+        shareView.delegate = self
+        shareView.messageModel = messageModel
+        shareView.show(URLString: url, image: image, description: shareContent, title: shareTitle)
+    }
+    func moreClickdo(_ btn:UIButton) {
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TSKeyboardToolbar.share.keyboardstartNotice()
@@ -104,8 +153,10 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         // 1.加载左边视图
         leftView.frame = UIScreen.main.bounds
         leftView.addSubview(table)
-        leftView.addSubview(navView)
+//        leftView.addSubview(navView)
         leftView.addSubview(buttonForRelease)
+        leftView.addSubview(videoForButton)
+        leftView.addSubview(photoForButton)
 
         view.addSubview(leftView)
         view.addSubview(rightView)
@@ -118,7 +169,7 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         // 1.3 header 视图
         headerView.set(taleView: table)
         headerView.delegate = self
-        navView.delegate = self
+//        navView.delegate = self
 
         bgScrollView.frame = CGRect(x: 0, y: styleSelectedBarHeight, width: ScreenWidth, height: ScreenHeight - TSUserInterfacePrinciples.share.getTSNavigationBarHeight() - styleSelectedBarHeight)
         bgScrollView.contentSize = CGSize(width: ScreenWidth * 3, height: 0)
@@ -128,9 +179,9 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         bgScrollView.isPagingEnabled = true
         bgScrollView.bounces = false
         /// 初始化三个显示帖子的子tableview
-        lastPostTable = PostListActionView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "lastPostTable")
-        lastCommentTable = PostListActionView(frame: CGRect(x: ScreenWidth, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "lastCommentTable")
-        recommendTable = PostListActionView(frame: CGRect(x: ScreenWidth * 2, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "recommendTable")
+        lastPostTable = NYPostListActionView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "lastPostTable")
+        lastCommentTable = NYPostListActionView(frame: CGRect(x: ScreenWidth, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "lastCommentTable")
+        recommendTable = NYPostListActionView(frame: CGRect(x: ScreenWidth * 2, y: 0, width: ScreenWidth, height: bgScrollView.height), tableIdentifier: "recommendTable")
         /// 禁止table的下拉刷新
         lastPostTable.mj_header = nil
         lastCommentTable.mj_header = nil
@@ -163,11 +214,25 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         rightView.delegate = self
 
         // 3.发布按钮
-        buttonForRelease.setImage(UIImage(named: "IMG_channel_btn_suspension"), for: .normal)
+        buttonForRelease.setImage(UIImage(named: "com_add_post"), for: .normal)
         buttonForRelease.contentMode = .center
         buttonForRelease.sizeToFit()
-        buttonForRelease.frame = CGRect(x: (UIScreen.main.bounds.width - buttonForRelease.frame.width) - 25, y: view.frame.height - buttonForRelease.frame.height - 25 - TSBottomSafeAreaHeight, width: buttonForRelease.frame.width, height: buttonForRelease.frame.height)
+        buttonForRelease.frame = CGRect(x: (UIScreen.main.bounds.width - buttonForRelease.frame.width) - 25, y: view.frame.height*0.6, width: buttonForRelease.frame.width, height: buttonForRelease.frame.height)
         buttonForRelease.addTarget(self, action: #selector(releaseButtonTaped), for: .touchUpInside)
+        //照片
+        photoForButton.setImage(UIImage(named: "com_album"), for: .normal)
+        photoForButton.alpha = 0
+        photoForButton.isHidden = true
+        photoForButton.contentMode = .center
+        photoForButton.sizeToFit()
+        photoForButton.frame = CGRect(x:(buttonForRelease.frame.minX - photoForButton.frame.width) - 10, y: buttonForRelease.frame.minY - photoForButton.frame.height*0.5 , width: photoForButton.frame.width, height: photoForButton.frame.height)
+        //视频
+        videoForButton.setImage(UIImage(named: "com_video"), for: .normal)
+        videoForButton.alpha = 0
+        videoForButton.isHidden = true
+        videoForButton.contentMode = .center
+        videoForButton.sizeToFit()
+        videoForButton.frame = CGRect(x:photoForButton.frame.minX, y: photoForButton.frame.maxY + 10 , width: videoForButton.frame.width, height: videoForButton.frame.height)
         loading()
         loadData()
         refresh(table: lastPostTable)
@@ -263,14 +328,14 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self?.endLoading()
             self?.groupModel = model
             self?.load(model: PostListControllerModel(groupModel: model))
-            self?.navView.setTitle(model.name)
+//            self?.navView.setTitle(model.name)
         }
     }
 
     func load(model: PostListControllerModel) {
         self.model = model
         // 1.加载 header 视图
-        table.contentOffset.y = -320
+//        table.contentOffset.y = -100
         headerView.load(contentModel: model)
 
         // 2.加载抽屉视图
@@ -304,17 +369,20 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 selectedBtnBgView.addSubview(btn)
                 btn.tag = index + 100
                 btn.setTitle(title, for: .normal)
-                btn.setTitleColor(TSColor.button.disabled, for: .normal)
+                btn.setBackgroundImage(UIImage(named: "com_item_nol"), for: .normal)
+                btn.setBackgroundImage(UIImage(named: "com_item_sel"), for: .selected)
+                btn.setTitleColor(TSColor.button.disabled, for: .selected)
+                btn.setTitleColor(UIColor.white, for: .normal)
                 btn.titleLabel?.font = UIFont.systemFont(ofSize: TSFont.ContentText.text.rawValue)
                 if index == 0 {
-                    btn.setTitleColor(TSColor.normal.content, for: .normal)
+                    btn.isSelected = true
                     seletedTypeBtn = btn
                 }
                 btn.addTarget(self, action: #selector(didSelectedTypeBtn(selectedBtn:)), for: .touchUpInside)
                 seletedTypeBtns.append(btn)
             }
             let spView = UIView(frame: CGRect(x: 0, y: selectedBtnBgView.height - 1, width: selectedBtnBgView.width, height: 1))
-            spView.backgroundColor = TSColor.inconspicuous.background
+            spView.backgroundColor = UIColor(red: 59, green: 59, blue: 61)
             selectedBtnBgView.addSubview(spView)
             /// 添加对应的动态列表
         }
@@ -327,7 +395,7 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             // 1.更新 header view 的动画效果
             headerView.updateChildviews(tableOffset: scrollView.contentOffset.y)
             let offset = -(scrollView.contentOffset.y + headerView.stretchModel.headerHeightMin)
-            navView.updateChildView(offset: offset)
+//            navView.updateChildView(offset: offset)
             if scrollView.contentOffset.y > -TSUserInterfacePrinciples.share.getTSNavigationBarHeight() {
                 scrollView.contentOffset.y = -TSUserInterfacePrinciples.share.getTSNavigationBarHeight()
                 if self.bgTableViewCanScroll == true {
@@ -380,16 +448,46 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     func didSelectedTypeBtn(selectedBtn: UIButton) {
-        for btn in seletedTypeBtns {
-            btn.setTitleColor(TSColor.button.disabled, for: .normal)
-        }
-        selectedBtn.setTitleColor(TSColor.normal.content, for: .normal)
+        seletedTypeBtn.isSelected = false
+        selectedBtn.isSelected = true;
+        seletedTypeBtn = selectedBtn
+//        for btn in seletedTypeBtns {
+//            btn.setTitleColor(TSColor.button.disabled, for: .normal)
+//        }
+//        selectedBtn.setTitleColor(TSColor.normal.content, for: .normal)
         bgScrollView.setContentOffset(CGPoint(x: CGFloat(selectedBtn.tag - 100 ) * ScreenWidth, y: 0), animated: true)
     }
 
     // MARK: - Action
     /// 点击了发布按钮
     func releaseButtonTaped() {
+        //动画
+        if photoForButton.isHidden
+        {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.buttonForRelease.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4))
+                self.photoForButton.alpha = 1
+                self.videoForButton.alpha = 1
+                self.photoForButton.isHidden = false
+                self.videoForButton.isHidden = false
+            }, completion: nil)
+        }
+        else
+        {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.photoForButton.alpha = 0
+                self.videoForButton.alpha = 0
+                self.photoForButton.isHidden = true
+                self.videoForButton.isHidden = true
+                self.buttonForRelease.transform = CGAffineTransform.identity
+            }, completion:nil)
+        }
+        return
+    }
+    
+    ///普通发帖
+    func postPhotoClickdo(btn:TSButton)
+    {
         if model.role == .unjoined {
             let alert = TSAlertController(title: "提示", message: "需要先加入才可发帖", style: .actionsheet, sheetCancelTitle: "知道了")
             present(alert, animated: false, completion: nil)
@@ -400,18 +498,23 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             present(alert, animated: false, completion: nil)
             return
         }
-
+        
         // 判断当前用户是否有发帖权限
         guard model.canRealsePost else {
             let alert = TSAlertController(title: "提示", message: "\"\(model.name)\"\(model.capability.rawValue)拥有发帖权限", style: .actionsheet, sheetCancelTitle: "知道了")
             present(alert, animated: false, completion: nil)
             return
         }
-
+        
         let publishVC = PostPublishController(groupId: self.groupId, groupName: self.groupModel.name, couldSyncMoment: self.groupModel.allowFeed)
         self.navigationController?.pushViewController(publishVC, animated: true)
     }
-
+    ///视频发帖
+    func postVideoClickdo(btn:TSButton)
+    {
+        
+    }
+    
     /// 点击了 退出or转让按钮
     func exitButtonTaped(_ sender: UIButton) {
         let buttonTitle = sender.titleLabel?.text
@@ -599,31 +702,7 @@ extension GroupDetailVC: PostListNavViewDelegate {
 
     /// 分享按钮点击事件
     func navView(_ navView: PostListNavView, didSelectedShareButton: UIButton) {
-        guard let image = headerView.contentView.coverImageView.image else {
-            return
-        }
-        var currenType = PostsType.latest
-        let seletedIndex = seletedTypeBtn.tag - 100
-        if seletedIndex == 0 {
-          currenType = .latest
-        } else if seletedIndex == 1 {
-            currenType = .reply
-        } else if seletedIndex == 2 {
-            currenType = .recommend
-        }
-        var defaultContent = "默认分享内容".localized
-        defaultContent.replaceAll(matching: "kAppName", with: TSAppSettingInfoModel().appDisplayName)
-        var url = ShareURL.groupsList.rawValue
-        url.replaceAll(matching: "replacegroup", with: "\(model.id)")
-        url.replaceAll(matching: "replacefetch", with: currenType.rawValue)
-        let shareContent = model.intro.count > 0 ? model.intro : defaultContent
-        let shareTitle = model.name.count > 0 ? model.name : TSAppSettingInfoModel().appDisplayName + " " + "帖子"
-
-        let messageModel = TSmessagePopModel(groupDetail: model)
-        let shareView = ShareListView(isMineSend: true, isCollection: false, shareType: ShareListType.momenDetail)
-        shareView.delegate = self
-        shareView.messageModel = messageModel
-        shareView.show(URLString: url, image: image, description: shareContent, title: shareTitle)
+        
     }
 
     /// 搜索按钮点击事件
@@ -634,7 +713,7 @@ extension GroupDetailVC: PostListNavViewDelegate {
 }
 
 // MARK: - 帖子列表刷新代理事件
-extension GroupDetailVC: FeedListViewRefreshDelegate {
+extension GroupDetailVC: NYFeedListViewRefreshDelegate {
     /// 上拉加载
     func feedListTable(_ table: PostListActionView, loadMoreDataOf tableIdentifier: String) {
         var type: PostsType = PostsType.latest
@@ -648,7 +727,7 @@ extension GroupDetailVC: FeedListViewRefreshDelegate {
         table.curentPage += 1
         GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: table.after) { [weak self] (model, message, status) in
             table.isRequestList = false
-            self?.navView.indicator.dismiss()
+//            self?.navView.indicator.dismiss()
             var datas: [FeedListCellModel]?
             if let model = model {
                 datas = []
@@ -660,9 +739,9 @@ extension GroupDetailVC: FeedListViewRefreshDelegate {
         }
     }
     // 下拉刷新
-    func refresh(table: PostListActionView) {
+    func refresh(table: NYPostListActionView) {
         table.isRequestList = true
-        navView.indicator.starAnimationForFlowerGrey() // 显示小菊花
+//        navView.indicator.starAnimationForFlowerGrey() // 显示小菊花
         table.curentPage = 0
         var type: PostsType = PostsType.latest
         if table == self.lastPostTable {
@@ -673,7 +752,7 @@ extension GroupDetailVC: FeedListViewRefreshDelegate {
             type = PostsType.recommend
         }
         GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: nil) { [weak self] (model, message, status) in
-            self?.navView.indicator.dismiss()
+//            self?.navView.indicator.dismiss()
             table.isRequestList = false
             var datas: [FeedListCellModel]?
             if let model = model {
@@ -719,17 +798,17 @@ extension GroupDetailVC: FeedListViewRefreshDelegate {
 }
 
 // MARK: - 帖子列表滚动代理事件
-extension GroupDetailVC: FeedListViewScrollowDelegate {
+extension GroupDetailVC: NYFeedListViewScrollowDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         // 2.更新导航视图的动画效果
         // 这里需要把 offset 处理一下，移除 headerView 引起的 table inset 偏移的影响
         let offset = -(scrollView.contentOffset.y + headerView.stretchModel.headerHeightMin)
         // 3.当下拉到一定程度的时候，发起下拉刷新操作
         if offset > (TSStatusBarHeight + 25) {
-            // 如果下拉刷新正在进行，就什么都不做
-            if navView.indicator.isAnimating {
-                return
-            }
+//            // 如果下拉刷新正在进行，就什么都不做
+//            if navView.indicator.isAnimating {
+//                return
+//            }
             let seletedIndex = seletedTypeBtn.tag - 100
             if seletedIndex == 0 {
                 // 发起下拉刷新操作

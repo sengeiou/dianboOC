@@ -194,14 +194,14 @@ class GroupHomeController: UIViewController {
                 let model = GroupListSectionViewModel()
                 model.maxCount = 5
                 model.rightType = .seeAll
-                model.title = "已加入"
+                model.title = "显示_已加入".localized
                 model.cellModels = myGroups
                 self?.datas.append(model)
             } else {
                 let model = GroupListSectionViewModel()
                 model.maxCount = 5
                 model.rightType = .seeAll
-                model.title = "已加入"
+                model.title = "显示_已加入".localized
                 model.cellModels = []
                 self?.datas.append(model)
             }
@@ -209,7 +209,7 @@ class GroupHomeController: UIViewController {
                 let model = GroupListSectionViewModel()
                 model.maxCount = 5
                 model.rightType = .change
-                model.title = "热门推荐"
+                model.title = "显示_热门推荐".localized
                 model.titleColor = TSColor.main.themeZsColor
                 model.cellModels = recommendGroups
                 self?.datas.append(model)
@@ -292,7 +292,7 @@ extension GroupHomeController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 65
+            return 70
         }
         return 120
     }

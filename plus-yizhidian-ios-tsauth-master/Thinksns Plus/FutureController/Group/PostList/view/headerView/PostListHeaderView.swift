@@ -57,7 +57,7 @@ class PostListHeaderView: StretchTableHeader {
         // 3.刷新视图
         load(stretchModel: stretchHeaderModel)
         updateChildviews(tableOffset: table.contentOffset.y)
-        backgroundColor = TSColor.inconspicuous.background
+        backgroundColor = TSColor.main.themeTBCellBg
     }
     /// 刷新子视图的 frame
     ///
@@ -75,7 +75,9 @@ class PostListHeaderView: StretchTableHeader {
         // 2.更新背景视图的 frame
         let bgWidth = (stretchModel.bgHeightMin + offset) * 2.5
         bgImageView.frame = CGRect(x: -(bgWidth - orignalWidth) / 2, y: 0, width: bgWidth, height: stretchModel.bgHeightMin + offset)
+        bgImageView.isHidden = true
         bottomMaskView.frame = CGRect(x: 0, y:  bgImageView.frame.maxY - 44, width: UIScreen.main.bounds.width, height: 44)
+        bottomMaskView.isHidden = true
         // 如果有高斯模糊层
         if stretchModel.bgDisplay == .blur {
             blurView.frame = bgImageView.bounds

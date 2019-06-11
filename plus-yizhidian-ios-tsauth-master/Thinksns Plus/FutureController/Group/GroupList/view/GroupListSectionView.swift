@@ -67,7 +67,7 @@ class GroupListSectionView: UITableViewHeaderFooterView {
         switch model.rightType {
         case .change:
             title = " 换一换"
-            image = "IMG_ico_circle_exchange"
+            image = "group_up"
             rightButton.semanticContentAttribute = .forceLeftToRight
         case .seeAll:
             if model.cellModels.count == 0 {
@@ -85,7 +85,7 @@ class GroupListSectionView: UITableViewHeaderFooterView {
             rightButton.semanticContentAttribute = .forceRightToLeft
         }
         rightButton.setTitle(title, for: .normal)
-        rightButton.setTitleColor(UIColor(hex: 0x999999), for: .normal)
+        rightButton.setTitleColor(UIColor.white, for: .normal)
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         rightButton.setImage(UIImage(named: image), for: .normal)
         rightButton.addTarget(self, action: #selector(rightButtonTaped(_:)), for: .touchUpInside)

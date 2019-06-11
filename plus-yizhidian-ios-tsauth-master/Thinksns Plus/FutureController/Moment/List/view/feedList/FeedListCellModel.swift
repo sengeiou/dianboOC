@@ -143,7 +143,8 @@ class FeedListCellModel {
     var hot: Int = 0
     /// 加精标识，有值标识加精，没值表示不加精
     var excellent: String?
-
+    /// 帖子信息
+    var postListModel:PostListModel!
     /// 是否显示头像
     var isHiddenAvatar = false
     /// 是否显示昵称
@@ -235,6 +236,7 @@ class FeedListCellModel {
 
     /// 根据帖子 net model 来初始化
     init(postModel model: PostListModel) {
+        postListModel = model
         id = .post(gourpId: model.groupId, postId: model.id)
         avatarInfo = AvatarInfo(userModel: model.userInfo)
         avatarInfo?.type = .normal(userId: model.userInfo.userIdentity)

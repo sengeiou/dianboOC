@@ -145,6 +145,7 @@ class NYHotTopicCell: UITableViewCell {
         bgView.frame = hotTopicFrame.bgViewF!
         self.headerImageButton?.frame = hotTopicFrame.headViewF!
         self.headerImageButton?.layer.cornerRadius = (hotTopicFrame.headViewF?.size.width)!*0.5
+        self.headerImageButton?.layer.masksToBounds = true
         //头像
         if let url = model?.userInfo.avatar?.url {
             self.headerImageButton?.setImageWith(URL(string: url), for: .normal)

@@ -1,88 +1,112 @@
 //
-//  MomentListView.swift
-//  ThinkSNS +
+//  NYGroupListView.swift
+//  ThinkSNSPlus
 //
-//  Created by GorCat on 2017/10/13.
-//  Copyright © 2017年 ZhiYiCX. All rights reserved.
+//  Created by ningye on 2019/6/9.
+//  Copyright © 2019 ZhiYiCX. All rights reserved.
 //
-//  动态列表视图
 
 import UIKit
-
-@objc protocol FeedListViewRefreshDelegate: class {
-
+@objc protocol NYFeedListViewRefreshDelegate: class {
+    
     /// 下拉刷新
-    @objc optional func feedListTable(_ table: FeedListView, refreshingDataOf tableIdentifier: String)
-
+    @objc optional func feedListTable(_ table: NYPostListActionView, refreshingDataOf tableIdentifier: String)
+    
     /// 上拉加载
-    @objc optional func feedListTable(_ table: FeedListView, loadMoreDataOf tableIdentifier: String)
+    @objc optional func feedListTable(_ table: NYPostListActionView, loadMoreDataOf tableIdentifier: String)
 }
 
 /// 交互代理事件
-@objc protocol FeedListViewDelegate: class {
-
+@objc protocol NYFeedListViewDelegate: class {
+    
     /// 点击了动态 cell
     ///
     /// - Parameters:
     ///   - onSeeAllButton: 点击的范围是否属于“查看全部评论”按钮上
-    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, onSeeAllButton: Bool)
-
+    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, onSeeAllButton: Bool)
+    
     /// 点击了图片
-    func feedList(_ view: FeedListView, didSelected  cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
-
+    func feedList(_ view: NYPostListActionView, didSelected  cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
+    
     /// 点击了工具栏
-    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int)
-
+    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int)
+    
     /// 点击了评论行
-    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
-
+    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
+    
     /// 长按了评论行
-    func feedList(_ view: FeedListView, didLongPress cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
-
+    func feedList(_ view: NYPostListActionView, didLongPress cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
+    
     /// 点击了评论内容中的用户名
-    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int)
-
+    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int)
+    
     /// 点击了重发按钮
-    func feedList(_ view: FeedListView, didSelectedResendButton cell: FeedListCell)
+    func feedList(_ view: NYPostListActionView, didSelectedResendButton cell: FeedListCell)
     /// 点击了话题板块儿的某个话题
-    @objc optional func feedListDidClickTopic(_ view: FeedListView, topicId: Int)
+    @objc optional func feedListDidClickTopic(_ view: NYPostListActionView, topicId: Int)
 }
 
-@objc protocol FeedListViewScrollowDelegate: class {
+@objc protocol NYFeedListViewScrollowDelegate: class {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     @objc optional func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
 }
 
-class FeedListView: TSTableView {
-
+class NYPostListActionView: TSTableView
+{
     enum SectionViewType {
         case none
-        case topic(FilterSectionViewModel, FilterSectionViewDelegate)
-        /// 有过滤弹窗按钮的 section view
-        case filter(FilterSectionViewModel, FilterSectionViewDelegate?)
-        /// 没有过滤弹窗,只有数量的section View
-        case count(FilterSectionViewModel)
+//        case topic(FilterSectionViewModel, FilterSectionViewDelegate)
+//        /// 有过滤弹窗按钮的 section view
+//        case filter(FilterSectionViewModel, FilterSectionViewDelegate?)
+//        /// 没有过滤弹窗,只有数量的section View
+//        case count(FilterSectionViewModel)
     }
-
-    /// 数据源 
+    /// 圈子 id
+    var groupId: Int?
+    /// 当前用户在圈子中的角色
+    var role: GroupManagerType?
+    /// 是否来自圈子标记，用于进入帖子详情时使用(本视图被多处使用，而进入帖子详情页需要该参数)
+    var fromGroupFlag: Bool = false
+    
+    /// 创建新评论需要用到的信息
+    ///
+    /// - (feedIndexPath, feedId, replyId, replyName)
+    var newCommentInfo: (IndexPath, Int, Int?, String?)?
+    
+    /// 评论编辑弹框需要用的属性（大概是这样）
+    var yAxis: CGFloat = 0
+    /// 是否是联合滚动的子视图
+    var isUnionChildTable: Bool = false
+    /// 主视图是否可以滚动
+    var curentTabCanScroll: Bool = false {
+        didSet {
+            if curentTabCanScroll == false {
+                self.contentOffset = .zero
+            }
+        }
+    }
+    /// 是否正在请求数据
+    var isRequestList: Bool = false
+    
+    /// 数据源
     var datas: [FeedListCellModel] = []
+    /// 我们自己的数据
+    var dataSourceList = NSMutableArray()
     /// 刷新代理
-    weak var refreshDelegate: FeedListViewRefreshDelegate?
+    weak var refreshDelegate: NYFeedListViewRefreshDelegate?
     /// 交互代理
-    weak var interactDelegate: FeedListViewDelegate?
+    weak var interactDelegate: NYFeedListViewDelegate?
     /// 滚动代理
-    weak var scrollDelegate: FeedListViewScrollowDelegate?
-
-    /// section view 类型
-    var sectionViewType = SectionViewType.none
-
+    weak var scrollDelegate: NYFeedListViewScrollowDelegate?
+    
     /// table 区分标识符，当多个 TSQuoraTableView 同时存在同一个界面时区分彼此
     var tableIdentifier = ""
     /// 是否需要显示话题板块儿
     var showTopics = true
     /// 动态所属话题的话题id
     var cellTopicId: Int = 0
-
+    /// section view 类型
+    var sectionViewType = SectionViewType.none
     /// 单页条数
     var listLimit = TSAppConfig.share.localInfo.limit
     /// 热门的分页是需要根据分页数量*listLimit
@@ -98,54 +122,54 @@ class FeedListView: TSTableView {
         case .feed(let feedId):
             return feedId
         case .post(_, _):
-           return self.curentPage * self.listLimit
+            return self.curentPage * self.listLimit
         case .topic(_, _):
             return self.curentPage * self.listLimit
         }
     }
-
+    
     /// 是否需要显示加精的标识
     func isNeedShowPostExcellent() -> Bool {
         return true
     }
-
+    
     // MARK: - 生命周期
     init(frame: CGRect, tableIdentifier identifier: String) {
         super.init(frame: frame, style: .plain)
         tableIdentifier = identifier
         setUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(notiResReloadPaiedFeed(noti:)), name: NSNotification.Name.Moment.paidReloadFeedList, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(momentDetailVCDelete(noti:)), name: NSNotification.Name.Moment.momentDetailVCDelete, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(notiResReloadPaiedFeed(noti:)), name: NSNotification.Name.Moment.paidReloadFeedList, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(momentDetailVCDelete(noti:)), name: NSNotification.Name.Moment.momentDetailVCDelete, object: nil)
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     var headerViewInsets = UIEdgeInsets.zero {
         didSet {
             shouldManuallyLayoutHeaderViews = headerViewInsets != .zero
             setNeedsLayout()
         }
     }
+    
     var shouldManuallyLayoutHeaderViews = false
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if shouldManuallyLayoutHeaderViews {
             layoutHeaderViews()
         }
     }
-
+    
     func layoutHeaderViews() {
         let numberOfSections = self.numberOfSections
         let contentInset = self.contentInset
         let contentOffset = self.contentOffset
         let sectionViewMinimumOriginY = contentOffset.y + contentInset.top + headerViewInsets.top + TSStatusBarHeight - 20
-
+        
         //    Layout each header view
         for section in 0 ..< numberOfSections {
             guard let sectionView = self.headerView(forSection: section) else {
@@ -153,20 +177,20 @@ class FeedListView: TSTableView {
             }
             let sectionFrame = rect(forSection: section)
             var sectionViewFrame = sectionView.frame
-
+            
             sectionViewFrame.origin.y = sectionFrame.origin.y < sectionViewMinimumOriginY ? sectionViewMinimumOriginY : sectionFrame.origin.y
-
+            
             if section < numberOfSections - 1 {
                 let nextSectionFrame = self.rect(forSection: section + 1)
                 if sectionViewFrame.maxY > nextSectionFrame.minY {
                     sectionViewFrame.origin.y = nextSectionFrame.origin.y - sectionViewFrame.size.height
                 }
             }
-
+            
             sectionView.frame = sectionViewFrame
         }
     }
-
+    
     // MARK: - UI
     func setUI() {
         backgroundColor = TSColor.main.themeTB
@@ -174,19 +198,19 @@ class FeedListView: TSTableView {
         delegate = self
         dataSource = self
         estimatedRowHeight = 100
-        register(FeedListCell.self, forCellReuseIdentifier: FeedListCell.identifier)
+        register(NYHotTopicCell.self, forCellReuseIdentifier: tableIdentifier)
         register(FilterSectionView.self, forHeaderFooterViewReuseIdentifier: FilterSectionView.identifier)
     }
-
+    
     // MAKR: - Data
     override func refresh() {
         refreshDelegate?.feedListTable?(self, refreshingDataOf: tableIdentifier)
     }
-
+    
     override func loadMore() {
         refreshDelegate?.feedListTable?(self, loadMoreDataOf: tableIdentifier)
     }
-
+    
     /// 处理下拉刷新的数据，并更新界面 UI
     func processRefresh(data: [FeedListCellModel]?, message: String?, status: Bool) {
         // 1.隐藏指示器
@@ -211,10 +235,19 @@ class FeedListView: TSTableView {
         if datas.isEmpty {
             show(placeholderView: .empty)
         }
+        else
+        {
+            for obj in datas {
+                let hotF = HotTopicFrameModel()
+                hotF.setFeedListCellModel(feedModel: obj)
+                //                hotF.setHotTopicModel(hotTModel: obj)
+                self.dataSourceList.add(hotF)
+            }
+        }
         // 刷新界面
         reloadData()
     }
-
+    
     /// 处理上拉刷新的数据，并更新界面 UI
     func processloadMore(data: [FeedListCellModel]?, message: String?, status: Bool) {
         // 1.获取数据失败，显示"网络失败"的 footer
@@ -242,81 +275,78 @@ class FeedListView: TSTableView {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension FeedListView: UITableViewDelegate, UITableViewDataSource {
-
+extension NYPostListActionView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !datas.isEmpty {
             removePlaceholderViews()
         }
         if mj_footer != nil {
-            mj_footer.isHidden = datas.count < listLimit
+            mj_footer.isHidden = dataSourceList.count < listLimit
         }
-        return datas.count
+        return dataSourceList.count
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch sectionViewType {
         case .none:
             return 0
-        case .filter(_), .count(_):
-            return 35
-        case .topic:
-            return 40
+//        case .filter(_), .count(_):
+//            return 35
+//        case .topic:
+//            return 40
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight = datas[indexPath.row].cellHeight
+        let model = self.dataSourceList[indexPath.row] as! HotTopicFrameModel
+        let cellHeight = model.cellHeight!
         if cellHeight == 0 {
             return UITableViewAutomaticDimension
         }
         return cellHeight
     }
-
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight = datas[indexPath.row].cellHeight
+        let model = self.dataSourceList[indexPath.row] as! HotTopicFrameModel
+        let cellHeight = model.cellHeight!
+//        let cellHeight = datas[indexPath.row].cellHeight
         if cellHeight == 0 {
             return UITableViewAutomaticDimension
         }
         return cellHeight
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch sectionViewType {
         case .none:
             return nil
-        case .filter(let model, let delegate):
-            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
-            sectionView.model = model
-            sectionView.delegate = delegate
-            sectionView.filterButton.isHidden = false
-            return sectionView
-        case .count(let model):
-            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
-            sectionView.model = model
-            sectionView.filterButton.isHidden = true
-            return sectionView
-        case .topic(let model, let delegate):
-            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
-            sectionView.headerSectionHeight = 40.0
-            sectionView.model = model
-            sectionView.delegate = delegate
-            sectionView.filterButton.isHidden = true
-            return sectionView
+//        case .filter(let model, let delegate):
+//            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
+//            sectionView.model = model
+//            sectionView.delegate = delegate
+//            sectionView.filterButton.isHidden = false
+//            return sectionView
+//        case .count(let model):
+//            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
+//            sectionView.model = model
+//            sectionView.filterButton.isHidden = true
+//            return sectionView
+//        case .topic(let model, let delegate):
+//            let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterSectionView.identifier) as! FilterSectionView
+//            sectionView.headerSectionHeight = 40.0
+//            sectionView.model = model
+//            sectionView.delegate = delegate
+//            sectionView.filterButton.isHidden = true
+//            return sectionView
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = FeedListCell.cell(for: tableView, at: indexPath)
-        cell.isNeedShowPostExcellent = isNeedShowPostExcellent()
-        let model = datas[indexPath.row]
-        model.showTopics = showTopics
-        model.cellTopicId = cellTopicId
-        cell.model = model
-        cell.delegate = self
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYHotTopicCell
+        cell.setHotTopicFrameModel(hotTopicFrame: self.dataSourceList[indexPath.row] as! HotTopicFrameModel)
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) as? FeedListCell else {
@@ -361,14 +391,15 @@ extension FeedListView: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
 }
 
 // MARK: - UIScrollViewDelegate
-extension FeedListView {
+extension NYPostListActionView {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         scrollDelegate?.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
     }
-
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideReleaseButton"), object: nil)
@@ -377,13 +408,13 @@ extension FeedListView {
         TSAnimationTool.animationManager.stopGifAnimation()
         TSAnimationTool.animationManager.resetGifSuperView()
     }
-
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showReleaseButton"), object: nil)
-        getCurrentGifPicture()
+//        getCurrentGifPicture()
     }
-
+    
     /// 这里检索当前可见有动图且动图至少有一张是满足可见百分之八十
     func getCurrentGifPicture() {
         var hasGifAndCanPlay = false
@@ -425,61 +456,5 @@ extension FeedListView {
             TSAnimationTool.animationManager.allSuperView = self.superview
             TSAnimationTool.animationManager.getGifPictures()
         }
-    }
-}
-
-// MARK: - FeedListCellDelegate: 动态列表 cell 代理事件
-extension FeedListView: FeedListCellDelegate {
-
-    /// 点击了查看更多跳转到详情页面
-    func feedCell(_ cell: FeedListCell, at index: Int) {
-        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
-    }
-
-    /// 点击了图片
-    func feedCell(_ cell: FeedListCell, didSelectedPictures pictureView: PicturesTrellisView, at index: Int) {
-        interactDelegate?.feedList(self, didSelected: cell, on: pictureView, withPictureIndex: index)
-    }
-
-    /// 点击了图片上的数量蒙层按钮
-    func feedCell(_ cell: FeedListCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView) {
-        guard let indexPath = self.indexPath(for: cell) else {
-            return
-        }
-        tableView(self, didSelectRowAt: indexPath)
-    }
-
-    /// 点击了工具栏
-    func feedCell(_ cell: FeedListCell, didSelectedToolbar toolbar: TSToolbarView, at index: Int) {
-        interactDelegate?.feedList(self, didSelected: cell, on: toolbar, withToolbarButtonIndex: index)
-    }
-
-    /// 点击了评论行
-    func feedCell(_ cell: FeedListCell, didSelectedComment commentView: FeedCommentListView, at indexPath: IndexPath) {
-        interactDelegate?.feedList(self, didSelected: cell, on: commentView, withCommentIndexPath: indexPath)
-    }
-
-    /// 点击了评论行上的用户名
-    func feedCell(_ cell: FeedListCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int) {
-        interactDelegate?.feedList(self, didSelected: cell, didSelectedComment: commentCell, onUser: userId)
-    }
-
-    /// 长按了评论行
-    func feedCell(_ cell: FeedListCell, didLongPressComment commentView: FeedCommentListView, at indexPath: IndexPath) {
-        interactDelegate?.feedList(self, didLongPress: cell, on: commentView, withCommentIndexPath: indexPath)
-    }
-
-    /// 点击了查看全部按钮
-    func feedCellDidSelectedSeeAllButton(_ cell: FeedListCell) {
-        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: true)
-    }
-
-    /// 点击了重发按钮
-    func feedCellDidSelectedResendButton(_ cell: FeedListCell) {
-        interactDelegate?.feedList(self, didSelectedResendButton: cell)
-    }
-
-    func feedCellDidClickTopic(_ cell: FeedListCell, topicId: Int) {
-        interactDelegate?.feedListDidClickTopic!(self, topicId: topicId)
     }
 }

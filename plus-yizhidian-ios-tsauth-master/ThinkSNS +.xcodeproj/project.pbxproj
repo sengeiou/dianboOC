@@ -1214,6 +1214,7 @@
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
 		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
+		B277D28622AD14F500EE142A /* NYPostListActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D28522AD14F500EE142A /* NYPostListActionView.swift */; };
 		B28D87E722A3BC21003FE63A /* NYChannelSelectManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */; };
 		B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E822A3C584003FE63A /* NYTopChannelView.swift */; };
 		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
@@ -2680,6 +2681,7 @@
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
 		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
+		B277D28522AD14F500EE142A /* NYPostListActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPostListActionView.swift; sourceTree = "<group>"; };
 		B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelSelectManageVC.swift; sourceTree = "<group>"; };
 		B28D87E822A3C584003FE63A /* NYTopChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTopChannelView.swift; sourceTree = "<group>"; };
 		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -6894,6 +6896,7 @@
 				831653EE1FC5108700150D70 /* GroupHomeCountCell.swift */,
 				831653EF1FC5108700150D70 /* GroupHomeCountCell.xib */,
 				831653F61FC5565700150D70 /* GroupListRightNavView.swift */,
+				B277D28522AD14F500EE142A /* NYPostListActionView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -8923,6 +8926,7 @@
 				537A26111F56522400BA2EE5 /* TSQuoraDetailController.swift in Sources */,
 				537A26211F56DA7600BA2EE5 /* TSAnswerOrderTypeSelectPopView.swift in Sources */,
 				836B94C81F7F3DC30006E3DC /* TSQuoraTopicsJoinTableCell.swift in Sources */,
+				B277D28622AD14F500EE142A /* NYPostListActionView.swift in Sources */,
 				1731B2F11E8C9C560098B605 /* TSNewsTagObject.swift in Sources */,
 				881B498D21478EC4001441A8 /* GroupDetailVC.swift in Sources */,
 				8306B7E01F5566B00072B1B3 /* TSQuoraTopicObject.swift in Sources */,

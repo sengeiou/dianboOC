@@ -71,6 +71,23 @@ class HotTopicFrameModel: Mappable
         
     }
     
+    func setFeedListCellModel(feedModel:FeedListCellModel)
+    {
+        let hotModel = HotTopicModel()
+        hotModel.id = feedModel.cellTopicId
+        hotModel.group_id = feedModel.fromGroupID
+        hotModel.title = feedModel.title
+        hotModel.user_id = feedModel.userId
+        hotModel.summary = feedModel.content
+        hotModel.likes_count = 1
+        hotModel.comments_count = feedModel.comments.count
+        hotModel.views_count = 1
+        hotModel.userInfo = feedModel.postListModel.userInfo
+        hotModel.created_at = feedModel.postListModel.create
+        hotModel.comment_updated_at = feedModel.postListModel.update
+        setHotTopicModel(hotTModel: hotModel)
+    }
+    
     func setHotTopicModel(hotTModel:HotTopicModel)
     {
         hotTopicModel = hotTModel

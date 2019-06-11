@@ -38,7 +38,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         me_tablview.dataSource = self
         me_tablview.separatorStyle = UITableViewCell.SeparatorStyle.none
 //        me_tablview.register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
-        me_tablview.register(NYHotTopicCell, forCellReuseIdentifier: tableIdentifier)
+        me_tablview.register(NYHotTopicCell.self, forCellReuseIdentifier: tableIdentifier)
         me_tablview.backgroundColor = TSColor.main.themeTB
         me_tablview.backgroundView?.backgroundColor = TSColor.main.themeTB
         me_tablview.tableHeaderView = starHead
