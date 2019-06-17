@@ -244,7 +244,7 @@ class TSMomentTaskQueue: NSObject {
 
     }
 
-    func postShortVideo(urlPath: String, coverImage: UIImage, feedContent: String?, topicsInfo: [TopicCommonModel]? = [], isTopicPublish: Bool) {
+    func postShortVideo(urlPath: String, coverImage: UIImage, feedContent: String?, topicsInfo: [TopicCommonModel]? = [], isTopicPublish: Bool,group_id:Int = 0) {
         // 生成数据缓存数据
         // 上传数据
         // 发布动态
@@ -297,6 +297,7 @@ class TSMomentTaskQueue: NSObject {
         // 封面的尺寸等于视频的原始尺寸
         imageSizes.append(CGSize(width: videoTrack.naturalSize.width, height: videoTrack.naturalSize.height))
         let momentListObject = TSDatabaseManager().moment.save(feedID: feedID, shortVideoOutputUrl: videoFeedName, feedContent: feedContent ?? "", feedTitle: nil, coordinate: nil, imageCacheKeys: imageCacheKeys, imageSizes: imageSizes, imageMimeTypes: ["image/jpeg"], userId: TSCurrentUserInfo.share.userInfo!.userIdentity, nsDate: NSDate(), topicsInfo: topicsInfo)
+        momentListObject.group_id = group_id
         self.uploadVideo(momentListObject: momentListObject, isTopicPublish: isTopicPublish)
         momentListObject.sendState = 0 ///< 发送中
         TSDatabaseManager().moment.save(momentRelease: momentListObject)
@@ -345,6 +346,7 @@ class TSMomentTaskQueue: NSObject {
             let requestGroup = DispatchGroup()
             requestGroup.enter()
             requestGroup.enter()
+            //上传文件
             TSUploadNetworkManager().uploadVideoFile(data: videoData, videoSize: videoSize) { (fileID, _, _) in
                 videoFileID = fileID
                 requestGroup.leave()

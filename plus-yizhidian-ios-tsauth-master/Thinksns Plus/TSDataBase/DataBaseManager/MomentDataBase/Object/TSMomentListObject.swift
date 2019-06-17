@@ -33,6 +33,9 @@ class TSMomentListObject: Object {
     dynamic var feedIdentity = -1
     /// 主键 本地创建的数据等于初始化的本地 feedIdentity 服务器给的数据等于服务器的 feedIdentity
     dynamic var primaryKey = -1
+    /// group_id
+    dynamic var group_id = -1
+    
     /// 动态标题
     dynamic var title = ""
     /// 动态内容

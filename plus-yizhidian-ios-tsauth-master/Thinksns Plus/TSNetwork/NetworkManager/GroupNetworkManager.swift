@@ -584,6 +584,7 @@ extension GroupNetworkManager {
         // 1.请求 url
         var request = GroupNetworkRequest().postList
         request.urlPath = request.fullPathWith(replacers: ["\(groupId)"])
+        
         // 2.配置参数
         var parameters: [String: Any] = ["limit": limit]
         if let offset = offset {

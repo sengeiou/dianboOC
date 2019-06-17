@@ -1207,6 +1207,7 @@
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
 		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
+		B2421DD222B0D3D00076AFF1 /* NYImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */; };
 		B244258A228732FD00500D08 /* NYSearchListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2442589228732FD00500D08 /* NYSearchListVC.swift */; };
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
@@ -2674,6 +2675,7 @@
 		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
 		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B23A1362227B51C600805B85 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYImageButton.swift; sourceTree = "<group>"; };
 		B2442589228732FD00500D08 /* NYSearchListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchListVC.swift; sourceTree = "<group>"; };
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
@@ -5560,6 +5562,7 @@
 				530BBB831FB19E1C00EE96D4 /* TSSimpleCommentView.swift */,
 				530BBB851FB19E8400EE96D4 /* TSSimpleCommentListView.swift */,
 				53E5E4421FB2B216002FA8D3 /* TSCommentContentView.swift */,
+				B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -9426,6 +9429,7 @@
 				365795B71E63D75B00B8D409 /* LikeRankingListTableViewCell.swift in Sources */,
 				53A0FFA01FE3A8020065C94B /* GroupReportTypeSelectPopView.swift in Sources */,
 				38CC4BA120999A490003A55E /* TSSearchBar.swift in Sources */,
+				B2421DD222B0D3D00076AFF1 /* NYImageButton.swift in Sources */,
 				365795A71E63D75A00B8D409 /* TSProgressButton.swift in Sources */,
 				8367ECD51F70CB3600CB541D /* LoadingView.swift in Sources */,
 				83AA7DB520197478007E1F97 /* IntegrationCashRecordTable.swift in Sources */,

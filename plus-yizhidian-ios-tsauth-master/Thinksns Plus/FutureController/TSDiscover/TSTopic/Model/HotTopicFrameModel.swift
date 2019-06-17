@@ -47,6 +47,7 @@ class HotTopicFrameModel: Mappable
     var lineListF=NSMutableArray()
     
     ///9图 数组
+    var imgListContentF:CGRect?
     var imgListF:NSMutableArray?
     
     ///背景图
@@ -57,6 +58,8 @@ class HotTopicFrameModel: Mappable
     
     ///热门cell 模型
     var hotTopicModel:HotTopicModel?
+    
+    var hotMomentListModel:TSMomentListModel?
     
     init() {
     }
@@ -86,6 +89,97 @@ class HotTopicFrameModel: Mappable
         hotModel.created_at = feedModel.postListModel.create
         hotModel.comment_updated_at = feedModel.postListModel.update
         setHotTopicModel(hotTModel: hotModel)
+    }
+    
+    func setHotMomentListModel(hotMomentModel:TSMomentListModel)
+    {
+        hotMomentListModel = hotMomentModel
+        //计算 frame
+        let maring:CGFloat = 12
+        ///头像
+        let headWH:CGFloat = 50
+        headViewF = CGRect(x:maring,y:CGFloat(15),width:headWH,height:headWH)
+        
+        ///昵称
+        let nickW:CGFloat = 150
+        let nickH:CGFloat = 20
+        nickViewF = CGRect(x:CGFloat((headViewF?.maxX)!+15),y:CGFloat(15),width:nickW,height:nickH)
+        
+        ///time
+        let timeH:CGFloat = 20
+        let timeW:CGFloat = 100
+        //            (titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))).width
+        timeViewF = CGRect(x:CGFloat((headViewF?.maxX)!+15),y:CGFloat((nickViewF?.maxY)!+5),width:timeW,height:timeH)
+        
+        ///来自
+        let fromW:CGFloat = 200
+        let fromH:CGFloat = 20
+        fromTxtViewF = CGRect(x:((timeViewF?.maxX)!+10),y:(timeViewF?.origin.y)!,width:fromW,height:fromH)
+        
+        ///内容
+        let contentW:CGFloat = ScreenWidth-maring*2
+        let contentH:CGFloat = 50
+        contentViewF = CGRect(x:maring,y:(headViewF?.maxY)!+5,width:contentW,height:contentH)
+        
+        ///查看全文
+        let allTxtW:CGFloat = 100
+        let allTxtH:CGFloat = 30
+        let allTxtY:CGFloat = (contentViewF?.maxY)! - allTxtH
+        let allTxtX:CGFloat = (contentViewF?.maxX)! - allTxtW
+        allTxtViewF = CGRect(x:allTxtX,y:allTxtY,width:allTxtW,height:allTxtH)
+        
+        ///视频
+        let videoW:CGFloat = contentW
+        let videoH:CGFloat = contentW*0.4
+        let videoY:CGFloat = (allTxtViewF?.maxY)!+5
+        let videoX:CGFloat = maring
+        videoViewF = CGRect(x:videoX,y:videoY,width:videoW,height:videoH)
+        
+        ///分享
+        let shareW:CGFloat = ScreenWidth/3.0
+        let shareH:CGFloat = 40
+        var shareY:CGFloat = (videoViewF?.maxY)!+5
+        let shareX:CGFloat = maring
+        
+        ///9图 数组
+        if hotMomentModel.moment.pictures.count>0
+        {
+            let margin:CGFloat = 10
+            let column:CGFloat = 3
+            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
+            let imgH:CGFloat = imgW
+            imgListF = NSMutableArray()
+            for (index, data) in hotMomentModel.moment.pictures.enumerated()
+            {
+                let row = Int(index)/Int(column)
+                let col = Int(index)%Int(column)
+                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
+                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
+                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
+            }
+            let imgF:CGRect = imgListF?.lastObject as! CGRect
+            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:imgF.maxY+10)
+            shareY = (imgListContentF?.maxY)!+5
+        }
+        
+        shareViewF = CGRect(x:shareX,y:shareY,width:shareW,height:shareH)
+        
+        ///评论
+        commentViewF = CGRect(x:shareW,y:shareY,width:shareW,height:shareH)
+        
+        ///喜欢
+        likeViewF = CGRect(x:shareW*2,y:shareY,width:shareW,height:shareH)
+        
+        let lineY:CGFloat = shareY+10
+        let lineW:CGFloat = 1
+        let lineH:CGFloat = shareH-20
+        lineListF.addObjects(from: [CGRect(x:shareW*1,y:lineY,width:lineW,height:lineH),
+                                    CGRect(x:shareW*2,y:lineY,width:lineW,height:lineH)])
+        ///cell 高度
+        cellHeight = (likeViewF?.maxY)! + 15
+        ///背景图
+        let bgY:CGFloat = 15
+        bgViewF = CGRect(x:0,y:bgY,width:ScreenWidth,height:cellHeight!-bgY)
     }
     
     func setHotTopicModel(hotTModel:HotTopicModel)
@@ -136,8 +230,29 @@ class HotTopicFrameModel: Mappable
         ///分享
         let shareW:CGFloat = ScreenWidth/3.0
         let shareH:CGFloat = 40
-        let shareY:CGFloat = (videoViewF?.maxY)!+5
+        var shareY:CGFloat = (videoViewF?.maxY)!+5
         let shareX:CGFloat = maring
+        ///9图 数组
+        if hotTModel.images.count>0
+        {
+            let margin:CGFloat = 10
+            let column:CGFloat = 3
+            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
+            let imgH:CGFloat = imgW
+            imgListF = NSMutableArray()
+            for (index, data) in hotTModel.images.enumerated()
+            {
+                let row = Int(index)/Int(column)
+                let col = Int(index)%Int(column)
+                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
+                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
+                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
+            }
+            let imgF:CGRect = imgListF?.lastObject as! CGRect
+            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:imgF.maxY+10)
+            shareY = (imgListContentF?.maxY)!+5
+        }
+        
         shareViewF = CGRect(x:shareX,y:shareY,width:shareW,height:shareH)
         
         ///评论
@@ -151,13 +266,8 @@ class HotTopicFrameModel: Mappable
         let lineH:CGFloat = shareH-20
         lineListF.addObjects(from: [CGRect(x:shareW*1,y:lineY,width:lineW,height:lineH),
                                     CGRect(x:shareW*2,y:lineY,width:lineW,height:lineH)])
-        
-        ///9图 数组
-//        var imgListF:NSMutableArray?
-        
         ///cell 高度
         cellHeight = (likeViewF?.maxY)! + 15
-        
         ///背景图
         let bgY:CGFloat = 15
         bgViewF = CGRect(x:0,y:bgY,width:ScreenWidth,height:cellHeight!-bgY)

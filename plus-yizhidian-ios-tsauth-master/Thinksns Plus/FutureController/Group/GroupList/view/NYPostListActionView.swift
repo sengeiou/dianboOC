@@ -23,25 +23,25 @@ import UIKit
     ///
     /// - Parameters:
     ///   - onSeeAllButton: 点击的范围是否属于“查看全部评论”按钮上
-    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, onSeeAllButton: Bool)
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, onSeeAllButton: Bool)
     
     /// 点击了图片
-    func feedList(_ view: NYPostListActionView, didSelected  cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
+    func feedList(_ view: NYPostListActionView, didSelected  cell: NYHotTopicCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
     
     /// 点击了工具栏
-    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int)
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int)
     
     /// 点击了评论行
-    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
     
     /// 长按了评论行
-    func feedList(_ view: NYPostListActionView, didLongPress cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
+    func feedList(_ view: NYPostListActionView, didLongPress cell: NYHotTopicCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath)
     
     /// 点击了评论内容中的用户名
-    func feedList(_ view: NYPostListActionView, didSelected cell: FeedListCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int)
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int)
     
     /// 点击了重发按钮
-    func feedList(_ view: NYPostListActionView, didSelectedResendButton cell: FeedListCell)
+    func feedList(_ view: NYPostListActionView, didSelectedResendButton cell: NYHotTopicCell)
     /// 点击了话题板块儿的某个话题
     @objc optional func feedListDidClickTopic(_ view: NYPostListActionView, topicId: Int)
 }
@@ -89,7 +89,7 @@ class NYPostListActionView: TSTableView
     var isRequestList: Bool = false
     
     /// 数据源
-    var datas: [FeedListCellModel] = []
+    var datas: [TSMomentListModel] = []
     /// 我们自己的数据
     var dataSourceList = NSMutableArray()
     /// 刷新代理
@@ -113,19 +113,20 @@ class NYPostListActionView: TSTableView
     var curentPage: Int = 0
     /// 分页标识
     var after: Int? {
-        guard let id = datas.last?.id else {
-            return nil
-        }
-        switch id {
-        case .advert(let pageId, _):
-            return pageId
-        case .feed(let feedId):
-            return feedId
-        case .post(_, _):
-            return self.curentPage * self.listLimit
-        case .topic(_, _):
-            return self.curentPage * self.listLimit
-        }
+        return datas.last?.moment.feedIdentity
+//        guard let id = datas.last?.moment.feedIdentity else {
+//            return nil
+//        }
+//        switch id {
+//        case .advert(let pageId, _):
+//            return pageId
+//        case .feed(let feedId):
+//            return feedId
+//        case .post(_, _):
+//            return self.curentPage * self.listLimit
+//        case .topic(_, _):
+//            return self.curentPage * self.listLimit
+//        }
     }
     
     /// 是否需要显示加精的标识
@@ -212,7 +213,7 @@ class NYPostListActionView: TSTableView
     }
     
     /// 处理下拉刷新的数据，并更新界面 UI
-    func processRefresh(data: [FeedListCellModel]?, message: String?, status: Bool) {
+    func processRefresh(data: [TSMomentListModel]?, message: String?, status: Bool) {
         // 1.隐藏指示器
         dismissIndicatorA()
         if mj_header != nil {
@@ -239,8 +240,7 @@ class NYPostListActionView: TSTableView
         {
             for obj in datas {
                 let hotF = HotTopicFrameModel()
-                hotF.setFeedListCellModel(feedModel: obj)
-                //                hotF.setHotTopicModel(hotTModel: obj)
+                hotF.setHotMomentListModel(hotMomentModel: obj)
                 self.dataSourceList.add(hotF)
             }
         }
@@ -249,7 +249,7 @@ class NYPostListActionView: TSTableView
     }
     
     /// 处理上拉刷新的数据，并更新界面 UI
-    func processloadMore(data: [FeedListCellModel]?, message: String?, status: Bool) {
+    func processloadMore(data: [TSMomentListModel]?, message: String?, status: Bool) {
         // 1.获取数据失败，显示"网络失败"的 footer
         if message != nil {
             mj_footer.endRefreshingWithWeakNetwork()
@@ -349,7 +349,7 @@ extension NYPostListActionView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) as? FeedListCell else {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NYHotTopicCell else {
             return
         }
         interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
@@ -359,36 +359,37 @@ extension NYPostListActionView: UITableViewDelegate, UITableViewDataSource {
         /// 付费当前页的列表刷新也是同一刷新的
         if let info = noti.userInfo, let feedId = info["feedId"] as? Int, let content = info["content"] as? String {
             /// 找到需要更新的id，可能会有重复的id，比如置顶id和第一页之后的数据
-            var reloadIndexs: [IndexPath] = []
-            for (index, data) in datas.enumerated() {
-                if let fid = data.id["feedId"], fid == feedId {
-                    datas[index].content = content
-                    datas[index].paidInfo = nil
-                    datas[index].shouldAddFuzzyString = false
-                    reloadIndexs.append(IndexPath(row: index, section: 0))
-                }
-            }
-            if reloadIndexs.isEmpty == false {
-                reloadRows(at: reloadIndexs, with: .none)
-            }
+//            var reloadIndexs: [IndexPath] = []
+//            for (index, data) in datas.enumerated() {
+//
+//                if let fid = data.moment.feedIdentity!, fid == feedId {
+//                    datas[index]. = content
+//                    datas[index].paidInfo = nil
+//                    datas[index].shouldAddFuzzyString = false
+//                    reloadIndexs.append(IndexPath(row: index, section: 0))
+//                }
+//            }
+//            if reloadIndexs.isEmpty == false {
+//                reloadRows(at: reloadIndexs, with: .none)
+//            }
         }
     }
     // MARK: - 动态详情页执行了删除动态之后的通知刷新列表
     func momentDetailVCDelete(noti: Notification) {
         if let info = noti.userInfo, let feedId = info["feedId"] as? Int {
-            /// 找到需要更新的id，可能会有重复的id，比如置顶id和第一页之后的数据
-            var reloadIndexs: [IndexPath] = []
-            for (index, data) in datas.enumerated() {
-                if let fid = data.id["feedId"], fid == feedId {
-                    reloadIndexs.append(IndexPath(row: index, section: 0))
-                }
-            }
-            if reloadIndexs.isEmpty == false {
-                for (_, datad) in reloadIndexs.enumerated().reversed() {
-                    datas.remove(at: datad.row)
-                }
-                reloadData()
-            }
+//            /// 找到需要更新的id，可能会有重复的id，比如置顶id和第一页之后的数据
+//            var reloadIndexs: [IndexPath] = []
+//            for (index, data) in datas.enumerated() {
+//                if let fid = data.moment.feedIdentity, Int(fid) == feedId {
+//                    reloadIndexs.append(IndexPath(row: index, section: 0))
+//                }
+//            }
+//            if reloadIndexs.isEmpty == false {
+//                for (_, datad) in reloadIndexs.enumerated().reversed() {
+//                    datas.remove(at: datad.row)
+//                }
+//                reloadData()
+//            }
         }
     }
     

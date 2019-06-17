@@ -42,7 +42,8 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
     var chooseModel: TopicCommonModel?
     /// 话题信息
     var topics: [TopicCommonModel] = []
-
+    /// 圈子 id
+    var group_id:Int = 0
     /// 输入框顶部工具栏
     // 整个容器
     var toolView = UIView()
@@ -118,7 +119,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
                     if self.chooseModel == nil {
                         TSRootViewController.share.tabbarVC?.selectedIndex = 0
                     }
-                    TSMomentTaskQueue().postShortVideo(urlPath: url!, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false)
+                    TSMomentTaskQueue().postShortVideo(urlPath: url!, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false,group_id: self.group_id)
                 })
             }, failure: { (errorMessage, error) in
                 indicator.dismiss()
@@ -134,7 +135,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
                 if self.chooseModel == nil {
                     TSRootViewController.share.tabbarVC?.selectedIndex = 0
                 }
-                TSMomentTaskQueue().postShortVideo(urlPath: recorderSession.outputUrl.absoluteString, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false)
+                TSMomentTaskQueue().postShortVideo(urlPath: recorderSession.outputUrl.absoluteString, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false,group_id: self.group_id)
             })
         } else if let url = shortVideoAsset.videoFileURL {
             let str = self.textView.text
@@ -143,7 +144,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
                 if self.chooseModel == nil {
                     TSRootViewController.share.tabbarVC?.selectedIndex = 0
                 }
-                TSMomentTaskQueue().postShortVideo(urlPath: url.absoluteString, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false)
+                TSMomentTaskQueue().postShortVideo(urlPath: url.absoluteString, coverImage: shortVideoAsset.coverImage!, feedContent: str, topicsInfo: self.topics, isTopicPublish: self.chooseModel != nil ? true : false,group_id: self.group_id)
             })
         }
     }

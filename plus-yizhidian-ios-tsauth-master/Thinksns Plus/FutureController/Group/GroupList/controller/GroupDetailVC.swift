@@ -193,6 +193,9 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         lastPostTable.scrollDelegate = self
         lastCommentTable.scrollDelegate = self
         recommendTable.scrollDelegate = self
+        lastPostTable.interactDelegate = self
+        lastCommentTable.interactDelegate = self
+        recommendTable.interactDelegate = self
 
         lastPostTable.groupId = groupId
         lastCommentTable.groupId = groupId
@@ -226,6 +229,7 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         photoForButton.contentMode = .center
         photoForButton.sizeToFit()
         photoForButton.frame = CGRect(x:(buttonForRelease.frame.minX - photoForButton.frame.width) - 10, y: buttonForRelease.frame.minY - photoForButton.frame.height*0.5 , width: photoForButton.frame.width, height: photoForButton.frame.height)
+        photoForButton.addTarget(self, action: #selector(postPhotoClickdo(btn:)), for: .touchUpInside)
         //视频
         videoForButton.setImage(UIImage(named: "com_video"), for: .normal)
         videoForButton.alpha = 0
@@ -233,6 +237,7 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         videoForButton.contentMode = .center
         videoForButton.sizeToFit()
         videoForButton.frame = CGRect(x:photoForButton.frame.minX, y: photoForButton.frame.maxY + 10 , width: videoForButton.frame.width, height: videoForButton.frame.height)
+        videoForButton.addTarget(self, action: #selector(postVideoClickdo(btn:)), for: .touchUpInside)
         loading()
         loadData()
         refresh(table: lastPostTable)
@@ -488,33 +493,114 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     ///普通发帖
     func postPhotoClickdo(btn:TSButton)
     {
-        if model.role == .unjoined {
-            let alert = TSAlertController(title: "提示", message: "需要先加入才可发帖", style: .actionsheet, sheetCancelTitle: "知道了")
-            present(alert, animated: false, completion: nil)
-            return
-        }
-        if model.role == .black {
-            let alert = TSAlertController(title: "提示", message:  "提示信息_圈子黑名单".localized, style: .actionsheet, sheetCancelTitle: "知道了")
-            present(alert, animated: false, completion: nil)
-            return
-        }
-        
-        // 判断当前用户是否有发帖权限
-        guard model.canRealsePost else {
-            let alert = TSAlertController(title: "提示", message: "\"\(model.name)\"\(model.capability.rawValue)拥有发帖权限", style: .actionsheet, sheetCancelTitle: "知道了")
-            present(alert, animated: false, completion: nil)
-            return
-        }
-        
-        let publishVC = PostPublishController(groupId: self.groupId, groupName: self.groupModel.name, couldSyncMoment: self.groupModel.allowFeed)
-        self.navigationController?.pushViewController(publishVC, animated: true)
+        checkPhotoAuthorizeStatus()
     }
     ///视频发帖
     func postVideoClickdo(btn:TSButton)
     {
+        guard let imagePickerVC = TZImagePickerController(maxImagesCount: 1, columnNumber: 4, delegate: self, pushPhotoPickerVc: true) else {
+            return
+        }
+        /// 不设置则直接用TZImagePicker的pod中的图片素材
+        /// #视频选择列表页面
+        /// item右上角蓝色的选中图片、视频拍摄按钮
+        //            imagePickerVC.selectImage = UIImage(named: "msg_box_choose_now")
+        //        imagePickerVC.takeVideo = UIImage(named: "pic_shootvideo")
+        /// #视频裁剪页面
+        /// 返回按钮、视频长度截取左侧选择滑块、视频长度截取右侧选择滑块
+        //        imagePickerVC.backImage = UIImage(named: "ico_title_back_black")
+        //        imagePickerVC.editFaceLeft = UIImage(named: "pic_eft")
+        //        imagePickerVC.editFaceRight = UIImage(named: "pic_right")
+        /// #封面选择页面
+        /// 封面选择滑块
+        //        imagePickerVC.picCoverImage = UIImage(named: "pic_cover_frame")
+
+        // 最大loading超时时间设置为3min，防止快速编辑的时候导出视频等待时间过长而loading消失
+        imagePickerVC.timeout = 60 * 3
+        imagePickerVC.isSelectOriginalPhoto = false
+        imagePickerVC.allowTakePicture = true
+        imagePickerVC.allowPickingVideo = true
+        imagePickerVC.allowPickingImage = false
+        imagePickerVC.allowPickingGif = false
+        imagePickerVC.allowPickingMultipleVideo = false
+        imagePickerVC.sortAscendingByModificationDate = false
+        imagePickerVC.backImage = UIImage(named:"nav_back")
+        imagePickerVC.barItemTextColor = UIColor.white
+        imagePickerVC.navigationBar.barTintColor = UIColor.white
+        imagePickerVC.navigationBar.tintColor = UIColor.white
+        var dic = [String: Any]()
+        dic[NSForegroundColorAttributeName] = UIColor.white
+        imagePickerVC.navigationBar.titleTextAttributes = dic
+        present(imagePickerVC, animated: true)
         
+//        let vc = PostShortVideoViewController(nibName: "PostShortVideoViewController", bundle: nil)
+//        vc.shortVideoAsset = ShortVideoAsset(coverImage: coverImage, asset: nil, recorderSession: nil, videoFileURL: videoURL as! URL)
+//        let nav = TSNavigationController(rootViewController: vc)
+//        present(nav, animated: true)
+//        return
+//        postContentdo(tag: 1)
     }
     
+    /// 查看相册授权，显示相册查看器
+    func checkPhotoAuthorizeStatus() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .denied, .restricted:
+            let appName = TSAppConfig.share.localInfo.appDisplayName
+            TSErrorTipActionsheetView().setWith(title: "相册权限设置", TitleContent: "请为\(appName)开放相册权限：手机设置-隐私-相册-\(appName)(打开)", doneButtonTitle: ["去设置", "取消"], complete: { (_) in
+                let url = URL(string: UIApplicationOpenSettingsURLString)
+                if UIApplication.shared.canOpenURL(url!) {
+                    UIApplication.shared.openURL(url!)
+                }
+            })
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({ [weak self] (newState) in
+                if newState == .authorized {
+                    self?.showImagePickerVC()
+                }
+            })
+        case .authorized:
+            showImagePickerVC()
+        }
+    }
+    func showImagePickerVC() {
+        guard let imagePickerVC = TZImagePickerController(maxImagesCount: 1, columnNumber: 4, delegate: self, mainColor: UIColor.white)
+            else {
+                return
+        }
+        /// 不设置则直接用TZImagePicker的pod中的图片素材
+        /// #图片选择列表页面
+        /// item右上角蓝色的选中图片
+        //            imagePickerVC.selectImage = UIImage(named: "msg_box_choose_now")
+        
+        //设置默认为中文，不跟随系统
+        imagePickerVC.preferredLanguage = "zh-Hans"
+        imagePickerVC.maxImagesCount = 9
+        imagePickerVC.isSelectOriginalPhoto = true
+        imagePickerVC.allowTakePicture = true
+        imagePickerVC.allowPickingVideo = false
+        imagePickerVC.allowPickingImage = true
+        imagePickerVC.allowPickingGif = true
+        imagePickerVC.allowPickingMultipleVideo = true
+        imagePickerVC.sortAscendingByModificationDate = false
+        imagePickerVC.backImage = UIImage(named:"nav_back")
+        imagePickerVC.barItemTextColor = UIColor.white
+        imagePickerVC.navigationBar.barTintColor = UIColor.white
+        imagePickerVC.navigationBar.tintColor = UIColor.white
+        var dic = [String: Any]()
+        dic[NSForegroundColorAttributeName] = UIColor.white
+        imagePickerVC.navigationBar.titleTextAttributes = dic
+        present(imagePickerVC, animated: true)
+    }
+    
+    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [Any]!, isSelectOriginalPhoto: Bool) {
+        let releasePulseVC = TSReleasePulseViewController(isHiddenshowImageCollectionView: photos.isEmpty)
+        releasePulseVC.group_id = self.groupId
+        
+        let navigation = TSNavigationController(rootViewController: releasePulseVC)
+        releasePulseVC.selectedPHAssets = assets as! [PHAsset]
+        self.present(navigation, animated: true, completion: nil)
+    }
     /// 点击了 退出or转让按钮
     func exitButtonTaped(_ sender: UIButton) {
         let buttonTitle = sender.titleLabel?.text
@@ -615,6 +701,41 @@ extension GroupDetailVC: LoadingViewDelegate {
         navigationController?.popViewController(animated: true)
     }
 }
+
+extension GroupDetailVC:NYFeedListViewDelegate{
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, onSeeAllButton: Bool) {
+        let feedId = cell.hotTopicFrameModel?.hotMomentListModel?.moment.feedIdentity
+        // 3.以上情况都不是，跳转动态详情页
+        let detailVC = TSCommetDetailTableView(feedId: feedId!, isTapMore: true)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int) {
+        
+    }
+    
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int) {
+        
+    }
+    
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath) {
+        
+    }
+    
+    func feedList(_ view: NYPostListActionView, didLongPress cell: NYHotTopicCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath) {
+        
+    }
+    
+    func feedList(_ view: NYPostListActionView, didSelected cell: NYHotTopicCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int) {
+        
+    }
+    
+    func feedList(_ view: NYPostListActionView, didSelectedResendButton cell: NYHotTopicCell) {
+        
+    }
+}
+
+
 // MARK: - header 代理事件
 extension GroupDetailVC: PostListHeaderViewDelegate {
     /// 点击了加入按钮
@@ -751,38 +872,45 @@ extension GroupDetailVC: NYFeedListViewRefreshDelegate {
         } else if table == self.recommendTable {
             type = PostsType.recommend
         }
-        GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: nil) { [weak self] (model, message, status) in
-//            self?.navView.indicator.dismiss()
-            table.isRequestList = false
-            var datas: [FeedListCellModel]?
-            if let model = model {
-                datas = []
-                if  type == PostsType.latest {
-                    for pinned in model.pinneds {
-                        let cellModel = FeedListCellModel(postModel: pinned)
-                        cellModel.showPostTopIcon = true
-                        datas?.append(cellModel)
-                    }
-                }
-                // 去除置顶的内容
-                if  type == PostsType.latest {
-                    var fmodels: [PostListModel] = model.posts
-                    for (postsIndex, modelPost) in model.pinneds.enumerated() {
-                     let tempModels = fmodels.filter({ (fmodel) -> Bool in
-                        if fmodel.id != modelPost.id {
-                            return true
-                        } else {
-                            return false
-                        }
-                        })
-                        fmodels = tempModels
-                    }
-                    model.posts = fmodels
-                }
-                datas?.append(contentsOf: model.posts.map { FeedListCellModel(postModel: $0) })
+        //动态数据
+        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: "group",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
+            if let models = data {
+                table.processRefresh(data: models, message: nil, status: true)
             }
-            table.processRefresh(data: datas, message: nil, status: true)
-        }
+        })
+        
+//        GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: nil) { [weak self] (model, message, status) in
+////            self?.navView.indicator.dismiss()
+//            table.isRequestList = false
+//            var datas: [FeedListCellModel]?
+//            if let model = model {
+//                datas = []
+//                if  type == PostsType.latest {
+//                    for pinned in model.pinneds {
+//                        let cellModel = FeedListCellModel(postModel: pinned)
+//                        cellModel.showPostTopIcon = true
+//                        datas?.append(cellModel)
+//                    }
+//                }
+//                // 去除置顶的内容
+//                if  type == PostsType.latest {
+//                    var fmodels: [PostListModel] = model.posts
+//                    for (postsIndex, modelPost) in model.pinneds.enumerated() {
+//                     let tempModels = fmodels.filter({ (fmodel) -> Bool in
+//                        if fmodel.id != modelPost.id {
+//                            return true
+//                        } else {
+//                            return false
+//                        }
+//                        })
+//                        fmodels = tempModels
+//                    }
+//                    model.posts = fmodels
+//                }
+//                datas?.append(contentsOf: model.posts.map { FeedListCellModel(postModel: $0) })
+//            }
+//            table.processRefresh(data: datas, message: nil, status: true)
+//        }
 
         ///目前就这样处理刷新到时候没有刷新后台修改圈子信息的问题
         GroupNetworkManager.getGroupInfo(groupId: groupId) { [weak self] (model, message, status) in
@@ -913,5 +1041,47 @@ extension GroupDetailVC: ShareListViewDelegate {
     }
 
     func didClickApplyTopButon(_ shareView: ShareListView, fatherViewTag: Int, feedIndex: IndexPath) {
+    }
+}
+
+extension GroupDetailVC: TZImagePickerControllerDelegate {
+    func imagePickerControllerDidClickTakePhotoBtn(_ picker: TZImagePickerController!) {
+        // 进入视频录制
+        // 视频录制完毕后 进入发布页面
+        let vc = RecorderViewController(minDuration: TSAppConfig.share.localInfo.postMomentsRecorderVideoMinDuration, maxDuration: TSAppConfig.share.localInfo.postMomentsRecorderVideoMaxDuration)
+        vc.delegate = self
+        let nav = TSNavigationController(rootViewController: vc)
+        present(nav, animated: true)
+    }
+    
+    func imagePickerController(_ picker: TZImagePickerController!, didFinishEditVideoCover coverImage: UIImage!, videoURL: Any!) {
+        TSLogCenter.log.debug(coverImage)
+        TSLogCenter.log.debug(videoURL)
+        let vc = PostShortVideoViewController(nibName: "PostShortVideoViewController", bundle: nil)
+        vc.group_id = self.groupId
+        vc.shortVideoAsset = ShortVideoAsset(coverImage: coverImage, asset: nil, recorderSession: nil, videoFileURL: videoURL as! URL)
+        let nav = TSNavigationController(rootViewController: vc)
+        present(nav, animated: true)
+    }
+    
+    // 视频长度超过5分钟少于4秒钟的都不显示
+    func isAssetCanSelect(_ asset: Any!) -> Bool {
+        guard let asset = asset as? PHAsset else {
+            return false
+        }
+        if asset.mediaType == .video {
+            return asset.duration < 5 * 60 && asset.duration > 3
+        } else {
+            return true
+        }
+    }
+}
+extension GroupDetailVC: RecorderVCDelegate {
+    func finishRecorder(recordSession: SCRecordSession, coverImage: UIImage) {
+        let vc = PostShortVideoViewController(nibName: "PostShortVideoViewController", bundle: nil)
+        vc.group_id = self.groupId
+        vc.shortVideoAsset = ShortVideoAsset(coverImage: coverImage, asset: nil, recorderSession: recordSession, videoFileURL: nil)
+        let nav = TSNavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
 }

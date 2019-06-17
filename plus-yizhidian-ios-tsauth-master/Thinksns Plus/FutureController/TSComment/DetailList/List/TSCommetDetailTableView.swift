@@ -102,6 +102,7 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         if let payInfo = self.payInfo {
             self.showPayAlert(paidInfo: payInfo)
         }

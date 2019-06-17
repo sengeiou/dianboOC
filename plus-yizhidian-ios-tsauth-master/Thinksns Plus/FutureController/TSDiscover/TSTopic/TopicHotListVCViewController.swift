@@ -25,6 +25,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         setUI()
         refresh()
+
     }
 
     // MARK: - UI
@@ -42,23 +43,41 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         me_tablview.backgroundColor = TSColor.main.themeTB
         me_tablview.backgroundView?.backgroundColor = TSColor.main.themeTB
         me_tablview.tableHeaderView = starHead
+        me_tablview.mj_header = TSRefreshHeader(refreshingTarget: self, refreshingAction: #selector(refresh))
+        me_tablview.mj_footer = TSRefreshFooter(refreshingTarget: self, refreshingAction: #selector(loadMore))
         me_tablview.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0))
         }
     }
    
+    func loadMore() {
+        
+    }
     func refresh() {
-        NYPopularNetworkManager.getHotPostListData( offset: 0,complete:{(list: [HotTopicModel]?, error,isobl) in
-            if let models = list {
+        
+        TSMomentNetworkManager().getfeedList(hot: "", search: "", type: "hot",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
+            if let models = data {
                 for obj in models {
                     let hotF = HotTopicFrameModel()
-                    hotF.setHotTopicModel(hotTModel: obj)
+                    hotF.setHotMomentListModel(hotMomentModel: obj)
                     self.dataSource.add(hotF)
                 }
                 self.me_tablview.reloadData()
             }
+            self.me_tablview.mj_header.endRefreshing()
         })
-        me_tablview.mj_header.endRefreshing()
+//        NYPopularNetworkManager.getHotPostListData( offset: 0,complete:{(list: [HotTopicModel]?, error,isobl) in
+//            if let models = list {
+//                for obj in models {
+//                    let hotF = HotTopicFrameModel()
+//                    hotF.setHotTopicModel(hotTModel: obj)
+//                    self.dataSource.add(hotF)
+//                }
+//                self.me_tablview.reloadData()
+//            }
+//            self.me_tablview.mj_header.endRefreshing()
+//        })
+        
 //        TSUserNetworkingManager().getTopicList(index: nil, keyWordString: nil, limit: 15, direction: "desc", only: "hot") { (topicModel, networkError) in
 //            self.processRefresh(datas: topicModel, message: networkError)
 //        }
@@ -144,9 +163,9 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         guard let cell = tableView.cellForRow(at: indexPath) as? NYHotTopicCell else {
             return
         }
-        let feedId = 2;
+        let feedId = cell.hotTopicFrameModel?.hotMomentListModel?.moment.feedIdentity
         // 3.以上情况都不是，跳转动态详情页
-        let detailVC = TSCommetDetailTableView(feedId: feedId, isTapMore: true)
+        let detailVC = TSCommetDetailTableView(feedId: feedId!, isTapMore: true)
         self.navigationController?.pushViewController(detailVC, animated: true)
         //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
     }

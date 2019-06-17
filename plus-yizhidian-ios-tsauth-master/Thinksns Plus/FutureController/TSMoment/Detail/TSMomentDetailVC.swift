@@ -14,12 +14,17 @@ import Kingfisher
 
 class TSMomentDetailVC: TSViewController, TSMomentDetailNavViewDelegate/* 导航视图 代理 */, TSMomentDetailHeaderViewDelegate/* headerView 代理 */, UITableViewDelegate, TSMomentDetailToolbarDelegate/* 工具栏点击代理事件 */, TSKeyboardToolbarDelegate, TSCustomAcionSheetDelegate/* 弹出视图的点击代理 */, TSChoosePriceVCDelegate, ZFPlayerDelegate {
 
+    var userimageView:NYImageButton!
     /// 导航视图
     lazy var navView: TSMomentDetailNavView = { () -> TSMomentDetailNavView in
         let userInfoModel = TSUserInfoModel(object: (self.model?.userInfo)!)
+        self.title = userInfoModel.name
         var tempNav = TSMomentDetailNavView(userInfoModel)
+        tempNav.height = 0
+        tempNav.isHidden = true
         tempNav.delegate = self
         self.view.addSubview(tempNav)
+        tempNav.height = 0
         return tempNav
     }()
     /// 详情展示页
@@ -49,6 +54,7 @@ class TSMomentDetailVC: TSViewController, TSMomentDetailNavViewDelegate/* 导航
     // MARK: - Lifecycle
     init(_ model: TSMomentListCellModel) {
         self.model = model
+        
         headerView = TSMomentDetailHeaderView(model.data!)
         toolbarView = TSMomentDetailToolbar(model.data!)
         // 记录动态编号，防止在列表刷新时被删除
@@ -197,6 +203,14 @@ class TSMomentDetailVC: TSViewController, TSMomentDetailNavViewDelegate/* 导航
 
     // MARK: - Custom user interface
     func setBasicUI() {
+        self.userimageView = NYImageButton(frame:CGRect(x:0,y:0,width:30,height:30))
+        //        searchBtton.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: self.userimageView)
+        var url = URL(string:"")
+        if self.model?.userInfo!.avatar != nil {
+            url = URL(string:TSUtil.praseTSNetFileUrl(netFile: self.model?.userInfo!.avatar)!)
+        }
+        self.userimageView.currentButton.setImageWith(url, for: .normal, placeholder: #imageLiteral(resourceName: "pic_cover"))
         automaticallyAdjustsScrollViewInsets = false
         // back status bar
         let whiteView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TSStatusBarHeight))

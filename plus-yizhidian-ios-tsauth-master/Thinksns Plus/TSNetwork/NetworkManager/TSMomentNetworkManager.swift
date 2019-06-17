@@ -140,7 +140,7 @@ class TSMomentNetworkManager: NSObject {
         }
     }
 
-    func postShortVideo(momentListObject: TSMomentListObject, shortVideoID: Int, coverImageID: Int, feedContent: String?, complete: @escaping((_ feedId: Int?, _ error: NSError?) -> Void)) {
+    func postShortVideo(momentListObject: TSMomentListObject, shortVideoID: Int, coverImageID: Int, feedContent: String?,complete: @escaping((_ feedId: Int?, _ error: NSError?) -> Void)) {
         var param: [String : Any] = Dictionary()
         if let content = feedContent {
             param["feed_content"] = content
@@ -148,6 +148,7 @@ class TSMomentNetworkManager: NSObject {
         param["feed_from"] = 3
         param["video"] = ["video_id": shortVideoID, "cover_id": coverImageID]
         param["feed_mark"] = momentListObject.feedIdentity
+        param["group_id"] = momentListObject.group_id
         if !momentListObject.topics.isEmpty {
             let topicArr = NSMutableArray()
             for item in momentListObject.topics {
@@ -254,6 +255,10 @@ class TSMomentNetworkManager: NSObject {
             param["repostable_type"] = repostType
             param["repostable_id"] = momentListObject.repostID
         }
+        /// groupid
+        if  momentListObject.group_id > 0 {
+            param["group_id"] = momentListObject.group_id
+        }
         let path = TSURLPathV2.path.rawValue + TSURLPathV2.Feed.feeds.rawValue
         try! RequestNetworkData.share.textRequest(method: .post, path: path, parameter: param, complete: { (networkResponse, result) in
             // 请求失败处理
@@ -277,6 +282,56 @@ class TSMomentNetworkManager: NSObject {
             let feedId = responseDic["id"] as? Int
             complete(feedId, nil)
         })
+    }
+    
+    /// 获取动态列表
+    /// type:可选，默认值 new，可选值 new 、hot 、 follow 、users、group
+    /// group_id:type = group 时可选，圈子id
+    /// search:type = new 时可选，搜索关键字
+    /// user:type = users 时可选，默认值为当前用户id (不用)
+    /// screen:type = users 时可选，paid-付费动态 pinned - 置顶动态 (不用)
+    /// hot:可选，仅 type=hot 时有效，用于热门数据翻页标记！上次获取数据最后一条的 hot 值
+    func getfeedList(hot:String,search:String,group_id:Int=0, type: String, after: Int = 0, limit: Int = TSAppConfig.share.localInfo.limit, complete: @escaping((_ data: [TSMomentListModel]?, _ error: NetworkError?) -> Void)) {
+        let path = TSURLPathV2.path.rawValue + TSURLPathV2.Feed.feeds.rawValue
+        var parameter = [String: Any]()
+        parameter["limit"] = limit
+        parameter["after"] = after
+        parameter["type"] = type
+        if type == "group"
+        {
+            parameter["group_id"] = group_id
+        }
+        else if type == "hot"
+        {
+            parameter["hot"] = hot
+        }
+        try! RequestNetworkData.share.textRequest(method: .get, path: path, parameter: parameter, complete: { (data, status, code) in
+            // 1.网络请求失败处理
+            guard status else {
+                /// 这个地方需要判断一下是否是已经被删除
+                /// 由于是批量获取的动态内容，所以如果被删除的原文，也会请求成功，但是data里边是两个空数组
+                complete(nil, .networkErrorFailing)
+                return
+            }
+            // 2.服务器数据异常处理
+            guard let moment = data as? Dictionary<String, Any>, let originalFeeds = moment["feeds"] as? Array<Dictionary<String, Any>> else {
+                /// 说明原文不存在了
+                complete(nil, .networkErrorFailing)
+                return
+            }
+            // 3.正常数据解析
+            if originalFeeds.count>0
+            {
+                let list = NSMutableArray()
+                for obj in originalFeeds
+                {
+                    let resourceModel = TSMomentListModel(dataV2: obj)
+                    list.add(resourceModel)
+                }
+                complete(list as! [TSMomentListModel], nil)
+            }
+        })
+        
     }
 
     /// 获取动态点赞数据,服务器根据时间排序

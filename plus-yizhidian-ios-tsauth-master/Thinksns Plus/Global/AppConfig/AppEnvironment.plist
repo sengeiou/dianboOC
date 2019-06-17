@@ -16,7 +16,7 @@
 		<key>production</key>
 		<dict>
 			<key>address</key>
-			<string>https://tsplus.zhibocloud.cn/</string>
+			<string>http://47.97.249.200/</string>
 			<key>imAppKey</key>
 			<string>1139171207178196#thinksns-plus</string>
 			<key>imApnsName</key>

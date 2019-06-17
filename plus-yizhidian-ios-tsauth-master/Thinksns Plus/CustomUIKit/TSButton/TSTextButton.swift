@@ -89,8 +89,8 @@ class TSTextButton: TSButton {
     }
 
     func updateUX() {
-        self.setTitleColor(TSTextButtonUX.TitleNormalColor, for: .normal)
-        self.setTitleColor(TSTextButtonUX.TitleDisabledColor, for: .disabled)
+        self.setTitleColor(UIColor.white, for: .normal)
+        self.setTitleColor(UIColor.white, for: .disabled)
         // 更新按钮的 size
         if let font = self.titleLabel?.font, let text = self.titleLabel?.text {
             let width = text.sizeOfString(usingFont: font).width

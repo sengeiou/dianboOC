@@ -259,7 +259,7 @@ extension TSViewController {
     // 快捷设置按钮,适合添加到导航栏
     func setupNavigationTitleItem(_ button: UIButton, title: String?) -> Void {
         let font = UIFont.systemFont(ofSize: 16)
-        button.setTitleColor(TSColor.main.theme, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = font
         button.setTitle(title, for: .normal)
         // Remark: - 关于这里的长度，应重新设计一下，特别是牵扯到右侧可能有音乐图标时

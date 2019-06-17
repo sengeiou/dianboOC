@@ -36,7 +36,8 @@ class TSPostWebEditorController: TSWebEditorBaseController {
     var groupName: String?
     /// 是否可同步至动态
     var couldSyncMoment: Bool = false
-
+    /// 0 普通 1 视频
+    var modeType:Int=0
     /// 保存草稿的回调
     var saveDraftAction: ((_ draftModel: TSPostDraftModel) -> Void)?
 
@@ -57,7 +58,7 @@ class TSPostWebEditorController: TSWebEditorBaseController {
     fileprivate let groupSelectH: CGFloat = 50
 
     /// 标题输入框
-    fileprivate weak var titleInputView: TSOriginalCenterOneInputView!
+//    fileprivate weak var titleInputView: TSOriginalCenterOneInputView!
     /// 同步至动态的工具视图
     fileprivate let syncMomentView: TSEditorSyncMomentTopView = TSEditorSyncMomentTopView()
 
@@ -90,6 +91,19 @@ class TSPostWebEditorController: TSWebEditorBaseController {
         self.couldSyncMoment = couldSyncMoment
         super.init(editType: .normal)
     }
+    init(groupId: Int?, groupName: String?, couldSyncMoment: Bool = false,mType:Int?)
+    {
+        self.modeType = mType!
+        self.showType = (nil != groupId) ? .groupin : .groupout
+        self.groupId = groupId
+        self.groupName = groupName
+        if nil != groupId && (nil == groupName || groupName!.isEmpty) {
+            // 圈内发帖必须传入圈子名字，因为这种情况下保存草稿再次编辑时变成圈外发帖
+            assert(false, "圈内发帖请传入圈子名")
+        }
+        self.couldSyncMoment = couldSyncMoment
+        super.init(editType: .normal)
+    }
     /// 便利构造，主要是用于从首页的加号进入时调用
     convenience init(fromAdd: Bool) {
         self.init(groupId: nil, groupName: nil)
@@ -112,19 +126,22 @@ extension TSPostWebEditorController {
 
     /// 界面布局
     override func initialUI() -> Void {
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = TSColor.main.themeTB
         // 1. navigation bar
-        self.navigationItem.title = "发帖"
-        let backItem = UIButton(type: .custom)
-        backItem.addTarget(self, action: #selector(leftItemClick), for: .touchUpInside)
-        self.setupNavigationTitleItem(backItem, title: "显示_导航栏_返回".localized)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backItem)
+        self.navigationItem.title = "显示_发帖".localized
+//        let backItem = UIButton(type: .custom)
+//        backItem.addTarget(self, action: #selector(leftItemClick), for: .touchUpInside)
+//        self.setupNavigationTitleItem(backItem, title: "显示_导航栏_返回".localized)
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backItem)
+        
         let nextItem = UIButton(type: .custom)
         nextItem.addTarget(self, action: #selector(rightItemClick), for: .touchUpInside)
-        nextItem.setTitleColor(UIColor.lightGray, for: .disabled)
-        self.setupNavigationTitleItem(nextItem, title: "显示_发布".localized)
+        nextItem.setTitleColor(UIColor.white, for: .disabled)
+        nextItem.setBackgroundImage(UIImage(named: "com_item_bg"), for: .normal)
+        self.setupNavigationTitleItem(nextItem, title: "显示_发送".localized)
+        nextItem.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: nextItem)
-        self.leftItem = backItem
+//        self.leftItem = backItem
         self.rightItem = nextItem
         // 2. selectGroupView
         if self.showType == .groupout {
@@ -137,25 +154,25 @@ extension TSPostWebEditorController {
                 make.top.equalTo(self.view).offset(0)
             }
         }
-        // 3. titleInputView
-        let lrMargin: Float = 15
-        let font = UIFont.systemFont(ofSize: 15)
-        let titleInputView = TSOriginalCenterOneInputView(viewWidth: ScreenWidth - CGFloat(lrMargin) * 2.0, font: font, maxLine: 2, showTextMinCount: 15, maxTextCount: self.titleMaxLen, lrMargin: CGFloat(5), tbMargin: (self.titleMinH - font.lineHeight) / 2.0)
-        self.view.addSubview(titleInputView)
-        titleInputView.placeHolder = "占位符_请输入资讯标题".localized
-        titleInputView.delegate = self
-        titleInputView.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.view).offset(lrMargin)
-            make.trailing.equalTo(self.view).offset(-lrMargin)
-            make.height.equalTo(titleMinH)
-            if self.showType == .groupout {
-                make.top.equalTo(self.groupSelectControl.snp.bottom)
-            } else {
-                make.top.equalTo(self.view)
-            }
-        }
-        titleInputView.addLineWithSide(.inBottom, color: UIColor(hex: 0xdedede), thickness: 0.5, margin1: 0, margin2: 0)
-        self.titleInputView = titleInputView
+//        // 3. titleInputView
+//        let lrMargin: Float = 15
+//        let font = UIFont.systemFont(ofSize: 15)
+//        let titleInputView = TSOriginalCenterOneInputView(viewWidth: ScreenWidth - CGFloat(lrMargin) * 2.0, font: font, maxLine: 2, showTextMinCount: 15, maxTextCount: self.titleMaxLen, lrMargin: CGFloat(5), tbMargin: (self.titleMinH - font.lineHeight) / 2.0)
+//        self.view.addSubview(titleInputView)
+//        titleInputView.placeHolder = "占位符_请输入资讯标题".localized
+//        titleInputView.delegate = self
+//        titleInputView.snp.makeConstraints { (make) in
+//            make.leading.equalTo(self.view).offset(lrMargin)
+//            make.trailing.equalTo(self.view).offset(-lrMargin)
+//            make.height.equalTo(titleMinH)
+//            if self.showType == .groupout {
+//                make.top.equalTo(self.groupSelectControl.snp.bottom)
+//            } else {
+//                make.top.equalTo(self.view)
+//            }
+//        }
+//        titleInputView.addLineWithSide(.inBottom, color: UIColor(hex: 0xdedede), thickness: 0.5, margin1: 0, margin2: 0)
+//        self.titleInputView = titleInputView
         // 4. editorView
         self.view.addSubview(editorView)
         editorView.delegate = self
@@ -163,8 +180,9 @@ extension TSPostWebEditorController {
         editorView.scrollView.delegate = self
         editorView.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(self.view)
-            make.bottom.equalTo(self.view).offset(0)
-            make.top.equalTo(titleInputView.snp.bottom).offset(0)
+//            make.height.equalTo(160)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(10)
         }
         // 5. toolbar - 该工具栏需要进行再度改造，以适应同步至动态
         let toolbar = TSEditorToolBar(showSetting: (TSAppConfig.share.launchInfo?.anonymousStatus)!)
@@ -199,10 +217,10 @@ extension TSPostWebEditorController {
             if let groupID = self.editedDraft?.groupId {
                 self.groupId = groupID
             }
-            // 加载圈子标题
-            if let title = self.editedDraft?.title {
-                self.titleInputView.text = title
-            }
+//            // 加载圈子标题
+//            if let title = self.editedDraft?.title {
+//                self.titleInputView.text = title
+//            }
         default:
             break
         }
@@ -250,14 +268,14 @@ extension TSPostWebEditorController {
 
     override func couldNext() -> Bool {
         var couldFlag: Bool = true
-        guard let groupId = self.groupId, let title = self.titleInputView?.text, let markdown = self.editorView.getContentMarkdown(), let summary = self.editorView.getContentText()?.ts_customMarkdownToStandard().ts_standardMarkdownToClearString() else {
+        guard let groupId = self.groupId, let markdown = self.editorView.getContentMarkdown(), let summary = self.editorView.getContentText()?.ts_customMarkdownToStandard().ts_standardMarkdownToClearString() else {
             return false
         }
         let isExistImage = markdown.ts_customMarkdownIsContainImageCode()
         // summary 和imageIds不能同时为空
         let summaryJugle1: NSString = summary as NSString
         let summary1 = summaryJugle1.trimmingCharacters(in: .whitespaces)
-        if title.isEmpty || markdown.isEmpty || (summary1.isEmpty && !isExistImage) {
+        if  markdown.isEmpty || (summary1.isEmpty && !isExistImage) {
             couldFlag = false
         }
         return couldFlag
@@ -265,12 +283,12 @@ extension TSPostWebEditorController {
 
     override func nextProcess() {
         self.view.endEditing(true)
-        guard let groupId = self.groupId, let title = self.titleInputView?.text, let markdown = self.editorView.getContentMarkdown(), let summary = self.editorView.getContentText()?.ts_customMarkdownToClearString() else {
+        guard let groupId = self.groupId, let markdown = self.editorView.getContentMarkdown(), let summary = self.editorView.getContentText()?.ts_customMarkdownToClearString() else {
             return
         }
         let imageIds = self.getImageIds()
         let syncMoment = self.syncMomentView.syncMoment
-        self.publishPost(groupId, title: title, markdown: markdown, summary: summary, imageIds:imageIds, syncMoment: syncMoment)
+        self.publishPost(groupId, title: "1", markdown: markdown, summary: summary, imageIds:imageIds, syncMoment: syncMoment)
     }
 
 }
@@ -285,9 +303,9 @@ extension TSPostWebEditorController {
         var summaryFlag: Bool = false
         var imageFlag: Bool = false
 
-        if let title = self.titleInputView?.text, !title.isEmpty {
-            titleFlag = true
-        }
+//        if let title = self.titleInputView?.text, !title.isEmpty {
+//            titleFlag = true
+//        }
         if let markdown = self.editorView.getContentMarkdown(), !markdown.isEmpty {
             markdownFlag = true
             imageFlag = markdown.ts_customMarkdownIsContainImageCode()
@@ -304,7 +322,7 @@ extension TSPostWebEditorController {
     }
 
     override func saveDraft() {
-        let title = self.titleInputView?.text
+//        let title = self.titleInputView?.text
         let markdown = self.editorView.getContentMarkdown()
         let summary = self.editorView.getContentText()?.ts_customMarkdownToNormal()
         // 使用构造方法优化
@@ -399,15 +417,15 @@ extension TSPostWebEditorController {
 
     /// 发布测试 - 打印发布内容，用于调试，markdown和html需要格式化
     fileprivate func publishTest() -> Void {
-        let title = self.titleInputView.text
+//        let title = self.titleInputView.text
         let html = self.editorView.getHTML()
         let markdown = self.editorView.getContentMarkdown()
         let summary = self.editorView.getContentText()?.ts_customMarkdownToNormal()
         let content = self.editorView.getContentText()
-        print("\n===========Title Start=============\n")
-        if let title = title {
-            print(title)
-        }
+//        print("\n===========Title Start=============\n")
+//        if let title = title {
+//            print(title)
+//        }
         print("\n===========Title End=============\n")
         print("\n===========Html Start=============\n")
         if let html = html {
@@ -446,23 +464,23 @@ extension TSPostWebEditorController {
     override func editorContentFocus() -> Void {
         super.editorContentFocus()
 
-        UIView.animate(withDuration: 0.25, animations: {
-            self.editorView.snp.updateConstraints({ (make) in
-                let height: CGFloat = self.titleInputView.currentHeight + (self.showType == .groupout ? self.groupSelectH : 0)
-                make.top.equalTo(self.titleInputView.snp.bottom).offset(-height)
-            })
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.editorView.snp.updateConstraints({ (make) in
+//                let height: CGFloat = self.titleInputView.currentHeight + (self.showType == .groupout ? self.groupSelectH : 0)
+//                make.top.equalTo(self.titleInputView.snp.bottom).offset(-height)
+//            })
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
     }
     override func editorContentBlur() -> Void {
         super.editorContentBlur()
 
-        UIView.animate(withDuration: 0.25, animations: {
-            self.editorView.snp.updateConstraints({ (make) in
-                make.top.equalTo(self.titleInputView.snp.bottom).offset(0)
-            })
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.editorView.snp.updateConstraints({ (make) in
+//                make.top.equalTo(self.titleInputView.snp.bottom).offset(0)
+//            })
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
     }
 }
 

@@ -76,7 +76,7 @@ extension AppDeleguate {
 
     func setupDataBaseVersion() {
         let config = Realm.Configuration(
-            schemaVersion: 7, // 当前数据库版本号
+            schemaVersion: 8, // 当前数据库版本号
             migrationBlock: { migration, oldSchemaVersion in
                 /*
          [长期注释]
@@ -99,6 +99,7 @@ extension AppDeleguate {
          改动了用户信息模型，直接移除整个数据库/坏笑
          /// version6
          TopicListObject 增加 topicFollow 字段
+                 /// 7 + group_id
         */
                 if oldSchemaVersion < 1 {
                     migration.enumerateObjects(ofType: GroupSearchHistoryObject.className(), { (oldObject, newObject) in
@@ -137,6 +138,11 @@ extension AppDeleguate {
                 if oldSchemaVersion < 7 {
                     migration.enumerateObjects(ofType: TopicListObject.className(), { (oldObject, newObject) in
                         newObject!["topicFollow"] = nil
+                    })
+                }
+                if oldSchemaVersion < 8 {
+                    migration.enumerateObjects(ofType: TopicListObject.className(), { (oldObject, newObject) in
+                        newObject!["group_id"] = 0
                     })
                 }
         })

@@ -102,6 +102,7 @@ class NYHotTopicCell: UITableViewCell {
         self.shareButton?.setTitle("9999", for: .normal)
         self.shareButton?.setTitleColor(UIColor.white, for: .normal)
         self.shareButton?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.shareButton?.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
         bgView.addSubview(self.shareButton!)
         ///评论
         self.commentButton = UIButton(type: .custom)
@@ -109,6 +110,7 @@ class NYHotTopicCell: UITableViewCell {
         self.commentButton?.setTitle("9999", for: .normal)
         self.commentButton?.setTitleColor(UIColor.white, for: .normal)
         self.commentButton?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.commentButton?.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
         bgView.addSubview(self.commentButton!)
         ///点赞
         self.likeButton = UIButton(type: .custom)
@@ -116,6 +118,7 @@ class NYHotTopicCell: UITableViewCell {
         self.likeButton?.setTitle("9999", for: .normal)
         self.likeButton?.setTitleColor(UIColor.white, for: .normal)
         self.likeButton?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.likeButton?.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
         bgView.addSubview(self.likeButton!)
         ///line
         lineA.backgroundColor = UIColor.lightGray
@@ -141,45 +144,72 @@ class NYHotTopicCell: UITableViewCell {
     func setHotTopicFrameModel(hotTopicFrame:HotTopicFrameModel)
     {
         self.hotTopicFrameModel=hotTopicFrame
-        let model = hotTopicFrame.hotTopicModel
+        let model = hotTopicFrame.hotMomentListModel
         bgView.frame = hotTopicFrame.bgViewF!
         self.headerImageButton?.frame = hotTopicFrame.headViewF!
         self.headerImageButton?.layer.cornerRadius = (hotTopicFrame.headViewF?.size.width)!*0.5
         self.headerImageButton?.layer.masksToBounds = true
         //头像
-        if let url = model?.userInfo.avatar?.url {
+        
+        if let url = model?.userInfo?.avatar?.url {
             self.headerImageButton?.setImageWith(URL(string: url), for: .normal)
         }
         /// 昵称
         self.nickNameLabel?.frame = hotTopicFrame.nickViewF!
-        self.nickNameLabel?.text = model?.userInfo.name
+        self.nickNameLabel?.text = model?.userInfo?.name
         /// 时间
         self.timeLabel?.frame = hotTopicFrame.timeViewF!
-        self.timeLabel?.text = model?.comment_updated_at.string()
+        self.timeLabel?.text = model?.moment.create.string(withFormat: "yyyy-MM-dd HH:mm:ss")
         /// 来自
         self.fromLabel?.frame = hotTopicFrame.fromTxtViewF!
-        self.fromLabel?.text = model?.groupInfo.name
+        self.fromLabel?.text = model?.groupInfo?.name
         /// 内容
         self.contentLabel?.frame = hotTopicFrame.contentViewF!
-        self.contentLabel?.text = model?.summary
-        /// 视频内容
-        self.videoImageButton?.frame = hotTopicFrame.videoViewF!
-        if let url = model?.groupInfo.avatar?.url {
-            self.videoImageButton?.setImageWith(URL(string: url), for: .normal)
+        self.contentLabel?.text = model?.groupInfo?.summary
+        self.contentImgView?.isHidden = true
+        self.videoImageButton?.isHidden = true
+        
+        if (model?.moment.pictures.count)!>0
+        {
+            self.contentImgView?.isHidden = false
+            /// 放9图 备用
+            self.contentImgView?.removeAllSubViews()
+            self.contentImgView?.frame = hotTopicFrame.imgListContentF!
+            for (index,data) in (model?.moment.pictures.enumerated())!
+            {
+                
+                let imageView = UIImageView()
+                imageView.frame = hotTopicFrame.imgListF?[index] as! CGRect
+                imageView.layer.cornerRadius = 10
+                imageView.layer.masksToBounds = true
+                let url = URL(string:data.storageIdentity.imageUrl())
+                imageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+                self.contentImgView?.addSubview(imageView)
+            }
+            
         }
+        else
+        {
+            self.videoImageButton?.isHidden = false
+            /// 视频内容
+            self.videoImageButton?.frame = hotTopicFrame.videoViewF!
+            
+            if let url = model?.coverID?.imageUrl() {
+                self.videoImageButton?.setImageWith(URL(string: url), for: .normal)
+            }
+        }
+        
         self.alltxtButton?.frame = hotTopicFrame.allTxtViewF!
-        /// 放9图 备用
-//    self.contentImgView?.removeAllSubViews()
         
         ///分享
         self.shareButton?.frame = hotTopicFrame.shareViewF!
-        self.shareButton?.setTitle(String(format:"%d",(model?.views_count)!), for: .normal)
+        self.shareButton?.setTitle(String(format:"%d",(model?.tool.view)!), for: .normal)
         ///评论
         self.commentButton?.frame = hotTopicFrame.commentViewF!
-        self.commentButton?.setTitle(String(format:"%d",(model?.comments_count)!), for: .normal)
+        self.commentButton?.setTitle(String(format:"%d",(model?.tool.comment)!), for: .normal)
         ///点赞
         self.likeButton?.frame = hotTopicFrame.likeViewF!
-        self.likeButton?.setTitle(String(format:"%d",(model?.likes_count)!), for: .normal)
+        self.likeButton?.setTitle(String(format:"%d",(model?.tool.digg)!), for: .normal)
         ///line
         lineA.frame = hotTopicFrame.lineListF[0] as! CGRect
         lineB.frame = hotTopicFrame.lineListF[1] as! CGRect

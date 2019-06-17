@@ -70,6 +70,8 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
     var releaseDynamicCollectionViewSourceHeight: CGFloat = 0.0
     /// 选择图片数据对应数据
     var selectedPHAssets: [PHAsset] = []
+    /// group id
+    var group_id:Int = 0
     /// 支付信息
 //    var imagesPayInfo: [TSImgPrice] = [TSImgPrice]()
     // 是否隐藏CollectionView
@@ -598,6 +600,7 @@ extension TSReleasePulseViewController {
 
         let top = TSIndicatorWindowTop(state: .loading, title: "处理中...")
         top.show()
+        
         releaseStart(phAssets: postPHAssets, feedContent: postPulseContent, topicsInfo: topics, repostModel: self.repostModel) { [weak self] (obj) in
             top.dismiss()
             let feedIdentity = (obj).feedIdentity
@@ -778,6 +781,7 @@ extension TSReleasePulseViewController {
             /// 转发只能发纯文本
             let momentListObject = TSDatabaseManager().moment.save(feedID: nil, feedContent: feedContent, feedTitle: nil, repostModel: repostModel, coordinate: nil, imageCacheKeys: [], imageSizes: [], imageMimeTypes: [], userId: TSCurrentUserInfo.share.userInfo!.userIdentity, nsDate: NSDate(), textPrice: textPrice, imagePrice: imagePrice, topicsInfo: topicsInfo)
             momentListObject.sendState = 0 ///< 发送中
+            momentListObject.group_id = self.group_id
             TSDatabaseManager().moment.save(momentRelease: momentListObject)
             complete(momentListObject)
             return
@@ -811,6 +815,7 @@ extension TSReleasePulseViewController {
             DispatchQueue.main.async {
                 // 后续任务
                 let momentListObject = TSDatabaseManager().moment.save(feedID: nil, feedContent: feedContent, feedTitle: nil, coordinate: nil, imageCacheKeys: imageCacheKeys, imageSizes: imageSizes, imageMimeTypes: imageMimeType, userId: TSCurrentUserInfo.share.userInfo!.userIdentity, nsDate: NSDate(), textPrice: textPrice, imagePrice: imagePrice, topicsInfo: topicsInfo)
+                momentListObject.group_id = self.group_id
                 momentListObject.sendState = 0
                 TSDatabaseManager().moment.save(momentRelease: momentListObject)
                 complete(momentListObject)

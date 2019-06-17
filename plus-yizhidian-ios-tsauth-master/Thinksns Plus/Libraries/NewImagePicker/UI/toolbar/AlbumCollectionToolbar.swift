@@ -32,7 +32,7 @@ class AlbumCollectionToolbar: UIView {
         backgroundColor = UIColor.white
 
         // 1.完成按钮
-        buttonForFinish.setTitleColor(UIColor.white, for: .normal)
+        buttonForFinish.setTitleColor(UIColor.black, for: .normal)
         buttonForFinish.setBackgroundImage(UIImage.create(with: TSColor.normal.disabled, size: CGSize(width: 70, height: 30)), for: .disabled)
         buttonForFinish.setBackgroundImage(UIImage.create(with: TSColor.main.theme, size: CGSize(width: 70, height: 30)), for: .normal)
         buttonForFinish.titleLabel?.font = UIFont.systemFont(ofSize: 14)

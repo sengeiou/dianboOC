@@ -53,6 +53,12 @@ struct TSMomentListModel {
     var videoHeight: Int?
     // 短视频宽度
     var videoWidth: Int?
+    /// 圈子信息
+    var groupInfo: TopicModel?
+    /// 圈子id
+    var group_id: Int?
+    /// 用户信息
+    var userInfo: TSUserInfoModel?
 }
 
 extension TSMomentListModel {
@@ -65,6 +71,17 @@ extension TSMomentListModel {
         // 1.判断一下，动态是否是由当前用户发布的，如果是，将所有相关的付费状态改为已付费
         let isCurrentUser = TSCurrentUserInfo.share.userInfo?.userIdentity == userIdentity
 
+        if let user = data["user"] as? [String: Any]
+        {
+            userInfo = TSUserInfoModel(JSON: user)
+        }
+        
+        group_id = data["group_id"] as! Int
+        if let group = data["group"] as? [String: Any]
+        {
+            groupInfo = TopicModel(JSON: group)
+        }
+        
         moment = TSMomentFeedModel()
         moment.repostType = data["repostable_type"] as? String
         if let repostId = data["repostable_id"] as? Int {
@@ -159,6 +176,7 @@ extension TSMomentListModel {
         if let rewardCountInfo = data["reward"] as? [String: Any] {
             rewardCount = TSNewsRewardCountModel(JSON: rewardCountInfo)
         }
+        
     }
 
     // MARK: - Convert
