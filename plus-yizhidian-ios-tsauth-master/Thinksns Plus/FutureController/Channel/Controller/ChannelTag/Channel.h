@@ -30,4 +30,6 @@ typedef NS_ENUM(NSUInteger, ChannelType) {
 
 @property (nonatomic, assign) ChannelType tagType ;
 
+@property (nonatomic, assign) NSInteger ID;
+
 @end

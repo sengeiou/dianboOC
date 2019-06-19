@@ -35,7 +35,7 @@ class TSReleasePulseCollectionView: UICollectionView, UICollectionViewDataSource
     var maxImageCount: Int = 0
     // 代理
     weak var didselectCellDelegate: didselectCellDelegate? = nil
-    var imageDatas: [AnyObject] = Array(arrayLiteral: UIImage(named: "IMG_edit_photo_frame")!)
+    var imageDatas: [AnyObject] = Array(arrayLiteral: UIImage(named: "group_camera")!)
     var imagePHAssets: [AnyObject] = Array()
     var payInfoArray: Array<TSImgPrice?>!
     /// 是否开启设置付费
@@ -47,6 +47,7 @@ class TSReleasePulseCollectionView: UICollectionView, UICollectionViewDataSource
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundView?.backgroundColor = TSColor.main.themeTB
         self.delegate = self
         self.dataSource = self
         self.register(TSReleasePulseCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -89,8 +90,8 @@ class TSReleasePulseCollectionView: UICollectionView, UICollectionViewDataSource
         }
         // 如果不是最大张数，最后一个item显示的是+按钮
         if indexPath.row == (imageDatas.count - 1) && imageDatas.count < maxImageCount {
-            cell?.layer.borderColor = TSColor.inconspicuous.highlight.cgColor
-            cell?.layer.borderWidth = frameWidth
+//            cell?.layer.borderColor = TSColor.inconspicuous.highlight.cgColor
+//            cell?.layer.borderWidth = frameWidth
             cell?.payinfoSetBtn.isHidden = true
         }
         return cell!

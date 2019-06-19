@@ -37,6 +37,10 @@ typedef void(^SelectedTag)(Channel *channel);
 
 @property (nonatomic, copy) SelectedTag selectedTag ;
 
+@property (nonatomic, copy) SelectedTag addTag ;
+
+@property (nonatomic, copy) SelectedTag delTag ;
+
 @property (nonatomic, strong) UIButton *editBtn;//编辑按钮
 
 @property (nonatomic, strong) UIColor *bgColor;

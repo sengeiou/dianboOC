@@ -49,11 +49,9 @@
 -(void)setModel:(Channel *)model{
     
     _model = model;
-    
+    model.title = model.title;
     if (model.tagType == MyChannel) {
-        if ([model.title containsString:@"＋"]) {
-            model.title = [model.title substringFromIndex:1];
-        }
+        
         if (model.editable) {
         }else{
             model.editable = YES;
@@ -68,14 +66,12 @@
         _title.selected = model.selected;
         
     }else if (model.tagType == RecommandChannel){
-        if (![model.title containsString:@"＋"]) {
-            model.title = [@"＋" stringByAppendingString:model.title];
-        }
+        
         if (model.editable) {
             model.editable = NO;
         }else{
         }
-        _delBtn.selected = YES;
+
         if (model.resident) {
             _delBtn.hidden = YES;
         }else{

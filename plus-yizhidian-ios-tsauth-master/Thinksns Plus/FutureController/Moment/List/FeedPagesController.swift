@@ -22,7 +22,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 热门列表
     let hotPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 最新列表
-    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "dssssPP")
+    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell")
         //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
     let followPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.follow.rawValue)
@@ -187,11 +187,17 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         hotPage.datas = hotDatas
         hotPage.reloadData()
 
+        
         // 1.最新列表加载数据库数据
-        let newDatas = FeedListRealmManager().get(feedlist: .new).map { FeedListCellModel(object: $0) }
+//        let newDatas = FeedListRealmManager().get(feedlist: .new).map { FeedListCellModel(object: $0) }
         // 最新要显示加载失败的动态
 //        newPage.datas = getFaildFeedModels() + newDatas
-        newPage.reloadData()
+        NYPopularNetworkManager.getVideosListData(channel_id: 1, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
+            if let models = list {
+                self.newPage.datas = models
+            }
+            self.newPage.reloadData()
+        }
     }
 
     /// 将列表动态的数据同步更新到数据库（models 为 nil 则仅清空对应旧数据）
@@ -353,13 +359,13 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         // 如果信息里有 newFeedId，说明某个动态刚刚创建，正在发送中
         if let feedId = notification.userInfo?["newFeedId"] as? Int {
             self.addNewFeedToList(newFeedId: feedId)
-            self.setSelectedAt(0)
+//            self.setSelectedAt(0)
 //            self.newPage.scrollToRow(at: IndexPath(item: self.newPage.pinnedCounts, section: 0), at: .top, animated: false)
             /// 如果是转发的内容，就保持当前的视图结构不变，不做跳转
             if let isRepost = notification.userInfo?["isRepost"] as? Bool, isRepost == true {
                 // 不跳转
             } else {
-                TSRootViewController.share.tabbarVC?.selectedIndex = 0
+//                TSRootViewController.share.tabbarVC?.selectedIndex = 0
             }
             return
         }

@@ -130,6 +130,7 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
     }
     // MARK: - setUI
     fileprivate func setUI() {
+        self.view.backgroundColor = TSColor.main.themeTB
         /// 初始化键盘顶部工具视图
         toolView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: toolHeight)
         toolView.backgroundColor = UIColor.white
@@ -162,8 +163,11 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
         bottomLine.backgroundColor = UIColor(hex: 0x667487)
         toolView.addSubview(bottomLine)
 
-        switchPayInfoView.isHidden = !TSAppConfig.share.localInfo.isFeedPay
+        switchPayInfoView.isHidden = true // !TSAppConfig.share.localInfo.isFeedPay
         /// 限制输入文本框字数
+        contentTextView.backgroundColor = TSColor.main.themeTBCellBg
+        contentTextView.layer.cornerRadius = 10
+        contentTextView.layer.masksToBounds = true
         contentTextView.placeholder = isHiddenshowImageCollectionView ? "占位符_输入要说的话".localized : "占位符_输入要说的话，图文结合更精彩哦".localized
         contentTextView.returnKeyType = .default    // 键盘的return键为换行样式
         contentTextView.font = UIFont.systemFont(ofSize: TSFont.ContentText.text.rawValue)
@@ -225,6 +229,7 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
             let topicBottomline = UIView(frame: CGRect(x: 0, y: 50, width: ScreenWidth, height: 0.5))
             topicBottomline.backgroundColor = TSColor.inconspicuous.disabled
             topicView.addSubview(topicBottomline)
+            atView.isHidden = true
         } else {
            // 普通发布
             repostBgViewHC.constant = 0
@@ -355,7 +360,7 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
             payinfos.append(item.payInfo)
         }
         self.showImageCollectionView.payInfoArray = payinfos
-        let pi: UIImage? = selectedPHAssets.count < maxPhotoCount ? UIImage(named: "IMG_edit_photo_frame") : nil
+        let pi: UIImage? = selectedPHAssets.count < maxPhotoCount ? UIImage(named: "group_camera") : nil
         if let pi = pi {
             self.showImageCollectionView.imageDatas.append(pi)
             self.showImageCollectionView.payInfoArray.append(nil)
@@ -470,7 +475,7 @@ class TSReleasePulseViewController: TSViewController, UITextViewDelegate, didsel
                 payInfoArray.append(nil)
             }
         }
-        let pi: UIImage? = selectedPHAssets.count < maxPhotoCount ? UIImage(named: "IMG_edit_photo_frame") : nil
+        let pi: UIImage? = selectedPHAssets.count < maxPhotoCount ? UIImage(named: "group_camera") : nil
         if pi != nil {
             payInfoArray.append(nil)
         }
@@ -761,7 +766,7 @@ extension TSReleasePulseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.title = "发布动态"
+        self.title = "显示_发布帖子".localized
         setReleaseButtonIsEnabled()
         if mainView.frame.size.height > mainScrollView.bounds.height {
         } else {
@@ -880,6 +885,7 @@ extension TSReleasePulseViewController {
     /// 布局话题板块儿
     func setTopicViewUI(showTopic: Bool, topicData: [TopicCommonModel]) {
         topicView.removeAllSubViews()
+        topicView.isHidden = true
         if showTopic {
             let topLine = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 0.5))
             topLine.backgroundColor = TSColor.inconspicuous.disabled

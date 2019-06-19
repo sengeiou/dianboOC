@@ -54,13 +54,6 @@ class TSDiscoverViewController: TSViewController, UITableViewDelegate, UITableVi
                 NSLog("\(error)======\(list)")
             }
         })
-        NYPopularNetworkManager.getChannelsListData(complete: { (list: [ChannelsModel]?, error,isobl) in
-            if let models = list {
-                NSLog("\(error)======\(list)")
-            }
-        })
-        
-       
         
     }
 

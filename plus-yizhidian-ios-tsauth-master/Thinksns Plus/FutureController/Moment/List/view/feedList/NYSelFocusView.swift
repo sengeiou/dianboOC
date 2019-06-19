@@ -20,7 +20,7 @@ class NYSelFocusView: TSTableView {
     }
     
     /// 数据源
-    var datas: [Int] = []
+    var datas: [NYVideosModel] = []
     /// 刷新代理
     weak var refreshDelegate: FeedListViewRefreshDelegate?
     /// 交互代理
@@ -89,7 +89,6 @@ class NYSelFocusView: TSTableView {
     }
     // MARK: - UI
     func setUI() {
-        datas = [0,2,3,4,3,5,53,5]
         backgroundColor = TSColor.main.themeTB
         separatorStyle = .none
         delegate = self
@@ -145,7 +144,7 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelCell
-        
+        cell.setVideosModel(video: self.datas[indexPath.row])
         return cell
     }
     

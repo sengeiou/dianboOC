@@ -8,11 +8,20 @@
 
 import UIKit
 
+protocol HotListHeadViewDelegate:NSObjectProtocol
+{
+    /// select
+     func headSelectItemAt(_ view: HotListHeadView,HotModel obj: StarsHotModel)
+}
+
 class HotListHeadView: UIView,UICollectionViewDataSource, UICollectionViewDelegate
 {
     var starCollectionView: UICollectionView!
     /// 数据源
     var dataSource: [StarsHotModel] = []
+    
+    /// 交互代理
+    weak var hotListHeadDelegate: HotListHeadViewDelegate?
     
     // MARK: - Lifecycle
     override init(frame: CGRect) {
@@ -72,13 +81,12 @@ class HotListHeadView: UIView,UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        // 游客触发登录
-//        if !TSCurrentUserInfo.share.isLogin {
-//            TSRootViewController.share.guestJoinLoginVC()
-//            return
-//        }
-//        let postListVC = TopicPostListVC(groupId: dataSource[indexPath.row].topicId)
-//        navigationController?.pushViewController(postListVC, animated: true)
+        // 游客触发登录
+        if !TSCurrentUserInfo.share.isLogin {
+            TSRootViewController.share.guestJoinLoginVC()
+            return
+        }
+        hotListHeadDelegate?.headSelectItemAt(self, HotModel: dataSource[indexPath.row])
     }
     
     func refresh() {

@@ -1205,6 +1205,7 @@
 		B201BC8A228487F5008D83CE /* NYSelFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC89228487F5008D83CE /* NYSelFocusView.swift */; };
 		B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC8C228493F7008D83CE /* NYSelCell.swift */; };
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
+		B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20EE82F22B9342D00149BBF /* NYVideosModel.swift */; };
 		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
 		B2421DD222B0D3D00076AFF1 /* NYImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */; };
@@ -1212,6 +1213,7 @@
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
+		B24A18A422BA1926008EA09B /* NYVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */; };
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
 		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
@@ -2671,6 +2673,7 @@
 		B201BC89228487F5008D83CE /* NYSelFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelFocusView.swift; sourceTree = "<group>"; };
 		B201BC8C228493F7008D83CE /* NYSelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelCell.swift; sourceTree = "<group>"; };
 		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
+		B20EE82F22B9342D00149BBF /* NYVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosModel.swift; sourceTree = "<group>"; };
 		B23A135E227B4EE600805B85 /* NYTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NYTabBarItem.h; sourceTree = "<group>"; };
 		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
 		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -2680,6 +2683,7 @@
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
+		B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideoDetailVC.swift; sourceTree = "<group>"; };
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
 		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
@@ -6373,6 +6377,7 @@
 				885FC3622192D19500684DE1 /* TSDownloadVC.xib */,
 				B2442589228732FD00500D08 /* NYSearchListVC.swift */,
 				B24425902288588500500D08 /* NYSearchListVC.xib */,
+				B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -7930,6 +7935,7 @@
 		B2F5B5A62296F0B600B42482 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B20EE82F22B9342D00149BBF /* NYVideosModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8696,6 +8702,7 @@
 				53B272241F43F3710008ABC0 /* TSNewsSelectedTagView.swift in Sources */,
 				365795E71E640CC800B8D409 /* TSListTableViewCell.swift in Sources */,
 				36E92888205A73F400EFDED0 /* EMSDWebImageCompat.m in Sources */,
+				B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */,
 				5314EBA5201C8ECF000A1A94 /* TSEditorSyncMomentTopView.swift in Sources */,
 				53A6FBD81FB43F5100B4C4CC /* TSMusicCommentController.swift in Sources */,
 				36E9289E205A73F400EFDED0 /* PSTCollectionViewLayout.m in Sources */,
@@ -9403,6 +9410,7 @@
 				36CA81CB1F31BDDB00F93A5D /* TSDetailRewardListViewCellCollectionViewCell.swift in Sources */,
 				1751375C1E9E172F002C8945 /* TSMusicPlayerHelper+SourceRedirection.swift in Sources */,
 				36E928A5205A73F400EFDED0 /* EaseSDKHelper.m in Sources */,
+				B24A18A422BA1926008EA09B /* NYVideoDetailVC.swift in Sources */,
 				88B9044D20DB996F005E8C99 /* RecommendResableView.swift in Sources */,
 				8308B2A41F2ED9C10049BC69 /* TSAdvetLaunchView.swift in Sources */,
 				53B5F6531FE263AC00FF6CDB /* GroupDatePickerView.swift in Sources */,

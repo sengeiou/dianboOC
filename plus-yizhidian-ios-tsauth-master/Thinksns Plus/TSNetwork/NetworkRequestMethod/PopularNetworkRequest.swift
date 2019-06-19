@@ -28,4 +28,13 @@ class PopularNetworkRequest {
     ///    - limit: 数据返回条数 默认10条
     ///    - offset: 偏移量 默认为0
     let hotPostList = Request<HotTopicModel>(method: .get, path: "plus-group/post-hot", replacers: [])
+    
+    /// 获取视频列表
+    ///
+    /// - RouteParameter: None
+    /// - RequestParameter:
+    ///    - limit: 数据返回条数 默认10条
+    ///    - offset: 偏移量 默认为0
+    let getVideosList = Request<NYVideosModel>(method: .get, path: "dianbo/getVideos", replacers: [])
+    
 }

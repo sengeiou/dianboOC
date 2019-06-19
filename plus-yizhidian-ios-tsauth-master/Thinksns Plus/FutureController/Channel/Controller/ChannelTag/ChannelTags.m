@@ -48,31 +48,45 @@
 - (void)makeTags{
     _myTags = @[].mutableCopy;
     _recommandTags = @[].mutableCopy;
-    for (NSString *title in _myChannels) {
-        Channel *mod = [[Channel alloc]init];
-        mod.title = title;
-        if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
-            mod.resident = YES;//常驻
+    
+    if(_myChannels&&_myChannels.count>0)
+    {
+        for (NSDictionary *item in _myChannels) {
+            NSString *title = item[@"name"];
+            NSInteger ch_id = [[NSString stringWithFormat:@"%@",item[@"id"]] integerValue];
+            Channel *mod = [[Channel alloc]init];
+            mod.title = title;
+            mod.ID = ch_id;
+            if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
+                mod.resident = YES;//常驻
+            }
+            mod.editable = YES;
+            mod.selected = NO;
+            mod.tagType = MyChannel;
+            //demo默认选择第一个
+            if ([title isEqualToString:@"关注"]) {
+                mod.selected = YES;
+            }
+            [_myTags addObject:mod];
         }
-        mod.editable = YES;
-        mod.selected = NO;
-        mod.tagType = MyChannel;
-        //demo默认选择第一个
-        if ([title isEqualToString:@"关注"]) {
-            mod.selected = YES;
-        }
-        [_myTags addObject:mod];
     }
-    for (NSString *title in _recommandChannels) {
-        Channel *mod = [[Channel alloc]init];
-        mod.title = title;
-        if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
-            mod.resident = YES;//常驻
+    if(_recommandChannels&&_recommandChannels.count>0)
+    {
+        for (NSDictionary *item in _recommandChannels) {
+            NSString *title = item[@"name"];
+            NSInteger ch_id = [[NSString stringWithFormat:@"%@",item[@"id"]] integerValue];
+            Channel *mod = [[Channel alloc]init];
+            mod.title = title;
+            mod.ID = ch_id;
+            if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
+                mod.resident = YES;//常驻
+            }
+            mod.editable = NO;
+            mod.tagType = RecommandChannel;
+            [_recommandTags addObject:mod];
         }
-        mod.editable = NO;
-        mod.tagType = RecommandChannel;
-        [_recommandTags addObject:mod];
     }
+   
 }
 
 - (void)setupViews{
@@ -140,6 +154,7 @@
     cell.delBtn.tag = indexPath.item;
     if (indexPath.section == 0) {
         if (_myTags.count>indexPath.item) {
+    
             cell.model = _myTags[indexPath.item];
             if (_onEdit) {
                 if (cell.model.resident) {
@@ -158,6 +173,7 @@
     }else if (indexPath.section == 1){
         if (_recommandTags.count>indexPath.item) {
             cell.model = _recommandTags[indexPath.item];
+    
             if (_onEdit) {
                 cell.delBtn.hidden = NO;
             }else{
@@ -248,6 +264,13 @@
     
     if (!_onEdit) {
         for (ChannelCell *items in _mainView.visibleCells) {
+            if (items.model.tagType == MyChannel) {
+                items.delBtn.selected = NO;
+            }
+            else
+            {
+                items.delBtn.selected = YES;
+            }
             if (items.model.resident) {
                 items.delBtn.hidden = YES;
             }else{
@@ -257,6 +280,9 @@
     }else{
         for (ChannelCell *items in _mainView.visibleCells) {
             items.delBtn.hidden = YES;
+        }
+        if (self.choosedTags) {
+            self.choosedTags(_myTags,_recommandTags);
         }
     }
     _onEdit = !_onEdit;
@@ -295,6 +321,8 @@
     
     if (indexPath.section == 0) {
         NSInteger item = 0;
+        ChannelCell *cell = (ChannelCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        cell.delBtn.selected = NO;
         for (Channel *mod in _myTags) {
             if (mod.selected) {
                 mod.selected = NO;
@@ -304,6 +332,9 @@
         }
         Channel *object = _myTags[indexPath.item];
         object.selected = YES;
+        if (self.addTag) {
+            self.addTag(object);
+        }
         [collectionView reloadItemsAtIndexPaths:@[indexPath]];
         typeof(self) __weak weakSelf = self;
         [self dismissViewControllerAnimated:YES completion:^{
@@ -317,6 +348,10 @@
         cell.model.editable = YES;
         cell.model.tagType = MyChannel;
         cell.delBtn.hidden = YES;
+        cell.delBtn.selected = YES;
+        if (self.addTag) {
+            self.addTag(cell.model);
+        }
         [_mainView reloadItemsAtIndexPaths:@[indexPath]];
         [_recommandTags removeObjectAtIndex:indexPath.item];
         [_myTags addObject:cell.model];
@@ -343,7 +378,11 @@
         [_myTags addObject:cell.model];
         NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:_myTags.count-1 inSection:0];
         cell.delBtn.tag = targetIndexPage.item;
+        if (self.addTag) {
+            self.addTag(cell.model);
+        }
         [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+        
     }else
     {//del
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:0];
@@ -352,6 +391,9 @@
         cell.model.tagType = RecommandChannel;
         cell.model.selected = YES;
         cell.delBtn.hidden = NO;
+        if (self.delTag) {
+            self.delTag(cell.model);
+        }
         [_mainView reloadItemsAtIndexPaths:@[indexPath]];
         
         id object = _myTags[indexPath.item];

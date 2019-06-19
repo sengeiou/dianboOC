@@ -65,7 +65,10 @@ class TSReleasePulseCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView
 
     override init(frame: CGRect) {
+        
         imageView = UIImageView()
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         super.init(frame: frame)

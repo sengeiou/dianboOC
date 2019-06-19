@@ -221,10 +221,13 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
         bottomLine.backgroundColor = UIColor(hex: 0x667487)
         toolView.addSubview(bottomLine)
 
-        self.title = "发布动态"
+        self.title = "显示_发布帖子".localized
         textView.becomeFirstResponder()
         // 键盘的return键为换行样式
         textView.returnKeyType = .default
+        textView.backgroundColor = TSColor.main.themeTBCellBg
+        textView.layer.cornerRadius = 10
+        textView.layer.masksToBounds = true
         textView.font = UIFont.systemFont(ofSize: TSFont.ContentText.text.rawValue)
         textView.placeholderColor = TSColor.normal.disabled
         textView.placeholderFont = UIFont.systemFont(ofSize: TSFont.ContentText.text.rawValue)
@@ -244,6 +247,8 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
         previewImageView.autoresizingMask = UIViewAutoresizing.flexibleHeight
         previewImageView.clipsToBounds = true
         setTopicViewUI(showTopic: true, topicData: topics)
+        atView.isHidden = true
+        topicView.isHidden = true
     }
 
     // MARK: action
@@ -311,6 +316,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
         /// 封面选择滑块
 //        imagePickerVC.picCoverImage = UIImage(named: "pic_cover_frame")
 
+        imagePickerVC.timeout = 60 * 3
         imagePickerVC.isSelectOriginalPhoto = false
         imagePickerVC.allowTakePicture = true
         imagePickerVC.allowPickingVideo = true
@@ -318,9 +324,12 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
         imagePickerVC.allowPickingGif = false
         imagePickerVC.allowPickingMultipleVideo = false
         imagePickerVC.sortAscendingByModificationDate = false
+        imagePickerVC.backImage = UIImage(named:"nav_back")
+        imagePickerVC.barItemTextColor = UIColor.white
         imagePickerVC.navigationBar.barTintColor = UIColor.white
+        imagePickerVC.navigationBar.tintColor = UIColor.white
         var dic = [String: Any]()
-        dic[NSForegroundColorAttributeName] = UIColor.black
+        dic[NSForegroundColorAttributeName] = UIColor.white
         imagePickerVC.navigationBar.titleTextAttributes = dic
         present(imagePickerVC, animated: true)
     }

@@ -12,6 +12,7 @@ class NYChannelManageVC: UIViewController {
     var rightItem:UIButton?
     var channelTagsVC :ChannelTags?
     var _myTags:NSMutableArray?
+    
     var _recommandTags:NSMutableArray?
     
     override func viewDidLoad() {
@@ -20,19 +21,50 @@ class NYChannelManageVC: UIViewController {
         self.title = "显示_频道管理".localized
         setUI()
         // Do any additional setup after loading the view.
+      
     }
     
     // MARK: - UI
     func setUI() {
         self.view.backgroundColor = TSColor.main.themeTB
         setChatButton()
+        NYPopularNetworkManager.getChannelsListData(complete: { (user_list: [ChannelsModel]?,other_list: [ChannelsModel]?, error,isobl) in
+            self._myTags = NSMutableArray()
+            self._recommandTags = NSMutableArray()
+            if let u_arr = user_list {
+                for obj in u_arr
+                {
+                    let dict = ["id":obj.id, "name":obj.name, "blog":"sunfusheng.com"] as [String : Any]
+                    self._myTags?.add(dict)
+                }
+            }
+            if let o_arr = other_list {
+                for obj in o_arr
+                {
+                    let dict = ["id":obj.id, "name":obj.name, "blog":"sunfusheng.com"] as [String : Any]
+                    self._recommandTags?.add(dict)
+                }
+            }
+            self.channelTagsVC = ChannelTags.init(myTags: self._myTags as! [Any], andRecommandTags: self._recommandTags as! [Any])
+            self.channelTagsVC!.bgColor = TSColor.main.themeTB
+            self.channelTagsVC!.view.backgroundColor = TSColor.main.themeTB
+            self.channelTagsVC!.addTag = {(obj:Any) -> () in
+                let tObj = obj as! Channel
+                NYPopularNetworkManager.upDelChannel(channel_id: tObj.id, act: "add", complete: { (msg, isobl) in
+                    NSLog("\(msg)")
+                })
+            }
+            self.channelTagsVC!.delTag = {(obj:Any) -> () in
+                let tObj = obj as! Channel
+                NYPopularNetworkManager.upDelChannel(channel_id: tObj.id, act: "del", complete: { (msg, isobl) in
+                    NSLog("\(msg)")
+                })
+            }
+            
+            self.view.addSubview((self.channelTagsVC?.view)!)
+        })
         
-        _myTags = ["关注","推荐","热点","北京","视频","社会","图片","娱乐","问答","科技","汽车"];
-        _recommandTags = ["小说","时尚","历史","育儿","直播","搞笑","数码","养生","电影","手机","旅游","宠物","情感","家居","教育","三农"];
-        channelTagsVC = ChannelTags.init(myTags: _myTags as! [Any], andRecommandTags: _recommandTags as! [Any])
-        channelTagsVC!.bgColor = TSColor.main.themeTB
-        channelTagsVC!.view.backgroundColor = TSColor.main.themeTB
-        self.view.addSubview((channelTagsVC?.view)!)
+        
     }
 
     

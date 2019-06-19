@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRr-Pi-s6v">
                         <rect key="frame" x="8" y="8" width="304" height="263.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmp1" translatesAutoresizingMaskIntoConstraints="NO" id="DlL-Se-3gB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmp1" translatesAutoresizingMaskIntoConstraints="NO" id="DlL-Se-3gB">
                                 <rect key="frame" x="0.0" y="42" width="304" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="P8w-hc-SDi"/>
@@ -36,70 +36,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUM-dm-ke3">
-                                <rect key="frame" x="8" y="229" width="45" height="25.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25.5" id="BQG-V0-GxO"/>
-                                    <constraint firstAttribute="width" constant="45" id="I9e-mA-277"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="标榜" backgroundImage="com_bg"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Th-lC-hHi">
-                                <rect key="frame" x="124" y="229" width="45" height="25.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25.5" id="Tde-bB-Hoe"/>
-                                    <constraint firstAttribute="width" constant="45" id="aES-di-XZw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="标榜" backgroundImage="com_bg"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaJ-yh-Nn9">
-                                <rect key="frame" x="186" y="229" width="45" height="25.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="hCt-Yc-EWg"/>
-                                    <constraint firstAttribute="height" constant="25.5" id="yrT-7T-b97"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="标榜" backgroundImage="com_bg"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hso-H1-3zG">
-                                <rect key="frame" x="68" y="230" width="45" height="25.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="Oix-HJ-dZU"/>
-                                    <constraint firstAttribute="height" constant="25.5" id="Qpb-yE-RxZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="标榜" backgroundImage="com_bg"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZe-ZT-CcS">
-                                <rect key="frame" x="251" y="229" width="45" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="Kzt-gB-aUE"/>
-                                    <constraint firstAttribute="height" constant="25" id="eHS-Jw-iJJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" image="com_p3" backgroundImage="com_bg"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aQe-ff-okn" userLabel="View-(tags)">
+                                <rect key="frame" x="0.0" y="222" width="304" height="41.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.2196078431372549" green="0.2196078431372549" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="aaJ-yh-Nn9" firstAttribute="leading" secondItem="7Th-lC-hHi" secondAttribute="trailing" constant="17" id="0V8-Hc-Eql"/>
-                            <constraint firstItem="hso-H1-3zG" firstAttribute="leading" secondItem="EUM-dm-ke3" secondAttribute="trailing" constant="15" id="19a-lt-gku"/>
                             <constraint firstItem="tCN-KI-bTn" firstAttribute="top" secondItem="gRr-Pi-s6v" secondAttribute="top" constant="23" id="2Dv-xO-VrR"/>
-                            <constraint firstAttribute="trailing" secondItem="OZe-ZT-CcS" secondAttribute="trailing" constant="8" id="3QA-9w-EL2"/>
                             <constraint firstItem="tCN-KI-bTn" firstAttribute="leading" secondItem="gRr-Pi-s6v" secondAttribute="leading" constant="8" id="5tr-Ge-xXL"/>
-                            <constraint firstItem="7Th-lC-hHi" firstAttribute="leading" secondItem="hso-H1-3zG" secondAttribute="trailing" constant="11" id="6h6-Id-Yai"/>
+                            <constraint firstAttribute="trailing" secondItem="aQe-ff-okn" secondAttribute="trailing" id="BHK-Kd-mA0"/>
                             <constraint firstItem="DlL-Se-3gB" firstAttribute="centerY" secondItem="gRr-Pi-s6v" secondAttribute="centerY" id="Dsp-dh-gHR"/>
                             <constraint firstAttribute="trailing" secondItem="DlL-Se-3gB" secondAttribute="trailing" id="RZ4-so-t3B"/>
                             <constraint firstAttribute="trailing" secondItem="tCN-KI-bTn" secondAttribute="trailing" constant="8" id="Rev-bE-vcr"/>
-                            <constraint firstAttribute="bottom" secondItem="aaJ-yh-Nn9" secondAttribute="bottom" constant="9" id="l2g-SY-eWi"/>
-                            <constraint firstAttribute="bottom" secondItem="EUM-dm-ke3" secondAttribute="bottom" constant="9" id="oE4-wj-fLL"/>
-                            <constraint firstAttribute="bottom" secondItem="hso-H1-3zG" secondAttribute="bottom" constant="8" id="oh7-xT-EFf"/>
+                            <constraint firstAttribute="bottom" secondItem="aQe-ff-okn" secondAttribute="bottom" id="Z3p-dF-sg5"/>
+                            <constraint firstItem="aQe-ff-okn" firstAttribute="leading" secondItem="gRr-Pi-s6v" secondAttribute="leading" id="nwk-6Q-nc4"/>
                             <constraint firstItem="DlL-Se-3gB" firstAttribute="leading" secondItem="gRr-Pi-s6v" secondAttribute="leading" id="sCR-Tq-Wj3"/>
-                            <constraint firstItem="OZe-ZT-CcS" firstAttribute="leading" secondItem="aaJ-yh-Nn9" secondAttribute="trailing" constant="20" id="sUu-zv-YCI"/>
-                            <constraint firstAttribute="bottom" secondItem="OZe-ZT-CcS" secondAttribute="bottom" constant="9.5" id="yEb-HM-Hm7"/>
-                            <constraint firstAttribute="bottom" secondItem="7Th-lC-hHi" secondAttribute="bottom" constant="9" id="zpR-J9-mEi"/>
+                            <constraint firstItem="aQe-ff-okn" firstAttribute="top" secondItem="DlL-Se-3gB" secondAttribute="bottom" id="uwX-O7-UnE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -113,14 +66,13 @@
             <connections>
                 <outlet property="cellContentView" destination="gRr-Pi-s6v" id="Odr-HI-e0E"/>
                 <outlet property="contentImageView" destination="DlL-Se-3gB" id="eEw-jR-qtw"/>
+                <outlet property="tagsView" destination="aQe-ff-okn" id="QU2-NX-dnG"/>
                 <outlet property="titleLabel" destination="tCN-KI-bTn" id="2W8-bh-VFz"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="94.452773613193415"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="com_bg" width="110.5" height="55.5"/>
-        <image name="com_p3" width="22.5" height="4.5"/>
         <image name="tmp1" width="490" height="274"/>
     </resources>
 </document>

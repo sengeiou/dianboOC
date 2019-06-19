@@ -30,6 +30,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
 
     // MARK: - UI
     func setUI() {
+        starHead.hotListHeadDelegate = self
 //        NYSelFocusView.init(frame: .zero, tableIdentifier: "dssssPP")
 //        init(frame: frame, style: .plain)
         me_tablview = TSTableView(frame: CGRect.zero, style: .plain)
@@ -170,4 +171,12 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
     }
     
+}
+
+extension TopicHotListVCViewController:HotListHeadViewDelegate
+{
+    func headSelectItemAt(_ view: HotListHeadView, HotModel obj: StarsHotModel) {
+        let postListVC = GroupDetailVC(groupId: obj.group_id)
+        navigationController?.pushViewController(postListVC, animated: true)
+    }
 }

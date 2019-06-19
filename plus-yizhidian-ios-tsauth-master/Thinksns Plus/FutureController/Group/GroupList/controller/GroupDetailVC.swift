@@ -585,6 +585,8 @@ class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         imagePickerVC.sortAscendingByModificationDate = false
         imagePickerVC.backImage = UIImage(named:"nav_back")
         imagePickerVC.barItemTextColor = UIColor.white
+        imagePickerVC.oKButtonTitleColorNormal = UIColor.black
+        imagePickerVC.oKButtonTitleColorDisabled = UIColor.black
         imagePickerVC.navigationBar.barTintColor = UIColor.white
         imagePickerVC.navigationBar.tintColor = UIColor.white
         var dic = [String: Any]()
@@ -836,7 +838,7 @@ extension GroupDetailVC: PostListNavViewDelegate {
 // MARK: - 帖子列表刷新代理事件
 extension GroupDetailVC: NYFeedListViewRefreshDelegate {
     /// 上拉加载
-    func feedListTable(_ table: PostListActionView, loadMoreDataOf tableIdentifier: String) {
+    func feedListTable(_ table: NYPostListActionView, loadMoreDataOf tableIdentifier: String) {
         var type: PostsType = PostsType.latest
         if table == self.lastPostTable {
             type = PostsType.latest
@@ -846,18 +848,32 @@ extension GroupDetailVC: NYFeedListViewRefreshDelegate {
             type = PostsType.recommend
         }
         table.curentPage += 1
-        GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: table.after) { [weak self] (model, message, status) in
+        
+        //动态数据
+        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: "group",after:table.after! ,complete:{(data: [TSMomentListModel]?, error) in
             table.isRequestList = false
-//            self?.navView.indicator.dismiss()
-            var datas: [FeedListCellModel]?
-            if let model = model {
-                datas = []
-                datas?.append(contentsOf: model.posts.map { FeedListCellModel(postModel: $0) })
-            } else {
+            var datas: [TSMomentListModel]?
+            if let models = data {
+                datas = models
+            }
+            else {
                 table.curentPage = table.curentPage - 1
             }
             table.processloadMore(data: datas, message: nil, status: true)
-        }
+        })
+        
+//        GroupNetworkManager.getPosts(groupId: groupId, type: type.rawValue, offset: table.after) { [weak self] (model, message, status) in
+//            table.isRequestList = false
+////            self?.navView.indicator.dismiss()
+//            var datas: [FeedListCellModel]?
+//            if let model = model {
+//                datas = []
+//                datas?.append(contentsOf: model.posts.map { FeedListCellModel(postModel: $0) })
+//            } else {
+//                table.curentPage = table.curentPage - 1
+//            }
+//            table.processloadMore(data: datas, message: nil, status: true)
+//        }
     }
     // 下拉刷新
     func refresh(table: NYPostListActionView) {
