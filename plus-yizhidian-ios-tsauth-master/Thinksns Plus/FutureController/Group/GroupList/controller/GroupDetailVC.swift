@@ -11,11 +11,11 @@ import UIKit
 class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     enum PostsType: String {
         /// 最新帖子
-        case latest = "latest_post"
+        case latest = "group"
         /// 最新回复
-        case reply = "latest_reply"
+        case reply = "group_reply"
         /// 精华帖，请求列表的时候需要设置excellent:1，分享H5不能用
-        case recommend = "excellent"
+        case recommend = "group_fine"
     }
 
     /// 圈子 id
@@ -850,7 +850,7 @@ extension GroupDetailVC: NYFeedListViewRefreshDelegate {
         table.curentPage += 1
         
         //动态数据
-        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: "group",after:table.after! ,complete:{(data: [TSMomentListModel]?, error) in
+        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: type.rawValue,after:table.after! ,complete:{(data: [TSMomentListModel]?, error) in
             table.isRequestList = false
             var datas: [TSMomentListModel]?
             if let models = data {
@@ -889,7 +889,7 @@ extension GroupDetailVC: NYFeedListViewRefreshDelegate {
             type = PostsType.recommend
         }
         //动态数据
-        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: "group",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
+        TSMomentNetworkManager().getfeedList(hot: "", search: "",group_id:groupId,type: type.rawValue,after:0 ,complete:{(data: [TSMomentListModel]?, error) in
             if let models = data {
                 table.processRefresh(data: models, message: nil, status: true)
             }

@@ -175,4 +175,87 @@ extension NYPopularNetworkManager {
         }
     }
     
+    /// 获取视频详细
+    /// video_id
+    class func getVideosListData(video_id: Int ,complete: @escaping ((NYVideosModel?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideobyId
+        request.urlPath = request.fullPathWith(replacers: ["\(video_id)"])
+//        // 2.配置参数
+//        let parameters: [String: Any] = ["channel_id": channel_id, "after": after, "limit": limit, "keyword": keyword, "tags": tags]
+//        request.parameter = parameters
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.model, nil, true)
+            }
+        }
+        
+    }
+    /// 推荐视频
+    /// id
+    class func getRecommendVideosData(_id: Int ,complete: @escaping (([NYVideosModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoRecommend
+        request.urlPath = request.fullPathWith(replacers: ["\(_id)"])
+        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete(nil, "网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [[String: Any]] else {
+                complete(nil, "服务器返回数据错误", false)
+                return
+            }
+            // 3. 正常解析数据
+            var list:[NYVideosModel]? = NSMutableArray() as! [NYVideosModel]
+            for obj in datas
+            {
+                let video = obj["video"] as? [String: Any]
+                let vm = NYVideosModel(JSON: video! )
+                list?.append(vm!)
+            }
+            complete(list, "ok", true)
+        })
+
+    }
+    
+    /// 批量获取视频评论
+    /// id   
+    class func getCommentsVideosData(_id: Int ,complete: @escaping (([FeedListCommentModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoComments
+        request.urlPath = request.fullPathWith(replacers: ["\(_id)"])
+        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete(nil, "网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete(nil, "服务器返回数据错误", false)
+                return
+            }
+            // 3. 正常解析数据
+            let array = datas["comments"] as? [[String: Any]]
+            var list:[FeedListCommentModel]? = NSMutableArray() as! [FeedListCommentModel]
+            for obj in array!
+            {
+                let vm = FeedListCommentModel(JSON: (obj as? [String: Any])! )
+                list?.append(vm!)
+            }
+            complete(list, "ok", true)
+        })
+        
+    }
 }

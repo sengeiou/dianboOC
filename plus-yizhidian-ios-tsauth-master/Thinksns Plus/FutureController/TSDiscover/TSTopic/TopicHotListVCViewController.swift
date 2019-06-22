@@ -175,8 +175,8 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
 
 extension TopicHotListVCViewController:HotListHeadViewDelegate
 {
-    func headSelectItemAt(_ view: HotListHeadView, HotModel obj: StarsHotModel) {
-        let postListVC = GroupDetailVC(groupId: obj.group_id)
+    func headSelectItemAt(_ view: HotListHeadView, HotModel obj: GroupModel) {
+        let postListVC = GroupDetailVC(groupId: obj.id)
         navigationController?.pushViewController(postListVC, animated: true)
     }
 }

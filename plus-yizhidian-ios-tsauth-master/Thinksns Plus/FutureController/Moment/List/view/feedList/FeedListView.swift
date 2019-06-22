@@ -26,7 +26,9 @@ import UIKit
     /// - Parameters:
     ///   - onSeeAllButton: 点击的范围是否属于“查看全部评论”按钮上
     func feedList(_ view: FeedListView, didSelected cell: FeedListCell, onSeeAllButton: Bool)
-
+    /// 点击了动态 cell
+    ///
+    @objc optional func feedList(_ view: NYSelFocusView, didSelected cell: NYSelCell)
     /// 点击了图片
     func feedList(_ view: FeedListView, didSelected  cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
 

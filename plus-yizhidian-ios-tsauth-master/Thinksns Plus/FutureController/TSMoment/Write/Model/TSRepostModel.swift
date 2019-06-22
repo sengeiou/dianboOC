@@ -111,6 +111,17 @@ class TSRepostModel: Object {
         }
         return repostModel
     }
+    class func coverPostVideoModel(videoModel: NYVideosModel) -> TSRepostModel {
+        let repostModel = TSRepostModel()
+        repostModel.id = videoModel.id
+        repostModel.title = videoModel.name
+        repostModel.content = videoModel.summary
+        repostModel.type = .postVideo
+        if let content = repostModel.content, content.count > TSRepostModel().maxContenWord {
+            repostModel.content = content.substring(to: content.index(content.startIndex, offsetBy: TSRepostModel().maxContenWord))
+        }
+        return repostModel
+    }
     // MARK: - 圈子
     class func coverGroupModel(groupModel: GroupModel) -> TSRepostModel {
         let repostModel = TSRepostModel()

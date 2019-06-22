@@ -153,6 +153,8 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? NYSelCell else {
             return
         }
+        interactDelegate?.feedList!(self, didSelected: cell)
+        
 //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
     }
     

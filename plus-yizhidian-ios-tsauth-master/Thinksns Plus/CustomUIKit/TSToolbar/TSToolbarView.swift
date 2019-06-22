@@ -11,13 +11,19 @@
 import UIKit
 
 /// 工具栏代理事件
-protocol TSToolbarViewDelegate: class {
+@objc protocol TSToolbarViewDelegate: class {
     /// item 被点击
     func toolbar(_ toolbar: TSToolbarView, DidSelectedItemAt index: Int)
+    /// 聊什么 被点
+    @objc optional func inputToolbar(_ toolbar: TSToolbarView)
 }
 
 class TSToolbarView: UIView, TSToolBarButtonItemDelegate {
 
+    
+    //输入框
+    let inputButon = UIButton(type: .custom)
+    
     /// 图片和标题的相对位置
     ///
     /// - left: 图片左，标题右
@@ -72,6 +78,25 @@ class TSToolbarView: UIView, TSToolBarButtonItemDelegate {
     // 设置视图
     func setUI() {
         self.backgroundColor = UIColor.white
+        let inputW:CGFloat = 220
+        let inputH:CGFloat = 30
+        let inputX:CGFloat = 10
+        let inputY:CGFloat = (self.height-inputH)*0.5
+//        com_item_bg
+        
+        let image = UIImage(named: "com_item_bg")?
+            .resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15),
+                            resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸
+        inputButon.setBackgroundImage(image, for: .normal)
+        inputButon.setTitle("聊点什么吧...", for: .normal)
+        inputButon.setTitleColor(UIColor.white, for: .normal)
+        inputButon.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        inputButon.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        inputButon.contentHorizontalAlignment = .left
+        inputButon.frame = CGRect(x: inputX, y: inputY, width: inputW, height: inputH)
+        inputButon.addTarget(self, action: #selector(inputClickdo), for: .touchUpInside)
+//        inputClickdo
+        self.addSubview(inputButon)
         // 设置 items 的 frame
         for model in itemModels! {
             // 固定高度
@@ -85,13 +110,13 @@ class TSToolbarView: UIView, TSToolBarButtonItemDelegate {
             case .left: // item 图片在左文字在右时
                 width = CGFloat(16.0 + 2.0 + 50.0) // 这里 width 的值是根据设计图配置的
                 if model.index == 3 {
-                    x = self.bounds.width - width
+                    x = self.bounds.width - inputButon.frame.maxX - width
                 } else {
-                    x = width * CGFloat(model.index)
+                    x = inputButon.frame.maxX+width * CGFloat(model.index)
                 }
             case .top: // item 图片在上文字在下时
-                width = UIScreen.main.bounds.size.width / CGFloat((itemModels?.count)!)
-                x = CGFloat(model.index) * width
+                width = (UIScreen.main.bounds.size.width-inputButon.frame.maxX) / CGFloat((itemModels?.count)!)
+                x = inputButon.frame.maxX+(CGFloat(model.index) * width)
             }
             let itemFrame = CGRect(x: x, y: 0, width: width, height: height)
             let item = TSToolBarButtonItem(frame: itemFrame, model: model, type: relativeType)
@@ -101,6 +126,10 @@ class TSToolbarView: UIView, TSToolBarButtonItemDelegate {
         }
     }
 
+    func inputClickdo(button:UIButton)  {
+        self.delegate?.inputToolbar!(self)
+    }
+    
     // MARK: - Private
     /// 通过 index 获取 item
     private func getItemAt(_ index: Int) -> TSToolBarButtonItem {

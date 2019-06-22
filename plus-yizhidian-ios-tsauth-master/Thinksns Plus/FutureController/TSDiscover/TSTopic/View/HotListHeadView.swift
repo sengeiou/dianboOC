@@ -11,14 +11,14 @@ import UIKit
 protocol HotListHeadViewDelegate:NSObjectProtocol
 {
     /// select
-     func headSelectItemAt(_ view: HotListHeadView,HotModel obj: StarsHotModel)
+     func headSelectItemAt(_ view: HotListHeadView,HotModel obj: GroupModel)
 }
 
 class HotListHeadView: UIView,UICollectionViewDataSource, UICollectionViewDelegate
 {
     var starCollectionView: UICollectionView!
     /// 数据源
-    var dataSource: [StarsHotModel] = []
+    var dataSource: [GroupModel] = []
     
     /// 交互代理
     weak var hotListHeadDelegate: HotListHeadViewDelegate?
@@ -90,12 +90,20 @@ class HotListHeadView: UIView,UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func refresh() {
-        NYPopularNetworkManager.getPopularData(complete: { (list: [StarsHotModel]?, error,isobl) in
-            if let models = list {
+        GroupNetworkManager.getRecommendGroups(offset: 0) { (models, message, status) in
+            if let models = models {
                 self.dataSource = models
                 self.starCollectionView.reloadData()
             }
-        })
+        }
+
+//        return
+//        NYPopularNetworkManager.getPopularData(complete: { (list: [StarsHotModel]?, error,isobl) in
+//            if let models = list {
+//                self.dataSource = models
+//                self.starCollectionView.reloadData()
+//            }
+//        })
     }
 
 }

@@ -33,9 +33,9 @@ class TSCollectionVC: TSViewController, UIScrollViewDelegate, ZFPlayerDelegate {
     var playerView: ZFPlayerView!
     var isPlaying = false
     /// 当前显示的视图
-    var currentShowPage: FeedListActionView?
+    var currentShowPage: NYSelFocusView?
     /// 当前正在播放视频的视图
-    var currentPlayingView: FeedListActionView?
+    var currentPlayingView: NYSelFocusView?
     /// 当前正在播放视频的cell
     var currentPlayingCell: FeedListCell?
     // MARK: - Lifecycle
@@ -269,8 +269,8 @@ extension TSCollectionVC: FeedListActionViewDelegate {
         self.playerView.hasDownload = true
         self.playerView.delegate = self
         self.playerView.autoPlayTheVideo()
-        self.currentPlayingView = feedListView
-        self.currentPlayingCell = feedListView.cellForRow(at: indexPath) as? FeedListCell
+//        self.currentPlayingView = feedListView
+//        self.currentPlayingCell = feedListView.cellForRow(at: indexPath) as? FeedListCell
     }
 
     func didClickVideoCell(_ feedListView: FeedListActionView, cellIndexPath: IndexPath, fatherViewTag: Int) {

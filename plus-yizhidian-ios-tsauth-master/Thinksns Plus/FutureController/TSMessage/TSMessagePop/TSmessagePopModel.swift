@@ -67,6 +67,24 @@ class TSmessagePopModel {
             content = "查看视频"
         }
     }
+    init(videoModel: NYVideosModel) {
+        
+        feedId = videoModel.id
+        self.owner = ""
+        contentType = .text
+        content = videoModel.summary
+//        if momentModel.pictures.count > 0 {
+//            self.imageIcon = #imageLiteral(resourceName: "ico_pic_disabled")
+//            contentType = .pic
+//            content = "查看图片"
+//        }
+//        videoModel.cover
+//        if !momentModel.videoURL.isEmpty {
+//            self.imageIcon = #imageLiteral(resourceName: "ico_video_disabled")
+//            contentType = .video
+//            content = "查看视频"
+//        }
+    }
     init(momentDetail: TSMomentListCellModel) {
         feedId = momentDetail.data?.feedIdentity ?? 0
         self.owner = momentDetail.userInfo?.name ?? ""

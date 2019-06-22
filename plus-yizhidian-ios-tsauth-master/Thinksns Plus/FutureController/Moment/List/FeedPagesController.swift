@@ -20,12 +20,13 @@ enum FeedListType: String {
 
 class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 热门列表
-    let hotPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
+    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell") //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 最新列表
     let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell")
         //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
-    let followPage = FeedListActionView(frame: .zero, tableIdentifier: FeedListType.follow.rawValue)
+    let followPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "follwpageCell")
+    //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.follow.rawValue)
     /// 广告 Banner
     let banner = TSAdvertBanners(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
     /// 还没有被显示的列表内广告
@@ -33,7 +34,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     var playerView: ZFPlayerView!
     var isPlaying = false
     /// 当前显示的视图
-    var currentShowPage: FeedListActionView?
+    var currentShowPage: NYSelFocusView?
     /// 当前正在播放视频的视图
     var currentPlayingView: FeedListActionView?
     /// 当前正在播放视频的cell
@@ -125,9 +126,13 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         add(childView: followPage, at: 2)
         add(childView: hotPage, at: 1)
         add(childView: newPage, at: 0)
-        hotPage.feedListViewDelegate = self
+//        hotPage.feedListViewDelegate = self
 //        newPage.feedListViewDelegate = self
-        followPage.feedListViewDelegate = self
+//        followPage.feedListViewDelegate = self
+        
+        followPage.interactDelegate = self
+        hotPage.interactDelegate = self
+        newPage.interactDelegate = self
     }
 
     func setPlayerView() {
@@ -175,28 +180,32 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     func loadDatabase() {
         advertObjects = TSDatabaseManager().advert.getObjects(type: .feedListIn).map { FeedListCellModel(advert: $0) }
         // 1.关注列表加载数据库数据
-        let followDatas = FeedListRealmManager().get(feedlist: .follow).map { FeedListCellModel(object: $0) }
-        // 关注要显示加载失败的动态
-        followPage.datas = getFaildFeedModels() + followDatas
-        followPage.reloadData()
+//        let followDatas = FeedListRealmManager().get(feedlist: .follow).map { FeedListCellModel(object: $0) }
+//        // 关注要显示加载失败的动态
+//        followPage.datas = getFaildFeedModels() + followDatas
+//        followPage.reloadData()
 
-        // 1.热门列表加载数据库数据
-        var hotDatas = FeedListRealmManager().get(feedlist: .hot).map { FeedListCellModel(object: $0) }
-        // 热门列表要显示列表内容广告
-        addAdvert(to: &hotDatas)
-        hotPage.datas = hotDatas
-        hotPage.reloadData()
+//        // 1.热门列表加载数据库数据
+//        var hotDatas = FeedListRealmManager().get(feedlist: .hot).map { FeedListCellModel(object: $0) }
+//        // 热门列表要显示列表内容广告
+//        addAdvert(to: &hotDatas)
+//        hotPage.datas = hotDatas
+//        hotPage.reloadData()
 
         
         // 1.最新列表加载数据库数据
 //        let newDatas = FeedListRealmManager().get(feedlist: .new).map { FeedListCellModel(object: $0) }
-        // 最新要显示加载失败的动态
+         //最新要显示加载失败的动态
 //        newPage.datas = getFaildFeedModels() + newDatas
         NYPopularNetworkManager.getVideosListData(channel_id: 1, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
             if let models = list {
                 self.newPage.datas = models
+                self.hotPage.datas = models
+                self.followPage.datas = models
             }
             self.newPage.reloadData()
+            self.hotPage.reloadData()
+            self.followPage.reloadData()
         }
     }
 
@@ -384,15 +393,15 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
 //            newPage.reloadData()
 //        }
         // 2.关注列表
-        if let newFeedModel = followPage.datas.first(where: { $0.id["feedId"] == oldId }) {
-            if let newId = newId {
-                newFeedModel.id = .feed(feedId: newId)
-                newFeedModel.sendStatus = .success
-            } else {
-                newFeedModel.sendStatus = .faild
-            }
-            followPage.reloadData()
-        }
+//        if let newFeedModel = followPage.datas.first(where: { $0.id["feedId"] == oldId }) {
+//            if let newId = newId {
+//                newFeedModel.id = .feed(feedId: newId)
+//                newFeedModel.sendStatus = .success
+//            } else {
+//                newFeedModel.sendStatus = .faild
+//            }
+//            followPage.reloadData()
+//        }
     }
 
     /// 添加新创建的动态到列表上
@@ -427,9 +436,9 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         // 4.将 newFeedModel 添加到列表中
         // 新加入的内容为置顶内容的下一条，并滚动到该行
 //        newPage.datas.insert(newFeedModel, at: newPage.pinnedCounts)
-        followPage.datas.insert(newFeedModel, at: followPage.pinnedCounts)
+//        followPage.datas.insert(newFeedModel, at: followPage.pinnedCounts)
 //        newPage.insertRow(at: IndexPath(item: newPage.pinnedCounts, section: 0), with: .none)
-        followPage.insertRow(at: IndexPath(item: followPage.pinnedCounts, section: 0), with: .none)
+//        followPage.insertRow(at: IndexPath(item: followPage.pinnedCounts, section: 0), with: .none)
     }
 
     func playVideoWith(_ feedListView: FeedListActionView, indexPath: IndexPath) {
@@ -470,10 +479,10 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     }
     
     override func selectedPageChangedTo(index: Int) {
-        var feedListView: FeedListActionView?
+        var feedListView: NYSelFocusView?
         switch index {
         case 0:
-            feedListView = hotPage
+            feedListView = newPage
         case 1:
             feedListView = hotPage
         case 2:
@@ -485,18 +494,18 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             return
         }
         currentShowPage = currentPage
-        if let _ = currentPage.getPlayVideoInVisiableCellIndexPath() {
-            if currentPage == currentPlayingView {
-                // 继续播放
-                self.playerView.play()
-            } else {
-                // 获取新页面的可播放下标 有 而且当前播放播放的页面不是新页面 就播放新的 重置正在播放的
-                self.playerView.pause()
-            }
-        } else {
-            // 暂停播放
-            self.playerView.pause()
-        }
+//        if let _ = currentPage.getPlayVideoInVisiableCellIndexPath() {
+//            if currentPage == currentPlayingView {
+//                // 继续播放
+//                self.playerView.play()
+//            } else {
+//                // 获取新页面的可播放下标 有 而且当前播放播放的页面不是新页面 就播放新的 重置正在播放的
+//                self.playerView.pause()
+//            }
+//        } else {
+//            // 暂停播放
+//            self.playerView.pause()
+//        }
     }
 
     func rightItemClick() {
@@ -517,6 +526,43 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         channelSelManageVC.title = btn.currentTitle
         self.navigationController?.pushViewController(channelSelManageVC, animated: true)
     }
+}
+
+extension FeedPagesController: FeedListViewDelegate {
+    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, onSeeAllButton: Bool) {
+    
+    }
+    
+    func feedList(_ view: NYSelFocusView, didSelected cell: NYSelCell) {
+        let videoDetailVC = NYVideoDetailVC()
+        videoDetailVC.video_id = cell.videoModel!.id
+        self.navigationController?.pushViewController(videoDetailVC, animated: true)
+    }
+    
+    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int) {
+        
+    }
+    
+    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on toolbar: TSToolbarView, withToolbarButtonIndex index: Int) {
+        
+    }
+    
+    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath) {
+        
+    }
+    
+    func feedList(_ view: FeedListView, didLongPress cell: FeedListCell, on commentView: FeedCommentListView, withCommentIndexPath commentIndexPath: IndexPath) {
+        
+    }
+    
+    func feedList(_ view: FeedListView, didSelected cell: FeedListCell, didSelectedComment commentCell: FeedCommentListCell, onUser userId: Int) {
+        
+    }
+    
+    func feedList(_ view: FeedListView, didSelectedResendButton cell: FeedListCell) {
+        
+    }
+    
 }
 
 extension FeedPagesController: FeedListActionViewDelegate {

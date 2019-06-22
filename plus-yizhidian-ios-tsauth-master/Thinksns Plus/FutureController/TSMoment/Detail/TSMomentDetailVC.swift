@@ -14,6 +14,8 @@ import Kingfisher
 
 class TSMomentDetailVC: TSViewController, TSMomentDetailNavViewDelegate/* 导航视图 代理 */, TSMomentDetailHeaderViewDelegate/* headerView 代理 */, UITableViewDelegate, TSMomentDetailToolbarDelegate/* 工具栏点击代理事件 */, TSKeyboardToolbarDelegate, TSCustomAcionSheetDelegate/* 弹出视图的点击代理 */, TSChoosePriceVCDelegate, ZFPlayerDelegate {
 
+    
+
     var userimageView:NYImageButton!
     /// 导航视图
     lazy var navView: TSMomentDetailNavView = { () -> TSMomentDetailNavView in
@@ -451,6 +453,9 @@ class TSMomentDetailVC: TSViewController, TSMomentDetailNavViewDelegate/* 导航
     }
 
     // MARK: TSMomentDetailToolbarDelegate
+    func inputToolbar(toolbar: TSMomentDetailToolbar) {
+        
+    }
     func toolbar(_ toolbar: TSMomentDetailToolbar, DidSelectedItemAt index: Int) {
         if index == 0 { // 喜欢
             headerView!.updateDiggIcon()

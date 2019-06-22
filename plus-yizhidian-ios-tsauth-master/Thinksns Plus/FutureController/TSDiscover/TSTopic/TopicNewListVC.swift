@@ -11,7 +11,7 @@ import UIKit
 class TopicNewListVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var topicCollectionView: UICollectionView!
     /// 数据源
-    var dataSource: [StarsHotModel] = []
+    var dataSource: [GroupModel] = []
     /// 占位图
     let occupiedView = UIImageView()
     var listLimit = TSAppConfig.share.localInfo.limit

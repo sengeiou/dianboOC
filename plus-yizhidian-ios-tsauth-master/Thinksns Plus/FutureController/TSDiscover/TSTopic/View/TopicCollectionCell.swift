@@ -53,10 +53,14 @@ class TopicCollectionCell: UICollectionViewCell {
         self.addSubview(titleLabel)
         
     }
-
-    func setInfo(model: StarsHotModel, index: IndexPath) {
+    func setInfo(model: GroupModel, index: IndexPath) {
         titleLabel.text = model.name
         let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: model.avatar)!)
         imageShadow.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
     }
+//    func setInfo(model: GroupModel, index: IndexPath) {
+//        titleLabel.text = model.name
+//        let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: model.avatar)!)
+//        imageShadow.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+//    }
 }

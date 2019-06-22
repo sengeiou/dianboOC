@@ -20,6 +20,8 @@ class NYSelCell: UITableViewCell {
     
     static let cellHeight:CGFloat = 280.0
     
+    var videoModel:NYVideosModel?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -42,6 +44,7 @@ class NYSelCell: UITableViewCell {
     }
     
     func setVideosModel(video:NYVideosModel) -> Void {
+        videoModel = video
         titleLabel.text = video.name
         let url = URL(string:video.cover.imageUrl())
         contentImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "tmp1"), options: nil, progressBlock: nil, completionHandler: nil)

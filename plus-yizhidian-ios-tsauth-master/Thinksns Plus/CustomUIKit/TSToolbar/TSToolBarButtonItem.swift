@@ -56,7 +56,7 @@ class TSToolBarButtonItem: UIView {
     weak var delegate: TSToolBarButtonItemDelegate? = nil
 
     /// 字体颜色
-    var titleColor = TSColor.normal.secondary
+    var titleColor = UIColor.white
 
     // MARK: - Lifecycle
     /// 自定义初始化方法

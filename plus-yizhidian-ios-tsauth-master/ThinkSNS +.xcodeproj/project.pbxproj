@@ -1182,7 +1182,6 @@
 		88B223F221056BC600763C1E /* TSTopicGroupVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223F121056BC600763C1E /* TSTopicGroupVCViewController.swift */; };
 		88B223F421056C7D00763C1E /* TopicNavRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223F321056C7D00763C1E /* TopicNavRightView.swift */; };
 		88B223F6210580EC00763C1E /* TopicHotListVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223F5210580EC00763C1E /* TopicHotListVCViewController.swift */; };
-		88B223F82105810100763C1E /* TopicNewListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223F72105810100763C1E /* TopicNewListVC.swift */; };
 		88B223FD2105B70700763C1E /* TopicCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223FC2105B70700763C1E /* TopicCollectionCell.swift */; };
 		88B223FF2105B76300763C1E /* CreatTopicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B223FE2105B76300763C1E /* CreatTopicVC.swift */; };
 		88B9044D20DB996F005E8C99 /* RecommendResableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9044C20DB996F005E8C99 /* RecommendResableView.swift */; };
@@ -1214,6 +1213,7 @@
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
 		B24A18A422BA1926008EA09B /* NYVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */; };
+		B26CFC9822BCA2B6000F3CDA /* videoHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */; };
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
 		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
@@ -1223,6 +1223,12 @@
 		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
+		B2E04FD122BDBF8B00323C79 /* videoHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E04FD022BDBF8B00323C79 /* videoHeadView.xib */; };
+		B2E04FD322BDCE8800323C79 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FD222BDCE8800323C79 /* NibLoadable.swift */; };
+		B2E04FD622BDDA1D00323C79 /* NYVideoColl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FD422BDDA1D00323C79 /* NYVideoColl.swift */; };
+		B2E04FD722BDDA1D00323C79 /* NYVideoColl.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */; };
+		B2E04FD922BE5A6200323C79 /* NYCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */; };
+		B2E04FDB22BE7E8900323C79 /* FeedListCommentFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */; };
 		B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */; };
 		B2E6258F228FCCFE003A5546 /* PopularNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */; };
 		B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62592228FD31E003A5546 /* StarsHotModel.swift */; };
@@ -2650,7 +2656,6 @@
 		88B223F121056BC600763C1E /* TSTopicGroupVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSTopicGroupVCViewController.swift; sourceTree = "<group>"; };
 		88B223F321056C7D00763C1E /* TopicNavRightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicNavRightView.swift; sourceTree = "<group>"; };
 		88B223F5210580EC00763C1E /* TopicHotListVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicHotListVCViewController.swift; sourceTree = "<group>"; };
-		88B223F72105810100763C1E /* TopicNewListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicNewListVC.swift; sourceTree = "<group>"; };
 		88B223FC2105B70700763C1E /* TopicCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCollectionCell.swift; sourceTree = "<group>"; };
 		88B223FE2105B76300763C1E /* CreatTopicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatTopicVC.swift; sourceTree = "<group>"; };
 		88B9044C20DB996F005E8C99 /* RecommendResableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendResableView.swift; sourceTree = "<group>"; };
@@ -2684,6 +2689,7 @@
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
 		B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideoDetailVC.swift; sourceTree = "<group>"; };
+		B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoHeadView.swift; sourceTree = "<group>"; };
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
 		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
@@ -2693,6 +2699,12 @@
 		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
+		B2E04FD022BDBF8B00323C79 /* videoHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = videoHeadView.xib; sourceTree = "<group>"; };
+		B2E04FD222BDCE8800323C79 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		B2E04FD422BDDA1D00323C79 /* NYVideoColl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideoColl.swift; sourceTree = "<group>"; };
+		B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYVideoColl.xib; sourceTree = "<group>"; };
+		B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCommentsCell.swift; sourceTree = "<group>"; };
+		B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCommentFrameModel.swift; sourceTree = "<group>"; };
 		B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPopularNetworkManager.swift; sourceTree = "<group>"; };
 		B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularNetworkRequest.swift; sourceTree = "<group>"; };
 		B2E62592228FD31E003A5546 /* StarsHotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsHotModel.swift; sourceTree = "<group>"; };
@@ -3847,6 +3859,7 @@
 				53C59BCC1F9AFD72006C673E /* TSOriginalCenterOneInputView.swift */,
 				531325131F7DF40300B5EF73 /* TextFieldHelper.swift */,
 				B2A15817228C885C00A2AFD7 /* NYUtils.swift */,
+				B2E04FD222BDCE8800323C79 /* NibLoadable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -6386,6 +6399,7 @@
 			isa = PBXGroup;
 			children = (
 				834208F61FB4512300E9C723 /* FeedListModel.swift */,
+				B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -6393,6 +6407,7 @@
 		832F99201F9053CA00A6CBA2 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B26CFC9622BCA269000F3CDA /* video */,
 				B244258B22880D1600500D08 /* searchBar */,
 				83828E621FC6AC7700894F42 /* feedList */,
 				8321FF9A1FBAC2C9006E5456 /* paidAlert */,
@@ -7836,7 +7851,6 @@
 			children = (
 				88B223F121056BC600763C1E /* TSTopicGroupVCViewController.swift */,
 				88B223F5210580EC00763C1E /* TopicHotListVCViewController.swift */,
-				88B223F72105810100763C1E /* TopicNewListVC.swift */,
 				88B223FE2105B76300763C1E /* CreatTopicVC.swift */,
 				8897E00A2106F1DF00016D84 /* TopicSearchVC.swift */,
 				8897E00C2106F1F200016D84 /* TopicSearchVC.storyboard */,
@@ -7893,6 +7907,18 @@
 				B24425922288685200500D08 /* NYWordItem.swift */,
 			);
 			path = searchBar;
+			sourceTree = "<group>";
+		};
+		B26CFC9622BCA269000F3CDA /* video */ = {
+			isa = PBXGroup;
+			children = (
+				B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */,
+				B2E04FD022BDBF8B00323C79 /* videoHeadView.xib */,
+				B2E04FD422BDDA1D00323C79 /* NYVideoColl.swift */,
+				B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */,
+				B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */,
+			);
+			path = video;
 			sourceTree = "<group>";
 		};
 		B2E62590228FD226003A5546 /* Popular */ = {
@@ -8240,6 +8266,7 @@
 				83BE15FE1F0CDE0E00BB203C /* AlbumTableVC.storyboard in Resources */,
 				36E928D7205A73F500EFDED0 /* EMVideoInfoViewController.xib in Resources */,
 				17158FC71EA06B89005799D8 /* TSMusicCommentIntroCell.xib in Resources */,
+				B2E04FD122BDBF8B00323C79 /* videoHeadView.xib in Resources */,
 				78FE6C5B1FF0E3DA0018105B /* TSFriendSearchVC.storyboard in Resources */,
 				8308B2AA1F2EDB9C0049BC69 /* TSAdvetLaunchItem.xib in Resources */,
 				78FE6C591FF0E3130018105B /* TSFriendListCell.xib in Resources */,
@@ -8270,6 +8297,7 @@
 				8862568D215CC31800A2D7DD /* PayPasswordVC.xib in Resources */,
 				836B94C91F7F3DC30006E3DC /* TSQuoraTopicsJoinTableCell.xib in Resources */,
 				360BDC74206A4D0100EC86E5 /* ProcessMediaViewController.xib in Resources */,
+				B2E04FD722BDDA1D00323C79 /* NYVideoColl.xib in Resources */,
 				83A216541F6BD9A4007D7DFB /* RankListDetailCell.xib in Resources */,
 				8314E01D1FE12ACD005B4BDA /* GroupBasicController.storyboard in Resources */,
 				178243DA1E7FB9DE00A20877 /* TSMusicListCollectionViewCell.xib in Resources */,
@@ -8679,6 +8707,7 @@
 				53BBEE441F3D8BEC006F44A9 /* TSNewsPerfectController.swift in Sources */,
 				83BE16041F0CDE0E00BB203C /* CameraConfig.swift in Sources */,
 				78C923871FFE27A20061DB48 /* ChatDetailViewController.swift in Sources */,
+				B2E04FD622BDDA1D00323C79 /* NYVideoColl.swift in Sources */,
 				885C63D82108523400CDCE13 /* TopicModel.swift in Sources */,
 				65977C7C1E70FA430082428E /* TSDatabaseComment.swift in Sources */,
 				536B823A1F66263D00E21102 /* TSAnswerDetailView.swift in Sources */,
@@ -8929,6 +8958,7 @@
 				36E9288B205A73F400EFDED0 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				8383CC0420035F9E001D7081 /* DoubleCollectionsView.swift in Sources */,
 				B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */,
+				B2E04FD322BDCE8800323C79 /* NibLoadable.swift in Sources */,
 				83549A20202ACD9000590D81 /* TSWalletTransitionVC.swift in Sources */,
 				8307CF371F2F30A7004FAB3B /* TSAdvertNormal.swift in Sources */,
 				8814F8D52087663300151A8B /* HostDownViewController.swift in Sources */,
@@ -8992,6 +9022,7 @@
 				53F0E5C91FE7ADE000A5DD92 /* TSTitleSelectControl.swift in Sources */,
 				360BDC75206A4D0100EC86E5 /* RecorderViewController.swift in Sources */,
 				65DE0C1B1E9B9ED700D150A5 /* TSUserDiggsrankListObject.swift in Sources */,
+				B26CFC9822BCA2B6000F3CDA /* videoHeadView.swift in Sources */,
 				BB09DE6E1F307288002B77A0 /* TSUserLabelNetworkManager.swift in Sources */,
 				536236301FC95EEF000800B3 /* TSMyAnswerListCell.swift in Sources */,
 				53F3264C1FDFDD7F000715C2 /* GroupMemberModel.swift in Sources */,
@@ -9186,6 +9217,7 @@
 				178244341E7FBC2D00A20877 /* TSMomentDetailNavView.swift in Sources */,
 				178243E91E7FB9DE00A20877 /* TSPgaeControl.swift in Sources */,
 				83313EF2201048C90054E3E0 /* IntegrationHomeController.swift in Sources */,
+				B2E04FDB22BE7E8900323C79 /* FeedListCommentFrameModel.swift in Sources */,
 				83BE15F81F0CDE0E00BB203C /* AlbumCollectionVC.swift in Sources */,
 				837D0C541FC3C1E100B510C9 /* GroupHomeController.swift in Sources */,
 				831B7B0C1FE363EA00405524 /* MoreTableView.swift in Sources */,
@@ -9313,6 +9345,7 @@
 				83549A13202ACD9000590D81 /* WalletCashModel.swift in Sources */,
 				83BE16101F0CDE0E00BB203C /* PHPreviewToolbar.swift in Sources */,
 				17C977C81E7E609D0085D43A /* TSMusicNetworkManager.swift in Sources */,
+				B2E04FD922BE5A6200323C79 /* NYCommentsCell.swift in Sources */,
 				3607B09B1F47EF3200BCE831 /* TSCollectionNewsVC.swift in Sources */,
 				365795A41E63D75A00B8D409 /* TSColorLumpButton.swift in Sources */,
 				1731B2EF1E8C9C560098B605 /* TSNewsListObject.swift in Sources */,
@@ -9348,7 +9381,6 @@
 				1765F35A1E9769530066FE03 /* TSMusicPlayerHelper.swift in Sources */,
 				8897E01D21072EC800016D84 /* TopicListHeaderView.swift in Sources */,
 				8373FC3B1FB00E1900DA2F51 /* FeedCommentListCellModel.swift in Sources */,
-				88B223F82105810100763C1E /* TopicNewListVC.swift in Sources */,
 				83AD1B2E1F66950800831941 /* MyQuestionsListView.swift in Sources */,
 				B2F5B5B62297069A00B42482 /* Channel.m in Sources */,
 				8390EAF51FF0F6DB008387DA /* GroupAgreementModel.swift in Sources */,
