@@ -60,6 +60,8 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
     let tag_ABtn = UIButton()
     //标签二
     let tag_BBtn = UIButton()
+    //明星
+    let tag_mxBtn = UIButton()
     //全部
     let tag_ALLBtn = UIButton()
     //------- search end
@@ -241,6 +243,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         let tagW:CGFloat = searchB.width / CGFloat(3)
         //喜剧
         tag_ABtn.frame = CGRect(x: 0, y:0, width:tagW, height:searchH)
+        tag_ABtn.tag = 10
         tag_ABtn.setTitle("精选_喜剧".localized, for: .normal)
         tag_ABtn.setTitleColor(UIColor.white, for: .normal)
         tag_ABtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -248,13 +251,27 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         searchB.addSubview(tag_ABtn)
         //标签二
         tag_BBtn.frame = CGRect(x: tagW, y:0, width:tagW, height:searchH)
+        tag_BBtn.tag = 20
         tag_BBtn.setTitle("精选_标签二".localized, for: .normal)
         tag_BBtn.setTitleColor(UIColor.white, for: .normal)
         tag_BBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         tag_BBtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
         searchB.addSubview(tag_BBtn)
+        
+        //明星
+        tag_mxBtn.frame = CGRect(x: 20, y:0, width:tag_BBtn.frame.maxX-20, height:searchH)
+        tag_mxBtn.isHidden = true
+        tag_mxBtn.tag = 30
+        tag_mxBtn.contentHorizontalAlignment = .left
+        tag_mxBtn.setTitle("赵丽颖", for: .normal)
+        tag_mxBtn.setTitleColor(UIColor.white, for: .normal)
+        tag_mxBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        tag_mxBtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
+        searchB.addSubview(tag_mxBtn)
+        
         //全部
         tag_ALLBtn.frame = CGRect(x: tagW*2, y:0, width:tagW, height:searchH)
+        tag_ALLBtn.tag = 40
         tag_ALLBtn.setImage(UIImage(named: "nav_loc"), for: .normal)
 //        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         tag_ALLBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)

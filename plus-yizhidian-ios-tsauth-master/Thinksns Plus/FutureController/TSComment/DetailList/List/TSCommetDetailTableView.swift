@@ -41,12 +41,15 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
     /// 支付信息 直接进入到动态详情就需要弹窗提示付费
     fileprivate var payInfo: PaidInfo?
     /// 数据
-    private var commentDatas: [TSSimpleCommentModel] = [TSSimpleCommentModel]() {
-        didSet {
-            cellHeight = TSDetailCommentTableViewCell().setCommentHeight(comments: commentDatas, width: super.table.bounds.size.width)
-            super.table.reloadData()
-        }
-    }
+    private var commentDatas: [FeedListCommentFrameModel]!
+        
+        
+//        = [FeedListCommentFrameModel]() {
+//        didSet {
+//            cellHeight = TSDetailCommentTableViewCell().setCommentHeight(comments: commentDatas, width: super.table.bounds.size.width)
+//            super.table.reloadData()
+//        }
+//    }
 
     // MARK: - Lifecycle
     /// 初始化方法
@@ -142,8 +145,26 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         }
 
         super.model = model
-        self.commentDatas = model.comments ?? self.commentDatas
+        let list = getNewListFrameModel(list: model.comments!)
+        self.commentDatas = list ?? self.commentDatas
         self.table.reloadData()
+    }
+    
+    func getNewListFrameModel(list:[TSSimpleCommentModel]) -> [FeedListCommentFrameModel] {
+        var mtList = NSMutableArray() as! [FeedListCommentFrameModel]
+        if list.count>0
+        {
+            
+            for obj in list
+            {
+                let comment = FeedListCommentModel(ssComt:obj)
+                let commentF = FeedListCommentFrameModel()
+                commentF.setListCommentModel(commentModel: comment)
+                mtList.append(commentF)
+            }
+            
+        }
+        return mtList
     }
 
     // MARK: - setData
@@ -162,7 +183,7 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         super.table.mj_footer.isHidden = true
         super.table.dataSource = self
         super.table.separatorStyle = .none
-        super.table.register(UINib(nibName: "TSDetailCommentTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        super.table.register(NYCommentsCell.self, forCellReuseIdentifier: NYCommentsCell.identifier)
     }
     // MARK: - refresh
     func refresh() {
@@ -200,7 +221,6 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
                     guard let datas = datas, let data = datas.first else {
                         return
                     }
-                    self?.navView.update(model: data)
                 }
             }
             self.setModel(model: cellModel)
@@ -224,24 +244,27 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
             }
 
             if (commentModel?.isEmpty)! {
+                if weak.commentDatas != nil {
                 weak.commentDatas.removeAll()
+                }
             }
             if let datas = commentModel {
-                weak.commentDatas = datas
+                weak.commentDatas = self!.getNewListFrameModel(list: datas)
                 weak.model!.comments = datas
                 weak.table.mj_header.endRefreshing()
                 weak.table.mj_footer.endRefreshing()
-                if weak.isTapMore {
-                    weak.isTapMore = false
-                    weak.table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                }
+//                if weak.isTapMore {
+//                    weak.isTapMore = false
+//                    weak.table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+//                }
             }
+            weak.table.reloadData()
             weak.endLoading()
         })
     }
     // 加载更多评论
     func loadMore() {
-        let maxId = self.commentDatas.last?.id
+        let maxId = self.commentDatas.last?._commentModel.SimpleCommentModel.id
         TSDataQueueManager.share.comment.getCommentDatas(momentListObject: model!.data!, maxId: maxId, complete: {[weak self] commentModel in
             guard let weak = self else {
                 return
@@ -258,7 +281,7 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
             }
 
             if let datas = commentModel {
-                weak.commentDatas = weak.commentDatas + datas
+                weak.commentDatas = weak.commentDatas + (self?.getNewListFrameModel(list: datas))!
                 weak.model!.comments = weak.model!.comments! + datas
                 weak.table.mj_footer.endRefreshing()
             }
@@ -272,70 +295,77 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
 
     // MARK: - delegateDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.table.mj_footer != nil {
-            self.table.mj_footer.isHidden = self.commentDatas.count < self.showFootDataCount
+        if self.commentDatas != nil
+        {
+            if (self.table.mj_footer != nil) {
+                self.table.mj_footer.isHidden = self.commentDatas.count < self.showFootDataCount
+            }
+            
+            if commentDatas.isEmpty {
+                return 0
+            }
+            
+            return commentDatas.count
         }
-
-        if commentDatas.isEmpty {
-            return 1
-        }
-
-        return commentDatas.count
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TSDetailCommentTableViewCell
-        cell?.cellDelegate = self
-        if !self.commentDatas.isEmpty {
-            cell?.commnetModel = self.commentDatas[indexPath.row]
-            cell?.detailCommentcellType = .normal
-            cell?.setDatas(width: tableView.bounds.size.width)
-        } else {
-            cell?.detailCommentcellType = .nothing
-            cell?.setDatas(width: tableView.bounds.size.width)
-        }
-        cell?.layer.removeFromSuperlayer()
+        let cell = tableView.dequeueReusableCell(withIdentifier: NYCommentsCell.identifier) as? NYCommentsCell
+        cell?.setListCommentFrameModel(commentFModel: self.commentDatas[indexPath.row])
+//        cell?.cellDelegate = self
+//        if !self.commentDatas.isEmpty {
+//            cell?.commnetModel = self.commentDatas[indexPath.row]
+//            cell?.detailCommentcellType = .normal
+//            cell?.setDatas(width: tableView.bounds.size.width)
+//        } else {
+//            cell?.detailCommentcellType = .nothing
+//            cell?.setDatas(width: tableView.bounds.size.width)
+//        }
+//        cell?.layer.removeFromSuperlayer()
         return cell!
     }
 
     // MARK: - tableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as? TSDetailCommentTableViewCell
-        if !(cell?.nothingImageView.isHidden)! {
-            return
-        }
+        let cell = tableView.cellForRow(at: indexPath) as? NYCommentsCell
+//        if !(cell?.nothingImageView.isHidden)! {
+//            return
+//        }
 
-        let userId = self.commentDatas[indexPath.row].userInfo?.userIdentity
-        self.index = indexPath.row
-        TSKeyboardToolbar.share.keyboarddisappear()
-        if userId == (TSCurrentUserInfo.share.userInfo?.userIdentity)! {
-            let customAction = TSCustomActionsheetView(titles: ["申请评论置顶", "选择_删除".localized])
-            customAction.delegate = self
-            customAction.tag = 250
-            customAction.show()
-            return
-        }
+//        let userId = self.commentDatas[indexPath.row].userInfo?.userIdentity
+//        self.index = indexPath.row
+//        TSKeyboardToolbar.share.keyboarddisappear()
+//        if userId == (TSCurrentUserInfo.share.userInfo?.userIdentity)! {
+//            let customAction = TSCustomActionsheetView(titles: ["申请评论置顶", "选择_删除".localized])
+//            customAction.delegate = self
+//            customAction.tag = 250
+//            customAction.show()
+//            return
+//        }
 
-        self.sendCommentType = .replySend
-        self.commentModel = self.commentDatas[indexPath.row]
-        isScroll = false
-        setTSKeyboard(placeholderText: "回复: \((self.commentModel?.userInfo?.name)!)", cell: cell)
+//        self.sendCommentType = .replySend
+//        self.commentModel = self.commentDatas[indexPath.row]
+//        isScroll = false
+//        setTSKeyboard(placeholderText: "回复: \((self.commentModel?.userInfo?.name)!)", cell: cell)
 
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.commentDatas.isEmpty {
+        if self.commentDatas == nil||self.commentDatas.isEmpty {
             return nothingHeight + (UIImage(named: "IMG_img_default_nothing")?.size.height)!
         }
-        return cellHeight[indexPath.row]
+        
+        let cellHeight:CGFloat = self.commentDatas[indexPath.row].cellHeight
+        return cellHeight
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentScrollOffSet = scrollView.contentOffset.y
-        if isScroll {
-           super.scrollViewDidScroll(scrollView)
-        }
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        currentScrollOffSet = scrollView.contentOffset.y
+//        if isScroll {
+//           super.scrollViewDidScroll(scrollView)
+//        }
+//    }
 
     // MARK: - TSCustomActionsheetViewDelegate
     override func returnSelectTitle(view: TSCustomActionsheetView, title: String, index: Int) {
@@ -370,11 +400,11 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
     }
     /// 删除评论
     fileprivate func deleteComment() -> Void {
-        let momentModel = TSDataQueueManager.share.comment.deleteComment(cellModel: super.model!, commentModel: self.commentDatas[self.index])
-        self.commentDatas = momentModel.comments!
-        super.model!.comments = momentModel.comments
-        NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": momentModel])
-        self.commentCount -= 1
+//        let momentModel = TSDataQueueManager.share.comment.deleteComment(cellModel: super.model!, commentModel: self.commentDatas[self.index])
+//        self.commentDatas = momentModel.comments!
+//        super.model!.comments = momentModel.comments
+//        NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": momentModel])
+//        self.commentCount -= 1
     }
 
     // MARK: - cellDelegate
@@ -401,12 +431,12 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         let indexPath = self.table.indexPath(for: cell)
 
         let newCommentData = TSDataQueueManager.share.comment.send(cellModel: super.model!, commentModel: commnetModel, message: commnetModel.content, type: .reSend, complete: { model in
-            self.commentDatas = model.comments ?? self.commentDatas
+            self.commentDatas = self.getNewListFrameModel(list:model.comments!)  ?? self.commentDatas
             super.model!.comments = model.comments
             self.table.reloadRows(at: [indexPath!], with: .none)
             NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": model])
         })
-        self.commentDatas = newCommentData.comments ?? self.commentDatas
+        self.commentDatas = self.getNewListFrameModel(list:newCommentData.comments!) ?? self.commentDatas
         super.model!.comments = newCommentData.comments
         self.table.reloadRows(at: [indexPath!], with: .none)
         NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": newCommentData])
@@ -465,11 +495,11 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         sendText = message
         isScroll = false
         let newCommentData = TSCommentTaskQueue().send(cellModel: super.model!, commentModel: self.commentModel, message: message, type: self.sendCommentType, complete: { model in
-            self.commentDatas = model.comments!
+            self.commentDatas = self.getNewListFrameModel(list: model.comments!)
             super.model!.comments = model.comments
             NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": model])
         })
-        self.commentDatas = newCommentData.comments!
+        self.commentDatas = self.getNewListFrameModel(list: newCommentData.comments!)
         super.model!.comments = newCommentData.comments
         self.commentCount += 1
         NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": newCommentData])
@@ -536,9 +566,9 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
             var cellModel = TSMomentListCellModel()
             cellModel.data = momentObject
             cellModel.comments = []
-            if let reward = momentObject.reward {
-                self.headerView?.rewardCount = reward
-            }
+//            if let reward = momentObject.reward {
+//                self.headerView?.rewardCount = reward
+//            }
             cellModel.userInfo = TSDatabaseManager().user.get(infoFrom: [momentObject.userIdentity]).first
             if cellModel.userInfo == nil {
                 self.requestUserInfo(userId: momentObject.userIdentity, complete: { (userInfo, status) in

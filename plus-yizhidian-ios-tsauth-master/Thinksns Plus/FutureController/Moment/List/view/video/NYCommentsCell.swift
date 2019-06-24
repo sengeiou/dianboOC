@@ -39,6 +39,10 @@ class NYCommentsCell: UITableViewCell {
     
     //评论model
     var _listCommentFrameModel:FeedListCommentFrameModel?
+//    /// 空视图
+//    var nothingImageView: UIImageView!
+//    /// 空视图的高度
+//    var nothingImageViewHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,6 +59,7 @@ class NYCommentsCell: UITableViewCell {
         let userImgY:CGFloat = 15
         user_imageButton.layer.cornerRadius = userImgWH*0.5
         user_imageButton.layer.masksToBounds = true
+        user_imageButton.setBackgroundImage(UIImage(named: "IMG_pic_default_secret"), for: .normal)
         user_imageButton.frame = CGRect(x:userImgX,y:userImgY,width:userImgWH,height:userImgWH)
         self.contentView.addSubview(user_imageButton)
         //用户名称

@@ -1,15 +1,14 @@
 //
-//  NYSelCell.swift
+//  NYSelMXCell.swift
 //  ThinkSNSPlus
 //
-//  Created by ningye on 2019/5/10.
+//  Created by ningye on 2019/6/24.
 //  Copyright © 2019 ZhiYiCX. All rights reserved.
 //
 
 import UIKit
 
-class NYSelCell: UITableViewCell {
-    
+class NYSelMXCell: UITableViewCell {
     @IBOutlet weak var cellContentView: UIView!
     
     @IBOutlet weak var contentImageView: UIImageView!
@@ -18,9 +17,14 @@ class NYSelCell: UITableViewCell {
     
     @IBOutlet weak var tagsView: UIView!
     
+    @IBOutlet weak var contentLabel: UILabel!
+    
     @IBOutlet weak var timeLabel: UILabel!
     
-    static let cellHeight:CGFloat = 280.0
+    @IBOutlet weak var userImageView: UIImageView!
+    
+    
+    static let cellHeight:CGFloat = 360.0
     
     var videoModel:NYVideosModel?
     
@@ -30,7 +34,7 @@ class NYSelCell: UITableViewCell {
         setUI()
     }
     
-
+    
     /// 设置视图
     internal func setUI() {
         self.contentView.backgroundColor = TSColor.main.themeTB
@@ -41,13 +45,16 @@ class NYSelCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
     func setVideosModel(video:NYVideosModel) -> Void {
         videoModel = video
         titleLabel.text = video.name
+        contentLabel.text = video.summary
+        let u_url = URL(string:video.user_id.imageUrl())
+        userImageView.kf.setImage(with:u_url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
         let url = URL(string:video.cover.imageUrl())
         contentImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "tmp1"), options: nil, progressBlock: nil, completionHandler: nil)
         self.tagsView.subviews.forEach({ $0.removeFromSuperview()});
@@ -72,5 +79,4 @@ class NYSelCell: UITableViewCell {
             }
         }
     }
-    
 }

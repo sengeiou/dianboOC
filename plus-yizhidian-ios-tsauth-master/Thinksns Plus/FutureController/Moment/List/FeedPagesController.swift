@@ -20,12 +20,12 @@ enum FeedListType: String {
 
 class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 热门列表
-    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell") //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
+    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell",channel_id:0) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 最新列表
-    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell")
+    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell",channel_id:0)
         //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
-    let followPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "follwpageCell")
+    let followPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "follwpageCell",channel_id:3)
     //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.follow.rawValue)
     /// 广告 Banner
     let banner = TSAdvertBanners(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
@@ -197,14 +197,26 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
 //        let newDatas = FeedListRealmManager().get(feedlist: .new).map { FeedListCellModel(object: $0) }
          //最新要显示加载失败的动态
 //        newPage.datas = getFaildFeedModels() + newDatas
+        //精选
         NYPopularNetworkManager.getVideosListData(channel_id: 1, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
             if let models = list {
                 self.newPage.datas = models
-                self.hotPage.datas = models
-                self.followPage.datas = models
             }
             self.newPage.reloadData()
+        }
+        
+        //短视频
+        NYPopularNetworkManager.getVideosListData(channel_id: 2, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
+            if let models = list {
+                self.hotPage.datas = models
+            }
             self.hotPage.reloadData()
+        }
+        //明星
+        NYPopularNetworkManager.getVideosListData(channel_id: 3, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
+            if let models = list {
+                self.followPage.datas = models
+            }
             self.followPage.reloadData()
         }
     }
@@ -480,6 +492,17 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     
     override func selectedPageChangedTo(index: Int) {
         var feedListView: NYSelFocusView?
+        
+        tag_ABtn.isHidden = false
+        tag_BBtn.isHidden = false
+        tag_mxBtn.isHidden = true
+        if index == 2
+        {
+            tag_ABtn.isHidden = true
+            tag_BBtn.isHidden = true
+            tag_mxBtn.isHidden = false
+        }
+        
         switch index {
         case 0:
             feedListView = newPage
@@ -494,6 +517,8 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             return
         }
         currentShowPage = currentPage
+        
+        
 //        if let _ = currentPage.getPlayVideoInVisiableCellIndexPath() {
 //            if currentPage == currentPlayingView {
 //                // 继续播放
@@ -522,9 +547,17 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     }
     //分类
     override func sortClickdo(_ btn: UIButton) {
-        let channelSelManageVC = NYChannelSelectManageVC()
-        channelSelManageVC.title = btn.currentTitle
-        self.navigationController?.pushViewController(channelSelManageVC, animated: true)
+        if btn.tag == 30 {//明星专属分类
+            let addressVC = AddressBookController1()
+            self.navigationController?.pushViewController(addressVC, animated: true)
+//           VC = [AddressBookController1 new];
+        }
+        else
+        { //正常 频道管理
+            let channelSelManageVC = NYChannelSelectManageVC()
+            channelSelManageVC.title = btn.currentTitle
+            self.navigationController?.pushViewController(channelSelManageVC, animated: true)
+        }
     }
 }
 

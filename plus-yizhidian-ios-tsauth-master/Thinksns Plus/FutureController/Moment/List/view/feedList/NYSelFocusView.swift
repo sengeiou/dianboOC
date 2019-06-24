@@ -31,10 +31,14 @@ class NYSelFocusView: TSTableView {
     var tableIdentifier = ""
     /// section view 类型
     var sectionViewType = SectionViewType.none
+    
+    var channel_id:Int = 0
+    
     // MARK: - 生命周期
-    init(frame: CGRect, tableIdentifier identifier: String) {
+    init(frame: CGRect, tableIdentifier identifier: String,channel_id channel_ID:Int) {
         super.init(frame: frame, style: .plain)
         tableIdentifier = identifier
+        channel_id = channel_ID
         setUI()
 //        NotificationCenter.default.addObserver(self, selector: #selector(notiResReloadPaiedFeed(noti:)), name: NSNotification.Name.Moment.paidReloadFeedList, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(momentDetailVCDelete(noti:)), name: NSNotification.Name.Moment.momentDetailVCDelete, object: nil)
@@ -94,7 +98,15 @@ class NYSelFocusView: TSTableView {
         delegate = self
         dataSource = self
         estimatedRowHeight = 100
-        register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+        
+        if channel_id==3
+        {
+            register(UINib.init(nibName: "NYSelMXCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+        }else
+        {
+            register(UINib.init(nibName: "NYSelCell", bundle: Bundle.main), forCellReuseIdentifier: tableIdentifier)
+        }
+        
 //        register(NYSelCell.self, forCellReuseIdentifier: tableIdentifier)
 //        register(FilterSectionView.self, forHeaderFooterViewReuseIdentifier: FilterSectionView.identifier)
     }
@@ -125,7 +137,12 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight = NYSelCell.cellHeight // datas[indexPath.row].cellHeight
+        
+        var cellHeight = NYSelCell.cellHeight // datas[indexPath.row].cellHeight
+        if channel_id==3
+        {
+            cellHeight = NYSelMXCell.cellHeight
+        }
         if cellHeight == 0 {
             return UITableViewAutomaticDimension
         }
@@ -143,9 +160,18 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelCell
-        cell.setVideosModel(video: self.datas[indexPath.row])
-        return cell
+        if channel_id==3
+        {
+           let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelMXCell
+            cell.setVideosModel(video: self.datas[indexPath.row])
+            return cell
+        }
+        else
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelCell
+            cell.setVideosModel(video: self.datas[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

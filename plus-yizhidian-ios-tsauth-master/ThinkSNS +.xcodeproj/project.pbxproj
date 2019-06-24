@@ -1217,11 +1217,20 @@
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
 		B271E1462299540800A1A7E2 /* HotTopicFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */; };
+		B275BBFC22C14BAC002D7BD3 /* PPGetAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = B275BBF522C14BAC002D7BD3 /* PPGetAddressBook.m */; };
+		B275BBFD22C14BAC002D7BD3 /* PPPersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B275BBF622C14BAC002D7BD3 /* PPPersonModel.m */; };
+		B275BBFE22C14BAC002D7BD3 /* PPAddressBookHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = B275BBFB22C14BAC002D7BD3 /* PPAddressBookHandle.m */; };
+		B275BC0222C14BBC002D7BD3 /* AddressBookController1.m in Sources */ = {isa = PBXBuildFile; fileRef = B275BBFF22C14BBB002D7BD3 /* AddressBookController1.m */; };
+		B275BC0322C14BBC002D7BD3 /* AddressBookController1.xib in Resources */ = {isa = PBXBuildFile; fileRef = B275BC0022C14BBB002D7BD3 /* AddressBookController1.xib */; };
 		B277D28622AD14F500EE142A /* NYPostListActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D28522AD14F500EE142A /* NYPostListActionView.swift */; };
 		B28D87E722A3BC21003FE63A /* NYChannelSelectManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */; };
 		B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E822A3C584003FE63A /* NYTopChannelView.swift */; };
 		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
+		B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */; };
+		B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */; };
+		B2DC1A9E22BFF0A700E2B43C /* NYSelMXCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9C22BFF0A700E2B43C /* NYSelMXCell.swift */; };
+		B2DC1A9F22BFF0A700E2B43C /* NYSelMXCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2DC1A9D22BFF0A700E2B43C /* NYSelMXCell.xib */; };
 		B2DFF0C6227B2DD100AF882C /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */; };
 		B2E04FD122BDBF8B00323C79 /* videoHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E04FD022BDBF8B00323C79 /* videoHeadView.xib */; };
 		B2E04FD322BDCE8800323C79 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FD222BDCE8800323C79 /* NibLoadable.swift */; };
@@ -2693,11 +2702,25 @@
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
 		B271E1452299540800A1A7E2 /* HotTopicFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicFrameModel.swift; sourceTree = "<group>"; };
+		B275BBF522C14BAC002D7BD3 /* PPGetAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGetAddressBook.m; sourceTree = "<group>"; };
+		B275BBF622C14BAC002D7BD3 /* PPPersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPersonModel.m; sourceTree = "<group>"; };
+		B275BBF722C14BAC002D7BD3 /* PPAddressBookHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAddressBookHandle.h; sourceTree = "<group>"; };
+		B275BBF822C14BAC002D7BD3 /* PPSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSingleton.h; sourceTree = "<group>"; };
+		B275BBF922C14BAC002D7BD3 /* PPGetAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPGetAddressBook.h; sourceTree = "<group>"; };
+		B275BBFA22C14BAC002D7BD3 /* PPPersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPersonModel.h; sourceTree = "<group>"; };
+		B275BBFB22C14BAC002D7BD3 /* PPAddressBookHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAddressBookHandle.m; sourceTree = "<group>"; };
+		B275BBFF22C14BBB002D7BD3 /* AddressBookController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookController1.m; sourceTree = "<group>"; };
+		B275BC0022C14BBB002D7BD3 /* AddressBookController1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookController1.xib; sourceTree = "<group>"; };
+		B275BC0122C14BBC002D7BD3 /* AddressBookController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookController1.h; sourceTree = "<group>"; };
 		B277D28522AD14F500EE142A /* NYPostListActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPostListActionView.swift; sourceTree = "<group>"; };
 		B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelSelectManageVC.swift; sourceTree = "<group>"; };
 		B28D87E822A3C584003FE63A /* NYTopChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTopChannelView.swift; sourceTree = "<group>"; };
 		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
+		B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMomentDetailHeaderView.swift; sourceTree = "<group>"; };
+		B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMomentDetailHeaderView.xib; sourceTree = "<group>"; };
+		B2DC1A9C22BFF0A700E2B43C /* NYSelMXCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelMXCell.swift; sourceTree = "<group>"; };
+		B2DC1A9D22BFF0A700E2B43C /* NYSelMXCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelMXCell.xib; sourceTree = "<group>"; };
 		B2DFF0C5227B2DD100AF882C /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "Thinksns Plus/Libraries/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/libopencore-amrnb.a"; sourceTree = SOURCE_ROOT; };
 		B2E04FD022BDBF8B00323C79 /* videoHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = videoHeadView.xib; sourceTree = "<group>"; };
 		B2E04FD222BDCE8800323C79 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -3406,6 +3429,8 @@
 				1782441B1E7FBC2D00A20877 /* TSMomentDetailHeaderView.swift */,
 				1782441C1E7FBC2D00A20877 /* TSMomentDetailNavView.swift */,
 				1782441D1E7FBC2D00A20877 /* TSMomentDetailToolbar.swift */,
+				B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */,
+				B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7037,6 +7062,7 @@
 		83844ADA1E58306F00BDC3B2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B275BBF322C14B93002D7BD3 /* OCClass */,
 				38BA060420BED6070042673D /* AlipaySDK */,
 				38C929A02089C66D00A66F2A /* AiLiToolbox */,
 				36E92726205A73F300EFDED0 /* EaseUI */,
@@ -7885,6 +7911,8 @@
 			children = (
 				B201BC8C228493F7008D83CE /* NYSelCell.swift */,
 				B201BC8D228493F7008D83CE /* NYSelCell.xib */,
+				B2DC1A9C22BFF0A700E2B43C /* NYSelMXCell.swift */,
+				B2DC1A9D22BFF0A700E2B43C /* NYSelMXCell.xib */,
 			);
 			path = NYCell;
 			sourceTree = "<group>";
@@ -7919,6 +7947,31 @@
 				B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */,
 			);
 			path = video;
+			sourceTree = "<group>";
+		};
+		B275BBF322C14B93002D7BD3 /* OCClass */ = {
+			isa = PBXGroup;
+			children = (
+				B275BC0122C14BBC002D7BD3 /* AddressBookController1.h */,
+				B275BBFF22C14BBB002D7BD3 /* AddressBookController1.m */,
+				B275BC0022C14BBB002D7BD3 /* AddressBookController1.xib */,
+				B275BBF422C14BAC002D7BD3 /* PPGetAddressBook */,
+			);
+			path = OCClass;
+			sourceTree = "<group>";
+		};
+		B275BBF422C14BAC002D7BD3 /* PPGetAddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				B275BBF522C14BAC002D7BD3 /* PPGetAddressBook.m */,
+				B275BBF622C14BAC002D7BD3 /* PPPersonModel.m */,
+				B275BBF722C14BAC002D7BD3 /* PPAddressBookHandle.h */,
+				B275BBF822C14BAC002D7BD3 /* PPSingleton.h */,
+				B275BBF922C14BAC002D7BD3 /* PPGetAddressBook.h */,
+				B275BBFA22C14BAC002D7BD3 /* PPPersonModel.h */,
+				B275BBFB22C14BAC002D7BD3 /* PPAddressBookHandle.m */,
+			);
+			path = PPGetAddressBook;
 			sourceTree = "<group>";
 		};
 		B2E62590228FD226003A5546 /* Popular */ = {
@@ -8245,12 +8298,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				83549A19202ACD9000590D81 /* WalletRechargeController.storyboard in Resources */,
+				B275BC0322C14BBC002D7BD3 /* AddressBookController1.xib in Resources */,
 				36F87F2E20230592001F9EB4 /* IntegrationRechargeIAPController.storyboard in Resources */,
 				535D49981FD7F19100499621 /* group_editor.html in Resources */,
 				83313EFE20109FE40054E3E0 /* IntegrationRecordCell.xib in Resources */,
 				535D49991FD7F19100499621 /* group_editor.js in Resources */,
 				535D499A1FD7F19100499621 /* group_index.css in Resources */,
 				83549A25202ACD9000590D81 /* TSTransitionTypeView.xib in Resources */,
+				B2DC1A9F22BFF0A700E2B43C /* NYSelMXCell.xib in Resources */,
 				535D499B1FD7F19100499621 /* ZSS_editor.html in Resources */,
 				880C08BC211BD502003663F0 /* TSMessagePopCell.xib in Resources */,
 				535D499C1FD7F19100499621 /* ZSS_jQuery.js in Resources */,
@@ -8279,6 +8334,7 @@
 				8326B79F1F340F8C0059CEC7 /* TSPersonalCertification.storyboard in Resources */,
 				3810930520A823A800357446 /* JoinedGroupListCell.xib in Resources */,
 				83ED63EC1E1E51CD002C7F37 /* Localizable.strings in Resources */,
+				B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */,
 				83313EF520104AF20054E3E0 /* IntegrationHomeController.storyboard in Resources */,
 				36B5081C1EA4A70E0015C67D /* LaunchScreen.storyboard in Resources */,
 				36AFAC4C206CB23B00B20649 /* PreviewVideoVC.xib in Resources */,
@@ -8677,6 +8733,7 @@
 				83EC5D311F5F8C70007C8EBA /* QuoraSearchHistoryObject.swift in Sources */,
 				880C08C3211BDBEE003663F0 /* TSMessagePopGroupVC.swift in Sources */,
 				831B7B281FE3CE8B00405524 /* PostcapabilityCell.swift in Sources */,
+				B275BC0222C14BBC002D7BD3 /* AddressBookController1.m in Sources */,
 				537A26151F56522400BA2EE5 /* TSAnswerListCell.swift in Sources */,
 				83828E681FC6AC7800894F42 /* FeedListCell.swift in Sources */,
 				83B500FB1F56B99F0062C289 /* TSQuoraHomeController.swift in Sources */,
@@ -8897,6 +8954,7 @@
 				53F326491FDFD177000715C2 /* GroupIncomeDetailController.swift in Sources */,
 				36E928A8205A73F400EFDED0 /* EaseUserModel.m in Sources */,
 				36E9288F205A73F400EFDED0 /* NSData+EMImageContentType.m in Sources */,
+				B2DC1A9E22BFF0A700E2B43C /* NYSelMXCell.swift in Sources */,
 				36E92873205A73F400EFDED0 /* MJRefreshBackGifFooter.m in Sources */,
 				BB09DEAA1F3AE50B002B77A0 /* TSAMapLocationView.swift in Sources */,
 				83549A17202ACD9000590D81 /* WalletHomeController.swift in Sources */,
@@ -9275,6 +9333,7 @@
 				83AB1AEB1FD106C600CC2952 /* GroupSearchView.swift in Sources */,
 				36D80A611E67BB62008C5196 /* TSDataQueueManager.swift in Sources */,
 				8801BE42210F10CA0018AA63 /* TopicCommonModel.swift in Sources */,
+				B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */,
 				3890005920C7F6FA0093B73C /* TSCommonTool.m in Sources */,
 				BB09DEA61F39C21D002B77A0 /* TSSelectAreaViewController.swift in Sources */,
 				178243D01E7FB9DE00A20877 /* TSAlbumInfoModel.swift in Sources */,
@@ -9423,6 +9482,7 @@
 				831DE77C201B082E00F7B05C /* IntegrationRechargeModel.swift in Sources */,
 				36E9286F205A73F400EFDED0 /* MJRefreshHeader.m in Sources */,
 				8344B17C2020628400798D77 /* WalletCreateCharegeModel.swift in Sources */,
+				B275BBFD22C14BAC002D7BD3 /* PPPersonModel.m in Sources */,
 				532276EC1F5A5C99005F4155 /* TSFollowControl.swift in Sources */,
 				53F0E5D11FE7B56800A5DD92 /* ReceivePendingGroupAuditModel.swift in Sources */,
 				83407D081F595F520076428B /* QuoraTopicDetailExpertsCellModel.swift in Sources */,
@@ -9430,6 +9490,7 @@
 				8392142B1E28D05C009FB02B /* TSHomeTabBar.swift in Sources */,
 				83BE160A1F0CDE0E00BB203C /* PreviewCollectionCell.swift in Sources */,
 				36E92899205A73F400EFDED0 /* PSTCollectionViewCell.m in Sources */,
+				B275BBFE22C14BAC002D7BD3 /* PPAddressBookHandle.m in Sources */,
 				53444D83201EB60F00F83327 /* ZBTools.m in Sources */,
 				36D80A571E67BB62008C5196 /* TSMomentTaskQueue.swift in Sources */,
 				178243E81E7FB9DE00A20877 /* TSNewsListCell.swift in Sources */,
@@ -9678,6 +9739,7 @@
 				1782443E1E7FBC2D00A20877 /* TSReleasePulseCollectionView.swift in Sources */,
 				834BC3261F4E6BF700DC5C42 /* TSLabelCollectionView.swift in Sources */,
 				1782445A1E7FBCA400A20877 /* TSMomentCollectTaskObject.swift in Sources */,
+				B275BBFC22C14BAC002D7BD3 /* PPGetAddressBook.m in Sources */,
 				53F76F0F1FDA95B3006AC0E7 /* TSCollectNetworkRequest.swift in Sources */,
 				5314EBA9201C8ECF000A1A94 /* TSWebEidtorView.swift in Sources */,
 				BB6A37961F4FF48F00B12FDA /* TSBindingPhoneOrEmailView.swift in Sources */,

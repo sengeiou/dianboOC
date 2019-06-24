@@ -99,68 +99,17 @@ class TSMomentDetailHeaderView: UIView, TSMomentDetailDiggViewDelegate, TSDetail
 
     // MARK: Custom user interface
     func setUI() {
-        backgroundColor = UIColor.white
+        backgroundColor = TSColor.main.themeTBCellBg
         let momentData = object
         let screentWidth = UIScreen.main.bounds.width
         let width = UIScreen.main.bounds.width - 20
         // 模块间隔
-        let spacing: CGFloat = 20
+        let spacing: CGFloat = 0
 
-        // images
-        var imagesTopSpacing: CGFloat = 0
-        let images = momentData.pictures.filter { (object) -> Bool in
-            return object.width > 0 && object.height > 0
-        }
-        for index in 0..<images.count {
-            let button = TSPreviewButton(type: .custom)
-            button.tag = tagForImageButton + index
-            button.addTarget(self, action: #selector(imagesButtonTaped(_:)), for: .touchUpInside)
-
-            let image = images[index]
-            var height = screentWidth / image.width * image.height
-            if momentData.videoURL != nil {
-                // 视频动态的显示规则:
-                // 宽:高 > 1 -> 宽度按屏幕宽度,按照原始比例显示
-                // 宽:高 <= 1 -> 宽度按屏幕宽度,正方形显示
-                var playerHeight = screentWidth / image.width * image.height
-                if playerHeight > screentWidth {
-                    playerHeight = screentWidth
-                }
-                height = playerHeight
-            }
-            button.frame = CGRect(x: 0, y: imagesTopSpacing, width: screentWidth, height: height)
-            button.imageObject = image
-            // 更新 imagesTopSpacing
-            imagesTopSpacing = imagesTopSpacing + height + 5
-            addSubview(button)
-            if momentData.videoURL != nil {
-                firstImage = button
-                // 视频动态的显示规则:
-                // 宽:高 > 1 -> 宽度按屏幕宽度,按照原始比例显示
-                // 宽:高 <= 1 -> 宽度按屏幕宽度,正方形显示
-                var playerHeight = screentWidth / image.width * image.height
-                if playerHeight > screentWidth {
-                    playerHeight = screentWidth
-                }
-                button.frame = CGRect(x: 0, y: 0, width: screentWidth, height: playerHeight)
-                playBtn.frame = CGRect(x: 20, y: height - 20 - 40, width: 40, height: 40)
-                playBtn.center = button.center
-                playBtn.setImage(UIImage(named: "ico_video_play_list"), for: .normal)
-                playBtn.isUserInteractionEnabled = false
-                button.addSubview(playBtn)
-            }
-            if image.mimeType == "image/gif" {
-                let iconView = UIImageView(image: UIImage(named: "pic_gif"))
-                iconView.sizeToFit()
-                let iconX = screentWidth - iconView.width
-                let iconY = height - iconView.height
-                iconView.frame = CGRect(origin: CGPoint(x: iconX, y: iconY), size: iconView.size)
-                button.addSubview(iconView)
-            }
-        }
+        
 
         // content
-        let contentTopSpacing = imagesTopSpacing + spacing
+        let contentTopSpacing = 0
         labelForContent.mentionColor = TSColor.main.theme
         labelForContent.URLColor = TSColor.main.theme
         labelForContent.URLSelectedColor = TSColor.main.theme
@@ -199,6 +148,60 @@ class TSMomentDetailHeaderView: UIView, TSMomentDetailDiggViewDelegate, TSDetail
             let uname = name.substring(to: name.index(name.startIndex, offsetBy: name.count - 1))
             TSUtil.pushUserHomeName(name: uname)
         }
+        
+        // images
+        var imagesTopSpacing: CGFloat = 0
+        let images = momentData.pictures.filter { (object) -> Bool in
+            return object.width > 0 && object.height > 0
+        }
+        for index in 0..<images.count {
+            let button = TSPreviewButton(type: .custom)
+            button.tag = tagForImageButton + index
+            button.addTarget(self, action: #selector(imagesButtonTaped(_:)), for: .touchUpInside)
+            
+            let image = images[index]
+            var height = screentWidth / image.width * image.height
+            if momentData.videoURL != nil {
+                // 视频动态的显示规则:
+                // 宽:高 > 1 -> 宽度按屏幕宽度,按照原始比例显示
+                // 宽:高 <= 1 -> 宽度按屏幕宽度,正方形显示
+                var playerHeight = screentWidth / image.width * image.height
+                if playerHeight > screentWidth {
+                    playerHeight = screentWidth
+                }
+                height = playerHeight
+            }
+            button.frame = CGRect(x: 0, y: labelForContent.frame.maxY, width: screentWidth, height: height)
+            button.imageObject = image
+            // 更新 imagesTopSpacing
+            imagesTopSpacing = imagesTopSpacing + height + 5
+            addSubview(button)
+            if momentData.videoURL != nil {
+                firstImage = button
+                // 视频动态的显示规则:
+                // 宽:高 > 1 -> 宽度按屏幕宽度,按照原始比例显示
+                // 宽:高 <= 1 -> 宽度按屏幕宽度,正方形显示
+                var playerHeight = screentWidth / image.width * image.height
+                if playerHeight > screentWidth {
+                    playerHeight = screentWidth
+                }
+                button.frame = CGRect(x: 0, y: 0, width: screentWidth, height: playerHeight)
+                playBtn.frame = CGRect(x: 20, y: height - 20 - 40, width: 40, height: 40)
+                playBtn.center = button.center
+                playBtn.setImage(UIImage(named: "ico_video_play_list"), for: .normal)
+                playBtn.isUserInteractionEnabled = false
+                button.addSubview(playBtn)
+            }
+            if image.mimeType == "image/gif" {
+                let iconView = UIImageView(image: UIImage(named: "pic_gif"))
+                iconView.sizeToFit()
+                let iconX = screentWidth - iconView.width
+                let iconY = height - iconView.height
+                iconView.frame = CGRect(origin: CGPoint(x: iconX, y: iconY), size: iconView.size)
+                button.addSubview(iconView)
+            }
+        }
+        
         /// 如果有转发的内容，转发的卡片在文本下边
         let repostViewBgView = UIView()
         if let repostModel = object.repostModel {
@@ -318,7 +321,7 @@ class TSMomentDetailHeaderView: UIView, TSMomentDetailDiggViewDelegate, TSDetail
         let bottomline = UIView(frame: CGRect(x: 0, y: 39, width: screentWidth, height: 1))
         bottomline.backgroundColor = TSColor.inconspicuous.disabled
         // 装饰线条
-        blueLine.backgroundColor = TSColor.main.theme
+        blueLine.backgroundColor = UIColor.red
         commentView.addSubview(bottomline)
         commentView.addSubview(blueLine)
         commentView.frame = CGRect(x: 0, y: (separateLineView?.frame.maxY)!, width: screentWidth, height: 40)

@@ -197,6 +197,19 @@ class FeedListCommentModel: Mappable {
     var targetInfo = TSUserInfoModel()
     /// 被回复者信息，需要请求用户信息接口来获取
     var replyInfo = TSUserInfoModel()
+    
+    var SimpleCommentModel:TSSimpleCommentModel!
+    
+    init(ssComt:TSSimpleCommentModel)
+    {
+        SimpleCommentModel = ssComt
+        id = ssComt.id
+        userId = ssComt.userId
+        replyId = 0 // (ssComt.replyUser?.userIdentity)!
+        body = ssComt.content
+        create = ssComt.createdAt as! Date
+        userInfo = ssComt.user!
+    }
 
     required init?(map: Map) {
     }
