@@ -49,11 +49,7 @@ class TSDiscoverViewController: TSViewController, UITableViewDelegate, UITableVi
         self.view.addSubview(self.tableView)
         //测试
         
-        NYPopularNetworkManager.getStarsListData(complete: { (list: [StarsHotModel]?, error,isobl) in
-            if let models = list {
-                NSLog("\(error)======\(list)")
-            }
-        })
+    
         
     }
 

@@ -219,6 +219,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             }
             self.followPage.reloadData()
         }
+
     }
 
     /// 将列表动态的数据同步更新到数据库（models 为 nil 则仅清空对应旧数据）
@@ -548,8 +549,8 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     //分类
     override func sortClickdo(_ btn: UIButton) {
         if btn.tag == 30 {//明星专属分类
-            let addressVC = AddressBookController1()
-            self.navigationController?.pushViewController(addressVC, animated: true)
+            let starsListVC = NYStarsListVC()
+            self.navigationController?.pushViewController(starsListVC, animated: true)
 //           VC = [AddressBookController1 new];
         }
         else

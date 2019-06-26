@@ -45,4 +45,8 @@ class PopularNetworkRequest {
     
     /// 视频评论
     let getVideoComments = Request<FeedListCommentModel>(method: .get, path: "dianbo/(id)/comments", replacers: ["(id)"])
+    
+    /// 明星数据
+    let getStarsList = Request<NYVideosModel>(method: .get, path: "dianbo/stars", replacers: [])
+    
 }

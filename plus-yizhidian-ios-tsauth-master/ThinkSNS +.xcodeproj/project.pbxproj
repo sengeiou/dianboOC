@@ -1238,6 +1238,11 @@
 		B2E04FD722BDDA1D00323C79 /* NYVideoColl.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */; };
 		B2E04FD922BE5A6200323C79 /* NYCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */; };
 		B2E04FDB22BE7E8900323C79 /* FeedListCommentFrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */; };
+		B2E3C92822C27D9200978224 /* NYStarsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3C92622C27D9200978224 /* NYStarsListVC.swift */; };
+		B2E3C92922C27D9200978224 /* NYStarsListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E3C92722C27D9200978224 /* NYStarsListVC.xib */; };
+		B2E3C92C22C297B600978224 /* NYStarsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3C92A22C297B600978224 /* NYStarsListCell.swift */; };
+		B2E3C92D22C297B600978224 /* NYStarsListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E3C92B22C297B600978224 /* NYStarsListCell.xib */; };
+		B2E3C92F22C29CCF00978224 /* NYUImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E3C92E22C29CCF00978224 /* NYUImageButton.swift */; };
 		B2E6258D228FCA88003A5546 /* NYPopularNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */; };
 		B2E6258F228FCCFE003A5546 /* PopularNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */; };
 		B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62592228FD31E003A5546 /* StarsHotModel.swift */; };
@@ -2728,6 +2733,11 @@
 		B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYVideoColl.xib; sourceTree = "<group>"; };
 		B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCommentsCell.swift; sourceTree = "<group>"; };
 		B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCommentFrameModel.swift; sourceTree = "<group>"; };
+		B2E3C92622C27D9200978224 /* NYStarsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYStarsListVC.swift; sourceTree = "<group>"; };
+		B2E3C92722C27D9200978224 /* NYStarsListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYStarsListVC.xib; sourceTree = "<group>"; };
+		B2E3C92A22C297B600978224 /* NYStarsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYStarsListCell.swift; sourceTree = "<group>"; };
+		B2E3C92B22C297B600978224 /* NYStarsListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYStarsListCell.xib; sourceTree = "<group>"; };
+		B2E3C92E22C29CCF00978224 /* NYUImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUImageButton.swift; sourceTree = "<group>"; };
 		B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPopularNetworkManager.swift; sourceTree = "<group>"; };
 		B2E6258E228FCCFE003A5546 /* PopularNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularNetworkRequest.swift; sourceTree = "<group>"; };
 		B2E62592228FD31E003A5546 /* StarsHotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsHotModel.swift; sourceTree = "<group>"; };
@@ -5604,7 +5614,6 @@
 				530BBB831FB19E1C00EE96D4 /* TSSimpleCommentView.swift */,
 				530BBB851FB19E8400EE96D4 /* TSSimpleCommentListView.swift */,
 				53E5E4421FB2B216002FA8D3 /* TSCommentContentView.swift */,
-				B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6416,6 +6425,8 @@
 				B2442589228732FD00500D08 /* NYSearchListVC.swift */,
 				B24425902288588500500D08 /* NYSearchListVC.xib */,
 				B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */,
+				B2E3C92622C27D9200978224 /* NYStarsListVC.swift */,
+				B2E3C92722C27D9200978224 /* NYStarsListVC.xib */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -7920,10 +7931,12 @@
 		B23A135B227B462500805B85 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */,
 				B23A135E227B4EE600805B85 /* NYTabBarItem.h */,
 				B23A135F227B4EE600805B85 /* NYTabBarItem.m */,
 				B23A1361227B51C600805B85 /* UIView+Extension.h */,
 				B23A1362227B51C600805B85 /* UIView+Extension.m */,
+				B2E3C92E22C29CCF00978224 /* NYUImageButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7945,6 +7958,8 @@
 				B2E04FD422BDDA1D00323C79 /* NYVideoColl.swift */,
 				B2E04FD522BDDA1D00323C79 /* NYVideoColl.xib */,
 				B2E04FD822BE5A6200323C79 /* NYCommentsCell.swift */,
+				B2E3C92A22C297B600978224 /* NYStarsListCell.swift */,
+				B2E3C92B22C297B600978224 /* NYStarsListCell.xib */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -8305,6 +8320,7 @@
 				535D49991FD7F19100499621 /* group_editor.js in Resources */,
 				535D499A1FD7F19100499621 /* group_index.css in Resources */,
 				83549A25202ACD9000590D81 /* TSTransitionTypeView.xib in Resources */,
+				B2E3C92D22C297B600978224 /* NYStarsListCell.xib in Resources */,
 				B2DC1A9F22BFF0A700E2B43C /* NYSelMXCell.xib in Resources */,
 				535D499B1FD7F19100499621 /* ZSS_editor.html in Resources */,
 				880C08BC211BD502003663F0 /* TSMessagePopCell.xib in Resources */,
@@ -8340,6 +8356,7 @@
 				36AFAC4C206CB23B00B20649 /* PreviewVideoVC.xib in Resources */,
 				88ECCB5321414622002CB601 /* emoji.json in Resources */,
 				83E964421E0B6F84001EFF71 /* ShareConfig.plist in Resources */,
+				B2E3C92922C27D9200978224 /* NYStarsListVC.xib in Resources */,
 				832ADE0C1E1E26D4009804F7 /* TSRetrievePasswordVC.xib in Resources */,
 				887C9FFB21DEF1D700220EE6 /* Assets.xcassets in Resources */,
 				83CF6C3B1F30153200165F8C /* TSAdvertNormalItem.xib in Resources */,
@@ -8833,6 +8850,7 @@
 				836B94CA1F7F3DC30006E3DC /* TSQuoraTopicsJoinTableCellModel.swift in Sources */,
 				53D2FA9C1F32CA9000950D80 /* TSIndicatorPayMusicAlbum.swift in Sources */,
 				885F3AF3219525C60082BFAC /* AppVersionCheckModel.swift in Sources */,
+				B2E3C92822C27D9200978224 /* NYStarsListVC.swift in Sources */,
 				83BE16011F0CDE0E00BB203C /* AlbumTableViewCell.swift in Sources */,
 				BB09DE741F3165A1002B77A0 /* TSCategoryTagModel.swift in Sources */,
 				837D0C581FC3C2FA00B510C9 /* GroupListView.swift in Sources */,
@@ -9330,6 +9348,7 @@
 				839A4F3E1F4BD51A00E6B381 /* TSFeedAnalogObject.swift in Sources */,
 				1765F3471E97685B0066FE03 /* TSSingerObject.swift in Sources */,
 				8355D3E31F39AF9100FC103A /* TSCertificatePreviewCollectionLayout.swift in Sources */,
+				B2E3C92C22C297B600978224 /* NYStarsListCell.swift in Sources */,
 				83AB1AEB1FD106C600CC2952 /* GroupSearchView.swift in Sources */,
 				36D80A611E67BB62008C5196 /* TSDataQueueManager.swift in Sources */,
 				8801BE42210F10CA0018AA63 /* TopicCommonModel.swift in Sources */,
@@ -9508,6 +9527,7 @@
 				8308B2A41F2ED9C10049BC69 /* TSAdvetLaunchView.swift in Sources */,
 				53B5F6531FE263AC00FF6CDB /* GroupDatePickerView.swift in Sources */,
 				83A237FB1E31ABE300A0905F /* TSAccountUX.swift in Sources */,
+				B2E3C92F22C29CCF00978224 /* NYUImageButton.swift in Sources */,
 				83511CC51F4172D700E98594 /* TSNewFriendsCell.swift in Sources */,
 				36E9287B205A73F400EFDED0 /* UIScrollView+MJExtension.m in Sources */,
 				36FB53521F69326D00B25A8D /* NoticeTableViewController.swift in Sources */,

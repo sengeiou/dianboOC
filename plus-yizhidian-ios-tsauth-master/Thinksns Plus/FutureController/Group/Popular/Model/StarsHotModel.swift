@@ -10,6 +10,14 @@ import UIKit
 import SwiftyJSON
 import ObjectMapper
 
+class StarsKeyValue: NSObject {
+    ///key
+    var keyName:String = ""
+    ///明星 很多 (最多4个啦)
+    var valueList:[StarsHotModel]?
+
+}
+
 class StarsHotModel: Mappable
 {
     /// 明星 id

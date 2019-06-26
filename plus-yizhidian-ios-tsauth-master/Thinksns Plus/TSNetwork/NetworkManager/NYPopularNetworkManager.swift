@@ -39,21 +39,81 @@ extension NYPopularNetworkManager {
     /// 热门内容- 批量获取明星
     /// PopularNetworkRequest
     ///   - complete: 结果
-    class func getStarsListData(complete: @escaping ([StarsHotModel]?, String?, Bool) -> Void) {
+    class func getStarsListData(complete: @escaping (Dictionary<String, Any>?, String?, Bool) -> Void) {
         // 1.请求 url
         var request = PopularNetworkRequest().starsList
         request.urlPath = request.fullPathWith(replacers: [])
-        // 3.发起请求
-        RequestNetworkData.share.text(request: request) { (networkResult) in
-            switch networkResult {
-            case .error(_):
+        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
                 complete(nil, "网络请求错误", false)
-            case .failure(let failure):
-                complete(nil, failure.message, false)
-            case .success(let data):
-                complete(data.models, nil, true)
+                return
             }
-        }
+            // 2. 数据格式错误
+            guard let datas = data as? [[String: Any]] else {
+                complete(nil, "服务器返回数据错误", false)
+                return
+            }
+            var dict = NSMutableDictionary()
+//            var list:[StarsKeyValue]? = NSMutableArray() as! [StarsKeyValue]
+            for item in datas
+            {
+                let key = item["key"] as! String
+                let stars = item["star"] as! [[String: Any]]
+                var index = 0
+                var star_List:NSMutableArray?
+                var skvModel:StarsKeyValue?
+                for obj in stars
+                {
+                    if index == 0
+                    {
+                        skvModel = StarsKeyValue()
+                        skvModel?.keyName = key
+                        star_List = NSMutableArray()
+                    }
+                    let star = StarsHotModel(JSON: obj)
+                    star_List!.add(star)
+                    index += 1
+                    if index==4
+                    {
+                        index = 0
+                        skvModel?.valueList = star_List as? [StarsHotModel]
+                        if dict[skvModel?.keyName] != nil
+                        {
+                           let  mtArray = dict[skvModel?.keyName] as! NSMutableArray
+                            mtArray.add(skvModel)
+                        }
+                        else
+                        {
+                            let mtArray = NSMutableArray()
+                            mtArray.add(skvModel)
+                            dict[skvModel?.keyName] = mtArray
+                        }
+                    }
+                }
+                if index != 4
+                {
+                    skvModel?.valueList = star_List as? [StarsHotModel]
+                    if dict[skvModel?.keyName] != nil
+                    {
+                        let  mtArray = dict[skvModel?.keyName] as! NSMutableArray
+                        mtArray.add(skvModel)
+                    }
+                    else
+                    {
+                        let mtArray = NSMutableArray()
+                        mtArray.add(skvModel)
+                        dict[skvModel?.keyName] = mtArray
+                    }
+                }
+            }
+            //排序
+//            NSArray *keyArray = dic.allKeys;
+//            NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) { return [obj1 compare:obj2 options:NSNumericSearch]; }];
+            
+            complete(dict as! Dictionary<String, Any>, "服务器返回数据错误", true)
+        })
     }
     
     /// 热门内容- 批量获取频道
@@ -258,4 +318,33 @@ extension NYPopularNetworkManager {
         })
         
     }
+//    /// 批量获取视频评论
+//    /// id
+//    class func getStarsListData(_id: Int ,complete: @escaping (([StarsHotModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+//        // 1.请求 url
+//        var request = PopularNetworkRequest().getStarsList
+//
+//        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+//            // 1. 网络请求失败
+//            guard status else {
+//                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+//                complete(nil, "网络请求错误", false)
+//                return
+//            }
+//            // 2. 数据格式错误
+//            guard let datas = data as? [String: Any] else {
+//                complete(nil, "服务器返回数据错误", false)
+//                return
+//            }
+//            // 3. 正常解析数据
+//            let array = datas["comments"] as? [[String: Any]]
+//            var list:[FeedListCommentModel]? = NSMutableArray() as! [FeedListCommentModel]
+//            for obj in array!
+//            {
+//                let vm = FeedListCommentModel(JSON: (obj as? [String: Any])! )
+//                list?.append(vm!)
+//            }
+//            complete(list, "ok", true)
+//        })
+//    }
 }
