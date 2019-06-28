@@ -28,6 +28,8 @@ class NYSelMXCell: UITableViewCell {
     
     var videoModel:NYVideosModel?
     
+    var mx_videoModel:NYMXVideosModel?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,18 +51,24 @@ class NYSelMXCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setMXVideosModel(mx_video:NYMXVideosModel) -> Void {
+        mx_videoModel = mx_video
+        
+        setVideosModel(video: mx_video.video!)
+        titleLabel.text = mx_video.star?.name
+        let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: mx_video.star!.avatar)!)
+        userImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
+    }
+    
     func setVideosModel(video:NYVideosModel) -> Void {
         videoModel = video
         titleLabel.text = video.name
         contentLabel.text = video.summary
-        let u_url = URL(string:video.user_id.imageUrl())
-        userImageView.kf.setImage(with:u_url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
         let url = URL(string:video.cover.imageUrl())
         contentImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "tmp1"), options: nil, progressBlock: nil, completionHandler: nil)
-        self.tagsView.subviews.forEach({ $0.removeFromSuperview()});
-        if (video.tags?.count)!>0
+        self.tagsView.subviews.forEach({ $0.removeFromSuperview()})
+        if (video.tags != nil)&&(video.tags?.count)!>0
         {
-            
             let itemW:CGFloat = 65
             let itemH:CGFloat = 26
             let itemY:CGFloat = (self.tagsView.height-itemH)*0.5

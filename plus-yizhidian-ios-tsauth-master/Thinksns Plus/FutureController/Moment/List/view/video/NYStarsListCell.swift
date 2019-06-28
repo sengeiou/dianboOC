@@ -9,10 +9,8 @@
 import UIKit
 
 protocol NYStarsListCellDelegate: class {
-    
     /// 选中
     func selectCellModel(cell:NYStarsListCell,starsHotModel:StarsHotModel)
-   
 }
 
 class NYStarsListCell: UITableViewCell {

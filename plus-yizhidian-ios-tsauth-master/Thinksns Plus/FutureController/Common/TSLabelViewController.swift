@@ -243,16 +243,16 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         let tagW:CGFloat = searchB.width / CGFloat(3)
         //喜剧
         tag_ABtn.frame = CGRect(x: 0, y:0, width:tagW, height:searchH)
-        tag_ABtn.tag = 10
-        tag_ABtn.setTitle("精选_喜剧".localized, for: .normal)
+        tag_ABtn.tag = 1
+        tag_ABtn.setTitle("精选", for: .normal)
         tag_ABtn.setTitleColor(UIColor.white, for: .normal)
         tag_ABtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         tag_ABtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
         searchB.addSubview(tag_ABtn)
         //标签二
         tag_BBtn.frame = CGRect(x: tagW, y:0, width:tagW, height:searchH)
-        tag_BBtn.tag = 20
-        tag_BBtn.setTitle("精选_标签二".localized, for: .normal)
+        tag_BBtn.tag = 2
+        tag_BBtn.setTitle("短视频".localized, for: .normal)
         tag_BBtn.setTitleColor(UIColor.white, for: .normal)
         tag_BBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         tag_BBtn.addTarget(self, action: #selector(sortClickdo(_:)), for: .touchUpInside)
@@ -271,7 +271,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         
         //全部
         tag_ALLBtn.frame = CGRect(x: tagW*2, y:0, width:tagW, height:searchH)
-        tag_ALLBtn.tag = 40
+        tag_ALLBtn.tag = 0
         tag_ALLBtn.setImage(UIImage(named: "nav_loc"), for: .normal)
 //        tag_ALLBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         tag_ALLBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)

@@ -213,9 +213,9 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             self.hotPage.reloadData()
         }
         //明星
-        NYPopularNetworkManager.getVideosListData(channel_id: 3, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
+        NYPopularNetworkManager.getMXVideosListData(channel_id: 3, keyword: "", tags: "") { (list: [NYMXVideosModel]?,error,isobl) in
             if let models = list {
-                self.followPage.datas = models
+                self.followPage.mx_datas = models
             }
             self.followPage.reloadData()
         }
@@ -557,6 +557,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         { //正常 频道管理
             let channelSelManageVC = NYChannelSelectManageVC()
             channelSelManageVC.title = btn.currentTitle
+            channelSelManageVC.channel_id = btn.tag
             self.navigationController?.pushViewController(channelSelManageVC, animated: true)
         }
     }

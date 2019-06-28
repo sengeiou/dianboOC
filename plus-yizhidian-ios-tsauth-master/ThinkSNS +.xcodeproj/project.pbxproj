@@ -1212,7 +1212,9 @@
 		B244258D22880D3E00500D08 /* NYSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244258C22880D3E00500D08 /* NYSearchBarView.swift */; };
 		B24425912288588500500D08 /* NYSearchListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24425902288588500500D08 /* NYSearchListVC.xib */; };
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
+		B248BDBC22C4F6720066DCE6 /* NYTagsMModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */; };
 		B24A18A422BA1926008EA09B /* NYVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */; };
+		B2676FF822C49F0A00D65AAE /* NYMXVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */; };
 		B26CFC9822BCA2B6000F3CDA /* videoHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */; };
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
 		B271E144229953E500A1A7E2 /* HotTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E143229953E500A1A7E2 /* HotTopicModel.swift */; };
@@ -1226,6 +1228,7 @@
 		B28D87E722A3BC21003FE63A /* NYChannelSelectManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */; };
 		B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E822A3C584003FE63A /* NYTopChannelView.swift */; };
 		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
+		B294EE9022C5FB9100CCDAFF /* NYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294EE8F22C5FB9100CCDAFF /* NYBaseViewController.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */; };
 		B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */; };
@@ -2702,7 +2705,9 @@
 		B244258C22880D3E00500D08 /* NYSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchBarView.swift; sourceTree = "<group>"; };
 		B24425902288588500500D08 /* NYSearchListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchListVC.xib; sourceTree = "<group>"; };
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
+		B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTagsMModel.swift; sourceTree = "<group>"; };
 		B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideoDetailVC.swift; sourceTree = "<group>"; };
+		B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMXVideosModel.swift; sourceTree = "<group>"; };
 		B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoHeadView.swift; sourceTree = "<group>"; };
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
 		B271E143229953E500A1A7E2 /* HotTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTopicModel.swift; sourceTree = "<group>"; };
@@ -2721,6 +2726,7 @@
 		B28D87E622A3BC21003FE63A /* NYChannelSelectManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelSelectManageVC.swift; sourceTree = "<group>"; };
 		B28D87E822A3C584003FE63A /* NYTopChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTopChannelView.swift; sourceTree = "<group>"; };
 		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
+		B294EE8F22C5FB9100CCDAFF /* NYBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYBaseViewController.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMomentDetailHeaderView.swift; sourceTree = "<group>"; };
 		B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMomentDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -5600,6 +5606,7 @@
 				53F523681FBA86870038EEE2 /* TSMomentCommentController.swift */,
 				53F5236A1FBA90A20038EEE2 /* TSMomentDetailModel.swift */,
 				53B80D311FDA25B8007F02F8 /* TSPostCommentController.swift */,
+				B294EE8F22C5FB9100CCDAFF /* NYBaseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -8030,6 +8037,8 @@
 			isa = PBXGroup;
 			children = (
 				B20EE82F22B9342D00149BBF /* NYVideosModel.swift */,
+				B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */,
+				B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8769,6 +8778,7 @@
 				3649934C1ECD78C500D09DF8 /* TSSystemNetworkManager.swift in Sources */,
 				839A4F3F1F4BD51A00E6B381 /* TSNewsAnalogObject.swift in Sources */,
 				536152C31F31FABC004BD85B /* TSMusicCommonModel.swift in Sources */,
+				B294EE9022C5FB9100CCDAFF /* NYBaseViewController.swift in Sources */,
 				836B94C01F7F3DC30006E3DC /* QuoraStackFullImageCell.swift in Sources */,
 				36E9286B205A73F400EFDED0 /* MJRefreshAutoFooter.m in Sources */,
 				8306BD15201EBDBB00E3737F /* TSUtil.swift in Sources */,
@@ -9194,6 +9204,7 @@
 				1731B2EC1E8C9C560098B605 /* TSNewsCollectionTaskObject.swift in Sources */,
 				83549A24202ACD9000590D81 /* TSTransitionTypeView.swift in Sources */,
 				83AB1AED1FD106DA00CC2952 /* PostsSearchView.swift in Sources */,
+				B248BDBC22C4F6720066DCE6 /* NYTagsMModel.swift in Sources */,
 				83B8B6331E94E49E00D454FA /* TSMomentTaskQueue+Delete.swift in Sources */,
 				367BD8601F5C35AE00D1F6FE /* SimpleNetworking.swift in Sources */,
 				36D80A641E67BB62008C5196 /* TSTaskQueueTool.swift in Sources */,
@@ -9397,6 +9408,7 @@
 				88155594208B2DB100DEA1FE /* RuleShowViewController.swift in Sources */,
 				83F11DDD1FB2D366000504E9 /* TSPaidFeedModel.swift in Sources */,
 				832ADE0F1E1E298B009804F7 /* TSLoginVC.swift in Sources */,
+				B2676FF822C49F0A00D65AAE /* NYMXVideosModel.swift in Sources */,
 				8871676A20FDF4590052B6D5 /* LabelLineText.m in Sources */,
 				8897E01F21072FDF00016D84 /* TopicPostListVC.swift in Sources */,
 				53D751541F5FFDBC005EC667 /* TSQuestionPublishTopicAddCell.swift in Sources */,

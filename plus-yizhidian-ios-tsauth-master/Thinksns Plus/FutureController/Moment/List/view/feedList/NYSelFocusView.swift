@@ -21,6 +21,7 @@ class NYSelFocusView: TSTableView {
     
     /// 数据源
     var datas: [NYVideosModel] = []
+    var mx_datas: [NYMXVideosModel] = []
     /// 刷新代理
     weak var refreshDelegate: FeedListViewRefreshDelegate?
     /// 交互代理
@@ -116,13 +117,26 @@ class NYSelFocusView: TSTableView {
 extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !datas.isEmpty {
-            removePlaceholderViews()
+        var count = 0
+        if channel_id==3
+        {
+            if !mx_datas.isEmpty {
+                removePlaceholderViews()
+            }
+            count = mx_datas.count
         }
+        else
+        {
+            if !datas.isEmpty {
+                removePlaceholderViews()
+            }
+            count = datas.count
+        }
+        
         if mj_footer != nil {
             mj_footer.isHidden = true //datas.count < listLimit
         }
-        return datas.count
+        return count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -163,7 +177,7 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
         if channel_id==3
         {
            let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelMXCell
-            cell.setVideosModel(video: self.datas[indexPath.row])
+            cell.setMXVideosModel(mx_video:self.mx_datas[indexPath.row])
             return cell
         }
         else

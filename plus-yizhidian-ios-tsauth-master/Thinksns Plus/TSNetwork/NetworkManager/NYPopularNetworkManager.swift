@@ -214,13 +214,13 @@ extension NYPopularNetworkManager {
     
     /// 获取视频列表
     /// channel_id
-    class func getVideosListData(channel_id: Int,keyword:String ,tags:String ,after: Int = 0, limit: Int =
+    class func getVideosListData(channel_id: Int,keyword:String ,tags:String ,tag_cates:String="",after: Int = 0, limit: Int =
         TSAppConfig.share.localInfo.limit, complete: @escaping (([NYVideosModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = PopularNetworkRequest().getVideosList
         request.urlPath = request.fullPathWith(replacers: [])
         // 2.配置参数
-        let parameters: [String: Any] = ["channel_id": channel_id, "after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        let parameters: [String: Any] = ["channel_id": channel_id, "tag_cates": tag_cates,"after": after, "limit": limit, "keyword": keyword, "tags": tags]
         request.parameter = parameters
         // 3.发起请求
         RequestNetworkData.share.text(request: request) { (networkResult) in
@@ -233,6 +233,38 @@ extension NYPopularNetworkManager {
                 complete(data.models, nil, true)
             }
         }
+    }
+    
+    /// 明星 专属接口 视频 (这么快这么来了)
+    /// channel_id
+    class func getMXVideosListData(channel_id: Int,keyword:String ,tags:String ,after: Int = 0, limit: Int =
+        TSAppConfig.share.localInfo.limit, complete: @escaping (([NYMXVideosModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideosList
+        request.urlPath = request.fullPathWith(replacers: [])
+        // 2.配置参数
+        let parameters: [String: Any] = ["channel_id": channel_id, "after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete(nil, message, false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [[String: Any]] else {
+                complete(nil, "服务器返回数据错误", false)
+                return
+            }
+            // 3. 正常解析数据
+            var list:[NYMXVideosModel]? = NSMutableArray() as! [NYMXVideosModel]
+            for obj in datas
+            {
+                let mxObj = NYMXVideosModel(JSON: obj)
+                list?.append(mxObj!)
+            }
+            complete(list, "ok", true)
+        })
     }
     
     /// 获取视频详细
@@ -285,7 +317,6 @@ extension NYPopularNetworkManager {
             }
             complete(list, "ok", true)
         })
-
     }
     
     /// 批量获取视频评论
@@ -318,33 +349,29 @@ extension NYPopularNetworkManager {
         })
         
     }
-//    /// 批量获取视频评论
-//    /// id
-//    class func getStarsListData(_id: Int ,complete: @escaping (([StarsHotModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
-//        // 1.请求 url
-//        var request = PopularNetworkRequest().getStarsList
-//
-//        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
-//            // 1. 网络请求失败
-//            guard status else {
-//                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
-//                complete(nil, "网络请求错误", false)
-//                return
-//            }
-//            // 2. 数据格式错误
-//            guard let datas = data as? [String: Any] else {
-//                complete(nil, "服务器返回数据错误", false)
-//                return
-//            }
-//            // 3. 正常解析数据
-//            let array = datas["comments"] as? [[String: Any]]
-//            var list:[FeedListCommentModel]? = NSMutableArray() as! [FeedListCommentModel]
-//            for obj in array!
-//            {
-//                let vm = FeedListCommentModel(JSON: (obj as? [String: Any])! )
-//                list?.append(vm!)
-//            }
-//            complete(list, "ok", true)
-//        })
-//    }
+    
+    /// mark ---------------------------------------基本-------------------------------------
+    
+    /// 获取所有标签
+    ///
+    class func getTagsListData(complete: @escaping (([NYTagsMModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getTagsList
+        request.urlPath = request.fullPathWith(replacers: [])
+        //        // 2.配置参数
+        //        let parameters: [String: Any] = ["channel_id": channel_id, "after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        //        request.parameter = parameters
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
+    
 }

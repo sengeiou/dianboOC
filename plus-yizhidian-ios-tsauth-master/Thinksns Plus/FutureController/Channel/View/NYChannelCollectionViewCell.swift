@@ -8,10 +8,19 @@
 
 import UIKit
 
+protocol NYChannelCollectionViewCellDelegate: class {
+    /// 选中
+    func selectCellModel(cell:NYChannelCollectionViewCell,tagModel:NYtagModel)
+}
+
 class NYChannelCollectionViewCell: UICollectionViewCell {
     let itemHeit: CGFloat = 30
     static let identifier = "channelColl"
     var itemButton:UIButton!
+    
+    var tagModel:NYtagModel?
+    
+    weak var delegate: NYChannelCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,7 +49,16 @@ class NYChannelCollectionViewCell: UICollectionViewCell {
     
     func selItemClickdo(_ btn:UIButton)
     {
-        btn.isSelected = !btn.isSelected
+        self.delegate?.selectCellModel(cell: self, tagModel: tagModel!)
+    }
+    
+    /// tag
+    func setTagModel(tag:NYtagModel,from:NYtagModel)
+    {
+        tagModel = tag
+        self.itemButton.isSelected = ((tag.id==from.id)&&tag.name.isEqual(from.name))
+        
+        itemButton.setTitle(tag.name, for: .normal)
     }
     
 }

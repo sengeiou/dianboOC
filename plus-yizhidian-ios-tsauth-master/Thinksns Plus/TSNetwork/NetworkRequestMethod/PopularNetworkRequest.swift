@@ -49,4 +49,6 @@ class PopularNetworkRequest {
     /// 明星数据
     let getStarsList = Request<NYVideosModel>(method: .get, path: "dianbo/stars", replacers: [])
     
+    /// 获取所有标签
+    let getTagsList = Request<NYTagsMModel>(method: .get, path: "tags", replacers: [])
 }

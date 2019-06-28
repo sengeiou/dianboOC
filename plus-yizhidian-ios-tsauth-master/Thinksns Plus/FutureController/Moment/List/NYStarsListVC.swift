@@ -96,8 +96,6 @@ class NYStarsListVC: UITableViewController,NYStarsListCellDelegate {
         {
             return [""]
         }
-//        tableView.sectionIndexColor = UIColor.clear
-        //sectionIndexBackgroundColor = [UIColorclearColor];
         return self.keys
     }
  
