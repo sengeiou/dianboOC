@@ -126,6 +126,45 @@ extension GroupNetworkManager {
             }
         }
     }
+    
+    
+    /// 所有圈子列表
+    ///
+    /// - Parameters:
+    ///   - 用于搜索圈子，按圈名搜索
+    ///   - 圈子分类id
+    ///   - 按照圈子 ID 返回列表，
+    ///   - limit: 默认 20 ，数据返回条数 默认为20
+    ///   - offset: 默认 0 ，数据偏移量，传递之前通过接口获取的总数。
+    ///   - complete: 结果
+    class func getALLGroupsList(keyword: String = "",category_id: String = "",id: String = "", limit: Int = TSAppConfig.share.localInfo.limit, offset: Int, complete: @escaping ([GroupModel]?, String?, Bool) -> Void) {
+        // 1.请求 url
+        var request = GroupNetworkRequest().allGroups
+        request.urlPath = request.fullPathWith(replacers: [])
+        // 2.配置参数
+        var parameters: [String: Any] = ["offset": offset, "limit": limit]
+        if !keyword.isEmpty {
+            parameters.updateValue(keyword, forKey: "keyword")
+        }
+        if !category_id.isEmpty {
+            parameters.updateValue(category_id, forKey: "category_id")
+        }
+        if !id.isEmpty {
+            parameters.updateValue(id, forKey: "id")
+        }
+        request.parameter = parameters
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
 
     /// 我的圈子列表
     ///

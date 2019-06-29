@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GroupDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GroupDetailVC: NYBaseViewController, UITableViewDelegate, UITableViewDataSource {
     enum PostsType: String {
         /// 最新帖子
         case latest = "group"

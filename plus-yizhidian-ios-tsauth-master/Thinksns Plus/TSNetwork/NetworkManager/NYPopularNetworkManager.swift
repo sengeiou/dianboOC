@@ -374,4 +374,79 @@ extension NYPopularNetworkManager {
         }
     }
     
+    /// 新增历史搜索记录
+    /// keyword
+    class func addSearchKeywords(keyword: String,  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getKeywordsList
+        request.urlPath = request.fullPathWith(replacers: [])
+        let parameters: [String: Any] = ["keyword": keyword]
+        try! RequestNetworkData.share.textRequest(method: .post, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete( "服务器返回数据错误", false)
+                return
+            }
+            let message = datas["message"] as! String
+            complete(message, true)
+        })
+    }
+    
+    /// 清空历史搜索记录
+    /// keyword
+    class func delSearchKeywords(complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getKeywordsList
+        request.urlPath = request.fullPathWith(replacers: [])
+        try! RequestNetworkData.share.textRequest(method: .delete, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete( "服务器返回数据错误", false)
+                return
+            }
+            let message = datas["message"] as! String
+            complete(message, true)
+        })
+    }
+    
+    /// 获取历史搜索记录
+    /// 选填，当type=hot时为获取热门搜索
+    class func getKeywordsListData(type: String="",  complete: @escaping (([NYKeywordModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getKeywordsList
+        request.urlPath = request.fullPathWith(replacers: [])
+        // 2.配置参数
+        if type.count>0
+        {
+            let parameters: [String: Any] = ["type": type]
+            request.parameter = parameters
+        }
+        
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
+    
+    
+    
 }

@@ -51,4 +51,9 @@ class PopularNetworkRequest {
     
     /// 获取所有标签
     let getTagsList = Request<NYTagsMModel>(method: .get, path: "tags", replacers: [])
+    
+    /// 搜索关键词
+    let getKeywordsList = Request<NYKeywordModel>(method: .get, path: "dianbo/keywords", replacers: [])
+    
+    
 }

@@ -73,7 +73,7 @@ class NYStarsListVC: UITableViewController,NYStarsListCellDelegate {
         headView.frame = CGRect(x:0,y:0,width:ScreenWidth,height:20)
         headView.backgroundColor = TSColor.main.themeTBCellBg
         let titleLabel = UILabel()
-        titleLabel.frame = CGRect(x:20,y:0,width:150,height:20)
+        titleLabel.frame = CGRect(x:10,y:0,width:150,height:20)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         titleLabel.textColor = TSColor.main.themeZsColor
         titleLabel.text = key

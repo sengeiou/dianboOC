@@ -36,6 +36,7 @@ class NYWordItem: UIView {
         word_button.layer.masksToBounds = true
         
         close_button.setImage(UIImage(named: "cell_del"), for: .normal)
+        close_button.isHidden = true
         close_button.frame = CGRect(x:0,y:0,width:16,height:16)
         self.addSubview(word_button)
         self.addSubview(close_button)
@@ -46,7 +47,7 @@ class NYWordItem: UIView {
         word_button.setTitle(word, for: .normal)
         let size = word.sizeOfString(usingFont: sizeFont)
         word_button.frame = CGRect(x:0,y:0,width:size.width+20,height:self.height)
-        let width = word_button.width + close_button.width*0.5
+        let width = word_button.width + close_button.width*0.5+10
         close_button.mj_x = width - close_button.width-2
         return CGSize(width:width,height:self.height)
     }

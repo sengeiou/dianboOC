@@ -304,7 +304,11 @@ class TSMomentNetworkManager: NSObject {
         else if type == "hot"
         {
             parameter["hot"] = hot
+        }else if type == "new"
+        {
+            parameter["search"] = search
         }
+        
         try! RequestNetworkData.share.textRequest(method: .get, path: path, parameter: parameter, complete: { (data, status, code) in
             // 1.网络请求失败处理
             guard status else {

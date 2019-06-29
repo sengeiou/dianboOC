@@ -12,7 +12,7 @@ class NYSearchBarView: UIView
 {
     public let searchTextFiled = UITextField()
     let searchBgImageView = UIImageView()
-    let rightButton: UIButton = UIButton(type: .system)
+    let rightButton: UIButton = UIButton(type: .custom)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

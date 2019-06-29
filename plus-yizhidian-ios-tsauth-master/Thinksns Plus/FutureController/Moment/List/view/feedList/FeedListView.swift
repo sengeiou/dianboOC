@@ -29,6 +29,8 @@ import UIKit
     /// 点击了动态 cell
     ///
     @objc optional func feedList(_ view: NYSelFocusView, didSelected cell: NYSelCell)
+    @objc optional func groupList(_ view: NYSelFocusView, didSelected cell: GroupListCell)
+    @objc optional func postList(_ view: NYSelFocusView, didSelected cell: NYHotTopicCell)
     /// 点击了图片
     func feedList(_ view: FeedListView, didSelected  cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int)
 

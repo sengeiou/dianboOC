@@ -1229,6 +1229,11 @@
 		B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87E822A3C584003FE63A /* NYTopChannelView.swift */; };
 		B28D87EB22A4C760003FE63A /* NYChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */; };
 		B294EE9022C5FB9100CCDAFF /* NYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294EE8F22C5FB9100CCDAFF /* NYBaseViewController.swift */; };
+		B29E833E22C616AE00251954 /* NYKeywordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E833D22C616AE00251954 /* NYKeywordModel.swift */; };
+		B29E834122C7378300251954 /* NYSearchResultListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E833F22C7378300251954 /* NYSearchResultListVC.swift */; };
+		B29E834222C7378300251954 /* NYSearchResultListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B29E834022C7378300251954 /* NYSearchResultListVC.xib */; };
+		B29E834422C7956400251954 /* NYGroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E834322C7956400251954 /* NYGroupTableView.swift */; };
+		B29E834622C7C29C00251954 /* NYPostTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E834522C7C29C00251954 /* NYPostTableView.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
 		B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */; };
 		B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */; };
@@ -2727,6 +2732,11 @@
 		B28D87E822A3C584003FE63A /* NYTopChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTopChannelView.swift; sourceTree = "<group>"; };
 		B28D87EA22A4C760003FE63A /* NYChannelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B294EE8F22C5FB9100CCDAFF /* NYBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYBaseViewController.swift; sourceTree = "<group>"; };
+		B29E833D22C616AE00251954 /* NYKeywordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYKeywordModel.swift; sourceTree = "<group>"; };
+		B29E833F22C7378300251954 /* NYSearchResultListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSearchResultListVC.swift; sourceTree = "<group>"; };
+		B29E834022C7378300251954 /* NYSearchResultListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSearchResultListVC.xib; sourceTree = "<group>"; };
+		B29E834322C7956400251954 /* NYGroupTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYGroupTableView.swift; sourceTree = "<group>"; };
+		B29E834522C7C29C00251954 /* NYPostTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPostTableView.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
 		B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMomentDetailHeaderView.swift; sourceTree = "<group>"; };
 		B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMomentDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -6434,6 +6444,8 @@
 				B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */,
 				B2E3C92622C27D9200978224 /* NYStarsListVC.swift */,
 				B2E3C92722C27D9200978224 /* NYStarsListVC.xib */,
+				B29E833F22C7378300251954 /* NYSearchResultListVC.swift */,
+				B29E834022C7378300251954 /* NYSearchResultListVC.xib */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -6443,6 +6455,7 @@
 			children = (
 				834208F61FB4512300E9C723 /* FeedListModel.swift */,
 				B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */,
+				B29E833D22C616AE00251954 /* NYKeywordModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -7064,6 +7077,8 @@
 				83BF5AD21FCEAB8900EF8F14 /* FilterSectionViewModel.swift */,
 				830B31E01FFF7BA5001D6B12 /* TSMomentResendButton.swift */,
 				B201BC89228487F5008D83CE /* NYSelFocusView.swift */,
+				B29E834322C7956400251954 /* NYGroupTableView.swift */,
+				B29E834522C7C29C00251954 /* NYPostTableView.swift */,
 			);
 			path = feedList;
 			sourceTree = "<group>";
@@ -8407,6 +8422,7 @@
 				83C876961F46CAE20099BBE4 /* TSNewFriendsSearchVC.storyboard in Resources */,
 				83BE16071F0CDE0E00BB203C /* CameraMakeSureView.xib in Resources */,
 				8326B7A11F340FDF0059CEC7 /* TSUploadCertificateVC.storyboard in Resources */,
+				B29E834222C7378300251954 /* NYSearchResultListVC.xib in Resources */,
 				83BE16021F0CDE0E00BB203C /* CameraVC.storyboard in Resources */,
 				8325B1561F5EA6830062024F /* QuoraSearchHistoryCell.xib in Resources */,
 				5314EBA1201C8ECF000A1A94 /* common_editor.js in Resources */,
@@ -8906,6 +8922,7 @@
 				8359D8E82000CCA3002602DE /* FeedCollectionController.swift in Sources */,
 				8826F537210B039C005A6B7B /* TopicPostListModel.swift in Sources */,
 				3606491D1F0F75D100F4E074 /* TSUserInterfacePrinciples.swift in Sources */,
+				B29E833E22C616AE00251954 /* NYKeywordModel.swift in Sources */,
 				36E9285D205A73F400EFDED0 /* EMAudioPlayerUtil.m in Sources */,
 				36BE83FB1F398B2000794A89 /* NewsModel.swift in Sources */,
 				BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */,
@@ -9118,6 +9135,7 @@
 				536152BF1F31FA7E004BD85B /* TSAlbumDetailObject.swift in Sources */,
 				83BE15FB1F0CDE0E00BB203C /* CameraCell.swift in Sources */,
 				536152D31F31FB4A004BD85B /* TSMusicCommonObject.swift in Sources */,
+				B29E834622C7C29C00251954 /* NYPostTableView.swift in Sources */,
 				88C7EBAF2117E482009D5185 /* TSAggregateSearchVC.swift in Sources */,
 				386373E120A7EF3800F9E22A /* JoinedGroupListVC.swift in Sources */,
 				360E770E1F7350D900C66927 /* NoticePendingCell.swift in Sources */,
@@ -9482,6 +9500,7 @@
 				83BE15F31F0CDE0E00BB203C /* AlbumModel.swift in Sources */,
 				365795E01E63FF4B00B8D409 /* TSTableViewCell.swift in Sources */,
 				53A866D01F41588100260064 /* TSNewsTagSelectController.swift in Sources */,
+				B29E834122C7378300251954 /* NYSearchResultListVC.swift in Sources */,
 				88B223FF2105B76300763C1E /* CreatTopicVC.swift in Sources */,
 				53B5F64D1FE2266400FF6CDB /* GroupIncomeTypeSelectView.swift in Sources */,
 				83E5966C1E8107ED009FB064 /* TSIndicatorFlowerView.swift in Sources */,
@@ -9738,6 +9757,7 @@
 				36E9289B205A73F400EFDED0 /* PSTCollectionViewData.m in Sources */,
 				8321FF9C1FBAC2DD006E5456 /* PaidManager.swift in Sources */,
 				834995BE20119956001FA3D5 /* IntegrationRecordCellModel.swift in Sources */,
+				B29E834422C7956400251954 /* NYGroupTableView.swift in Sources */,
 				8370842C1F0DD0750019F505 /* ImagePickerTool.swift in Sources */,
 				834201461F6A2CBD00286138 /* RankListView.swift in Sources */,
 				8878E0E620B25EA2006E7650 /* TSSwitchServiceVC.swift in Sources */,
