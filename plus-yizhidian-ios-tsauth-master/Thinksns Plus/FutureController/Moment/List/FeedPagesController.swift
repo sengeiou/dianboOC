@@ -574,6 +574,20 @@ extension FeedPagesController: FeedListViewDelegate {
         self.navigationController?.pushViewController(videoDetailVC, animated: true)
     }
     
+    func feedMxStarList(_ view: NYSelFocusView, didSelected cell: NYSelMXCell) {
+        let channelSelManageVC = NYChannelSelectManageVC()
+        channelSelManageVC.title = cell.mx_videoModel?.star?.name
+        channelSelManageVC.channel_id = (cell.mx_videoModel?.video!.channel_id)!
+        channelSelManageVC.star_id = (cell.mx_videoModel?.star_id)!
+        self.navigationController?.pushViewController(channelSelManageVC, animated: true)
+    }
+    
+    func feedMxList(_ view: NYSelFocusView, didSelected cell: NYSelMXCell) {
+        let videoDetailVC = NYVideoDetailVC()
+        videoDetailVC.video_id = cell.mx_videoModel?.video_id
+        self.navigationController?.pushViewController(videoDetailVC, animated: true)
+    }
+    
     func feedList(_ view: FeedListView, didSelected cell: FeedListCell, on pictureView: PicturesTrellisView, withPictureIndex index: Int) {
         
     }

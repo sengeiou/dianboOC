@@ -126,6 +126,17 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGv-2J-ikl">
+                        <rect key="frame" x="32" y="10" width="50" height="50"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="SLO-Af-j0p"/>
+                            <constraint firstAttribute="height" constant="50" id="aAi-bU-usq"/>
+                        </constraints>
+                        <connections>
+                            <action selector="starClickdo:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UUZ-aA-7gH"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -135,8 +146,10 @@
                     <constraint firstItem="ghy-Cz-kTD" firstAttribute="centerY" secondItem="E11-ka-9xB" secondAttribute="centerY" id="hj3-SJ-579"/>
                     <constraint firstItem="E11-ka-9xB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lab-10-LnG"/>
                     <constraint firstAttribute="trailing" secondItem="agq-te-N0j" secondAttribute="trailing" constant="8" id="lbC-Wn-Oep"/>
+                    <constraint firstItem="mGv-2J-ikl" firstAttribute="centerY" secondItem="E11-ka-9xB" secondAttribute="centerY" id="naA-GN-h7F"/>
                     <constraint firstItem="E11-ka-9xB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="nzE-TS-1wA"/>
                     <constraint firstItem="agq-te-N0j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="usH-bK-sEu"/>
+                    <constraint firstItem="mGv-2J-ikl" firstAttribute="centerX" secondItem="E11-ka-9xB" secondAttribute="centerX" id="y8R-fx-3S5"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

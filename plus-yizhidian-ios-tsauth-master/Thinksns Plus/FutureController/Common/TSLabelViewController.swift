@@ -140,6 +140,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
             right_munButton.contentEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14)
             right_munButton.frame =  CGRect(x: topContentView.width - CGFloat(44), y: topY, width: CGFloat(44), height: CGFloat(44))
             right_munButton.addTarget(self, action: #selector(rightMunClickdo(_:)), for: .touchUpInside)
+            right_munButton.isHidden = true
             topContentView.addSubview(right_munButton)
             
             let labelButtonWidth = (topContentView.width - 88)/CGFloat(titleArray.count);

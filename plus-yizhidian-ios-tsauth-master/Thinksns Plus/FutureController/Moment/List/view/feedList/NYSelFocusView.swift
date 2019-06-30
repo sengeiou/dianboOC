@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NYSelFocusView: TSTableView {
+class NYSelFocusView: TSTableView ,NYSelMXCellDelegate{
 
     enum SectionViewType {
         case none
@@ -177,6 +177,7 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
         if channel_id==3
         {
            let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYSelMXCell
+            cell.delegate = self
             cell.setMXVideosModel(mx_video:self.mx_datas[indexPath.row])
             return cell
         }
@@ -190,13 +191,29 @@ extension NYSelFocusView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) as? NYSelCell else {
-            return
+        if channel_id==3
+        {
+            guard let cell = tableView.cellForRow(at: indexPath) as? NYSelMXCell else {
+                return
+            }
+            interactDelegate?.feedMxList!(self, didSelected: cell)
         }
-        interactDelegate?.feedList!(self, didSelected: cell)
+        else
+        {
+            guard let cell = tableView.cellForRow(at: indexPath) as? NYSelCell else {
+                return
+            }
+            interactDelegate?.feedList!(self, didSelected: cell)
+        }
+        
         
 //        interactDelegate?.feedList(self, didSelected: cell, onSeeAllButton: false)
     }
     
+    
+    // mark ---NYSelMXCellDelegate
+    func starCellModel(cell: NYSelMXCell, mxVideosModel: NYMXVideosModel) {
+        interactDelegate?.feedMxStarList!(self, didSelected: cell)
+    }
     
 }

@@ -12,6 +12,9 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
 {
     //分类 频道 id
     var channel_id = 0
+    //明星 id
+    var star_id = 0
+    
     let topChannelView = NYTopChannelView()
     
     var me_tablview :TSTableView!

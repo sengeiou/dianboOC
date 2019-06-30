@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol NYSelMXCellDelegate: class {
+    /// 选中
+    func starCellModel(cell:NYSelMXCell,mxVideosModel:NYMXVideosModel)
+}
+
 class NYSelMXCell: UITableViewCell {
     @IBOutlet weak var cellContentView: UIView!
     
@@ -29,6 +34,8 @@ class NYSelMXCell: UITableViewCell {
     var videoModel:NYVideosModel?
     
     var mx_videoModel:NYMXVideosModel?
+    
+    weak var delegate:NYSelMXCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,6 +67,10 @@ class NYSelMXCell: UITableViewCell {
         userImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
     }
     
+    @IBAction func starClickdo(_ sender: UIButton) {
+        delegate?.starCellModel(cell: self, mxVideosModel: mx_videoModel!)
+    }
+
     func setVideosModel(video:NYVideosModel) -> Void {
         videoModel = video
         titleLabel.text = video.name
