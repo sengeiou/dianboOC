@@ -1272,6 +1272,8 @@
 		B2F5B5B42297069A00B42482 /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5AE2297069800B42482 /* ChannelCell.m */; };
 		B2F5B5B52297069A00B42482 /* ChannelTags.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5B02297069900B42482 /* ChannelTags.m */; };
 		B2F5B5B62297069A00B42482 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5B32297069900B42482 /* Channel.m */; };
+		B2FEA52D22CE508200E15390 /* NYMeCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */; };
+		B2FEA52E22CE508200E15390 /* NYMeCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -2789,6 +2791,8 @@
 		B2F5B5B12297069900B42482 /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCell.h; sourceTree = "<group>"; };
 		B2F5B5B22297069900B42482 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		B2F5B5B32297069900B42482 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeCollectionVC.swift; sourceTree = "<group>"; };
+		B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMeCollectionVC.xib; sourceTree = "<group>"; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -7349,6 +7353,8 @@
 				B252491722CA70E800708635 /* NYExtensionTableViewController.xib */,
 				B22FD3C822CD297600D68791 /* NYHistoryVideoVC.swift */,
 				B22FD3C922CD297600D68791 /* NYHistoryVideoVC.xib */,
+				B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */,
+				B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -8439,6 +8445,7 @@
 				36E928D5205A73F500EFDED0 /* EMCallViewController.xib in Resources */,
 				5314EBA0201C8ECF000A1A94 /* common_editor.html in Resources */,
 				36B5081D1EA4A70E0015C67D /* Main.storyboard in Resources */,
+				B2FEA52E22CE508200E15390 /* NYMeCollectionVC.xib in Resources */,
 				83A2164E1F6BCEEA007D7DFB /* RankListCell.xib in Resources */,
 				83F020A520173BBB0011EFB9 /* IntegrationCashController.storyboard in Resources */,
 				B252491922CA70E800708635 /* NYExtensionTableViewController.xib in Resources */,
@@ -9221,6 +9228,7 @@
 				178244151E7FBBF300A20877 /* TSSimpleCommentTableView.swift in Sources */,
 				53B5F64A1FE2175D00FF6CDB /* GroupIncomeListController.swift in Sources */,
 				53F0E5CF1FE7B50100A5DD92 /* ReceivePendingTopModel.swift in Sources */,
+				B2FEA52D22CE508200E15390 /* NYMeCollectionVC.swift in Sources */,
 				537890BF1F48103D000D96E2 /* TSFailedCommentModel.swift in Sources */,
 				83E310221F614C560065A445 /* ATagsVeiw.swift in Sources */,
 				885FC3632192D19500684DE1 /* TSDownloadVC.swift in Sources */,

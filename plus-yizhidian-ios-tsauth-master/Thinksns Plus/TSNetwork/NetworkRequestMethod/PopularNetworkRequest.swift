@@ -37,6 +37,9 @@ class PopularNetworkRequest {
     ///    - offset: 偏移量 默认为0
     let getVideosList = Request<NYVideosModel>(method: .get, path: "dianbo/getVideos", replacers: [])
     
+    /// 获取收藏视频列表
+    let getVideosCollections = Request<NYVideosModel>(method: .get, path: "dianbo/videos/collections", replacers: [])
+    
     /// 获取视频详细
     let getVideobyId = Request<NYVideosModel>(method: .get, path: "dianbo/getVideo/(id)", replacers: ["(id)"])
     

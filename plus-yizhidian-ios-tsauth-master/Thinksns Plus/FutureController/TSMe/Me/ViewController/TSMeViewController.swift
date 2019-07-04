@@ -130,11 +130,12 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
     func didSelectCell(indexPath: IndexPath) {
         let cellTitel = tableViewTitleSource[indexPath.section][indexPath.row]
         switch cellTitel {
-        case "个人主页":
-            navigationController?.pushViewController(TSHomepageVC(TSCurrentUserInfo.share.userInfo!.userIdentity), animated: true)
-        case "我的收藏":
-            let collectionVC = TSCollectionVC()
-            navigationController?.pushViewController(collectionVC, animated: true)
+        case "个人主页": navigationController?.pushViewController(TSHomepageVC(TSCurrentUserInfo.share.userInfo!.userIdentity), animated: true)
+        case "我的_我的收藏".localized:
+//            let collectionVC = TSCollectionVC()
+//            navigationController?.pushViewController(collectionVC, animated: true)
+            let collectionVC = NYMeCollectionVC()
+            self.navigationController?.pushViewController(collectionVC, animated: true)
         case "意见反馈":
             let vc = TSFeedBackViewController()
             navigationController?.navigationItem.hidesBackButton = true
@@ -167,6 +168,7 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
         case "草稿箱":
             let draftVC = TSDraftController()
             self.navigationController?.pushViewController(draftVC, animated: true)
+            
         default:
             break
         }

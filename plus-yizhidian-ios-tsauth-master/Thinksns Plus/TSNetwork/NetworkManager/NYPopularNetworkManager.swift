@@ -234,6 +234,28 @@ extension NYPopularNetworkManager {
             }
         }
     }
+    /// 获取收藏视频列表
+    /// channel_id
+    class func getVideosCollectionsData(after: Int = 0, limit: Int =
+        TSAppConfig.share.localInfo.limit, complete: @escaping (([NYVideosModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideosCollections
+        request.urlPath = request.fullPathWith(replacers: [])
+        // 2.配置参数
+        let parameters: [String: Any] = ["after": after, "limit": limit]
+        request.parameter = parameters
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
     
     /// 明星 专属接口 视频 (这么快这么来了)
     /// channel_id
@@ -515,5 +537,7 @@ extension NYPopularNetworkManager {
             complete(message, true)
         })
     }
+    
+    
     
 }

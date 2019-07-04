@@ -140,6 +140,7 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
     }
     // MARK: - refresh
     func loadRefresh() {
+        //历史搜索
         NYPopularNetworkManager.addSearchKeywords(keyword: keyword!, complete: { (msg, isbol) in
             print("\(msg)")
         })

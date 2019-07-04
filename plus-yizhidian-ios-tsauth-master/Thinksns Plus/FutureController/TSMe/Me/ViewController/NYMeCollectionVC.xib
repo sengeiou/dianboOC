@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NYMeCollectionVC" customModule="ThinkSNSPlus" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="vgC-W4-Ozg" id="okI-7T-ytQ"/>
+                <outlet property="postButton" destination="MEi-D7-UOw" id="BR8-qq-Dwc"/>
+                <outlet property="topView" destination="hni-ZH-wGl" id="1Yi-EY-jZz"/>
+                <outlet property="videoButton" destination="Zzc-OG-3w5" id="Ed4-6N-X0w"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hni-ZH-wGl" userLabel="View-(top)">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzc-OG-3w5">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="60"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="视  频" image="me_video_white" backgroundImage="com_item_nol"/>
+                            <state key="selected" backgroundImage="com_item_sel"/>
+                            <connections>
+                                <action selector="buttonTapedWithSender:" destination="-1" eventType="touchUpInside" id="lvo-gb-uMQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEi-D7-UOw">
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="60"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="帖  子" image="me_post_white" backgroundImage="com_item_nol"/>
+                            <state key="selected" backgroundImage="com_item_sel"/>
+                            <connections>
+                                <action selector="buttonTapedWithSender:" destination="-1" eventType="touchUpInside" id="l0U-YE-OWW"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Zzc-OG-3w5" secondAttribute="bottom" id="2WL-B4-MTC"/>
+                        <constraint firstItem="Zzc-OG-3w5" firstAttribute="leading" secondItem="hni-ZH-wGl" secondAttribute="leading" id="5u0-M8-FyW"/>
+                        <constraint firstItem="MEi-D7-UOw" firstAttribute="leading" secondItem="Zzc-OG-3w5" secondAttribute="trailing" id="8FM-6N-LyX"/>
+                        <constraint firstItem="Zzc-OG-3w5" firstAttribute="top" secondItem="hni-ZH-wGl" secondAttribute="top" id="Jxi-HX-gqI"/>
+                        <constraint firstAttribute="height" constant="60" id="dof-Ot-mLG"/>
+                        <constraint firstAttribute="bottom" secondItem="MEi-D7-UOw" secondAttribute="bottom" id="hfB-tr-UWn"/>
+                        <constraint firstItem="MEi-D7-UOw" firstAttribute="top" secondItem="hni-ZH-wGl" secondAttribute="top" id="kQC-n3-Ysa"/>
+                        <constraint firstItem="Zzc-OG-3w5" firstAttribute="width" secondItem="MEi-D7-UOw" secondAttribute="width" id="sgs-hn-9x7"/>
+                        <constraint firstItem="MEi-D7-UOw" firstAttribute="leading" secondItem="Zzc-OG-3w5" secondAttribute="trailing" id="wJf-ht-kmt"/>
+                        <constraint firstAttribute="trailing" secondItem="MEi-D7-UOw" secondAttribute="trailing" id="wxR-p1-gxP"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgC-W4-Ozg" userLabel="View-(content)">
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="hni-ZH-wGl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8Dh-dR-8Lu"/>
+                <constraint firstItem="hni-ZH-wGl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Dnc-06-HvR"/>
+                <constraint firstAttribute="trailing" secondItem="vgC-W4-Ozg" secondAttribute="trailing" id="K7k-sN-Znb"/>
+                <constraint firstItem="vgC-W4-Ozg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OW2-de-K3J"/>
+                <constraint firstAttribute="bottom" secondItem="vgC-W4-Ozg" secondAttribute="bottom" id="b59-z4-RFa"/>
+                <constraint firstAttribute="trailing" secondItem="hni-ZH-wGl" secondAttribute="trailing" id="dRO-2s-R9B"/>
+                <constraint firstItem="vgC-W4-Ozg" firstAttribute="top" secondItem="hni-ZH-wGl" secondAttribute="bottom" id="h7y-0v-71G"/>
+            </constraints>
+            <point key="canvasLocation" x="130.40000000000001" y="116.49175412293854"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="com_item_nol" width="375" height="110.5"/>
+        <image name="com_item_sel" width="375" height="110.5"/>
+        <image name="me_post_white" width="22" height="22"/>
+        <image name="me_video_white" width="27.5" height="22"/>
+    </resources>
+</document>

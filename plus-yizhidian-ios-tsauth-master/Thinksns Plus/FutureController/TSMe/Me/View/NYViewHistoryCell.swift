@@ -64,6 +64,8 @@ class NYViewHistoryCell: UITableViewCell,UICollectionViewDataSource, UICollectio
         collectionView.backgroundView?.backgroundColor = TSColor.main.themeTBCellBg
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.register(UINib(nibName: "NYViewHisCollectionCell", bundle: nil), forCellWithReuseIdentifier: NYViewHisCollectionCell.identifier)
     }
     

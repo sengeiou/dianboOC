@@ -337,6 +337,40 @@ class TSMomentNetworkManager: NSObject {
         })
         
     }
+    /// 获取动态列表 收藏
+    func getfeedcollectionList(after: Int = 0, limit: Int = TSAppConfig.share.localInfo.limit, complete: @escaping((_ data: [TSMomentListModel]?, _ error: NetworkError?) -> Void)) {
+        let path = TSURLPathV2.path.rawValue + TSURLPathV2.Feed.feeds.rawValue + TSURLPathV2.Feed.collection.rawValue
+        var parameter = [String: Any]()
+        parameter["limit"] = limit
+        parameter["after"] = after
+        try! RequestNetworkData.share.textRequest(method: .get, path: path, parameter: parameter, complete: { (data, status, code) in
+            // 1.网络请求失败处理
+            guard status else {
+                /// 这个地方需要判断一下是否是已经被删除
+                /// 由于是批量获取的动态内容，所以如果被删除的原文，也会请求成功，但是data里边是两个空数组
+                complete(nil, .networkErrorFailing)
+                return
+            }
+            // 2.服务器数据异常处理
+            guard let moment = data as? Dictionary<String, Any>, let originalFeeds = moment["feeds"] as? Array<Dictionary<String, Any>> else {
+                /// 说明原文不存在了
+                complete(nil, .networkErrorFailing)
+                return
+            }
+            // 3.正常数据解析
+            if originalFeeds.count>0
+            {
+                let list = NSMutableArray()
+                for obj in originalFeeds
+                {
+                    let resourceModel = TSMomentListModel(dataV2: obj)
+                    list.add(resourceModel)
+                }
+                complete(list as! [TSMomentListModel], nil)
+            }
+        })
+        
+    }
 
     /// 获取动态点赞数据,服务器根据时间排序
     ///
