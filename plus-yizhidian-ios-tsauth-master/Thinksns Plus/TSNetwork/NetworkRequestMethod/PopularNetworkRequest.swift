@@ -55,5 +55,7 @@ class PopularNetworkRequest {
     /// 搜索关键词
     let getKeywordsList = Request<NYKeywordModel>(method: .get, path: "dianbo/keywords", replacers: [])
     
+    /// 获取观看历史
+    let getVideoRecordList = Request<NYMeHistoryVModel>(method: .get, path: "dianbo/videoRecord", replacers: [])
     
 }

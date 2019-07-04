@@ -335,17 +335,17 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
             return
         }
 
-//        // 2.如果以上情况不发生，跳转图片查看器
-//        let imageFrames = headerView.getImagesFrame()
-//        let images = headerView.getImages()
-//        let picturePreview = TSPicturePreviewVC(objects: imageObjects, imageFrames: imageFrames, images: images, At: index)
-//        /* 补丁逻辑，在图片查看器消失后，刷新图片 */
-//        picturePreview.dismissBlock = { [weak self] in
-//            self?.uploadImages()
+        // 2.如果以上情况不发生，跳转图片查看器
+        let imageFrames = headerView.getImagesFrame()
+        let images = headerView.getImages()
+        let picturePreview = TSPicturePreviewVC(objects: imageObjects, imageFrames: imageFrames, images: images, At: index)
+        /* 补丁逻辑，在图片查看器消失后，刷新图片 */
+        picturePreview.dismissBlock = { [weak self] in
+            self?.uploadImages()
 //            ImageCache.default.clearMemoryCache()
 //            TSAnimationTool.animationManager.gifPicture.startAnimating()
-//        }
-//        picturePreview.show()
+        }
+        picturePreview.show()
         TSAnimationTool.animationManager.gifPicture.stopAnimating()
     }
 

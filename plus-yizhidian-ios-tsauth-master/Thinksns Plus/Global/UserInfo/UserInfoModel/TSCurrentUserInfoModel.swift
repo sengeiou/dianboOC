@@ -48,6 +48,8 @@ class TSCurrentUserInfoModel: Mappable {
     var verified: TSUserVerifiedModel?
     /// 附加信息
     var extra: TSUserExtraModel?
+    var eExtension: TSUserExtensionModel?
+    
     /// 钱包
     var wallet: TSUserInfoWalletModel?
     /// 积分
@@ -97,6 +99,7 @@ class TSCurrentUserInfoModel: Mappable {
         wallet <- map["new_wallet"]
         isInitPwd <- map["initial_password"]
         integration <- map["currency"]
+        eExtension <- map["extension"]
     }
     init(object: TSCurrentUserInfoObject) {
         self.userIdentity = object.userIdentity

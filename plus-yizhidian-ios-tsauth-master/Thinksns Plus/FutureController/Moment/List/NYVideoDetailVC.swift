@@ -14,6 +14,8 @@ import Kingfisher
 class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
 
     var video_id:Int?
+    /// 播放进度
+    var progress = 0.0
     /// 顶部 view
     let topPlayerView = UIView()
     /// 返回 button
@@ -38,6 +40,8 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         //TSTableView(frame: CGRect(x: 0, y: TSNavigationBarHeight, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - TSNavigationBarHeight - 48), style: .plain)
     /// 数据
     var commentDatas: [FeedListCommentFrameModel]!
+    
+    private var myContext = 0 //KVO 用
         
 //        [TSSimpleCommentModel]() {
 //        didSet {
@@ -104,7 +108,14 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         firstImage.setBackgroundImageWith(url, for: .normal, placeholder: #imageLiteral(resourceName: "tmp1"))
 
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated);
+        self.playerView?.removeObserver(self, forKeyPath: "state", context: &myContext)
+        //移除监听
+//        self.removeObserver(self, forKeyPath: "state", context: &myContext);
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        TSKeyboardToolbar.share.keyboardstartNotice()
@@ -220,21 +231,61 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         } else {
             self.playerView?.placeholderBlurImageView.image = nil
         }
+        
         playerModel?.title = "一个标题"
+        playerModel?.seekTime = Int(progress)
         playerModel?.videoURL = url
         playerModel?.fatherView = firstImage
         playerView?.playerControlView(CustomPlayerControlView(), playerModel: playerModel!)
-        playerView?.playerLayerGravity = ZFPlayerLayerGravity.resizeAspect
+        playerView?.playerLayerGravity = ZFPlayerLayerGravity.resizeAspectFill
         playerView?.hasPreviewView = true
         playerView?.disablePanGesture = true
         playerView?.hasDownload = true
         playerView?.delegate = self
+        
+        //添加监听  KVO
+        playerView?.addObserver(self, forKeyPath: "state", options: NSKeyValueObservingOptions.new, context: &myContext)
+        
         playerView?.autoPlayTheVideo()
     }
     
+//    //视频 方向问题
+//    override var shouldAutorotate: Bool
+//    {
+//        get {
+//            return true
+//        }
+//    }
+//
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+//        {
+//        if  self.playerView!.isFullScreen
+//        {
+//            return UIInterfaceOrientationMask.landscape // UIInterfaceOrientationIsLandscape
+//        }else
+//        {
+//            return UIInterfaceOrientationMask.portrait
+//        }
+//    }
+
     func didClickShortVideoShareBtn(_ sender: Notification) {
 //        shareMoments()
     }
+    //KVO
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if (self.playerView?.state == ZFPlayerState.playing ||
+            self.playerView?.state == ZFPlayerState.stopped ||
+            self.playerView?.state == ZFPlayerState.pause)
+        {
+            let progress = "0.3"
+            
+            NYPopularNetworkManager.upVideoRecordprogress(video_id:self.video_id!, progress: progress) { (msg, osbol) in
+                print("\(keyPath) - -- -\(msg)")
+            }
+        }
+        
+    }
+
     
     // MARK: - Notification
     

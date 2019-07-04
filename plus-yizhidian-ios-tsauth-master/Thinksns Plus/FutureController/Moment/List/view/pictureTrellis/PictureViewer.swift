@@ -127,7 +127,7 @@ class PictureViewer: UIControl {
         // 3.如果有本地缓存，先加载缓存图片
         cacheImage = nil
         if model.cache != nil {
-            loadCachePicture()
+//            loadCachePicture()
         }
         // 4.如果有网络链接，再加载网络图片（网络加载出的图片会覆盖缓存图片）
         guard let url = model.url else {
@@ -197,6 +197,8 @@ class PictureViewer: UIControl {
         } else {
             placeholderImage = UIImage.create(with: TSColor.inconspicuous.disabled, size: frame.size)
         }
+        
+//        pictureView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
 
         pictureView.kf.setImage(with: url, placeholder: placeholderImage, options: options, progressBlock: nil) { (image, error, cacheType, imageURL) in
             if self.model.mimeType == "image/gif" {

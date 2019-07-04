@@ -77,6 +77,7 @@ class NYSelMXCell: UITableViewCell {
         contentLabel.text = video.summary
         let url = URL(string:video.cover.imageUrl())
         contentImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "tmp1"), options: nil, progressBlock: nil, completionHandler: nil)
+        timeLabel.text = NYUtils.durationStringWithTime(time: video.duration)
         self.tagsView.subviews.forEach({ $0.removeFromSuperview()})
         if (video.tags != nil)&&(video.tags?.count)!>0
         {

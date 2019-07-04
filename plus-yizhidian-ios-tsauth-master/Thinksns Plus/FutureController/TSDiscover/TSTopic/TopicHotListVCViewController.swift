@@ -47,7 +47,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         me_tablview.mj_header = TSRefreshHeader(refreshingTarget: self, refreshingAction: #selector(refresh))
         me_tablview.mj_footer = TSRefreshFooter(refreshingTarget: self, refreshingAction: #selector(loadMore))
         me_tablview.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0))
+            make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 49+64, right: 0))
         }
     }
    
@@ -156,6 +156,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYHotTopicCell
         cell.setHotTopicFrameModel(hotTopicFrame: self.dataSource[indexPath.row] as! HotTopicFrameModel)
+        cell.delegate = self
         return cell
     }
     
@@ -180,3 +181,49 @@ extension TopicHotListVCViewController:HotListHeadViewDelegate
         navigationController?.pushViewController(postListVC, animated: true)
     }
 }
+
+extension TopicHotListVCViewController:NYHotTopicCellDelegate
+{
+    func cell(_ cell: TSTableViewCell, operateBtn: TSButton, indexPathRow: NSInteger) {
+        
+    }
+    
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPictures pictureView: PicturesTrellisView, at index: Int) {
+   
+        // 1.如果是游客模式，触发登录注册操作
+        if TSCurrentUserInfo.share.isLogin == false {
+            TSRootViewController.share.guestJoinLoginVC()
+            return
+        }
+        TSKeyboardToolbar.share.keyboarddisappear()
+        // 解析一下图片的数据
+        let imageModels = pictureView.models
+        let imageModel = imageModels[index]
+//        // 2.如果图片为查看付费，显示购买弹窗
+//        if let paidInfo = imageModel.paidInfo, let imageUrl = imageModel.url, paidInfo.type == .pictureSee {
+//            PaidManager.showPaidPicAlert(imageUrl: imageUrl, paidInfo: paidInfo, complete: { [weak self] in
+//                self?.datas[indexPath.row].pictures[index].paidInfo = nil
+//                self?.reloadData()
+//            })
+//            return
+//        }
+        
+        // 3.如果以上情况都没有发生，就跳转图片查看器
+        let imageFrames = pictureView.frames
+        let images = pictureView.pictures
+        let imageObjects = imageModels.map { $0.imageObject() }
+        let picturePreview = TSPicturePreviewVC(objects: Array(imageObjects), imageFrames: imageFrames, images: images, At: index)
+        picturePreview.paidBlock = { [weak self] (paidIndex) in
+//            self?.datas[indexPath.row].pictures[paidIndex].paidInfo = nil
+//            self?.reloadData()
+        }
+        picturePreview.show()
+    }
+    
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView) {
+        
+    }
+    
+
+}
+

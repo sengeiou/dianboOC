@@ -34,6 +34,9 @@ class NYMomentDetailHeaderView: UIView,NibLoadable
     
     @IBOutlet weak var more_Btn: UIButton!
     
+    /// 图片九宫格
+    let picturesView = PicturesTrellisView()
+    
     /// 数据模型
     var _object: TSMomentListObject!
 
@@ -45,6 +48,8 @@ class NYMomentDetailHeaderView: UIView,NibLoadable
         super.awakeFromNib()
         self.backgroundColor = TSColor.main.themeTBCellBg
         
+        picturesView.isHidden = true
+        self.addSubview(picturesView)
     }
     
     func setTSMomentListObject(model:TSMomentListObject)
@@ -72,6 +77,8 @@ class NYMomentDetailHeaderView: UIView,NibLoadable
             self.playBtn.isHidden = true
             self.playTime_Label.isHidden = true
             self.more_Btn.isHidden = false
+            model.getYNImg_pictures()//变身
+            picturesView.models = model.img_pictures // 内部计算 size
         }
 
     }
@@ -106,5 +113,23 @@ class NYMomentDetailHeaderView: UIView,NibLoadable
             self.more_Btn.isHidden = true
         }
     }
+    /// 获取图片在屏幕上的 frame
+    func getImagesFrame() -> [CGRect] {
+//        var imagesFrame: [CGRect] = []
+
+        return picturesView.frames
+    }
     
+    /// 获取所有图片
+    func getImages() -> [UIImage?] {
+//        var images: [UIImage?] = []
+//        for index in 0..<_object.pictures.count {
+//            let button = self.firstImage
+//            if let button = button {
+//                let image = button.image(for: .normal)
+//                images.append(image)
+//            }
+//        }
+        return  picturesView.pictures
+    }
 }

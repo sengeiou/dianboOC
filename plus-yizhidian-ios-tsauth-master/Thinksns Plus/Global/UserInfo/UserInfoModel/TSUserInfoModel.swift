@@ -138,6 +138,25 @@ class TSNetFileModel: Mappable {
 }
 
 /// 用户附加信息
+class TSUserExtensionModel: Mappable {
+    
+    var down_total_count: Int = 0
+    var watch_total_count: Int = 0
+    var watch_has_use_count: Int = 0
+    var down_has_use_count: Int = 0
+    
+    required init?(map: Map) {
+        
+    }
+    func mapping(map: Map) {
+        down_total_count <- map["down_total_count"]
+        watch_total_count <- map["watch_total_count"]
+        watch_has_use_count <- map["watch_has_use_count"]
+        down_has_use_count <- map["down_has_use_count"]
+    }
+    
+}
+/// 用户附加信息
 class TSUserExtraModel: Mappable {
     var userId: Int = 0
     /// The number of users who received the number of statistics.

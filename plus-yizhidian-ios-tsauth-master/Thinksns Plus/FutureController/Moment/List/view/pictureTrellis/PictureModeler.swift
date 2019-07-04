@@ -155,6 +155,10 @@ class PaidPictureModel: PictureModeler {
     init(imageObject object: TSImageObject) {
         super.init()
         cache = object.cacheKey
+        if (cache?.isEmpty)!
+        {
+            url = object.storageIdentity.imageUrl()
+        }
         originalSize = CGSize(width: object.width, height: object.height)
         shouldClearCache = false
         shouldShowLongicon = true

@@ -95,7 +95,19 @@ class TSMomentListObject: Object {
     dynamic var repostID: Int = 0
     /// 转发信息
     dynamic var repostModel: TSRepostModel? = nil
-
+    var img_pictures: [PaidPictureModel] = []
+    
+    func getYNImg_pictures()
+    {
+        if(pictures.count>0&&img_pictures.count==0)
+        {
+            for obj in pictures
+            {
+                let pict = PaidPictureModel(imageObject: obj)
+                img_pictures.append(pict)
+            }
+        }
+    }
     /// 设置索引
     override static func indexedProperties() -> [String] {
         return ["hot", "now", "follow"]

@@ -447,6 +447,73 @@ extension NYPopularNetworkManager {
         }
     }
     
+    /// 获取历史观看
+    /// 选填，当type=hot时为获取热门搜索
+    class func getVideoRecordListData(after: Int = 0, limit: Int =
+        TSAppConfig.share.localInfo.limit,  complete: @escaping (([NYMeHistoryVModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoRecordList
+        request.urlPath = request.fullPathWith(replacers: [])
+        let parameters: [String: Any] = ["after": after, "limit": limit]
+        request.parameter = parameters
+        
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
     
+    /// 提交视频播放进度
+    ///
+    class func upVideoRecordprogress(video_id: Int, progress: String = "0",  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoRecordList
+        request.urlPath = request.fullPathWith(replacers: [])
+        let parameters: [String: Any] = ["video_id": video_id,"progress": progress]
+        try! RequestNetworkData.share.textRequest(method: .post, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete( "服务器返回数据错误", false)
+                return
+            }
+            let message = datas["message"] as! String
+            complete(message, true)
+        })
+    }
+    
+    class func delVideoRecordprogress(video_ids: String = "",  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoRecordList
+        request.urlPath = request.fullPathWith(replacers: [])
+        let parameters: [String: Any] = ["video_ids": video_ids]
+        try! RequestNetworkData.share.textRequest(method: .delete, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete( "服务器返回数据错误", false)
+                return
+            }
+            let message = datas["message"] as! String
+            complete(message, true)
+        })
+    }
     
 }

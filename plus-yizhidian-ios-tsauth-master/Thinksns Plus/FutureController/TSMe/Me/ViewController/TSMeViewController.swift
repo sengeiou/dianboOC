@@ -45,6 +45,9 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
         self.title = ""
         setQRCodeButton()
         setUI()
+        
+        /// 我的帖子
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -218,7 +221,24 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
             break
         }
     }
-
+    
+    func didExtension() {
+        let extensionVC = NYExtensionTableViewController()
+        navigationController?.pushViewController(extensionVC, animated: true)
+    }
+    //历史 topcell
+    func topViewHistoryCellTB(view: NYViewHistoryCell) {
+        let historyVC = NYHistoryVideoVC()
+        self.navigationController?.pushViewController(historyVC, animated: true)
+    }
+    //继续播放视频
+    func selectItemAtHistoryCellTB(view: NYViewHistoryCell, model: NYMeHistoryVModel) {
+        let videoDetailVC = NYVideoDetailVC()
+        videoDetailVC.video_id = model.video_id
+        videoDetailVC.progress = model.progress
+        self.navigationController?.pushViewController(videoDetailVC, animated: true)
+    }
+    
     func fansAndFollowShowFansVC() {
         // UI显示相关 清0
         self.meView.showMeHeader.fansBage.setlabelNumbers(0)

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NYHistoryVideoVC" customModule="ThinkSNSPlus" customModuleProvider="target">
+            <connections>
+                <outlet property="allSelectBtn" destination="850-5W-uyN" id="4BT-RR-sz4"/>
+                <outlet property="bottomView" destination="yrq-1U-xkG" id="vPo-wj-fi0"/>
+                <outlet property="delButton" destination="kwd-g8-fAy" id="gEH-6i-Xa1"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yrq-1U-xkG" userLabel="View-bottom">
+                    <rect key="frame" x="0.0" y="612" width="375" height="55"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="com_tools_bg" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-YJ-ZZz">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="850-5W-uyN">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="全  选"/>
+                            <connections>
+                                <action selector="allSelectClickdo:" destination="-1" eventType="touchUpInside" id="wxB-Ka-3gz"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHj-kT-hLR">
+                            <rect key="frame" x="187.5" y="10" width="0.5" height="35"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="0.5" id="09X-f3-Rn8"/>
+                                <constraint firstAttribute="height" constant="35" id="q9k-9F-o8K"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwd-g8-fAy">
+                            <rect key="frame" x="188" y="0.0" width="187" height="55"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="删  除"/>
+                            <connections>
+                                <action selector="delButtonClickdo:" destination="-1" eventType="touchUpInside" id="EfA-uL-5Ew"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="vq9-YJ-ZZz" secondAttribute="bottom" id="22r-jq-MBt"/>
+                        <constraint firstItem="kwd-g8-fAy" firstAttribute="top" secondItem="yrq-1U-xkG" secondAttribute="top" id="866-my-vcV"/>
+                        <constraint firstItem="kwd-g8-fAy" firstAttribute="leading" secondItem="WHj-kT-hLR" secondAttribute="trailing" id="8qx-yf-tA2"/>
+                        <constraint firstAttribute="trailing" secondItem="kwd-g8-fAy" secondAttribute="trailing" id="Ghc-wS-1df"/>
+                        <constraint firstAttribute="bottom" secondItem="kwd-g8-fAy" secondAttribute="bottom" id="JYv-gU-Js5"/>
+                        <constraint firstItem="WHj-kT-hLR" firstAttribute="centerX" secondItem="yrq-1U-xkG" secondAttribute="centerX" id="O6R-Vv-Mlc"/>
+                        <constraint firstAttribute="trailing" secondItem="vq9-YJ-ZZz" secondAttribute="trailing" id="Wer-6a-FIj"/>
+                        <constraint firstItem="850-5W-uyN" firstAttribute="leading" secondItem="yrq-1U-xkG" secondAttribute="leading" id="gr3-tU-DUl"/>
+                        <constraint firstItem="WHj-kT-hLR" firstAttribute="centerY" secondItem="yrq-1U-xkG" secondAttribute="centerY" id="knP-fz-AxC"/>
+                        <constraint firstItem="vq9-YJ-ZZz" firstAttribute="leading" secondItem="yrq-1U-xkG" secondAttribute="leading" id="kzw-Oy-9Ig"/>
+                        <constraint firstItem="850-5W-uyN" firstAttribute="top" secondItem="yrq-1U-xkG" secondAttribute="top" id="nX7-4h-eFy"/>
+                        <constraint firstAttribute="height" constant="55" id="nhW-uy-Mtb"/>
+                        <constraint firstItem="vq9-YJ-ZZz" firstAttribute="top" secondItem="yrq-1U-xkG" secondAttribute="top" id="sPz-f0-maY"/>
+                        <constraint firstAttribute="bottom" secondItem="850-5W-uyN" secondAttribute="bottom" id="t56-M9-Z8l"/>
+                        <constraint firstItem="WHj-kT-hLR" firstAttribute="leading" secondItem="850-5W-uyN" secondAttribute="trailing" id="tsU-0E-u4g"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="yrq-1U-xkG" secondAttribute="bottom" id="r9S-JK-c8L"/>
+                <constraint firstItem="yrq-1U-xkG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="thK-Nm-4Tk"/>
+                <constraint firstAttribute="trailing" secondItem="yrq-1U-xkG" secondAttribute="trailing" id="yqV-7T-nEP"/>
+            </constraints>
+            <point key="canvasLocation" x="40.799999999999997" y="52.623688155922046"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="com_tools_bg" width="375" height="55"/>
+    </resources>
+</document>

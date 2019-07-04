@@ -13,6 +13,8 @@ import Kingfisher
 protocol didHeaderViewDelegate: NSObjectProtocol {
     /// 点击了头视图中的那一个view
     func didHeaderIndex(index: MeHeaderView)
+    /// 推广
+    func didExtension()
 }
 
 enum MeHeaderView: Int {
@@ -48,12 +50,12 @@ class TSMeTableViewHeader: UIView {
     weak var didHeaderViewDelegate: didHeaderViewDelegate? = nil
     /// 粉丝和关注的背景view
     let userFansAndFollowBackGround: UIView = UIView()
-    /// 粉丝view
-    let fansView: UIView = UIView()
-    /// 关注view
-    let followView: UIView = UIView()
-    /// 好友view
-    let friendView: UIView = UIView()
+//    /// 粉丝view
+//    let fansView: UIView = UIView()
+//    /// 关注view
+//    let followView: UIView = UIView()
+//    /// 好友view
+//    let friendView: UIView = UIView()
     /// 数字 - 粉丝
     let fanslabel: UILabel = UILabel()
     /// 数字 - 关注
@@ -66,7 +68,23 @@ class TSMeTableViewHeader: UIView {
     let followBage = TSBageNumberView()
     /// 好友小红点
     let friendBage = TSBageNumberView()
-
+    
+    /// 已看次数
+    let seeCountLabel = UILabel()
+    let seeTextLabel = UILabel()
+    let seeButton = UIButton(type: .custom)
+    /// 已下载次数
+    let dowCountLabel = UILabel()
+    let dowTextLabel = UILabel()
+    let dowButton = UIButton(type: .custom)
+    /// 推广升级
+    let upgradeImgButton = UIButton(type: .custom)
+    let upgradeTextLabel = UILabel()
+    let upgradeButton = UIButton(type: .custom)
+    /// line x 2
+    let line1 = UIView()
+    let line2 = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -189,36 +207,106 @@ class TSMeTableViewHeader: UIView {
     /// 创建粉丝和关注BG
     func setUserFansAndFollow() {
         userFansAndFollowBackGround.backgroundColor = UIColor.clear
-        fansView.backgroundColor = UIColor.clear
-        followView.backgroundColor = UIColor.clear
-        friendView.backgroundColor = UIColor.clear
 
         self.addSubview(userFansAndFollowBackGround)
-        userFansAndFollowBackGround.addSubview(fansView)
-        userFansAndFollowBackGround.addSubview(followView)
-        userFansAndFollowBackGround.addSubview(friendView)
 
         userFansAndFollowBackGround.snp.makeConstraints { (make) in
             make.top.equalTo(userInfoView.snp.bottom)
             make.left.right.equalTo(self)
             make.bottom.equalTo(self.snp.bottom)
         }
-        fansView.snp.makeConstraints { (make) in
-            make.top.left.height.equalTo(userFansAndFollowBackGround)
-            make.right.equalTo(followView.snp.left)
-        }
-        followView.snp.makeConstraints { (make) in
-            make.top.width.height.equalTo(fansView)
-            make.right.equalTo(friendView.snp.left)
-        }
-        friendView.snp.makeConstraints { (make) in
-            make.top.width.height.equalTo(fansView)
-            make.right.equalTo(userFansAndFollowBackGround)
-        }
-
+        
+        
+        /// 已看次数
+        let seeCountW:CGFloat = ScreenWidth / 3
+        let seeCountH:CGFloat = 18
+        let seeCountX:CGFloat = 0
+        let seeCountY:CGFloat = 30
+        seeCountLabel.textColor = UIColor.white
+        seeCountLabel.text = "0/55"
+        seeCountLabel.textAlignment = .center
+        seeCountLabel.frame = CGRect(x:seeCountX,y:seeCountY,width:seeCountW,height:seeCountH)
+        seeCountLabel.font = UIFont.systemFont(ofSize: 12)
+        userFansAndFollowBackGround.addSubview(seeCountLabel)
+        
+        seeTextLabel.textColor = UIColor.white
+        seeTextLabel.text = "已看 / 可看次数"
+        seeTextLabel.textAlignment = .center
+        seeTextLabel.frame = CGRect(x:seeCountX,y:seeCountLabel.frame.maxY,width:seeCountW,height:seeCountH)
+        seeTextLabel.font = UIFont.systemFont(ofSize: 12)
+        userFansAndFollowBackGround.addSubview(seeTextLabel)
+        
+        seeButton.frame = CGRect(x:seeCountX,y:10,width:seeCountW,height:70)
+        seeButton.tag = 0
+        seeButton.backgroundColor = UIColor.clear
+        seeButton.addTarget(self, action: #selector(tagButtonClickdo(_:)), for: .touchUpInside)
+        userFansAndFollowBackGround.addSubview(seeButton)
+        /// 已下载次数
+        let dowCountW:CGFloat = seeCountW
+        let dowCountH:CGFloat = seeCountH
+        let dowCountX:CGFloat = seeCountW*1
+        let dowCountY:CGFloat = seeCountY
+        dowCountLabel.textColor = UIColor.white
+        dowCountLabel.text = "0/55"
+        dowCountLabel.textAlignment = .center
+        dowCountLabel.frame = CGRect(x:dowCountX,y:dowCountY,width:dowCountW,height:dowCountH)
+        dowCountLabel.font = UIFont.systemFont(ofSize: 12)
+        userFansAndFollowBackGround.addSubview(dowCountLabel)
+        
+        dowTextLabel.textColor = UIColor.white
+        dowTextLabel.text = "已下 / 下载次数"
+        dowTextLabel.textAlignment = .center
+        dowTextLabel.frame = CGRect(x:dowCountX,y:seeCountLabel.frame.maxY,width:seeCountW,height:seeCountH)
+        dowTextLabel.font = UIFont.systemFont(ofSize: 12)
+        userFansAndFollowBackGround.addSubview(dowTextLabel)
+        
+        dowButton.frame = CGRect(x:dowCountX,y:10,width:seeCountW,height:70)
+        dowButton.tag = 1
+        dowButton.backgroundColor = UIColor.clear
+        dowButton.addTarget(self, action: #selector(tagButtonClickdo(_:)), for: .touchUpInside)
+        userFansAndFollowBackGround.addSubview(dowButton)
+        /// 推广升级
+        let upImgW:CGFloat = seeCountW
+        let upImgH:CGFloat = seeCountH
+        let upImgX:CGFloat = seeCountW*2
+        let upImgY:CGFloat = seeCountY
+        upgradeImgButton.setImage(UIImage(named: "me_head_up"), for: .normal)
+        upgradeImgButton.frame = CGRect(x:upImgX,y:upImgY,width:upImgW,height:upImgH)
+        userFansAndFollowBackGround.addSubview(upgradeImgButton)
+        
+        upgradeTextLabel.textColor = UIColor.white
+        upgradeTextLabel.text = "推广可升级"
+        upgradeTextLabel.textAlignment = .center
+        upgradeTextLabel.frame = CGRect(x:upImgX,y:seeCountLabel.frame.maxY,width:seeCountW,height:seeCountH)
+        upgradeTextLabel.font = UIFont.systemFont(ofSize: 12)
+        userFansAndFollowBackGround.addSubview(upgradeTextLabel)
+        
+        upgradeButton.frame = CGRect(x:upImgX,y:10,width:seeCountW,height:70)
+        upgradeButton.tag = 2
+        upgradeButton.backgroundColor = UIColor.clear
+        upgradeButton.addTarget(self, action: #selector(tagButtonClickdo(_:)), for: .touchUpInside)
+        userFansAndFollowBackGround.addSubview(upgradeButton)
+        /// line x 2
+        let lineW:CGFloat = 0.5
+        let lineH:CGFloat = 30
+        let lineX:CGFloat = dowCountX
+        let lineY:CGFloat = seeCountY+3
+        line1.backgroundColor = UIColor.lightGray
+        line2.backgroundColor = UIColor.lightGray
+        line1.frame = CGRect(x:lineX,y:lineY,width:lineW,height:lineH)
+        line2.frame = CGRect(x:lineX*2,y:lineY,width:lineW,height:lineH)
+        userFansAndFollowBackGround.addSubview(line1)
+        userFansAndFollowBackGround.addSubview(line2)
+        
         setFansView()
         setFollowView()
         setFriendView()
+    }
+    
+    /// header 按钮 tag
+    func tagButtonClickdo(_ btn:UIButton)
+    {
+        didHeaderViewDelegate?.didExtension()
     }
 
     /// 单独加载粉丝
@@ -232,27 +320,27 @@ class TSMeTableViewHeader: UIView {
         label.font = UIFont.systemFont(ofSize: TSFont.SubInfo.mini.rawValue)
         label.textColor = TSColor.normal.minor
 
-        fansView.addGestureRecognizer(tap)
-        fansView.addSubview(fanslabel)
-        fansView.addSubview(label)
-        fansView.addSubview(fansBage)
+//        fansView.addGestureRecognizer(tap)
+//        fansView.addSubview(fanslabel)
+//        fansView.addSubview(label)
+//        fansView.addSubview(fansBage)
 
-        fanslabel.snp.makeConstraints { (make) in
-            make.top.equalTo(fansView).offset(12)
-            make.centerX.equalTo(fansView)
-            make.height.equalTo(20)
-        }
-        fansBage.snp.makeConstraints { (make) in
-            make.top.equalTo(fansView).offset(8)
-            make.left.equalTo(fanslabel.snp.right).offset(8)
-            make.width.equalTo(bageViewBouds.Width.rawValue)
-            make.height.equalTo(bageViewBouds.Height.rawValue)
-        }
-        label.snp.makeConstraints { (make) in
-            make.top.equalTo(fanslabel.snp.bottom).offset(5)
-            make.centerX.equalTo(fansView)
-            make.height.equalTo(13)
-        }
+//        fanslabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(fansView).offset(12)
+//            make.centerX.equalTo(fansView)
+//            make.height.equalTo(20)
+//        }
+//        fansBage.snp.makeConstraints { (make) in
+//            make.top.equalTo(fansView).offset(8)
+//            make.left.equalTo(fanslabel.snp.right).offset(8)
+//            make.width.equalTo(bageViewBouds.Width.rawValue)
+//            make.height.equalTo(bageViewBouds.Height.rawValue)
+//        }
+//        label.snp.makeConstraints { (make) in
+//            make.top.equalTo(fanslabel.snp.bottom).offset(5)
+//            make.centerX.equalTo(fansView)
+//            make.height.equalTo(13)
+//        }
     }
 
     /// 单独加载关注
@@ -267,27 +355,27 @@ class TSMeTableViewHeader: UIView {
         label.font = UIFont.systemFont(ofSize: TSFont.SubInfo.mini.rawValue)
         label.textColor = TSColor.normal.minor
 
-        followView.addGestureRecognizer(tap)
-        followView.addSubview(followlabel)
-        followView.addSubview(label)
-        followView.addSubview(followBage)
-
-        followlabel.snp.makeConstraints { (make) in
-            make.top.equalTo(followView).offset(12)
-            make.centerX.equalTo(followView)
-            make.height.equalTo(20)
-        }
-        followBage.snp.makeConstraints { (make) in
-            make.top.equalTo(followView).offset(8)
-            make.left.equalTo(followlabel.snp.right).offset(8)
-            make.width.equalTo(bageViewBouds.Width.rawValue)
-            make.height.equalTo(bageViewBouds.Height.rawValue)
-        }
-        label.snp.makeConstraints { (make) in
-            make.top.equalTo(followlabel.snp.bottom).offset(5)
-            make.centerX.equalTo(followView)
-            make.height.equalTo(13)
-        }
+//        followView.addGestureRecognizer(tap)
+//        followView.addSubview(followlabel)
+//        followView.addSubview(label)
+//        followView.addSubview(followBage)
+//
+//        followlabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(followView).offset(12)
+//            make.centerX.equalTo(followView)
+//            make.height.equalTo(20)
+//        }
+//        followBage.snp.makeConstraints { (make) in
+//            make.top.equalTo(followView).offset(8)
+//            make.left.equalTo(followlabel.snp.right).offset(8)
+//            make.width.equalTo(bageViewBouds.Width.rawValue)
+//            make.height.equalTo(bageViewBouds.Height.rawValue)
+//        }
+//        label.snp.makeConstraints { (make) in
+//            make.top.equalTo(followlabel.snp.bottom).offset(5)
+//            make.centerX.equalTo(followView)
+//            make.height.equalTo(13)
+//        }
 
     }
 
@@ -303,27 +391,27 @@ class TSMeTableViewHeader: UIView {
         label.font = UIFont.systemFont(ofSize: TSFont.SubInfo.mini.rawValue)
         label.textColor = TSColor.normal.minor
 
-        friendView.addGestureRecognizer(tap)
-        friendView.addSubview(friendlabel)
-        friendView.addSubview(label)
-        friendView.addSubview(friendBage)
-
-        friendlabel.snp.makeConstraints { (make) in
-            make.top.equalTo(friendView).offset(11.5)
-            make.centerX.equalTo(friendView)
-            make.height.equalTo(20)
-        }
-        friendBage.snp.makeConstraints { (make) in
-            make.top.equalTo(friendView).offset(8)
-            make.left.equalTo(friendlabel.snp.right).offset(8)
-            make.width.equalTo(bageViewBouds.Width.rawValue)
-            make.height.equalTo(bageViewBouds.Height.rawValue)
-        }
-        label.snp.makeConstraints { (make) in
-            make.top.equalTo(friendlabel.snp.bottom).offset(5)
-            make.centerX.equalTo(friendView)
-            make.height.equalTo(13)
-        }
+//        friendView.addGestureRecognizer(tap)
+//        friendView.addSubview(friendlabel)
+//        friendView.addSubview(label)
+//        friendView.addSubview(friendBage)
+//
+//        friendlabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(friendView).offset(11.5)
+//            make.centerX.equalTo(friendView)
+//            make.height.equalTo(20)
+//        }
+//        friendBage.snp.makeConstraints { (make) in
+//            make.top.equalTo(friendView).offset(8)
+//            make.left.equalTo(friendlabel.snp.right).offset(8)
+//            make.width.equalTo(bageViewBouds.Width.rawValue)
+//            make.height.equalTo(bageViewBouds.Height.rawValue)
+//        }
+//        label.snp.makeConstraints { (make) in
+//            make.top.equalTo(friendlabel.snp.bottom).offset(5)
+//            make.centerX.equalTo(friendView)
+//            make.height.equalTo(13)
+//        }
 
     }
 
@@ -351,6 +439,15 @@ class TSMeTableViewHeader: UIView {
         // 好友 - friend
         let friend = userInfo.friendsCount
         friendlabel.text = "\(friend)"
+        /// 已看次数
+        let watchCount = userInfo.eExtension?.watch_has_use_count ?? 0
+        let watchTotalCount = userInfo.eExtension?.watch_total_count ?? 0
+        seeCountLabel.text = "\(watchCount)/\(watchTotalCount)"
+        /// 已下载次数
+        let downCount = userInfo.eExtension?.watch_has_use_count ?? 0
+        let downTotalCount = userInfo.eExtension?.watch_total_count ?? 0
+        dowCountLabel.text = "\(downCount)/\(downTotalCount)"
+        
 
         let avatarInfo = AvatarInfo()
         avatarInfo.avatarURL = TSUtil.praseTSNetFileUrl(netFile: userInfo.avatar)

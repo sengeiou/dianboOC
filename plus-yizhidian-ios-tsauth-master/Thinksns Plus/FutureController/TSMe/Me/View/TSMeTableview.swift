@@ -14,9 +14,16 @@ protocol didMeSelectCellDelegate: NSObjectProtocol {
     func didSelectCell(indexPath: IndexPath)
     /// 点击了头视图哪里
     func didHeader(index: MeHeaderView)
+    /// 推广
+    func didExtension()
+    //历史 top
+    func topViewHistoryCellTB(view: NYViewHistoryCell)
+    // item 视频
+    func selectItemAtHistoryCellTB(view: NYViewHistoryCell, model: NYMeHistoryVModel)
+
 }
 
-class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHeaderViewDelegate {
+class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHeaderViewDelegate,NYViewHistoryCellDelegate {
     // MARK: - CELL显示的配置
     /// 所有cell的高度
     let cellHeight: CGFloat = 60
@@ -68,6 +75,7 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
         meTableView.delegate = self
         meTableView.dataSource = self
         meTableView.tableFooterView = UIView()
+        meTableView.register(UINib.init(nibName: "NYViewHistoryCell", bundle: Bundle.main), forCellReuseIdentifier: NYViewHistoryCell.identifier)
         self.meTableView = meTableView
         self.addSubview(meTableView)
         meTableView.snp.makeConstraints { (make) in
@@ -95,6 +103,10 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0
+        {
+            return NYViewHistoryCell.cellHeight
+        }
         return cellHeight
     }
 
@@ -107,66 +119,89 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellid) as? TSMeTableViewCell
-        if cell == nil {
-            cell = TSMeTableViewCell(style: .default, reuseIdentifier: cellid)
-        }
-        let rowData = dataSource[indexPath.section]
-        let imageRowData = imageDataSource[indexPath.section]
-
-        if indexPath.row == (rowData.count - 1) {
-            cell?.separator.isHidden = true
-        } else {
-            cell?.separator.isHidden = false
-        }
-        if TSAppConfig.share.localInfo.showOnlyIAP {
-            if indexPath == showCertificateLabel {
-                cell?.moenylabel.isHidden = false
-                // 获取认证信息
-                let certificateObject = TSDatabaseManager().user.getCurrentUserCertificate()
-                if certificateObject?.status == 0 {
-                    cell?.moenylabel.text = "待审核"
-                } else if certificateObject?.status == 1 {
-                    cell?.moenylabel.text = "已认证"
-                } else if certificateObject?.status == 2 {
-                    cell?.moenylabel.text = "被驳回"
+//
+        if indexPath.row == 0
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: NYViewHistoryCell.identifier) as? NYViewHistoryCell
+            cell?.delegate = self
+            let rowData = dataSource[indexPath.section]
+            let imageRowData = imageDataSource[indexPath.section]
+            cell?.iconImageView?.image = imageRowData[indexPath.row]
+            cell?.nameLabel.text = rowData[indexPath.row]
+            NYPopularNetworkManager.getVideoRecordListData { (list, msg, isBol) in
+                if let models = list
+                {
+                    cell?.dataSource = models
+                    cell?.collectionView.reloadData()
                 }
-            } else if indexPath == showIntegrationLabel {
-                cell?.moenylabel.isHidden = false
-                let str = "\(TSCurrentUserInfo.share.userInfo?.integration?.sum ?? 0)"
-                cell?.moenylabel.text = str
-            } else {
-                cell?.moenylabel.isHidden = true
             }
-        } else {
-            if indexPath == showMoneyLabel {
-                cell?.moenylabel.isHidden = false
-                let str = TSCurrentUserInfo.getCurrentUserGold()?.tostring() ?? "0.00"
-                cell?.moenylabel.text = str
-            } else if indexPath == showCertificateLabel {
-                cell?.moenylabel.isHidden = false
-                // 获取认证信息
-                let certificateObject = TSDatabaseManager().user.getCurrentUserCertificate()
-                if certificateObject?.status == 0 {
-                    cell?.moenylabel.text = "待审核"
-                } else if certificateObject?.status == 1 {
-                    cell?.moenylabel.text = "已认证"
-                } else if certificateObject?.status == 2 {
-                    cell?.moenylabel.text = "被驳回"
-                }
-            } else if indexPath == showIntegrationLabel {
-                cell?.moenylabel.isHidden = false
-                let str = "\(TSCurrentUserInfo.share.userInfo?.integration?.sum ?? 0)"
-                cell?.moenylabel.text = str
-            } else {
-                cell?.moenylabel.isHidden = true
-            }
+            cell?.selectionStyle = .none
+            return cell!
         }
-        cell?.vcImage.image = imageRowData[indexPath.row]
-        cell?.vcName.text = rowData[indexPath.row]
-        cell?.accessory.image = #imageLiteral(resourceName: "IMG_ic_arrow_smallgrey")
-        cell?.selectionStyle = .none
-        return cell!
+        else
+        {
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellid) as? TSMeTableViewCell
+            if cell == nil {
+                cell = TSMeTableViewCell(style: .default, reuseIdentifier: cellid)
+            }
+            let rowData = dataSource[indexPath.section]
+            let imageRowData = imageDataSource[indexPath.section]
+            
+            if indexPath.row == (rowData.count - 1) {
+                cell?.separator.isHidden = true
+            } else {
+                cell?.separator.isHidden = false
+            }
+            if TSAppConfig.share.localInfo.showOnlyIAP {
+                if indexPath == showCertificateLabel {
+                    cell?.moenylabel.isHidden = false
+                    // 获取认证信息
+                    let certificateObject = TSDatabaseManager().user.getCurrentUserCertificate()
+                    if certificateObject?.status == 0 {
+                        cell?.moenylabel.text = "待审核"
+                    } else if certificateObject?.status == 1 {
+                        cell?.moenylabel.text = "已认证"
+                    } else if certificateObject?.status == 2 {
+                        cell?.moenylabel.text = "被驳回"
+                    }
+                } else if indexPath == showIntegrationLabel {
+                    cell?.moenylabel.isHidden = false
+                    let str = "\(TSCurrentUserInfo.share.userInfo?.integration?.sum ?? 0)"
+                    cell?.moenylabel.text = str
+                } else {
+                    cell?.moenylabel.isHidden = true
+                }
+            } else {
+                if indexPath == showMoneyLabel {
+                    cell?.moenylabel.isHidden = false
+                    let str = TSCurrentUserInfo.getCurrentUserGold()?.tostring() ?? "0.00"
+                    cell?.moenylabel.text = str
+                } else if indexPath == showCertificateLabel {
+                    cell?.moenylabel.isHidden = false
+                    // 获取认证信息
+                    let certificateObject = TSDatabaseManager().user.getCurrentUserCertificate()
+                    if certificateObject?.status == 0 {
+                        cell?.moenylabel.text = "待审核"
+                    } else if certificateObject?.status == 1 {
+                        cell?.moenylabel.text = "已认证"
+                    } else if certificateObject?.status == 2 {
+                        cell?.moenylabel.text = "被驳回"
+                    }
+                } else if indexPath == showIntegrationLabel {
+                    cell?.moenylabel.isHidden = false
+                    let str = "\(TSCurrentUserInfo.share.userInfo?.integration?.sum ?? 0)"
+                    cell?.moenylabel.text = str
+                } else {
+                    cell?.moenylabel.isHidden = true
+                }
+            }
+            
+            cell?.vcImage.image = imageRowData[indexPath.row]
+            cell?.vcName.text = rowData[indexPath.row]
+            cell?.accessory.image = #imageLiteral(resourceName: "IMG_ic_arrow_smallgrey")
+            cell?.selectionStyle = .none
+            return cell!
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -175,5 +210,20 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
 
     func didHeaderIndex(index: MeHeaderView) {
         self.didMeSelectCellDelegate?.didHeader(index: index)
+    }
+    
+    func didExtension() {
+        self.didMeSelectCellDelegate?.didExtension()
+    }
+    
+    /// mark -------NYViewHistoryCellDelegate
+    func topViewHistoryCell(view: NYViewHistoryCell)
+    {
+        self.didMeSelectCellDelegate?.topViewHistoryCellTB(view: view)
+    }
+    
+    func selectItemAtHistoryCell(view: NYViewHistoryCell, model: NYMeHistoryVModel)
+    {
+        self.didMeSelectCellDelegate?.selectItemAtHistoryCellTB(view: view, model: model)
     }
 }

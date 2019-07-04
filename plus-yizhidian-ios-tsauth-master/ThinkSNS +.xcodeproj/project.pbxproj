@@ -1205,6 +1205,13 @@
 		B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC8C228493F7008D83CE /* NYSelCell.swift */; };
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
 		B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20EE82F22B9342D00149BBF /* NYVideosModel.swift */; };
+		B22FD3C322CCA17A00D68791 /* NYMeHistoryVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */; };
+		B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */; };
+		B22FD3C722CCAE4500D68791 /* NYViewHisCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22FD3C522CCAE4500D68791 /* NYViewHisCollectionCell.xib */; };
+		B22FD3CA22CD297600D68791 /* NYHistoryVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C822CD297600D68791 /* NYHistoryVideoVC.swift */; };
+		B22FD3CB22CD297600D68791 /* NYHistoryVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22FD3C922CD297600D68791 /* NYHistoryVideoVC.xib */; };
+		B22FD3CE22CDCE0F00D68791 /* NYHistoryVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3CC22CDCE0F00D68791 /* NYHistoryVideoCell.swift */; };
+		B22FD3CF22CDCE0F00D68791 /* NYHistoryVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22FD3CD22CDCE0F00D68791 /* NYHistoryVideoCell.xib */; };
 		B23A1360227B4EE600805B85 /* NYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A135F227B4EE600805B85 /* NYTabBarItem.m */; };
 		B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A1362227B51C600805B85 /* UIView+Extension.m */; };
 		B2421DD222B0D3D00076AFF1 /* NYImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2421DD122B0D3D00076AFF1 /* NYImageButton.swift */; };
@@ -1214,6 +1221,10 @@
 		B24425932288685200500D08 /* NYWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24425922288685200500D08 /* NYWordItem.swift */; };
 		B248BDBC22C4F6720066DCE6 /* NYTagsMModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */; };
 		B24A18A422BA1926008EA09B /* NYVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */; };
+		B252491822CA70E800708635 /* NYExtensionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B252491622CA70E800708635 /* NYExtensionTableViewController.swift */; };
+		B252491922CA70E800708635 /* NYExtensionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B252491722CA70E800708635 /* NYExtensionTableViewController.xib */; };
+		B252491C22CA78E300708635 /* NYViewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B252491A22CA78E300708635 /* NYViewHistoryCell.swift */; };
+		B252491D22CA78E300708635 /* NYViewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B252491B22CA78E300708635 /* NYViewHistoryCell.xib */; };
 		B2676FF822C49F0A00D65AAE /* NYMXVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */; };
 		B26CFC9822BCA2B6000F3CDA /* videoHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */; };
 		B271E142229953B800A1A7E2 /* NYHotTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */; };
@@ -2701,6 +2712,13 @@
 		B201BC8C228493F7008D83CE /* NYSelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelCell.swift; sourceTree = "<group>"; };
 		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
 		B20EE82F22B9342D00149BBF /* NYVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosModel.swift; sourceTree = "<group>"; };
+		B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeHistoryVModel.swift; sourceTree = "<group>"; };
+		B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYViewHisCollectionCell.swift; sourceTree = "<group>"; };
+		B22FD3C522CCAE4500D68791 /* NYViewHisCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYViewHisCollectionCell.xib; sourceTree = "<group>"; };
+		B22FD3C822CD297600D68791 /* NYHistoryVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHistoryVideoVC.swift; sourceTree = "<group>"; };
+		B22FD3C922CD297600D68791 /* NYHistoryVideoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYHistoryVideoVC.xib; sourceTree = "<group>"; };
+		B22FD3CC22CDCE0F00D68791 /* NYHistoryVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHistoryVideoCell.swift; sourceTree = "<group>"; };
+		B22FD3CD22CDCE0F00D68791 /* NYHistoryVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYHistoryVideoCell.xib; sourceTree = "<group>"; };
 		B23A135E227B4EE600805B85 /* NYTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NYTabBarItem.h; sourceTree = "<group>"; };
 		B23A135F227B4EE600805B85 /* NYTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYTabBarItem.m; sourceTree = "<group>"; };
 		B23A1361227B51C600805B85 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -2712,6 +2730,10 @@
 		B24425922288685200500D08 /* NYWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYWordItem.swift; sourceTree = "<group>"; };
 		B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTagsMModel.swift; sourceTree = "<group>"; };
 		B24A18A322BA1926008EA09B /* NYVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideoDetailVC.swift; sourceTree = "<group>"; };
+		B252491622CA70E800708635 /* NYExtensionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYExtensionTableViewController.swift; sourceTree = "<group>"; };
+		B252491722CA70E800708635 /* NYExtensionTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYExtensionTableViewController.xib; sourceTree = "<group>"; };
+		B252491A22CA78E300708635 /* NYViewHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYViewHistoryCell.swift; sourceTree = "<group>"; };
+		B252491B22CA78E300708635 /* NYViewHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYViewHistoryCell.xib; sourceTree = "<group>"; };
 		B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMXVideosModel.swift; sourceTree = "<group>"; };
 		B26CFC9722BCA2B6000F3CDA /* videoHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoHeadView.swift; sourceTree = "<group>"; };
 		B271E141229953B800A1A7E2 /* NYHotTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYHotTopicCell.swift; sourceTree = "<group>"; };
@@ -7309,6 +7331,12 @@
 				83B43EB21F7DDF840082B906 /* TSMeTableview.swift */,
 				83B43EB31F7DDF840082B906 /* TSMeTableViewCell.swift */,
 				83B43EB41F7DDF840082B906 /* TSMeTableViewHeader.swift */,
+				B252491A22CA78E300708635 /* NYViewHistoryCell.swift */,
+				B252491B22CA78E300708635 /* NYViewHistoryCell.xib */,
+				B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */,
+				B22FD3C522CCAE4500D68791 /* NYViewHisCollectionCell.xib */,
+				B22FD3CC22CDCE0F00D68791 /* NYHistoryVideoCell.swift */,
+				B22FD3CD22CDCE0F00D68791 /* NYHistoryVideoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7317,6 +7345,10 @@
 			isa = PBXGroup;
 			children = (
 				83B43EB61F7DDF840082B906 /* TSMeViewController.swift */,
+				B252491622CA70E800708635 /* NYExtensionTableViewController.swift */,
+				B252491722CA70E800708635 /* NYExtensionTableViewController.xib */,
+				B22FD3C822CD297600D68791 /* NYHistoryVideoVC.swift */,
+				B22FD3C922CD297600D68791 /* NYHistoryVideoVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -8054,6 +8086,7 @@
 				B20EE82F22B9342D00149BBF /* NYVideosModel.swift */,
 				B2676FF722C49F0A00D65AAE /* NYMXVideosModel.swift */,
 				B248BDBB22C4F6720066DCE6 /* NYTagsMModel.swift */,
+				B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8375,6 +8408,7 @@
 				3810930520A823A800357446 /* JoinedGroupListCell.xib in Resources */,
 				83ED63EC1E1E51CD002C7F37 /* Localizable.strings in Resources */,
 				B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */,
+				B22FD3CF22CDCE0F00D68791 /* NYHistoryVideoCell.xib in Resources */,
 				83313EF520104AF20054E3E0 /* IntegrationHomeController.storyboard in Resources */,
 				36B5081C1EA4A70E0015C67D /* LaunchScreen.storyboard in Resources */,
 				36AFAC4C206CB23B00B20649 /* PreviewVideoVC.xib in Resources */,
@@ -8384,6 +8418,7 @@
 				832ADE0C1E1E26D4009804F7 /* TSRetrievePasswordVC.xib in Resources */,
 				887C9FFB21DEF1D700220EE6 /* Assets.xcassets in Resources */,
 				83CF6C3B1F30153200165F8C /* TSAdvertNormalItem.xib in Resources */,
+				B22FD3C722CCAE4500D68791 /* NYViewHisCollectionCell.xib in Resources */,
 				38BA060720BED64C0042673D /* AlipaySDK.bundle in Resources */,
 				83E5966A1E8107ED009FB064 /* TSCustomActionsheetTableViewCell.xib in Resources */,
 				5314EBA3201C8ECF000A1A94 /* common_jsbeautifier.js in Resources */,
@@ -8406,6 +8441,7 @@
 				36B5081D1EA4A70E0015C67D /* Main.storyboard in Resources */,
 				83A2164E1F6BCEEA007D7DFB /* RankListCell.xib in Resources */,
 				83F020A520173BBB0011EFB9 /* IntegrationCashController.storyboard in Resources */,
+				B252491922CA70E800708635 /* NYExtensionTableViewController.xib in Resources */,
 				36CA81D21F33581300F93A5D /* TSRewardListVC.storyboard in Resources */,
 				83549A15202ACD9000590D81 /* WalletCashController.storyboard in Resources */,
 				8303E7131E30C38C00A02BB6 /* TSSetPasswordVC.xib in Resources */,
@@ -8417,6 +8453,7 @@
 				25E4A5A220E32CFF0028F758 /* TSSeachBar.xib in Resources */,
 				83E310281F6153E00065A445 /* QuoraExpertsListCell.xib in Resources */,
 				8326B79D1F340F7B0059CEC7 /* TSEnterpriseCertification.storyboard in Resources */,
+				B252491D22CA78E300708635 /* NYViewHistoryCell.xib in Resources */,
 				83BE15FC1F0CDE0E00BB203C /* CameraCell.xib in Resources */,
 				36E928A4205A73F400EFDED0 /* MWPhotoBrowser.bundle in Resources */,
 				83C876961F46CAE20099BBE4 /* TSNewFriendsSearchVC.storyboard in Resources */,
@@ -8432,6 +8469,7 @@
 				178244411E7FBC2D00A20877 /* TSReleasePulseViewController.xib in Resources */,
 				83ED69691E52D03B003AFF2A /* TSSetUserInfoVC.xib in Resources */,
 				83511CC61F4172D700E98594 /* TSNewFriendsCell.xib in Resources */,
+				B22FD3CB22CD297600D68791 /* NYHistoryVideoVC.xib in Resources */,
 				8897E00D2106F1F200016D84 /* TopicSearchVC.storyboard in Resources */,
 				178243DC1E7FB9DE00A20877 /* TSMusicPlayVC.xib in Resources */,
 				8303E70F1E30B79B00A02BB6 /* TSSettingVC.xib in Resources */,
@@ -9020,12 +9058,14 @@
 				883792A9211151BD009A6A99 /* TopicMenberListVC.swift in Sources */,
 				36FB534C1F69326D00B25A8D /* TSConversationTableViewCell.swift in Sources */,
 				8303E70E1E30B79B00A02BB6 /* TSSettingVC.swift in Sources */,
+				B252491822CA70E800708635 /* NYExtensionTableViewController.swift in Sources */,
 				83AB1AEF1FD1071A00CC2952 /* GroupSearchHistoryView.swift in Sources */,
 				83BE15FD1F0CDE0E00BB203C /* PhotoCollectionCellModel.swift in Sources */,
 				36E9289D205A73F400EFDED0 /* PSTCollectionViewItemKey.m in Sources */,
 				83549A1C202ACD9000590D81 /* TSWalletTransationDetailModel.swift in Sources */,
 				3646D9981E124D290060F7FA /* TSAccountNetworkManager.swift in Sources */,
 				65DE0C151E9B797A00D150A5 /* TSUserDiggsrankListDetailObject.swift in Sources */,
+				B22FD3CE22CDCE0F00D68791 /* NYHistoryVideoCell.swift in Sources */,
 				537DF8A11FF37D8900FD5A1E /* PostableGroupSelectController.swift in Sources */,
 				B23A1363227B51C600805B85 /* UIView+Extension.m in Sources */,
 				78A246D51FDE335900B8007F /* bitstream.c in Sources */,
@@ -9527,6 +9567,7 @@
 				3690DAD41F5CEBAF008FC4E0 /* NoticeNetworkRequest.swift in Sources */,
 				83F11DDF1FB2DB0E000504E9 /* FeedPagesController.swift in Sources */,
 				36E9289C205A73F400EFDED0 /* PSTCollectionViewFlowLayout.m in Sources */,
+				B22FD3CA22CD297600D68791 /* NYHistoryVideoVC.swift in Sources */,
 				83E964441E0B6F84001EFF71 /* ShareView.swift in Sources */,
 				83CF6C4E1F306DAA00165F8C /* TSAdvertTaskQueue.swift in Sources */,
 				831DE77C201B082E00F7B05C /* IntegrationRechargeModel.swift in Sources */,
@@ -9710,6 +9751,7 @@
 				8328BE3B1F259605003658E2 /* DatabaseTask.swift in Sources */,
 				36E928BA205A73F400EFDED0 /* EaseUsersListViewController.m in Sources */,
 				651389D41E665944008D8F6B /* TSFollowFansListDetailVC.swift in Sources */,
+				B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */,
 				832692371FD4EF0F00BFDAB7 /* GroupModel.swift in Sources */,
 				78A246D61FDE335900B8007F /* mask.c in Sources */,
 				882A48712146815500A6B623 /* GroupPreviewInfoCell.swift in Sources */,
@@ -9771,6 +9813,7 @@
 				534E311D1F8B7C79005956F2 /* TSContributingNewsDetailVC.swift in Sources */,
 				1731B2EB1E8C9C560098B605 /* TSNewsAndTagsRelationObject.swift in Sources */,
 				53B272281F442F250008ABC0 /* TSKBInputAccessoryView.swift in Sources */,
+				B22FD3C322CCA17A00D68791 /* NYMeHistoryVModel.swift in Sources */,
 				537A261D1F56B56500BA2EE5 /* TSAnswerOrderTypeSelectView.swift in Sources */,
 				36E92860205A73F400EFDED0 /* EMCDDeviceManager+Microphone.m in Sources */,
 				8358DC651F17124B00CCFB99 /* TSTopAppilicationManager.swift in Sources */,
@@ -9800,6 +9843,7 @@
 				1A293EDB585D42B41AA70140 /* ReceivePendingCommentTopModel.swift in Sources */,
 				885409AC2143D02C00851600 /* TSGlobalNetManager.swift in Sources */,
 				1A293D821B1EDD70718B1BED /* ReceivePendingNetworkRequest.swift in Sources */,
+				B252491C22CA78E300708635 /* NYViewHistoryCell.swift in Sources */,
 				1A293923F58812D36E48BFD8 /* ThreeUserFillInfoVC.swift in Sources */,
 				1A2932EB588983E51E3A606F /* TSUnreadCount.swift in Sources */,
 				B2E62593228FD31E003A5546 /* StarsHotModel.swift in Sources */,

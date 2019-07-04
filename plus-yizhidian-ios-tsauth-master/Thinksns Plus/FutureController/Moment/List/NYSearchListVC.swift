@@ -146,9 +146,11 @@ class NYSearchListVC: NYBaseViewController {
                     self.top_contentView.addSubview(btn)
                     self.keywordViews.append(item)
                 }
-                
-                let lstBtn = self.keywordViews.last
-                self.topViewH.constant = (lstBtn?.frame.maxY)! + 60
+                if self.keywordViews.count>0
+                {
+                    let lstBtn = self.keywordViews.last
+                    self.topViewH.constant = (lstBtn?.frame.maxY)! + 60
+                }
             }
         })
         //热门搜索

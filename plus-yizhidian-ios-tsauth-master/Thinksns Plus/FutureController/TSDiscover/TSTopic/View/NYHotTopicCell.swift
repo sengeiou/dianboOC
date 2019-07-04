@@ -11,6 +11,10 @@ import UIKit
 
 protocol NYHotTopicCellDelegate: NSObjectProtocol {
     func cell(_ cell: TSTableViewCell, operateBtn: TSButton, indexPathRow: NSInteger)
+    /// 点击了图片
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPictures pictureView: PicturesTrellisView, at index: Int)
+    /// 点击了图片上的数量蒙层按钮
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView)
 }
 
 class NYHotTopicCell: UITableViewCell {
@@ -34,6 +38,8 @@ class NYHotTopicCell: UITableViewCell {
     var videoImageButton:UIButton?
     /// 放9图 备用
     var contentImgView:UIView?
+    /// 图片九宫格
+    let picturesView = PicturesTrellisView()
     
     ///分享
     var shareButton:UIButton?
@@ -128,6 +134,8 @@ class NYHotTopicCell: UITableViewCell {
         ///9图
         self.contentImgView = UIView()
         bgView.addSubview(self.contentImgView!)
+        
+        self.contentImgView!.addSubview(picturesView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -159,34 +167,42 @@ class NYHotTopicCell: UITableViewCell {
         self.nickNameLabel?.text = model?.userInfo?.name
         /// 时间
         self.timeLabel?.frame = hotTopicFrame.timeViewF!
-        self.timeLabel?.text = model?.moment.create.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+        let timeString = TSDate().dateString(.detail, nsDate: (model?.moment.create)!)
+        let lzName = model?.groupInfo?.name
+        let contentText = "\(timeString)  来自 \(lzName ?? "外星球")"
+        self.timeLabel?.attributedText =  NYUtils.superStringAttributedString(superString: contentText, highlightedStr: lzName!, color: TSColor.main.themeZsColor)
+        
         /// 来自
         self.fromLabel?.frame = hotTopicFrame.fromTxtViewF!
         self.fromLabel?.text = model?.groupInfo?.name
         /// 内容
         self.contentLabel?.frame = hotTopicFrame.contentViewF!
-        self.contentLabel?.text = model?.groupInfo?.summary
+        self.contentLabel?.text = model?.moment.content
         self.contentImgView?.isHidden = true
         self.videoImageButton?.isHidden = true
-        
+        var topRecord: CGFloat = 19
         if (model?.moment.pictures.count)!>0
         {
+//            self.contentImgView!.subviews.forEach({ $0.removeFromSuperview()});
             self.contentImgView?.isHidden = false
             /// 放9图 备用
-            self.contentImgView?.removeAllSubViews()
+//            self.contentImgView?.removeAllSubViews()
             self.contentImgView?.frame = hotTopicFrame.imgListContentF!
-            for (index,data) in (model?.moment.pictures.enumerated())!
-            {
-                
-                let imageView = UIImageView()
-                imageView.frame = hotTopicFrame.imgListF?[index] as! CGRect
-                imageView.layer.cornerRadius = 10
-                imageView.layer.masksToBounds = true
-                let url = URL(string:data.storageIdentity.imageUrl())
-                imageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-                self.contentImgView?.addSubview(imageView)
-            }
-            
+//            for (index,data) in (model?.moment.pictures.enumerated())!
+//            {
+//                let imageView = UIImageView()
+//                imageView.frame = hotTopicFrame.imgListF?[index] as! CGRect
+//                imageView.contentScaleFactor = UIScreen.main.scale
+//                imageView.contentMode = .scaleAspectFill
+//                imageView.autoresizingMask = UIViewAutoresizing.flexibleHeight
+//                imageView.clipsToBounds = true
+//                imageView.layer.cornerRadius = 10
+//                imageView.layer.masksToBounds = true
+//                let url = URL(string:data.storageIdentity.imageUrl())
+//                imageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "pic_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+//                self.contentImgView?.addSubview(imageView)
+//            }
+            loadPicturesTrellis(topRecord:&topRecord)
         }
         else
         {
@@ -216,4 +232,41 @@ class NYHotTopicCell: UITableViewCell {
         
     }
     
+    
+    /// 加载图片九宫格
+    internal func loadPicturesTrellis(topRecord: inout CGFloat) {
+        var model = self.hotTopicFrameModel?.hotMomentListModel
+        model!.moment.getYNImg_pictures()//变身
+        // 1.如果图片为空，不显示图片九宫格
+        picturesView.isHidden = (model?.moment.pictures.isEmpty)!
+//        self.videoImageButton.isHidden = !picturesView.isHidden
+//        playerContentView.isHidden = picturesView.isHidden
+        guard !(model?.moment.pictures.isEmpty)! else {
+            return
+        }
+
+        // 2.更新图片九宫格的显示设置
+        picturesView.delegate = self
+        picturesView.models = (model?.moment.img_pictures)! // 内部计算 size
+        let pictureY = topRecord == 20 ? 20 : topRecord + 10
+        picturesView.frame = CGRect(origin: CGPoint(x: 20, y: 0), size: picturesView.size)
+        self.contentImgView?.mj_h = picturesView.height+20
+        
+        // 3.更新 topRecord
+        topRecord = picturesView.frame.maxY
+    }
+}
+
+// MARK: - TSMomentPicturePreviewDelegate: 九宫格图片代理
+extension NYHotTopicCell: PicturesTrellisViewDelegate {
+    
+    /// 图片点击事件
+    func picturesTrellisView(_ view: PicturesTrellisView, didSelectPictureAt index: Int) {
+        delegate?.feedCell(self, didSelectedPictures: view, at: index)
+    }
+    
+    /// 点击了数量蒙层按钮
+    func picturesTrellisViewDidSelectedCountMaskButton(_ view: PicturesTrellisView) {
+        delegate?.feedCell(self, didSelectedPicturesCountMaskButton: view)
+    }
 }

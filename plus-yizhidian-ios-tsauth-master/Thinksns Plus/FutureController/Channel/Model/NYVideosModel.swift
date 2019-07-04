@@ -62,6 +62,7 @@ class NYVideosModel: Mappable {
     var cover_size = 0
     var video_size = 0
     var user_id = 0
+    var duration = 0
     var tags:[NYtagModel]?
 
     init() {
@@ -86,6 +87,7 @@ class NYVideosModel: Mappable {
         video_size <- map["video_size"]
         user_id <- map["user_id"]
         tags <- map["tags"]
+        duration <- map["duration"]
         
         created_at <- (map["created_at"], TSDateTransfrom())
         updated_at <- (map["updated_at"], TSDateTransfrom())

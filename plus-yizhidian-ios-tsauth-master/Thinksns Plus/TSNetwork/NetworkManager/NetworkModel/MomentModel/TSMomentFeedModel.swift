@@ -44,4 +44,18 @@ struct TSMomentFeedModel {
     var repostId: Int = 0
     /// 转发信息
     var repostModel: TSRepostModel? = nil
+    
+    var img_pictures: [PaidPictureModel] = []
+    
+    mutating func getYNImg_pictures()
+    {
+        if(pictures.count>0&&img_pictures.count==0)
+        {
+            for obj in pictures
+            {
+                let pict = PaidPictureModel(imageObject: obj)
+                img_pictures.append(pict)
+            }
+        }
+    }
 }

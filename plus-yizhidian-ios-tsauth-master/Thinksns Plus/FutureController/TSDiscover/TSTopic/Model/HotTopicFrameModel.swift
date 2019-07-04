@@ -94,6 +94,7 @@ class HotTopicFrameModel: Mappable
     func setHotMomentListModel(hotMomentModel:TSMomentListModel)
     {
         hotMomentListModel = hotMomentModel
+        hotMomentListModel!.moment.getYNImg_pictures()
         //计算 frame
         let maring:CGFloat = 12
         ///头像
@@ -107,14 +108,14 @@ class HotTopicFrameModel: Mappable
         
         ///time
         let timeH:CGFloat = 20
-        let timeW:CGFloat = 100
+        let timeW:CGFloat = 300
         //            (titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))).width
         timeViewF = CGRect(x:CGFloat((headViewF?.maxX)!+15),y:CGFloat((nickViewF?.maxY)!+5),width:timeW,height:timeH)
         
         ///来自
         let fromW:CGFloat = 200
         let fromH:CGFloat = 20
-        fromTxtViewF = CGRect(x:((timeViewF?.maxX)!+10),y:(timeViewF?.origin.y)!,width:fromW,height:fromH)
+        fromTxtViewF = CGRect(x:((timeViewF?.maxX)!+10),y:(timeViewF?.origin.y)!,width:0,height:fromH)
         
         ///内容
         let contentW:CGFloat = ScreenWidth-maring*2
@@ -124,7 +125,7 @@ class HotTopicFrameModel: Mappable
         ///查看全文
         let allTxtW:CGFloat = 100
         let allTxtH:CGFloat = 30
-        let allTxtY:CGFloat = (contentViewF?.maxY)! - allTxtH
+        let allTxtY:CGFloat = (contentViewF?.maxY)!
         let allTxtX:CGFloat = (contentViewF?.maxX)! - allTxtW
         allTxtViewF = CGRect(x:allTxtX,y:allTxtY,width:allTxtW,height:allTxtH)
         
@@ -144,21 +145,24 @@ class HotTopicFrameModel: Mappable
         ///9图 数组
         if hotMomentModel.moment.pictures.count>0
         {
-            let margin:CGFloat = 10
-            let column:CGFloat = 3
-            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
-            let imgH:CGFloat = imgW
-            imgListF = NSMutableArray()
-            for (index, data) in hotMomentModel.moment.pictures.enumerated()
-            {
-                let row = Int(index)/Int(column)
-                let col = Int(index)%Int(column)
-                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
-                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
-                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
-            }
-            let imgF:CGRect = imgListF?.lastObject as! CGRect
-            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:imgF.maxY+10)
+            
+//            let margin:CGFloat = 10
+//            let column:CGFloat = 3
+//            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
+//            let imgH:CGFloat = imgW
+//            imgListF = NSMutableArray()
+//            for (index, data) in hotMomentModel.moment.pictures.enumerated()
+//            {
+//                let row = Int(index)/Int(column)
+//                let col = Int(index)%Int(column)
+//                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
+//                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
+//                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
+//            }
+//            let imgF:CGRect = imgListF?.lastObject as! CGRect
+            let picturesView = PicturesTrellisView()
+            picturesView.models = hotMomentListModel!.moment.img_pictures // 内部计算 size
+            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:picturesView.size.height+20)
             shareY = (imgListContentF?.maxY)!+5
         }
         
@@ -235,21 +239,23 @@ class HotTopicFrameModel: Mappable
         ///9图 数组
         if hotTModel.images.count>0
         {
-            let margin:CGFloat = 10
-            let column:CGFloat = 3
-            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
-            let imgH:CGFloat = imgW
-            imgListF = NSMutableArray()
-            for (index, data) in hotTModel.images.enumerated()
-            {
-                let row = Int(index)/Int(column)
-                let col = Int(index)%Int(column)
-                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
-                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
-                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
-            }
-            let imgF:CGRect = imgListF?.lastObject as! CGRect
-            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:imgF.maxY+10)
+//            let margin:CGFloat = 10
+//            let column:CGFloat = 3
+//            let imgW:CGFloat = (ScreenWidth-(margin*4))/column
+//            let imgH:CGFloat = imgW
+//            imgListF = NSMutableArray()
+//            for (index, data) in hotTModel.images.enumerated()
+//            {
+//                let row = Int(index)/Int(column)
+//                let col = Int(index)%Int(column)
+//                let imgX:CGFloat = margin+(imgW+margin)*CGFloat(col)
+//                let imgY:CGFloat = margin+(imgH+margin)*CGFloat(row)
+//                imgListF?.add(CGRect(x:imgX,y:imgY,width:imgW,height:imgH))
+//            }
+//            let imgF:CGRect = imgListF?.lastObject as! CGRect
+//            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:imgF.maxY+10)
+//            shareY = (imgListContentF?.maxY)!+5
+            imgListContentF = CGRect(x:0,y:videoY,width:ScreenWidth,height:298+20)
             shareY = (imgListContentF?.maxY)!+5
         }
         
