@@ -1204,6 +1204,8 @@
 		B201BC8A228487F5008D83CE /* NYSelFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC89228487F5008D83CE /* NYSelFocusView.swift */; };
 		B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC8C228493F7008D83CE /* NYSelCell.swift */; };
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
+		B20C83D222CFB8BB0048D75C /* NYGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20C83D022CFB8BB0048D75C /* NYGameViewController.swift */; };
+		B20C83D322CFB8BB0048D75C /* NYGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20C83D122CFB8BB0048D75C /* NYGameViewController.xib */; };
 		B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20EE82F22B9342D00149BBF /* NYVideosModel.swift */; };
 		B22FD3C322CCA17A00D68791 /* NYMeHistoryVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */; };
 		B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */; };
@@ -1274,6 +1276,8 @@
 		B2F5B5B62297069A00B42482 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5B5B32297069900B42482 /* Channel.m */; };
 		B2FEA52D22CE508200E15390 /* NYMeCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */; };
 		B2FEA52E22CE508200E15390 /* NYMeCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */; };
+		B2FEA53022CF2AF300E15390 /* NYVideosNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FEA52F22CF2AF300E15390 /* NYVideosNetworkManager.swift */; };
+		B2FEA53222CF2CFC00E15390 /* NYVideosNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FEA53122CF2CFC00E15390 /* NYVideosNetworkRequest.swift */; };
 		BB09DE1B1F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */; };
 		BB09DE1C1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */; };
 		BB09DE341F29BF6E002B77A0 /* TSAccountNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */; };
@@ -2713,6 +2717,8 @@
 		B201BC89228487F5008D83CE /* NYSelFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelFocusView.swift; sourceTree = "<group>"; };
 		B201BC8C228493F7008D83CE /* NYSelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelCell.swift; sourceTree = "<group>"; };
 		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
+		B20C83D022CFB8BB0048D75C /* NYGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYGameViewController.swift; sourceTree = "<group>"; };
+		B20C83D122CFB8BB0048D75C /* NYGameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYGameViewController.xib; sourceTree = "<group>"; };
 		B20EE82F22B9342D00149BBF /* NYVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosModel.swift; sourceTree = "<group>"; };
 		B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeHistoryVModel.swift; sourceTree = "<group>"; };
 		B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYViewHisCollectionCell.swift; sourceTree = "<group>"; };
@@ -2793,6 +2799,8 @@
 		B2F5B5B32297069900B42482 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeCollectionVC.swift; sourceTree = "<group>"; };
 		B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMeCollectionVC.xib; sourceTree = "<group>"; };
+		B2FEA52F22CF2AF300E15390 /* NYVideosNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosNetworkManager.swift; sourceTree = "<group>"; };
+		B2FEA53122CF2CFC00E15390 /* NYVideosNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosNetworkRequest.swift; sourceTree = "<group>"; };
 		BB09DE191F287CE9002B77A0 /* TSAccountCellShowsSearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSAccountCellShowsSearchResults.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE1A1F287CE9002B77A0 /* TSShowsSearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TSShowsSearchResultsCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB09DE331F29BF6E002B77A0 /* TSAccountNameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSAccountNameModel.swift; sourceTree = "<group>"; };
@@ -3774,6 +3782,7 @@
 				53F76F0C1FDA94E3006AC0E7 /* TSFollowNetworkManager.swift */,
 				53A0FF8F1FE39C460065C94B /* TSReportNetworkManager.swift */,
 				B2E6258C228FCA88003A5546 /* NYPopularNetworkManager.swift */,
+				B2FEA52F22CF2AF300E15390 /* NYVideosNetworkManager.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -3993,6 +4002,7 @@
 		36659C4D1E027E640002B7FF /* FutureController */ = {
 			isa = PBXGroup;
 			children = (
+				B20C83C922CFB7900048D75C /* Game */,
 				B2F5B5A42296F08D00B42482 /* Channel */,
 				365A63F8206A2034005E8767 /* ShortVideo */,
 				5314EB7E201C8E88000A1A94 /* Modules */,
@@ -4190,6 +4200,7 @@
 				83342CED2016CA08000C0951 /* IntegrationNetworkRequest.swift */,
 				8830166D20873006005EFC27 /* TSMomentNetworkRequest.swift */,
 				88CFB61F20A28B25008AEDC1 /* TopNetworkRequest.swift */,
+				B2FEA53122CF2CFC00E15390 /* NYVideosNetworkRequest.swift */,
 			);
 			path = NetworkRequestMethod;
 			sourceTree = "<group>";
@@ -7988,6 +7999,31 @@
 			path = NYCell;
 			sourceTree = "<group>";
 		};
+		B20C83C922CFB7900048D75C /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				B20C83CB22CFB7D10048D75C /* View */,
+				B20C83CA22CFB7A20048D75C /* Controller */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		B20C83CA22CFB7A20048D75C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B20C83D022CFB8BB0048D75C /* NYGameViewController.swift */,
+				B20C83D122CFB8BB0048D75C /* NYGameViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B20C83CB22CFB7D10048D75C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B23A135B227B462500805B85 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -8470,6 +8506,7 @@
 				83BE16021F0CDE0E00BB203C /* CameraVC.storyboard in Resources */,
 				8325B1561F5EA6830062024F /* QuoraSearchHistoryCell.xib in Resources */,
 				5314EBA1201C8ECF000A1A94 /* common_editor.js in Resources */,
+				B20C83D322CFB8BB0048D75C /* NYGameViewController.xib in Resources */,
 				885FC3642192D19500684DE1 /* TSDownloadVC.xib in Resources */,
 				83549A1E202ACD9000590D81 /* TSWalletTransationDetailVC.storyboard in Resources */,
 				178243F11E7FB9DE00A20877 /* TSNewsTagSettingCollectionViewCell.xib in Resources */,
@@ -9049,6 +9086,7 @@
 				BB09DEAA1F3AE50B002B77A0 /* TSAMapLocationView.swift in Sources */,
 				83549A17202ACD9000590D81 /* WalletHomeController.swift in Sources */,
 				8373FC371FAFF9FD00DA2F51 /* PicturesTrellisView.swift in Sources */,
+				B20C83D222CFB8BB0048D75C /* NYGameViewController.swift in Sources */,
 				5306302A1F45997F0064E90A /* TSIndicatorPayNewsContributeView.swift in Sources */,
 				8307CF3F1F2F3639004FAB3B /* TSAdvertBannerModel.swift in Sources */,
 				8325B1431F5E545D0062024F /* TSQuoraSearchVC.swift in Sources */,
@@ -9233,6 +9271,7 @@
 				83E310221F614C560065A445 /* ATagsVeiw.swift in Sources */,
 				885FC3632192D19500684DE1 /* TSDownloadVC.swift in Sources */,
 				36E928C1205A73F500EFDED0 /* EaseBubbleView+File.m in Sources */,
+				B2FEA53022CF2AF300E15390 /* NYVideosNetworkManager.swift in Sources */,
 				36E928AF205A73F400EFDED0 /* EaseConvertToCommonEmoticonsHelper.m in Sources */,
 				83E310211F614C560065A445 /* ATagItem.swift in Sources */,
 				BB09DEA01F396D2B002B77A0 /* TSSAreaSearchModel.swift in Sources */,
@@ -9769,6 +9808,7 @@
 				36D3955E1F344A9900F9CBDA /* TSRewardObject.swift in Sources */,
 				36E928A6205A73F400EFDED0 /* EaseConversationModel.m in Sources */,
 				178243DE1E7FB9DE00A20877 /* TSPhonographRootView.swift in Sources */,
+				B2FEA53222CF2CFC00E15390 /* NYVideosNetworkRequest.swift in Sources */,
 				1765F3601E9769530066FE03 /* TSRequestTask.swift in Sources */,
 				835F95861EE5537100BAA909 /* TSWithdrawHistoryModel.swift in Sources */,
 				78A246D71FDE335900B8007F /* QRCodeView.swift in Sources */,

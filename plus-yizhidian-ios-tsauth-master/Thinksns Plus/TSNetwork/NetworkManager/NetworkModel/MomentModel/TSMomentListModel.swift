@@ -87,7 +87,10 @@ extension TSMomentListModel {
         if let repostId = data["repostable_id"] as? Int {
             moment.repostId = repostId
         }
-        moment.topics = Mapper<TopicListModel>().mapArray(JSONArray: (data["topics"] as? [[String: Any]])!)
+        if let topics = data["topics"] as? [[String: Any]] {
+            moment.topics = Mapper<TopicListModel>().mapArray(JSONArray:topics)
+        }
+        
         moment.feedIdentity = data["id"] as! Int
         moment.create = (data["created_at"] as! String).convertToDate()
         moment.update = (data["updated_at"] as? String)?.convertToDate()

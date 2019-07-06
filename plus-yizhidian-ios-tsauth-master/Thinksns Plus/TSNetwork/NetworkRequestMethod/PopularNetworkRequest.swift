@@ -61,4 +61,6 @@ class PopularNetworkRequest {
     /// 获取观看历史
     let getVideoRecordList = Request<NYMeHistoryVModel>(method: .get, path: "dianbo/videoRecord", replacers: [])
     
+    /// 游戏
+    let getVideoGameUrl = Request<NYMeHistoryVModel>(method: .get, path: "dianbo/game", replacers: [])
 }

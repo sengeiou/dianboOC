@@ -33,6 +33,12 @@ class TSMomentDetailToolbar: TSToolbarView, TSToolbarViewDelegate {
         }
         
     super.init(frame: CGRect(x: 0, y: yPoint, width: UIScreen.main.bounds.width, height: 55 + TSBottomSafeAreaHeight), type: .top, items: [TSToolbarItemModel(image: "com_collection", title: "收藏", index: 0), TSToolbarItemModel(image: "com_download", title: "下载", index: 1), TSToolbarItemModel(image: "com_share", title: "分享", index: 2)])
+       
+        if object.isCollect==1
+        {
+            setImage("me_collect", At: 0)
+            setTitleColor(TSColor.main.themeZsColor, At: 0)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

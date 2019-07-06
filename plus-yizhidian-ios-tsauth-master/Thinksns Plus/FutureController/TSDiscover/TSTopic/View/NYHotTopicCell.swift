@@ -168,9 +168,9 @@ class NYHotTopicCell: UITableViewCell {
         /// 时间
         self.timeLabel?.frame = hotTopicFrame.timeViewF!
         let timeString = TSDate().dateString(.detail, nsDate: (model?.moment.create)!)
-        let lzName = model?.groupInfo?.name
-        let contentText = "\(timeString)  来自 \(lzName ?? "外星球")"
-        self.timeLabel?.attributedText =  NYUtils.superStringAttributedString(superString: contentText, highlightedStr: lzName!, color: TSColor.main.themeZsColor)
+        let lzName = model?.groupInfo?.name ?? "外星球"
+        let contentText = "\(timeString)  来自 \(lzName)"
+        self.timeLabel?.attributedText =  NYUtils.superStringAttributedString(superString: contentText, highlightedStr: lzName, color: TSColor.main.themeZsColor)
         
         /// 来自
         self.fromLabel?.frame = hotTopicFrame.fromTxtViewF!

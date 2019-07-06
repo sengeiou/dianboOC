@@ -102,6 +102,11 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
             toolbarView = TSMomentDetailToolbar(momentObj)
             toolbarView?.commentDelegate = self
             self.view.addSubview(toolbarView!)
+            if model.has_collect
+            {
+                toolbarView?.setImage("me_collect", At: 0)
+                toolbarView?.setTitleColor(TSColor.main.themeZsColor, At: 0)
+            }
         }
         //设置图片
         let url = URL(string:model.cover.imageUrl())
@@ -345,6 +350,28 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
     }
     func toolbar(_ toolbar: TSMomentDetailToolbar, DidSelectedItemAt index: Int) {
         if index == 0 { // 收藏
+            if  self._videosModel!.has_collect
+            {
+                NYVideosNetworkManager.postVideoUncollect(video_id: video_id!) { (msg, isBol) in
+                    if isBol
+                    {
+                        self._videosModel!.has_collect = false
+                        toolbar.setImage("com_collection", At: 0)
+                        toolbar.setTitleColor(UIColor.white, At: 0)
+                    }
+                }
+
+            }else
+            {
+                NYVideosNetworkManager.postVideoCollections(video_id: video_id!) { (msg, isBol) in
+                    if isBol
+                    {
+                        self._videosModel!.has_collect = true
+                        toolbar.setImage("me_collect", At: 0)
+                        toolbar.setTitleColor(TSColor.main.themeZsColor, At: 0)
+                    }
+                }
+            }
             
         }
         if index == 1 { // 下载

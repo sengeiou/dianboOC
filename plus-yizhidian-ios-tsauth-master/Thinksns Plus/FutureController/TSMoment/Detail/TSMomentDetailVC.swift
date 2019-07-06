@@ -41,7 +41,6 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
     // MARK: - Lifecycle
     init(_ model: TSMomentListCellModel) {
         self.model = model
-        
         headerView = NYMomentDetailHeaderView.loadFromNib()
         headerView?.setTSMomentListObject(model: model.data!)
         toolbarView = TSMomentDetailToolbar(model.data!)
@@ -70,6 +69,7 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
         headerView = NYMomentDetailHeaderView.loadFromNib()
         headerView?.setTSMomentListObject(model: model.data!)
         toolbarView = TSMomentDetailToolbar(model.data!)
+
         loadRewardInfo()
         setBasicUI()
         if let commentCount = model.data?.commentCount {
@@ -189,6 +189,7 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
 
     // MARK: - Custom user interface
     func setBasicUI() {
+        self.title = self.model?.userInfo!.name
         self.userimageView = NYImageButton(frame:CGRect(x:0,y:0,width:30,height:30))
         //        searchBtton.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: self.userimageView)
@@ -395,6 +396,22 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
     func toolbar(_ toolbar: TSMomentDetailToolbar, DidSelectedItemAt index: Int) {
         if index == 0 { // 收藏
 //            headerView!.updateDiggIcon()
+            var isCollect = false
+            if self.model?.data?.isCollect==1 {isCollect=false}else{isCollect=true}
+            let feedId = self.model?.data?.feedIdentity
+            // 发起收藏任务
+            TSDataQueueManager.share.moment.start(collect: feedId!, isCollect: isCollect)
+            if isCollect
+            {
+                self.model?.data?.isCollect=1
+                toolbar.setImage("me_collect", At: 0)
+                toolbar.setTitleColor(TSColor.main.themeZsColor, At: 0)
+            }else
+            {
+                self.model?.data?.isCollect=0
+                toolbar.setImage("com_collection", At: 0)
+                toolbar.setTitleColor(UIColor.white, At: 0)
+            }
         }
         if index == 1 { // 下载
             if let videoUrl = model!.data?.videoURL {

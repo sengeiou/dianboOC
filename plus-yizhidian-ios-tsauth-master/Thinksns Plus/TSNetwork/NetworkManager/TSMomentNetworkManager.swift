@@ -352,7 +352,7 @@ class TSMomentNetworkManager: NSObject {
                 return
             }
             // 2.服务器数据异常处理
-            guard let moment = data as? Dictionary<String, Any>, let originalFeeds = moment["feeds"] as? Array<Dictionary<String, Any>> else {
+            guard let originalFeeds = data as? [[String : Any]]  else {
                 /// 说明原文不存在了
                 complete(nil, .networkErrorFailing)
                 return

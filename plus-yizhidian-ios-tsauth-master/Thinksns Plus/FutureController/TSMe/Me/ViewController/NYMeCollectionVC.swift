@@ -28,7 +28,7 @@ class NYMeCollectionVC: NYBaseViewController ,UIScrollViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的收藏"
+        self.title = "我的_我的收藏".localized
         setUI()
         settingViewController()
         loadRefresh()

@@ -64,6 +64,8 @@ class NYVideosModel: Mappable {
     var user_id = 0
     var duration = 0
     var tags:[NYtagModel]?
+    /// 是否已经收藏
+    var has_collect:Bool=false
 
     init() {
     }
@@ -88,6 +90,7 @@ class NYVideosModel: Mappable {
         user_id <- map["user_id"]
         tags <- map["tags"]
         duration <- map["duration"]
+        has_collect <- map["has_collect"]
         
         created_at <- (map["created_at"], TSDateTransfrom())
         updated_at <- (map["updated_at"], TSDateTransfrom())

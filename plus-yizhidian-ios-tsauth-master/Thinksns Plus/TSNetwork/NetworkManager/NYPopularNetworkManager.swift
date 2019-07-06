@@ -516,6 +516,8 @@ extension NYPopularNetworkManager {
         })
     }
     
+    /// 提交视频播放进度
+    ///
     class func delVideoRecordprogress(video_ids: String = "",  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = PopularNetworkRequest().getVideoRecordList
@@ -538,6 +540,30 @@ extension NYPopularNetworkManager {
         })
     }
     
-    
+    /// 获取游戏
+    /// 选填，当type=hot时为获取热门搜索
+    class func getVideoGameUrl(complete: @escaping ((_ url:String,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getVideoGameUrl
+        request.urlPath = request.fullPathWith(replacers: [])
+        try! RequestNetworkData.share.textRequest(method: .get, path: request.urlPath, parameter: nil, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("", "网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete("", "服务器返回数据错误", false)
+                return
+            }
+            // 3. 正常解析数据
+            let url = datas["url"] as? String
+            complete(url!, "ok", true)
+        })
+       
+        
+    }
     
 }
