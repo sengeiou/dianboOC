@@ -288,10 +288,10 @@ class TSMomentNetworkManager: NSObject {
     /// type:可选，默认值 new，可选值 new 、hot 、 follow 、users、group
     /// group_id:type = group 时可选，圈子id
     /// search:type = new 时可选，搜索关键字
-    /// user:type = users 时可选，默认值为当前用户id (不用)
+    /// user:type = users 时可选，默认值为当前用户id
     /// screen:type = users 时可选，paid-付费动态 pinned - 置顶动态 (不用)
     /// hot:可选，仅 type=hot 时有效，用于热门数据翻页标记！上次获取数据最后一条的 hot 值
-    func getfeedList(hot:String,search:String,group_id:Int=0, type: String, after: Int = 0, limit: Int = TSAppConfig.share.localInfo.limit, complete: @escaping((_ data: [TSMomentListModel]?, _ error: NetworkError?) -> Void)) {
+    func getfeedList(user:String="",hot:String,search:String,group_id:Int=0, type: String, after: Int = 0, limit: Int = TSAppConfig.share.localInfo.limit, complete: @escaping((_ data: [TSMomentListModel]?, _ error: NetworkError?) -> Void)) {
         let path = TSURLPathV2.path.rawValue + TSURLPathV2.Feed.feeds.rawValue
         var parameter = [String: Any]()
         parameter["limit"] = limit
@@ -307,6 +307,9 @@ class TSMomentNetworkManager: NSObject {
         }else if type == "new"
         {
             parameter["search"] = search
+        }else if type == "users"
+        {
+            parameter["user"] = user
         }
         
         try! RequestNetworkData.share.textRequest(method: .get, path: path, parameter: parameter, complete: { (data, status, code) in
@@ -320,7 +323,7 @@ class TSMomentNetworkManager: NSObject {
             // 2.服务器数据异常处理
             guard let moment = data as? Dictionary<String, Any>, let originalFeeds = moment["feeds"] as? Array<Dictionary<String, Any>> else {
                 /// 说明原文不存在了
-                complete(nil, .networkErrorFailing)
+                complete(nil,.networkErrorFailing)
                 return
             }
             // 3.正常数据解析
@@ -333,6 +336,9 @@ class TSMomentNetworkManager: NSObject {
                     list.add(resourceModel)
                 }
                 complete(list as! [TSMomentListModel], nil)
+            }else
+            {
+                complete(nil, nil)
             }
         })
         

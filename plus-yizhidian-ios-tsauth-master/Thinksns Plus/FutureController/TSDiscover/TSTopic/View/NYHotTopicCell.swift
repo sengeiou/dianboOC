@@ -9,12 +9,14 @@
 import UIKit
 
 
-protocol NYHotTopicCellDelegate: NSObjectProtocol {
+@objc protocol NYHotTopicCellDelegate: NSObjectProtocol {
     func cell(_ cell: TSTableViewCell, operateBtn: TSButton, indexPathRow: NSInteger)
     /// 点击了图片
     func feedCell(_ cell: NYHotTopicCell, didSelectedPictures pictureView: PicturesTrellisView, at index: Int)
     /// 点击了图片上的数量蒙层按钮
     func feedCell(_ cell: NYHotTopicCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView)
+    /// 更多操作
+   @objc optional func feedCellMore(_ cell: NYHotTopicCell)
 }
 
 class NYHotTopicCell: UITableViewCell {
@@ -30,6 +32,8 @@ class NYHotTopicCell: UITableViewCell {
     var timeLabel: TSLabel?
     /// 来自
     var fromLabel: TSLabel?
+    /// 更多操作
+    var moreButton: UIButton?
     /// 内容
     var contentLabel: TSLabel?
     /// 查看全文
@@ -40,6 +44,7 @@ class NYHotTopicCell: UITableViewCell {
     var contentImgView:UIView?
     /// 图片九宫格
     let picturesView = PicturesTrellisView()
+    /// 编辑
     
     ///分享
     var shareButton:UIButton?
@@ -83,6 +88,12 @@ class NYHotTopicCell: UITableViewCell {
         self.fromLabel?.textColor = UIColor.white
         self.fromLabel?.font = UIFont.systemFont(ofSize: 12)
         bgView.addSubview(self.fromLabel!)
+        /// 更多操作
+        self.moreButton = UIButton(type: .custom)
+        self.moreButton?.setImage(UIImage(named: "com_cell_more"), for: .normal)
+        self.moreButton?.isHidden = true
+        self.moreButton?.addTarget(self, action: #selector(moreClickdo(_:)), for: .touchUpInside)
+        bgView.addSubview(self.moreButton!)
         /// 内容
         self.contentLabel = TSLabel()
         self.contentLabel?.numberOfLines = 0
@@ -175,6 +186,8 @@ class NYHotTopicCell: UITableViewCell {
         /// 来自
         self.fromLabel?.frame = hotTopicFrame.fromTxtViewF!
         self.fromLabel?.text = model?.groupInfo?.name
+        /// 操作
+        self.moreButton?.frame = hotTopicFrame.moreButtonF!
         /// 内容
         self.contentLabel?.frame = hotTopicFrame.contentViewF!
         self.contentLabel?.text = model?.moment.content
@@ -254,6 +267,11 @@ class NYHotTopicCell: UITableViewCell {
         
         // 3.更新 topRecord
         topRecord = picturesView.frame.maxY
+    }
+    
+    ///更多操作
+    func moreClickdo(_ btn:UIButton) {
+        delegate?.feedCellMore!(self)
     }
 }
 

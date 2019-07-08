@@ -1206,6 +1206,8 @@
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
 		B20C83D222CFB8BB0048D75C /* NYGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20C83D022CFB8BB0048D75C /* NYGameViewController.swift */; };
 		B20C83D322CFB8BB0048D75C /* NYGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20C83D122CFB8BB0048D75C /* NYGameViewController.xib */; };
+		B20C83D622D1F2A10048D75C /* NYMePostListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20C83D422D1F2A10048D75C /* NYMePostListVC.swift */; };
+		B20C83D722D1F2A10048D75C /* NYMePostListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20C83D522D1F2A10048D75C /* NYMePostListVC.xib */; };
 		B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20EE82F22B9342D00149BBF /* NYVideosModel.swift */; };
 		B22FD3C322CCA17A00D68791 /* NYMeHistoryVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */; };
 		B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */; };
@@ -1248,6 +1250,8 @@
 		B29E834422C7956400251954 /* NYGroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E834322C7956400251954 /* NYGroupTableView.swift */; };
 		B29E834622C7C29C00251954 /* NYPostTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E834522C7C29C00251954 /* NYPostTableView.swift */; };
 		B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A15817228C885C00A2AFD7 /* NYUtils.swift */; };
+		B2A46AC422D3A6CB00FE9E9D /* NYPsentModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A46AC322D3A6CB00FE9E9D /* NYPsentModalView.swift */; };
+		B2A46AC622D3A6E400FE9E9D /* NYPsentModalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A46AC522D3A6E400FE9E9D /* NYPsentModalView.xib */; };
 		B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */; };
 		B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */; };
 		B2DC1A9E22BFF0A700E2B43C /* NYSelMXCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC1A9C22BFF0A700E2B43C /* NYSelMXCell.swift */; };
@@ -2719,6 +2723,8 @@
 		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
 		B20C83D022CFB8BB0048D75C /* NYGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYGameViewController.swift; sourceTree = "<group>"; };
 		B20C83D122CFB8BB0048D75C /* NYGameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYGameViewController.xib; sourceTree = "<group>"; };
+		B20C83D422D1F2A10048D75C /* NYMePostListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMePostListVC.swift; sourceTree = "<group>"; };
+		B20C83D522D1F2A10048D75C /* NYMePostListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMePostListVC.xib; sourceTree = "<group>"; };
 		B20EE82F22B9342D00149BBF /* NYVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosModel.swift; sourceTree = "<group>"; };
 		B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeHistoryVModel.swift; sourceTree = "<group>"; };
 		B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYViewHisCollectionCell.swift; sourceTree = "<group>"; };
@@ -2768,6 +2774,8 @@
 		B29E834322C7956400251954 /* NYGroupTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYGroupTableView.swift; sourceTree = "<group>"; };
 		B29E834522C7C29C00251954 /* NYPostTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPostTableView.swift; sourceTree = "<group>"; };
 		B2A15817228C885C00A2AFD7 /* NYUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUtils.swift; sourceTree = "<group>"; };
+		B2A46AC322D3A6CB00FE9E9D /* NYPsentModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYPsentModalView.swift; sourceTree = "<group>"; };
+		B2A46AC522D3A6E400FE9E9D /* NYPsentModalView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYPsentModalView.xib; sourceTree = "<group>"; };
 		B2DC1A9822BFAF5300E2B43C /* NYMomentDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMomentDetailHeaderView.swift; sourceTree = "<group>"; };
 		B2DC1A9A22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMomentDetailHeaderView.xib; sourceTree = "<group>"; };
 		B2DC1A9C22BFF0A700E2B43C /* NYSelMXCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelMXCell.swift; sourceTree = "<group>"; };
@@ -4024,6 +4032,7 @@
 		36659C4E1E027E640002B7FF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B2A46AC222D3A66C00FE9E9D /* NYPostModal */,
 				B23A135B227B462500805B85 /* View */,
 				537032D82060BC70000F6550 /* TSPopView */,
 				532055F71F3AA538008977FD /* TSSignin */,
@@ -7366,6 +7375,8 @@
 				B22FD3C922CD297600D68791 /* NYHistoryVideoVC.xib */,
 				B2FEA52B22CE508200E15390 /* NYMeCollectionVC.swift */,
 				B2FEA52C22CE508200E15390 /* NYMeCollectionVC.xib */,
+				B20C83D422D1F2A10048D75C /* NYMePostListVC.swift */,
+				B20C83D522D1F2A10048D75C /* NYMePostListVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -8085,6 +8096,15 @@
 			path = PPGetAddressBook;
 			sourceTree = "<group>";
 		};
+		B2A46AC222D3A66C00FE9E9D /* NYPostModal */ = {
+			isa = PBXGroup;
+			children = (
+				B2A46AC322D3A6CB00FE9E9D /* NYPsentModalView.swift */,
+				B2A46AC522D3A6E400FE9E9D /* NYPsentModalView.xib */,
+			);
+			path = NYPostModal;
+			sourceTree = "<group>";
+		};
 		B2E62590228FD226003A5546 /* Popular */ = {
 			isa = PBXGroup;
 			children = (
@@ -8441,6 +8461,7 @@
 				8308B2AA1F2EDB9C0049BC69 /* TSAdvetLaunchItem.xib in Resources */,
 				78FE6C591FF0E3130018105B /* TSFriendListCell.xib in Resources */,
 				8372462B20240DB100AB5378 /* IntegrationCashRecordCell.xib in Resources */,
+				B2A46AC622D3A6E400FE9E9D /* NYPsentModalView.xib in Resources */,
 				83C5D9481F41844A009AA964 /* TSNewFriendsVC.storyboard in Resources */,
 				36FB534D1F69326D00B25A8D /* TSConversationTableViewCell.xib in Resources */,
 				36E928D2205A73F500EFDED0 /* EaseUIResource.bundle in Resources */,
@@ -8524,6 +8545,7 @@
 				8897E0112106F71F00016D84 /* TopicSearchCell.xib in Resources */,
 				1A2939667D1829B0194730A5 /* AppConfig.plist in Resources */,
 				1A293A8A760B83CDED7D0B22 /* AppEnvironment.plist in Resources */,
+				B20C83D722D1F2A10048D75C /* NYMePostListVC.xib in Resources */,
 				5314EB9F201C8ECF000A1A94 /* common_editor.css in Resources */,
 				36E92879205A73F400EFDED0 /* MJRefresh.bundle in Resources */,
 				83549A22202ACD9000590D81 /* TSTransationCell.xib in Resources */,
@@ -9209,6 +9231,7 @@
 				83549A1A202ACD9000590D81 /* WalletRechargeController.swift in Sources */,
 				53F0E5C91FE7ADE000A5DD92 /* TSTitleSelectControl.swift in Sources */,
 				360BDC75206A4D0100EC86E5 /* RecorderViewController.swift in Sources */,
+				B2A46AC422D3A6CB00FE9E9D /* NYPsentModalView.swift in Sources */,
 				65DE0C1B1E9B9ED700D150A5 /* TSUserDiggsrankListObject.swift in Sources */,
 				B26CFC9822BCA2B6000F3CDA /* videoHeadView.swift in Sources */,
 				BB09DE6E1F307288002B77A0 /* TSUserLabelNetworkManager.swift in Sources */,
@@ -9581,6 +9604,7 @@
 				8390EAF51FF0F6DB008387DA /* GroupAgreementModel.swift in Sources */,
 				36CA81D31F33581300F93A5D /* TSRewardListVC.swift in Sources */,
 				881B498F2147A088001441A8 /* GroupDetailRootTableView.swift in Sources */,
+				B20C83D622D1F2A10048D75C /* NYMePostListVC.swift in Sources */,
 				83E157911F4585CD00930A8C /* TSContactModel.swift in Sources */,
 				36E9287E205A73F400EFDED0 /* MWCaptionView.m in Sources */,
 				8355D3E61F39C38000FC103A /* TSCertificateModel.swift in Sources */,

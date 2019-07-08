@@ -136,6 +136,10 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
 //            navigationController?.pushViewController(collectionVC, animated: true)
             let collectionVC = NYMeCollectionVC()
             self.navigationController?.pushViewController(collectionVC, animated: true)
+        case "我的_我的帖子".localized:
+            let postListVC = NYMePostListVC()
+            postListVC.title = cellTitel
+            self.navigationController?.pushViewController(postListVC, animated: true)
         case "意见反馈":
             let vc = TSFeedBackViewController()
             navigationController?.navigationItem.hidesBackButton = true

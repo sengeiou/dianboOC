@@ -24,7 +24,9 @@ class HotTopicFrameModel: Mappable
     
     ///来自
     var fromTxtViewF:CGRect?
-    
+    ///更多操作
+    var moreButtonF:CGRect?
+
     ///内容
     var contentViewF:CGRect?
     
@@ -116,6 +118,10 @@ class HotTopicFrameModel: Mappable
         let fromW:CGFloat = 200
         let fromH:CGFloat = 20
         fromTxtViewF = CGRect(x:((timeViewF?.maxX)!+10),y:(timeViewF?.origin.y)!,width:0,height:fromH)
+        ///更多操作
+        let moreWH:CGFloat = 40
+        let moreX:CGFloat = ScreenWidth - moreWH
+        moreButtonF = CGRect(x:moreX,y:(nickViewF?.minY)!,width:moreWH,height:moreWH)
         
         ///内容
         let contentW:CGFloat = ScreenWidth-maring*2

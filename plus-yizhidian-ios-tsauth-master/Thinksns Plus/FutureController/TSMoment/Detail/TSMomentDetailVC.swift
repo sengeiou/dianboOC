@@ -360,11 +360,29 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
 //        }
     }
 
-    /// 点击了“点赞头像栏”
+    /// 点击了 喜欢
     func headerView(_ headerView: NYMomentDetailHeaderView, didSelectedDiggView: UIButton) {
-//        TSKeyboardToolbar.share.keyboarddisappear()
-//        let likeList = TSLikeListTableVC(type: .moment, sourceId: (self.model!.data?.feedIdentity)!)
-//        navigationController?.pushViewController(likeList, animated: true)
+        var isDigg = false
+        if self.model?.data?.isDigg==1{isDigg=false}else{isDigg=true}
+        let feedId = self.model?.data?.feedIdentity
+        // 发起网络请求
+        TSDataQueueManager.share.moment.start(digg: feedId!, isDigg:isDigg)
+        if isDigg{
+            let realm = try! Realm()
+            realm.beginWrite()
+            self.model?.data?.isDigg=1
+            self.model?.data?.digg+=1
+            try! realm.commitWrite()
+        }
+        else
+        {
+            let realm = try! Realm()
+            realm.beginWrite()
+            self.model?.data?.isDigg=0
+            self.model?.data?.digg-=1
+            try! realm.commitWrite()
+        }
+        headerView.setTSMomentListObject(model: self.model!.data!)// 刷新界面
     }
 
     /// 点击了打赏按钮
@@ -403,12 +421,21 @@ class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* hea
             TSDataQueueManager.share.moment.start(collect: feedId!, isCollect: isCollect)
             if isCollect
             {
+                // 更改收藏状态
+                let realm = try! Realm()
+                realm.beginWrite()
                 self.model?.data?.isCollect=1
+                try! realm.commitWrite()
+                
                 toolbar.setImage("me_collect", At: 0)
                 toolbar.setTitleColor(TSColor.main.themeZsColor, At: 0)
             }else
             {
+                // 更改收藏状态
+                let realm = try! Realm()
+                realm.beginWrite()
                 self.model?.data?.isCollect=0
+                try! realm.commitWrite()
                 toolbar.setImage("com_collection", At: 0)
                 toolbar.setTitleColor(UIColor.white, At: 0)
             }
