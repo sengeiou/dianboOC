@@ -289,6 +289,25 @@ extension NYPopularNetworkManager {
         })
     }
     
+    /// 用户频道
+    /// channel_id
+    class func getUserChannelsData(complete: @escaping (([ChannelsModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        var request = PopularNetworkRequest().getUserChannels
+        request.urlPath = request.fullPathWith(replacers: [])
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
+                complete(nil, "网络请求错误", false)
+            case .failure(let failure):
+                complete(nil, failure.message, false)
+            case .success(let data):
+                complete(data.models, nil, true)
+            }
+        }
+    }
+    
     /// 获取视频详细
     /// video_id
     class func getVideosListData(video_id: Int ,complete: @escaping ((NYVideosModel?,_ msg: String?, _ status: Bool) -> Void)) -> Void {

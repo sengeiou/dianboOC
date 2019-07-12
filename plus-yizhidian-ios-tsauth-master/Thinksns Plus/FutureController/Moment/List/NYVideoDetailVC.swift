@@ -11,8 +11,10 @@ import RealmSwift
 import ZFPlayer
 import Kingfisher
 
-class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
-
+class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboardToolbarDelegate,NYCommentsCellDelegate,videoHeadViewDelegate{
+    /// 记录当前Y轴坐标
+    private var yAxis: CGFloat = 0
+    
     var video_id:Int?
     /// 播放进度
     var progress = 0.0
@@ -40,8 +42,15 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         //TSTableView(frame: CGRect(x: 0, y: TSNavigationBarHeight, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - TSNavigationBarHeight - 48), style: .plain)
     /// 数据
     var commentDatas: [FeedListCommentFrameModel]!
-    
+    /// 当前回复的评论模型
+    private var commentModel: FeedListCommentModel?
+    /// 是否是键盘导致的上拉加载
+    private var isScroll = true
     private var myContext = 0 //KVO 用
+    /// 发送的评论内容
+    var sendText: String?
+    /// 发送类型
+    private var sendCommentType: SendCommentType = .send
         
 //        [TSSimpleCommentModel]() {
 //        didSet {
@@ -91,6 +100,7 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
     
     func setVideoModel(model:NYVideosModel) {
         _videosModel = model
+        self.headView.delegate = self
         self.headView.setVideosModel(video: model)
         if toolbarView==nil
         {
@@ -113,7 +123,11 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         firstImage.setBackgroundImageWith(url, for: .normal, placeholder: #imageLiteral(resourceName: "tmp1"))
 
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        TSKeyboardToolbar.share.keyboarddisappear()
+        TSKeyboardToolbar.share.keyboardStopNotice()
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated);
         self.playerView?.removeObserver(self, forKeyPath: "state", context: &myContext)
@@ -123,8 +137,8 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        TSKeyboardToolbar.share.keyboardstartNotice()
-//        TSKeyboardToolbar.share.keyboardToolbarDelegate = self
+        TSKeyboardToolbar.share.keyboardstartNotice()
+        TSKeyboardToolbar.share.keyboardToolbarDelegate = self
        
         // 注册网络变化监听
         NotificationCenter.default.addObserver(self, selector: #selector(notiNetstatesChange(noti:)), name: Notification.Name.Reachability.Changed, object: nil)
@@ -191,6 +205,10 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         //chat tools view
         
         
+    }
+    
+    func updateUI(view: videoHeadView) {
+        table.tableHeaderView = headView
     }
     
     
@@ -344,9 +362,12 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         }
     }
     
+    
     // MARK: TSMomentDetailToolbarDelegate
     func inputToolbar(toolbar: TSMomentDetailToolbar) {
-        
+        //评论
+        TSKeyboardToolbar.share.keyboarddisappear()
+        toolbarDidSelectedCommentButton(toolbar)
     }
     func toolbar(_ toolbar: TSMomentDetailToolbar, DidSelectedItemAt index: Int) {
         if index == 0 { // 收藏
@@ -384,6 +405,107 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate{
         
     }
     
+    /// 键盘弹出
+    func toolbarDidSelectedCommentButton(_ toolbar: TSMomentDetailToolbar) {
+        self.commentModel = nil
+        self.sendCommentType = .send
+        setTSKeyboard(placeholderText: "随便说说~", cell: nil)
+    }
+    // MARK: - Other
+    /// 设置键盘
+    ///
+    /// - Parameters:
+    ///   - placeholderText: 占位字符串
+    ///   - cell: cell
+    private func setTSKeyboard(placeholderText: String, cell: NYCommentsCell?) {
+        if let cell = cell {
+            let origin = cell.convert(cell.contentView.frame.origin, to: UIApplication.shared.keyWindow)
+            yAxis = origin.y + cell.contentView.frame.size.height
+        }
+        
+        TSKeyboardToolbar.share.keyboardBecomeFirstResponder()
+        TSKeyboardToolbar.share.keyboardSetPlaceholderText(placeholderText: placeholderText)
+    }
+    // MARK: TSKeyboardToolbarDelegate
+    func keyboardToolbarSendTextMessage(message: String, inputBox: AnyObject?) {
+        // 评论完成后合成模型，存入数据库，后台请求发送接口，然后存入当前的TableView 刷新列表
+        if message == "" {
+            return
+        }
+        sendText = message
+        isScroll = false
+        //发布视频评论
+        var reply_user = ""
+        var reply_comment_id = ""
+        if self.commentModel != nil
+        {
+            reply_user = "\(self.commentModel?.userInfo.userIdentity ?? 0)"
+            reply_comment_id = "\(self.commentModel?.id ?? 0)"
+        }
+        NYVideosNetworkManager.postVideoCommentsdo(video_id: video_id!, body: sendText!, reply_user: reply_user, reply_comment_id: reply_comment_id) { (msg, isbol) in
+            if isbol
+            {
+                // 获得执行该方法的当前线程
+                let currentThread = Thread.current
+                // 当前线程为:(Function)
+                print("当前线程为:\(currentThread)")
+                self.refresh()
+            }
+        }
+    }
+    
+    func keyboardToolbarFrame(frame: CGRect, type: keyboardRectChangeType) {
+        if yAxis == 0 {
+            return
+        }
+        let toScrollValue = frame.origin.y - yAxis
+        if  frame.origin.y > yAxis && self.table.contentOffset.y < toScrollValue {
+            return
+        }
+        
+        if Int(frame.origin.y) == Int(yAxis) {
+            return
+        }
+        
+        switch type {
+        case .popUp, .typing:
+            self.table.setContentOffset(CGPoint(x: 0, y: self.table.contentOffset.y - toScrollValue), animated: false)
+            yAxis = frame.origin.y
+        default:
+            break
+        }
+    }
+    /// 键盘准备收起
+    internal func keyboardWillHide() {
+        if sendText != nil {
+            sendText = nil
+            self.table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            isScroll = true
+            return
+        } else {
+            isScroll = true
+        }
+        
+        if self.table.contentOffset.y > self.table.contentSize.height - self.table.bounds.height {
+            if self.table.contentSize.height < self.table.bounds.size.height {
+                self.table.setContentOffset(CGPoint.zero, animated: true)
+                return
+            }
+            self.table.setContentOffset(CGPoint(x: 0, y: self.table.contentSize.height - self.table.bounds.height), animated: true)
+        }
+    }
+    
+    /// Mark ----NYCommentsCellDelegate
+    func commentsCell(cell: NYCommentsCell) {
+        self.commentModel = cell._listCommentFrameModel?._commentModel
+        self.sendCommentType = .send
+        setTSKeyboard(placeholderText: "随便说说~", cell: cell)
+    }
+    
+    func commentsLikeCell(cell: NYCommentsCell) {
+        
+    }
+    
 }
 
 
@@ -393,6 +515,7 @@ extension NYVideoDetailVC: ZFPlayerDelegate {
         TSUtil.share().showDownloadVC(videoUrl: url)
     }
 }
+
 
 extension NYVideoDetailVC: UITableViewDelegate,UITableViewDataSource
 {
@@ -411,7 +534,10 @@ extension NYVideoDetailVC: UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NYCommentsCell.identifier) as? NYCommentsCell
+        cell?.delegate = self
         cell?.setListCommentFrameModel(commentFModel: self.commentDatas[indexPath.row])
+        
+        cell?.line2.isHidden = (self.commentDatas.count-1)==indexPath.row
         return cell!
     }
     

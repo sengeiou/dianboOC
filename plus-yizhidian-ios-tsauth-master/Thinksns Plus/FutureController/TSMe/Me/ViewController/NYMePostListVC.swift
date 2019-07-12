@@ -75,6 +75,7 @@ class NYMePostListVC: NYBaseViewController,NYPsentModalViewDelegate {
             let feedId = self.post_datas[view.indexPath!.row].hotMomentListModel!.moment.feedIdentity
             deleteFeed(feedId: feedId, feedIndexPath: view.indexPath!)
         }
+        view.hide()
     }
     /// 删除动态
     fileprivate func deleteFeed(feedId: Int, feedIndexPath: IndexPath) -> Void {

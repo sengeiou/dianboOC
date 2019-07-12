@@ -210,7 +210,7 @@ class TSCommentListController: TSViewController, TSListDataLoadProtocol, TSComme
                 self.sourceList.removeAll()
                 let faildList = TSDatabaseManager().commentManager.getAllFailedComments(type: self.type, sourceId: self.sourceId)
                 self.sourceList += TSCommentHelper.convertToSimple(faildList)
-                self.sourceList += commentList
+//                self.sourceList += commentList
                 // 整个列表为空
                 if self.sourceList.isEmpty && self.emptyType == .tableView {
                     self.tableView.show(placeholderView: .empty)
@@ -231,7 +231,7 @@ class TSCommentListController: TSViewController, TSListDataLoadProtocol, TSComme
                     return
                 }
                 // 数据加载处理
-                self.sourceList += commentList
+//                self.sourceList += commentList
                 self.cellHeightList = TSDetailCommentTableViewCell().setCommentHeight(comments: self.sourceList, width: ScreenWidth)
                 self.afterId = commentList.last?.id ?? self.afterId
                 self.tableView.mj_footer.isHidden = commentList.count < self.limit

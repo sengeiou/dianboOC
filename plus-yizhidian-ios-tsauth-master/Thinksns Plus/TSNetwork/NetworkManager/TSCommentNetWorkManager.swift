@@ -166,6 +166,38 @@ class TSCommentNetWorkManager: NSObject {
             complete(nil, id, nil)
         })
     }
+    
+    /// 发布动态评论
+    /// body 评论内容  reply_user 被回复人id，选填，当评论为子评论，且回复某用户时必填
+    /// reply_comment_id 被回复的评论id（父级评论id)，选填，当评论为子评论时必填
+    class func postMomentCommentsdo(feedId:Int,body:String,reply_user:String = "", reply_comment_id:String = "", complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+        // 1.请求 url
+        let path = TSURLPathV2.path.rawValue + TSURLPathV2.Feed.feeds.rawValue + "/\(feedId)" + TSURLPathV2.Feed.comments.rawValue
+        var parameters: [String: Any] = ["body": body]
+        if reply_user.count>0 {
+            parameters.updateValue(reply_user, forKey: "reply_user")
+        }
+        if reply_comment_id.count>0 {
+            parameters.updateValue(reply_comment_id, forKey: "reply_comment_id")
+        }
+        //,"reply_user": reply_user,"reply_comment_id": reply_comment_id]
+        try! RequestNetworkData.share.textRequest(method: .post, path: path, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
+            // 1. 网络请求失败
+            guard status else {
+                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+                complete("网络请求错误", false)
+                return
+            }
+            // 2. 数据格式错误
+            guard let datas = data as? [String: Any] else {
+                complete( "服务器返回数据错误", false)
+                return
+            }
+            let message = datas["message"] as! String
+            let comment = datas["comment"] as! [String: Any]
+            complete(message, true)
+        })
+    }
 
     /// 删除评论
     ///
@@ -280,25 +312,26 @@ extension TSCommentNetWorkManager {
     ///   - limit: Int, 评论限制条数，(默认为20，外界传入)
     ///   - complete: 请求回调
     /// - Note: 评论列表的数据返回有2种包装方式：资讯和动态采用字段包装以区分置顶(pinneds + comments)，其余部分直接采用列表不用字段包装
-    class func getCommentList(type: TSCommentType, sourceId: Int, afterId: Int?, limit: Int, complete: @escaping((_ commentList: [TSCommentModel]?, _ msg: String?, _ status: Bool) -> Void)) -> Void {
+    class func getCommentList(type: TSCommentType, sourceId: Int, afterId: Int?, limit: Int, complete: @escaping((_ commentList: [FeedListCommentModel]?, _ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1. url
-        var request: Request<TSCommentModel>
-        switch type {
-        case .momment:
-            request = CommentNetworkRequest.Moment.commentList
-        case .news:
-            request = CommentNetworkRequest.News.commentList
-        case .album:
-            request = CommentNetworkRequest.Album.commentList
-        case .song:
-            request = CommentNetworkRequest.Song.commentList
-        case .question:
-            request = CommentNetworkRequest.Question.commentList
-        case .answer:
-            request = CommentNetworkRequest.Answer.commentList
-        case .post:
-            request = CommentNetworkRequest.Post.commentList
-        }
+        var request: Request<FeedListCommentModel>
+        request = CommentNetworkRequest.Moment.commentList
+//        switch type {
+//        case .momment:
+//            request = CommentNetworkRequest.Moment.commentList
+//        case .news:
+////            request = CommentNetworkRequest.News.commentList
+//        case .album:
+////            request = CommentNetworkRequest.Album.commentList
+//        case .song:
+////            request = CommentNetworkRequest.Song.commentList
+//        case .question:
+////            request = CommentNetworkRequest.Question.commentList
+//        case .answer:
+////            request = CommentNetworkRequest.Answer.commentList
+//        case .post:
+////            request = CommentNetworkRequest.Post.commentList
+//        }
         request.urlPath = request.fullPathWith(replacers: ["\(sourceId)"])
         // 2. params
         var params: [String: Any] = [String: Any]()
@@ -319,22 +352,22 @@ extension TSCommentNetWorkManager {
             case .failure(let response):
                 complete(nil, response.message, false)
             case .success(let response):
-                var comments: [TSCommentModel] = response.models
+                var comments: [FeedListCommentModel] = response.models
                 // 资讯、动态、帖子的评论进行特殊处理
                 if type == .momment || type == .news || type == .post {
-                    var commentList: [TSCommentModel] = [TSCommentModel]()
+                    var commentList: [FeedListCommentModel] = [FeedListCommentModel]()
                     guard let dataDic = response.sourceData as? [String: Any] else {
                         complete(nil, "服务器返回数据错误", false)
                         return
                     }
-                    if let topCommentList = Mapper<TSCommentModel>().mapArray(JSONObject: dataDic["pinneds"]) {
+                    if let topCommentList = Mapper<FeedListCommentModel>().mapArray(JSONObject: dataDic["pinneds"]) {
                         // 将topCommentList中的置顶标识修正
-                        for topComment in topCommentList {
-                            topComment.isTop = true
-                        }
+//                        for topComment in topCommentList {
+//                            topComment.isTop = true
+//                        }
                         commentList += topCommentList
                     }
-                    if var normalCommentList = Mapper<TSCommentModel>().mapArray(JSONObject: dataDic["comments"]) {
+                    if var normalCommentList = Mapper<FeedListCommentModel>().mapArray(JSONObject: dataDic["comments"]) {
                         let topComment = commentList
                         if topComment.isEmpty {
                             commentList += normalCommentList
@@ -359,6 +392,7 @@ extension TSCommentNetWorkManager {
             }
         }
     }
+    
 
     /// 提交评论
     ///

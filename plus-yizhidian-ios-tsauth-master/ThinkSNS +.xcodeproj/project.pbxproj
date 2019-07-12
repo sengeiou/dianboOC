@@ -1201,6 +1201,7 @@
 		88ECCB5321414622002CB601 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 88ECCB5221414622002CB601 /* emoji.json */; };
 		89E795C6B47A1F93FD57A5D4 /* Pods_ThinkSNSPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CFB9FCD78322F351189F12 /* Pods_ThinkSNSPlus.framework */; };
 		A9FCC3CC3FB3B810EF2BEEA9 /* Pods_Thinksns_PlusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C4E689189BFC4A6E9544B9 /* Pods_Thinksns_PlusTests.framework */; };
+		B2016BD122D7B1C7003B22E3 /* NYAppChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2016BD022D7B1C7003B22E3 /* NYAppChannel.swift */; };
 		B201BC8A228487F5008D83CE /* NYSelFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC89228487F5008D83CE /* NYSelFocusView.swift */; };
 		B201BC8E228493F7008D83CE /* NYSelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201BC8C228493F7008D83CE /* NYSelCell.swift */; };
 		B201BC8F228493F7008D83CE /* NYSelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B201BC8D228493F7008D83CE /* NYSelCell.xib */; };
@@ -2718,6 +2719,7 @@
 		88ECCB5221414622002CB601 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
 		88FCE7FD21ABEC3C009BC9D9 /* ThinkSNSPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThinkSNSPlus.entitlements; sourceTree = "<group>"; };
 		96427937698E1D3C41CB78B5 /* Pods_Thinksns_Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thinksns_Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2016BD022D7B1C7003B22E3 /* NYAppChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYAppChannel.swift; sourceTree = "<group>"; };
 		B201BC89228487F5008D83CE /* NYSelFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelFocusView.swift; sourceTree = "<group>"; };
 		B201BC8C228493F7008D83CE /* NYSelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYSelCell.swift; sourceTree = "<group>"; };
 		B201BC8D228493F7008D83CE /* NYSelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYSelCell.xib; sourceTree = "<group>"; };
@@ -6502,6 +6504,7 @@
 				834208F61FB4512300E9C723 /* FeedListModel.swift */,
 				B2E04FDA22BE7E8900323C79 /* FeedListCommentFrameModel.swift */,
 				B29E833D22C616AE00251954 /* NYKeywordModel.swift */,
+				B2016BD022D7B1C7003B22E3 /* NYAppChannel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -9492,6 +9495,7 @@
 				36D80A611E67BB62008C5196 /* TSDataQueueManager.swift in Sources */,
 				8801BE42210F10CA0018AA63 /* TopicCommonModel.swift in Sources */,
 				B2DC1A9922BFAF5300E2B43C /* NYMomentDetailHeaderView.swift in Sources */,
+				B2016BD122D7B1C7003B22E3 /* NYAppChannel.swift in Sources */,
 				3890005920C7F6FA0093B73C /* TSCommonTool.m in Sources */,
 				BB09DEA61F39C21D002B77A0 /* TSSelectAreaViewController.swift in Sources */,
 				178243D01E7FB9DE00A20877 /* TSAlbumInfoModel.swift in Sources */,

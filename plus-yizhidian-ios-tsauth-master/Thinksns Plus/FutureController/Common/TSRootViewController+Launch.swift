@@ -23,6 +23,18 @@ extension TSRootViewController {
              TSAppConfig.share.walletInfo = TSWalletConfigModel(initialConfig: data)
             // 2.更新
             TSAppConfig.share.launchInfo = Mapper<TSAppSettingInfoModel>().map(JSONObject: data)
+            // 默认标签
+            TSAppConfig.share.channel_default_search = data["channel_default_search"] as! String
+            // 默认热搜
+            if let list = data["channel_default_tags"] as? [[String:Any]]
+            {
+                var tagsData = [NYAppChannel]()
+                for item in list
+                {
+                    tagsData.append(NYAppChannel(JSON: item)!)
+                }
+                TSAppConfig.share.channel_default_tags = tagsData
+            }
             if TSAppConfig.share.launchInfo != nil {
                 TSAppConfig.share.updateLocalInfo()
                 complete(true)

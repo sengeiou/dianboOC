@@ -122,7 +122,7 @@ extension TSQuoraTaskManager {
                     complete(answerDetailModel, nil, msg, status, code)
                     return
                 }
-                complete(answerDetailModel, commentList, msg, status, code)
+//                complete(answerDetailModel, commentList, msg, status, code)
             })
         }
     }

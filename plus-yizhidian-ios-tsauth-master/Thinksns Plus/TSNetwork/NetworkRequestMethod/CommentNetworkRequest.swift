@@ -21,7 +21,7 @@ struct CommentNetworkRequest {
     /// 动态
     struct Moment {
         /// 评论列表
-        static let commentList = Request<TSCommentModel>(method: .get, path: "feeds/:feed/comments", replacers: [":feed"])
+        static let commentList = Request<FeedListCommentModel>(method: .get, path: "feeds/:feed/comments", replacers: [":feed"])
         /// 发送评论
         static let sendComment = Request<TSCommentModel>(method: .post, path: "feeds/:feed/comments", replacers: [":feed"])
         /// 删除评论

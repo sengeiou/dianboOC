@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol videoHeadViewDelegate: class {
+    /// 选中
+    func updateUI(view:videoHeadView)
+}
+
 class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,6 +26,8 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
     @IBOutlet weak var changeButton: UIButton!
     
     @IBOutlet weak var mcollectionView: UICollectionView!
+    
+    weak var delegate : videoHeadViewDelegate?
     
     /// 数据源
     var dataSource: [NYVideosModel] = []
@@ -41,6 +48,8 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
         mcollectionView.collectionViewLayout = layout
         mcollectionView.delegate = self
         mcollectionView.dataSource = self
+        mcollectionView.showsVerticalScrollIndicator = false
+        mcollectionView.showsHorizontalScrollIndicator = false
         mcollectionView.register(UINib(nibName: "NYVideoColl", bundle: nil), forCellWithReuseIdentifier: NYVideoColl.identifier)
     }
     
@@ -79,6 +88,15 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
             
             if let datas = models {
                 self.dataSource = datas
+                
+                if(datas.count>2)
+                {
+                    self.mj_h = 320+130
+                }else
+                {
+                    self.mj_h = 320
+                }
+                self.delegate?.updateUI(view: self)
             }
             self.mcollectionView.reloadData()
         })
@@ -105,7 +123,7 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
         }
         
     }
-    
+    ///换一换
     @IBAction func changeClickdo(_ sender: UIButton) {
         refresh()
     }

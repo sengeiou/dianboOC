@@ -22,6 +22,11 @@ class TSAppConfig: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: ReachabilityChangedNotification, object: nil)
     }
 
+    /// 默认搜索关键词
+    var channel_default_search="推荐搜索"
+    /// 默认频道标签
+    var channel_default_tags: [NYAppChannel]?
+    
     /// 启动配置参数
     var launchInfo: TSAppSettingInfoModel?
     /// 本地配置参数

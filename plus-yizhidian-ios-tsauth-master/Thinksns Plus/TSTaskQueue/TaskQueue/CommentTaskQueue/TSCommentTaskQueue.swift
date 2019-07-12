@@ -28,7 +28,7 @@ class TSCommentTaskQueue: NSObject {
     ///   - momentUserId: 动态的用户id
     ///   - maxId: 请求下一页的id
     /// - Returns: 返回评论模型
-    func getCommentDatas(momentListObject: TSMomentListObject, maxId: Int?, complete: @escaping ([TSSimpleCommentModel]?) -> Void) {
+    func getCommentDatas(momentListObject: TSMomentListObject, maxId: Int?, complete: @escaping ([FeedListCommentModel]?) -> Void) {
         let momentId = momentListObject.feedIdentity
         TSCommentTaskQueue.getCommentList(type: .momment, sourceId:momentId, afterId: maxId, limit: TSAppConfig.share.localInfo.limit) { (commentList, msg, status) in
             complete(commentList)
@@ -406,7 +406,7 @@ extension TSCommentTaskQueue {
     ///   - afterId: Int?, 评论列表的起始id，默认为nil表示最头开始
     ///   - limit: Int, 评论限制条数，(默认为20，由外界传入)
     ///   - complete: 请求回调
-    class func getCommentList(type: TSCommentType, sourceId: Int, afterId: Int?, limit: Int, complete: @escaping((_ commentList: [TSSimpleCommentModel]?, _ msg: String?, _ status: Bool) -> Void)) -> Void {
+    class func getCommentList(type: TSCommentType, sourceId: Int, afterId: Int?, limit: Int, complete: @escaping((_ commentList: [FeedListCommentModel]?, _ msg: String?, _ status: Bool) -> Void)) -> Void {
         TSCommentNetWorkManager.getCommentList(type: type, sourceId: sourceId, afterId: afterId, limit: limit) { (commentList, msg, status) in
             // 请求成功失败与否的判断
             guard status, let commentList = commentList else {
@@ -428,52 +428,11 @@ extension TSCommentTaskQueue {
              **/
 
             if commentList.isEmpty {
-                complete([TSSimpleCommentModel](), msg, status)
+                complete([FeedListCommentModel](), msg, status)
                 return
             }
-            // 构造用户id列表用于请求用户信息
-            var userIds = [Int]()
-            for comment in commentList {
-                if !userIds.contains(comment.userId) {
-                    userIds.append(comment.userId)
-                }
-                if !userIds.contains(comment.targetUserId) {
-                    userIds.append(comment.targetUserId)
-                }
-                if nil != comment.replyUserId && !userIds.contains(comment.replyUserId!) {
-                    userIds.append(comment.replyUserId!)
-                }
-            }
-            let commentMsg = msg
-            TSUserNetworkingManager().getUsersInfo(usersId: userIds, complete: { (userList, msg, status) in
-                guard status, let userList = userList else {
-                    complete(nil, msg, false)
-                    return
-                }
-                // 本地保存用户列表信息
-                TSDatabaseManager().user.saveUsersInfo(userList)
-                // 对当前的评论列表匹配用户信息
-                for commentModel in commentList {
-                    let users = userList.filter({ (userModel) -> Bool in
-                        return userModel.userIdentity == commentModel.userId
-                    })
-                    commentModel.user = users.first
-                    let replyUsers = userList.filter({ (userModel) -> Bool in
-                        return userModel.userIdentity == commentModel.replyUserId
-                    })
-                    commentModel.replyUser = replyUsers.first
-                    let targetUsers = userList.filter({ (userModel) -> Bool in
-                        return userModel.userIdentity == commentModel.targetUserId
-                    })
-                    commentModel.targetUser = targetUsers.first
-                }
-                // 将评论列表模型更换
-                var simpleList = [TSSimpleCommentModel]()
-                for commentModel in commentList {
-                    simpleList.append(commentModel.simpleModel())
-                }
-                complete(simpleList, commentMsg, status)
-            })
+
+            complete(commentList, msg, status)
         }
     }
 

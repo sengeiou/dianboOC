@@ -28,7 +28,7 @@ extension TSMusicTaskManager {
                     complete(nil, nil, msg, false)
                     return
                 }
-                complete(nil, commentList, msg, true)
+//                complete(nil, commentList, msg, true)
             })
             return
         }
@@ -43,7 +43,7 @@ extension TSMusicTaskManager {
                     complete(nil, nil, msg, false)
                     return
                 }
-                complete(introModel, commentList, msg, true)
+//                complete(introModel, commentList, msg, true)
             })
         }
     }

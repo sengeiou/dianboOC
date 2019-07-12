@@ -220,7 +220,7 @@ class TSNewsTaskManager: NSObject {
             remainTaskGroup.enter()
             TSCommentTaskQueue.getCommentList(type: .news, sourceId: newsID, afterId: nil, limit: limit, complete: { (commentList, msg, status) in
                 if status, let commentList = commentList {
-                    serverData.comment = commentList
+//                    serverData.comment = commentList
                 }
                 remainTaskGroup.leave()
             })

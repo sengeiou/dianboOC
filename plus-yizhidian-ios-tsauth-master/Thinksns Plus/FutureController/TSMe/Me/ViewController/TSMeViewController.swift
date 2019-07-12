@@ -74,12 +74,6 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
 //            self?.meView.showMeHeader.friendBage.setlabelNumbers(model.mutual)
 //            self?.meView.meTableView.reloadData()
 //        }
-        meView.meTableView.reloadData()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        NotificationCenter.default.removeObserver(self)
         TSUserNetworkingManager().getCurrentUserInfo { [weak self] (model, _, status) in
             if status, let model = model, let weakSelf = self {
                 TSCurrentUserInfo.share.userInfo = model
@@ -89,6 +83,12 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
                 weakSelf.meView.meTableView.reloadData()
             }
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.removeObserver(self)
+        
     }
 
     deinit {

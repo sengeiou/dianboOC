@@ -8,6 +8,15 @@
 
 import UIKit
 
+protocol NYCommentsCellDelegate: class {
+    
+    /// 评论
+    func commentsCell(cell:NYCommentsCell)
+    /// 点赞
+    func commentsLikeCell(cell:NYCommentsCell)
+
+}
+
 class NYCommentsCell: UITableViewCell {
 
     static let identifier = "NYCommentsCell_Item"
@@ -43,6 +52,8 @@ class NYCommentsCell: UITableViewCell {
 //    var nothingImageView: UIImageView!
 //    /// 空视图的高度
 //    var nothingImageViewHeight: NSLayoutConstraint!
+    
+    weak var delegate:NYCommentsCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -92,6 +103,7 @@ class NYCommentsCell: UITableViewCell {
         like_CountButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         like_CountButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
         like_CountButton.frame = CGRect(x:likeX,y:likeY,width:likeW,height:likeH)
+        like_CountButton.addTarget(self, action: #selector(commentLikeClickdo(_:)), for: .touchUpInside)
         self.contentView.addSubview(like_CountButton)
         
         // zline
@@ -108,6 +120,7 @@ class NYCommentsCell: UITableViewCell {
         let combX:CGFloat = 100
         let combY:CGFloat = 20
         comment_Button.setImage(UIImage(named: "cell_comment"), for: .normal)
+        comment_Button.addTarget(self, action: #selector(commentClickdo(_:)), for: .touchUpInside)
         comment_Button.frame = CGRect(x:combX,y:combY,width:combWH,height:combWH)
         self.contentView.addSubview(comment_Button)
 
@@ -175,57 +188,76 @@ class NYCommentsCell: UITableViewCell {
         self.user_nameButton.setTitle(model?.userInfo.name, for: .normal)
         //评论时间
         self.com_dateLabel.frame = commentFModel.com_dateViewF
-        self.com_dateLabel.text = model?.create.string()
+        let timeString = TSDate().dateString(.detail, nsDate: model!.create as NSDate)
+        
+        self.com_dateLabel.text =  timeString
         self.line_L.frame = commentFModel.lineLF
         
         //评论按钮
         self.comment_Button.frame = commentFModel.commentButtonF
         //点赞数
         self.like_CountButton.frame = commentFModel.like_CountF
-        self.like_CountButton.setTitle("100", for: .normal)
+        
+        let num_txt = Float((model?.comment_like_count)!).combatValues
+        self.like_CountButton.setTitle(num_txt, for: .normal)
         //line 1
         self.line1.frame = commentFModel.line1F
         //内容
         self.comment_Label.frame = commentFModel.commentF
         self.comment_Label.text = model?.body
-        //跟评论view
-        self.reply_listView.frame = commentFModel.reply_listF
+        
+        self.reply_listView.isHidden = true
         //跟评背景
         self.reply_listView.subviews.forEach({ $0.removeFromSuperview()});
         
-        reply_imagebgView.image = UIImage(named: "com_com_bg")?
-            .resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15),
-                            resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸
-        self.reply_imagebgView.frame = commentFModel.reply_imagebgF
-        self.reply_listView.addSubview(reply_imagebgView)
-        
-        //跟评论
-        if commentFModel.replyLabListF.count>0
+        if ((model?.comment_children) != nil) && (model?.comment_children!.count)!>0
         {
-            let array=["路过的用户A:...你知道的太多了","路过的用户B:回复路过的用户A:你知道的太多会灭口的","用户C:+1"]
-            for (index,item) in (commentFModel.replyLabListF?.enumerated())!
+            //跟评论view
+            self.reply_listView.frame = commentFModel.reply_listF
+            self.reply_listView.isHidden = false
+            self.reply_imagebgView.frame = commentFModel.reply_imagebgF
+            reply_imagebgView.image = UIImage(named: "com_com_bg")?
+                .resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15),
+                                resizingMode: .stretch) //左右15像素的部分不变，中间部分来拉伸
+            self.reply_listView.addSubview(reply_imagebgView)
+            
+            //跟评论
+            if commentFModel.replyLabListF.count>0
             {
-                let label = UILabel()
-                label.frame = item as! CGRect
-                label.font = UIFont.systemFont(ofSize: 12)
-                label.text = array[index]
-                label.textColor = UIColor.white
-                self.reply_listView.addSubview(label)
+                for (index,item) in (commentFModel.replyLabListF?.enumerated())!
+                {
+                    let data = model?.comment_children![index] as! FeedListCommentModel
+                    let label = UILabel()
+                    label.frame = item as! CGRect
+                    label.font = UIFont.systemFont(ofSize: 12)
+                    label.textColor = UIColor.white
+                    label.attributedText = NYUtils.superStringAttributedStringList(superString: data.nameBody, highlightedStrList: ["回复",data.body], colorList: [TSColor.main.themeZsColor,UIColor.lightGray])
+                    self.reply_listView.addSubview(label)
+                }
+                /// 查看全文
+                let allStr = "查看全文\(model?.comment_children_count ?? 0)条回复"
+                self.alltxtButton = UIButton(type: .custom)
+                alltxtButton?.setImage(UIImage(named: "com_allow"), for: .normal)
+                alltxtButton?.setTitle(allStr, for: .normal)
+                alltxtButton?.setTitleColor(TSColor.main.themeZsColor, for: .normal)
+                alltxtButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+                alltxtButton?.frame = commentFModel.allTxtViewF
+                alltxtButton?.contentHorizontalAlignment = .left
+                self.reply_listView.addSubview(self.alltxtButton!)
             }
-            /// 查看全文
-            self.alltxtButton = UIButton(type: .custom)
-            alltxtButton?.setImage(UIImage(named: "com_allow"), for: .normal)
-            alltxtButton?.setTitle("查看全文100条回复", for: .normal)
-            alltxtButton?.setTitleColor(TSColor.main.themeZsColor, for: .normal)
-            alltxtButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-            alltxtButton?.frame = commentFModel.allTxtViewF
-            alltxtButton?.contentHorizontalAlignment = .left
-            self.reply_listView.addSubview(self.alltxtButton!)
         }
         
         //line 2
         self.line2.frame = commentFModel.line2F
-        
     }
 
+    func commentClickdo(_ btn:UIButton)
+    {
+        self.delegate?.commentsCell(cell: self)
+    }
+    
+    func commentLikeClickdo(_ btn:UIButton)
+    {
+        self.delegate?.commentsLikeCell(cell: self)
+    }
 }

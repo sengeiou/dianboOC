@@ -107,40 +107,53 @@ class FeedListCommentFrameModel: NSObject {
         let commentX:CGFloat = L1_X
         let commentY:CGFloat = L1_Y+10
         self.commentF = CGRect(x:commentX,y:commentY,width:commentW,height:commentH)
-        
-        replyLabListF = NSMutableArray()
-        //跟评论
-        let itemH:CGFloat = 20
-        let itemW:CGFloat = commentW-20
-        let itemX:CGFloat = 10
-        for i in 0...2
-        {
-            let itemY:CGFloat = 20+itemH*CGFloat(i)
-            let itemF =  CGRect(x:itemX,y:itemY,width:itemW,height:itemH)
-            replyLabListF?.add(itemF)
-        }
-        let lastF = replyLabListF.lastObject as! CGRect
-        //全部
-        let allW:CGFloat = commentW
-        let allH:CGFloat = 20
-        let allX:CGFloat = lastF.minX
-        let allY:CGFloat = lastF.maxY+4
-        self.allTxtViewF = CGRect(x:allX,y:allY,width:allW,height:allH)
-        //跟评论view
-        let reply_listW:CGFloat = commentW
-        let reply_listH:CGFloat = self.allTxtViewF.maxY+10
-        let reply_listX:CGFloat = commentX
-        let reply_listY:CGFloat = self.commentF.maxY+4
-        self.reply_listF = CGRect(x:reply_listX,y:reply_listY,width:reply_listW,height:reply_listH)
-        //跟评背景
-        self.reply_imagebgF = CGRect(x:0,y:0,width:reply_listW,height:reply_listH)
         //line 2
         let L2_W:CGFloat = ScreenWidth - userImgX*2
         let L2_H:CGFloat = 0.5
         let L2_X:CGFloat = userImgX
-        let L2_Y:CGFloat = self.reply_listF.maxY+10
+        var L2_Y:CGFloat = self.commentF.maxY+10
         self.line2F = CGRect(x:L2_X,y:L2_Y,width:L2_W,height:L2_H)
-        
         self.cellHeight = self.line2F.maxY+5
+        
+        replyLabListF = NSMutableArray()
+        //跟评论
+        var itemH:CGFloat = 20
+        let itemW:CGFloat = commentW-20
+        let itemX:CGFloat = 10
+        if (commentModel.comment_children != nil)&&(commentModel.comment_children?.count)!>0
+        {
+            for (index,data) in (commentModel.comment_children?.enumerated())!
+            {
+                let namebody_size = commentModel.nameBody.size(maxSize: CGSize(width:L1_W,height:CGFloat(MAXFLOAT)), font: UIFont.systemFont(ofSize: 12))
+                if namebody_size.height > itemH
+                {
+                    itemH = namebody_size.height
+                }
+                let itemY:CGFloat = 20+itemH*CGFloat(index)
+                let itemF =  CGRect(x:itemX,y:itemY,width:itemW,height:itemH)
+                replyLabListF?.add(itemF)
+            }
+            let lastF = replyLabListF.lastObject as! CGRect
+            //全部
+            let allW:CGFloat = commentW
+            let allH:CGFloat = 20
+            let allX:CGFloat = lastF.minX
+            let allY:CGFloat = lastF.maxY+4
+            self.allTxtViewF = CGRect(x:allX,y:allY,width:allW,height:allH)
+            //跟评论view
+            let reply_listW:CGFloat = commentW
+            let reply_listH:CGFloat = self.allTxtViewF.maxY+10
+            let reply_listX:CGFloat = commentX
+            let reply_listY:CGFloat = self.commentF.maxY+4
+            self.reply_listF = CGRect(x:reply_listX,y:reply_listY,width:reply_listW,height:reply_listH)
+            //跟评背景
+            self.reply_imagebgF = CGRect(x:0,y:0,width:reply_listW,height:reply_listH)
+            //line 2
+            L2_Y = self.reply_listF.maxY+10
+            self.line2F = CGRect(x:L2_X,y:L2_Y,width:L2_W,height:L2_H)
+            
+            self.cellHeight = self.line2F.maxY+5
+        }
+    
     }
 }

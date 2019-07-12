@@ -31,7 +31,7 @@ extension GroupTaskManager {
                     complete(postDetail, nil, msg, status, code)
                     return
                 }
-                complete(postDetail, commentList, msg, status, code)
+//                complete(postDetail, commentList, msg, status, code)
             })
         }
     }

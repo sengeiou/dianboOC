@@ -59,6 +59,7 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
     }
     
     func refresh(tags:String,tag_cates:String) {
+        
         NYPopularNetworkManager.getVideosListData(channel_id: channel_id, keyword: "", tags: tags,tag_cates:tag_cates) { (list: [NYVideosModel]?,error,isobl) in
             if let models = list {
                 self.datas = models

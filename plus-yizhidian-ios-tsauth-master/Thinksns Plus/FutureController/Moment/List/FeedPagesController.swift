@@ -20,9 +20,9 @@ enum FeedListType: String {
 
 class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 热门列表
-    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell",channel_id:0) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
+    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell",channel_id:1) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 最新列表
-    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell",channel_id:0)
+    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell",channel_id:2)
         //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
     let followPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "follwpageCell",channel_id:3)
@@ -46,12 +46,37 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         
 
         let height = Int(UIScreen.main.bounds.height) - topContentHeight
+        
+        // 游客触发登录
         super.init(labelTitleArray: ["推荐_精选".localized,
                                      "推荐_短视频".localized,
-                                     "推荐_明星".localized,
-                                     "推荐_电视剧".localized,
-                                     "推荐_电影".localized], scrollViewFrame: CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.width), height: height))
+                                     "推荐_明星".localized], scrollViewFrame: CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.width), height: height))
+        if !TSCurrentUserInfo.share.isLogin {
+            //全部
+//            super.init(labelTitleArray: ["推荐_精选".localized,
+//                                         "推荐_短视频".localized,
+//                                         "推荐_明星".localized,
+//                                         "推荐_电视剧".localized,
+//                                         "推荐_电影".localized], scrollViewFrame: CGRect(x: 0, y: topContentHeight, width: Int(UIScreen.main.bounds.width), height: height))
+        }
+        else
+        {
+            //默认用户
+            NYPopularNetworkManager.getUserChannelsData { (list, msg, isbol) in
+                if let models = list
+                {
+                    var titles = [String]()
+                    for item in models
+                    {
+                        titles.append(item.name)
+                    }
+                    print("\(titles)")
+                }
+            }
+        }
+        
     }
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -64,6 +89,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         loadDatabase()
         setPlayerView()
         currentShowPage = hotPage
+//        selectedPageChangedTo(index: 0)
 //        setSelectedAt(1)
     }
 
@@ -79,6 +105,8 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(didClickShortVideoShareBtn(_:)), name: NSNotification.Name(rawValue: "didClickShortVideoShareBtn"), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(didClickAdvertToolBtn(_:)), name: NSNotification.Name(rawValue: "didClickAdvertToolBtn"), object: nil)
+        sa_Field.setTitle(TSAppConfig.share.channel_default_search, for: .normal)
+        updateUIchannel_default_tags()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -219,7 +247,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
             }
             self.followPage.reloadData()
         }
-
+        
     }
 
     /// 将列表动态的数据同步更新到数据库（models 为 nil 则仅清空对应旧数据）
@@ -519,6 +547,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         }
         currentShowPage = currentPage
         
+        updateUIchannel_default_tags()
         
 //        if let _ = currentPage.getPlayVideoInVisiableCellIndexPath() {
 //            if currentPage == currentPlayingView {
@@ -532,6 +561,23 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
 //            // 暂停播放
 //            self.playerView.pause()
 //        }
+    }
+    
+    func updateUIchannel_default_tags()
+    {
+        if (TSAppConfig.share.channel_default_tags != nil)&&(TSAppConfig.share.channel_default_tags?.count)!>0
+        {
+            //设置又标签
+            for (index,data) in (TSAppConfig.share.channel_default_tags?.enumerated())!
+            {
+                if(self.currentShowPage!.channel_id==data.channel_id)
+                {
+                    tag_ABtn.setTitle(data.channel_tag![0], for: .normal)
+                    tag_BBtn.setTitle(data.channel_tag![1], for: .normal)
+                    break
+                }
+            }
+        }
     }
 
     func rightItemClick() {

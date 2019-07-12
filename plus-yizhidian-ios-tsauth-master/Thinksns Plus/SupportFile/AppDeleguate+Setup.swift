@@ -47,6 +47,8 @@ extension AppDeleguate {
         } else {
             TSRootViewController.share.show(childViewController: .login)
         }
+        TSRootViewController.share.updateLaunchConfigInfo { (isbol) in
+        }
         setupAdvert()
         window?.backgroundColor = TSColor.inconspicuous.background
         window?.rootViewController = TSRootViewController.share

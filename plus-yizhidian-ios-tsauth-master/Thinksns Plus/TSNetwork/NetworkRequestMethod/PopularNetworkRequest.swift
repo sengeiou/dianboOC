@@ -63,4 +63,7 @@ class PopularNetworkRequest {
     
     /// 游戏
     let getVideoGameUrl = Request<NYMeHistoryVModel>(method: .get, path: "dianbo/game", replacers: [])
+    
+    /// 批量获取用户频道列表
+    let getUserChannels = Request<ChannelsModel>(method: .get, path: "dianbo/userChannels", replacers: [])
 }

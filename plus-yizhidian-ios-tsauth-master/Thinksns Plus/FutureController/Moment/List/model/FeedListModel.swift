@@ -168,6 +168,7 @@ class FeedListModel: Mappable {
 /// 动态列表 评论模型
 /// - Note: 当用户不存在时，用户 id 为 0
 class FeedListCommentModel: Mappable {
+
     /// 动态id
     var feedid = 0
     /// 评论 id
@@ -180,6 +181,9 @@ class FeedListCommentModel: Mappable {
     var replyId = 0
     /// 评论内容
     var body = ""
+    /// 评论内容->带名称回复
+    var nameBody = ""
+    
     /// 创建时间
     var create = Date()
     /// 更新时间
@@ -190,7 +194,17 @@ class FeedListCommentModel: Mappable {
     var commentableType = ""
     /// 是否置顶
     var pinned = false
-
+    
+    /// 回复的评论—id(新)
+    var reply_comment_id = 0
+    /// 回复的数量(新)
+    var comment_children_count = 0
+    /// 评论点赞数(新)
+    var comment_like_count = 0
+    /// 是否点赞(新)
+    var has_like = false
+    /// 子评论
+    var comment_children:[FeedListCommentModel]?
     /// 评论者信息，需要请求用户信息接口来获取
     var userInfo = TSUserInfoModel()
     /// 资源作者信息，需要请求用户信息接口来获取
@@ -227,6 +241,24 @@ class FeedListCommentModel: Mappable {
         pinned <- map["pinned"]
         userInfo <- map["user"]
         replyInfo <- map["reply"]
+        
+        reply_comment_id <- map["reply_comment_id"]
+        comment_children_count <- map["comment_children_count"]
+        comment_like_count <- map["comment_like_count"]
+        has_like <- map["has_like"]
+        comment_children <- map["comment_children"]
+        getPinNameBody()
+    }
+    
+    func getPinNameBody()
+    {
+        if replyInfo != nil
+        {
+            nameBody = "\(userInfo.name):回复\(replyInfo.name):\(body)"
+        }else
+        {
+            nameBody = "\(userInfo.name):\(body)"
+        }
     }
 
     /// 评论相关用户的 id

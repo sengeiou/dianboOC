@@ -10,7 +10,7 @@
 import UIKit
 import SnapKit
 
-class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetailCommentTableViewCellDelegate {
+class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetailCommentTableViewCellDelegate ,NYCommentsCellDelegate{
 
     /// 当前滚动位置
     private var currentScrollOffSet: CGFloat = 0
@@ -25,7 +25,7 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
     /// 点击的行数
     private var index = 0
     /// 当前回复的评论模型
-    private var commentModel: TSSimpleCommentModel?
+    private var commentModel: FeedListCommentModel?
     /// 发送类型
     private var sendCommentType: SendCommentType = .send
     /// 是否是键盘导致的上拉加载
@@ -249,8 +249,13 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
                 }
             }
             if let datas = commentModel {
-                weak.commentDatas = self!.getNewListFrameModel(list: datas)
-                weak.model!.comments = datas
+                weak.commentDatas = NSMutableArray() as![FeedListCommentFrameModel]
+                for item in datas
+                {
+                    let obj = FeedListCommentFrameModel()
+                    obj.setListCommentModel(commentModel: item)
+                    weak.commentDatas.append(obj)
+                }
                 weak.table.mj_header.endRefreshing()
                 weak.table.mj_footer.endRefreshing()
 //                if weak.isTapMore {
@@ -281,8 +286,12 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
             }
 
             if let datas = commentModel {
-                weak.commentDatas = weak.commentDatas + (self?.getNewListFrameModel(list: datas))!
-                weak.model!.comments = weak.model!.comments! + datas
+                for item in datas
+                {
+                    let obj = FeedListCommentFrameModel()
+                    obj.setListCommentModel(commentModel: item)
+                    weak.commentDatas.append(obj)
+                }
                 weak.table.mj_footer.endRefreshing()
             }
         })
@@ -293,6 +302,17 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         refresh()
     }
 
+    /// Mark ----NYCommentsCellDelegate
+    func commentsCell(cell: NYCommentsCell) {
+        self.commentModel = cell._listCommentFrameModel?._commentModel
+        self.sendCommentType = .send
+        setTSKeyboard(placeholderText: "随便说说~", cell: cell)
+    }
+    
+    func commentsLikeCell(cell: NYCommentsCell) {
+        
+    }
+    
     // MARK: - delegateDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.commentDatas != nil
@@ -312,7 +332,9 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NYCommentsCell.identifier) as? NYCommentsCell
+        cell?.delegate = self
         cell?.setListCommentFrameModel(commentFModel: self.commentDatas[indexPath.row])
+        cell?.line2.isHidden = (self.commentDatas.count-1)==indexPath.row
 //        cell?.cellDelegate = self
 //        if !self.commentDatas.isEmpty {
 //            cell?.commnetModel = self.commentDatas[indexPath.row]
@@ -474,7 +496,7 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
     /// - Parameters:
     ///   - placeholderText: 占位字符串
     ///   - cell: cell
-    private func setTSKeyboard(placeholderText: String, cell: TSDetailCommentTableViewCell?) {
+    private func setTSKeyboard(placeholderText: String, cell: NYCommentsCell?) {
         if let cell = cell {
             let origin = cell.convert(cell.contentView.frame.origin, to: UIApplication.shared.keyWindow)
             yAxis = origin.y + cell.contentView.frame.size.height
@@ -494,15 +516,36 @@ class TSCommetDetailTableView: TSMomentDetailVC, UITableViewDataSource, TSDetail
         }
         sendText = message
         isScroll = false
-        let newCommentData = TSCommentTaskQueue().send(cellModel: super.model!, commentModel: self.commentModel, message: message, type: self.sendCommentType, complete: { model in
-            self.commentDatas = self.getNewListFrameModel(list: model.comments!)
-            super.model!.comments = model.comments
-            NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": model])
-        })
-        self.commentDatas = self.getNewListFrameModel(list: newCommentData.comments!)
-        super.model!.comments = newCommentData.comments
-        self.commentCount += 1
-        NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": newCommentData])
+        
+        var reply_user = ""
+        var reply_comment_id = ""
+        if self.commentModel != nil
+        {
+            reply_user = "\(self.commentModel?.userInfo.userIdentity ?? 0)"
+            reply_comment_id = "\(self.commentModel?.id ?? 0)"
+        }
+     
+        TSCommentNetWorkManager.postMomentCommentsdo(feedId: requestId!, body: sendText!, reply_user: reply_user, reply_comment_id: reply_comment_id) { (msg, isbol) in
+            if isbol
+            {
+                // 获得执行该方法的当前线程
+                let currentThread = Thread.current
+                // 当前线程为:(Function)
+                print("当前线程为:\(currentThread)")
+                self.refresh()
+            }
+        }
+        
+        
+//        let newCommentData = TSCommentTaskQueue().send(cellModel: super.model!, commentModel: self.commentModel, message: message, type: self.sendCommentType, complete: { model in
+//            self.commentDatas = self.getNewListFrameModel(list: model.comments!)
+//            super.model!.comments = model.comments
+//            NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": model])
+//        })
+//        self.commentDatas = self.getNewListFrameModel(list: newCommentData.comments!)
+//        super.model!.comments = newCommentData.comments
+//        self.commentCount += 1
+//        NotificationCenter.default.post(name: NSNotification.Name.CommentChange.change, object: self, userInfo: ["data": newCommentData])
     }
 
     /// 回传键盘工具栏的Frame
