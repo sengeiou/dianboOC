@@ -168,5 +168,10 @@ extension NYMePostListVC: NYHotTopicCellDelegate
         psentModalView.showInView(self.view, cnterView: cell.moreButton!)
         psentModalView.indexPath = table.indexPath(for: cell)
     }
-    
+    func detailsFeedCelldo(_ cell: NYHotTopicCell) {
+        let feedId = cell.hotTopicFrameModel?.hotMomentListModel?.moment.feedIdentity
+        // 3.以上情况都不是，跳转动态详情页
+        let detailVC = TSCommetDetailTableView(feedId: feedId!, isTapMore: true)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

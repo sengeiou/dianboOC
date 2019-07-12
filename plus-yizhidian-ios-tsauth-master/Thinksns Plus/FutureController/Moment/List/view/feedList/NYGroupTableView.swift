@@ -12,7 +12,12 @@ class NYGroupTableView: NYSelFocusView {
 
     /// 数据
     var group_datas: [GroupListCellModel] = []
-    
+    override var after: Int? {
+            guard let id = group_datas.last?.id else {
+                return nil
+            }
+            return id
+    }
     init(frame: CGRect, tableIdentifier identifier: String) {
         super.init(frame: frame, tableIdentifier: identifier, channel_id: 0)
         tableIdentifier = identifier

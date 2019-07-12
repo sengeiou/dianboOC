@@ -23,7 +23,7 @@ class NYSelFocusView: TSTableView ,NYSelMXCellDelegate{
     var datas: [NYVideosModel] = []
     var mx_datas: [NYMXVideosModel] = []
     /// 刷新代理
-    weak var refreshDelegate: FeedListViewRefreshDelegate?
+    weak var refreshDelegate: NYSelFocusListViewRefreshDelegate?
     /// 交互代理
     weak var interactDelegate: FeedListViewDelegate?
     /// 滚动代理
@@ -34,6 +34,24 @@ class NYSelFocusView: TSTableView ,NYSelMXCellDelegate{
     var sectionViewType = SectionViewType.none
     
     var channel_id:Int = 0
+    
+    /// 分页标识
+    var after: Int? {
+        
+        if  channel_id==3
+        {
+            guard let id = mx_datas.last?.id else {
+                return nil
+            }
+            return id
+        }else
+        {
+            guard let id = datas.last?.id else {
+                return nil
+            }
+            return id
+        }
+    }
     
     // MARK: - 生命周期
     init(frame: CGRect, tableIdentifier identifier: String,channel_id channel_ID:Int) {
@@ -110,6 +128,14 @@ class NYSelFocusView: TSTableView ,NYSelMXCellDelegate{
         
 //        register(NYSelCell.self, forCellReuseIdentifier: tableIdentifier)
 //        register(FilterSectionView.self, forHeaderFooterViewReuseIdentifier: FilterSectionView.identifier)
+    }
+    // MAKR: - Data
+    override func refresh() {
+        refreshDelegate?.feedListTable?(self, refreshingDataOf: tableIdentifier)
+    }
+    
+    override func loadMore() {
+        refreshDelegate?.feedListTable?(self, loadMoreDataOf: tableIdentifier)
     }
 }
 

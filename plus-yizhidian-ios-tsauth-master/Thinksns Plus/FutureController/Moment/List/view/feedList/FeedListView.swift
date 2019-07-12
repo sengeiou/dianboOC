@@ -18,6 +18,15 @@ import UIKit
     @objc optional func feedListTable(_ table: FeedListView, loadMoreDataOf tableIdentifier: String)
 }
 
+@objc protocol NYSelFocusListViewRefreshDelegate: class {
+    
+    /// 下拉刷新
+    @objc optional func feedListTable(_ table: NYSelFocusView, refreshingDataOf tableIdentifier: String)
+    
+    /// 上拉加载
+    @objc optional func feedListTable(_ table: NYSelFocusView, loadMoreDataOf tableIdentifier: String)
+}
+
 /// 交互代理事件
 @objc protocol FeedListViewDelegate: class {
 

@@ -76,7 +76,11 @@ class NYSearchBarView: UIView
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
-  
+        rightButton.addTarget(self, action: #selector(clearFiledClickdo(_:)), for: .touchUpInside)
     }
-    
+  
+    /// clear clickdo
+    func clearFiledClickdo(_ button:UIButton) {
+        searchTextFiled.text = ""
+    }
 }

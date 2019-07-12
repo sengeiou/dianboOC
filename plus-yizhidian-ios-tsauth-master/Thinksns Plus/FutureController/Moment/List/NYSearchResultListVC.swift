@@ -13,7 +13,7 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
     /// 视频
     let videoPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "videoCell",channel_id:0) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
     /// 短视频
-    let videoShortPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "ShortCell",channel_id:0)
+    let videoShortPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "ShortCell",channel_id:2)
     //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 明星
     let starPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "StarCell",channel_id:3)
@@ -119,6 +119,8 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
     
     func settingViewController()
     {
+        groupPage.tag = 10
+        postPage.tag = 20
         // 2.设置刷新代理
         videoPage.refreshDelegate = self
         videoShortPage.refreshDelegate = self
@@ -339,15 +341,145 @@ extension NYSearchResultListVC: FeedListViewDelegate {
 }
 
 // MARK: - FeedListViewRefreshDelegate: 列表刷新代理
-extension NYSearchResultListVC: FeedListViewRefreshDelegate {
+extension NYSearchResultListVC: NYSelFocusListViewRefreshDelegate {
 
     // MARK: 代理方法
     /// 下拉刷新
-    func feedListTable(_ table: FeedListActionView, refreshingDataOf tableIdentifier: String) {
-    
+    func feedListTable(_ table: NYSelFocusView, refreshingDataOf tableIdentifier: String) {
+        // 1.如果在游客模式下，不用请求关注列表的数据
+        if !TSCurrentUserInfo.share.isLogin {
+            table.mj_header.endRefreshing()
+            return
+        }
+        // 游客模式下不能刷新
+        if !TSCurrentUserInfo.share.isLogin {
+            TSRootViewController.share.guestJoinLoginVC()
+            table.mj_header.endRefreshing()
+            return
+        }
+        if table.tag == 10 //圈子
+        {
+            GroupNetworkManager.getALLGroupsList(keyword: keyword!, category_id: "", id: "", offset: 0) { (models, message, status) in
+                var cellModels: [GroupListCellModel]?
+                if let models = models {
+                    cellModels = []
+                    cellModels = models.map { GroupListCellModel(model: $0) }
+                    self.groupPage.group_datas = cellModels!
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
+            }
+        }
+        else if table.tag == 20 //帖子
+        {
+            TSMomentNetworkManager().getfeedList(hot: "", search: keyword!, type: "new",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
+                var dataSource: [HotTopicFrameModel]?
+                if let models = data {
+                    dataSource = []
+                    for obj in models {
+                        let hotF = HotTopicFrameModel()
+                        hotF.setHotMomentListModel(hotMomentModel: obj)
+                        dataSource?.append(hotF)
+                    }
+                    self.postPage.post_datas = dataSource!
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
+            })
+        }else
+        {
+            if  table.channel_id == 3
+            {
+                //明星
+                NYPopularNetworkManager.getMXVideosListData(channel_id: table.channel_id, keyword: keyword!, tags: "") { (list: [NYMXVideosModel]?,error,isobl) in
+                    if let models = list {
+                        table.mx_datas = models
+                    }
+                    table.reloadData()
+                    table.mj_header.endRefreshing()
+                }
+            }else
+            {
+                //短视频
+                NYPopularNetworkManager.getVideosListData(channel_id: table.channel_id, keyword: keyword!, tags: "") { (list: [NYVideosModel]?,error,isobl) in
+                    if let models = list {
+                        table.datas = models
+                    }
+                    table.reloadData()
+                    table.mj_header.endRefreshing()
+                }
+            }
+        }
+        
     }
     /// 上拉加载
-    func feedListTable(_ table: FeedListView, loadMoreDataOf tableIdentifier: String) {
-    
+    func feedListTable(_ table: NYSelFocusView, loadMoreDataOf tableIdentifier: String) {
+        // 游客模式下不能加载
+        if !TSCurrentUserInfo.share.isLogin {
+            TSRootViewController.share.guestJoinLoginVC()
+            table.mj_footer.endRefreshing()
+            table.mj_footer.isHidden = true
+            return
+        }
+        if table.tag == 10 //圈子
+        {
+            GroupNetworkManager.getALLGroupsList(keyword: keyword!, category_id: "", id: "", offset: self.groupPage.group_datas.count) { (models, message, status) in
+                var cellModels: [GroupListCellModel]?
+                if let models = models {
+                    cellModels = []
+                    cellModels = models.map { GroupListCellModel(model: $0) }
+                    for obj in cellModels!
+                    {
+                        self.groupPage.group_datas.append(obj)
+                    }
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
+            }
+        }
+        else if table.tag == 20 //帖子
+        {
+            TSMomentNetworkManager().getfeedList(hot: "", search: keyword!, type: "new",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
+                if let models = data {
+                    for obj in models {
+                        let hotF = HotTopicFrameModel()
+                        hotF.setHotMomentListModel(hotMomentModel: obj)
+                        self.postPage.post_datas.append(hotF)
+                    }
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
+            })
+        }else
+        {
+            if  table.channel_id == 3
+            {
+                //明星
+                NYPopularNetworkManager.getMXVideosListData(channel_id: table.channel_id, keyword: keyword!, tags: "",after:table.after!) { (list: [NYMXVideosModel]?,error,isobl) in
+                    if let models = list {
+                        for obj in models
+                        {
+                            table.mx_datas.append(obj)
+                        }
+                    }
+                    table.reloadData()
+                    table.mj_header.endRefreshing()
+                }
+            }else
+            {
+                //短视频
+                NYPopularNetworkManager.getVideosListData(channel_id: table.channel_id, keyword: keyword!, tags: "",after:table.after!) { (list: [NYVideosModel]?,error,isobl) in
+                    if let models = list {
+                        for obj in models
+                        {
+                            table.datas.append(obj)
+                        }
+                    }
+                    table.reloadData()
+                    table.mj_header.endRefreshing()
+                }
+            }
+        }
+       
     }
 }

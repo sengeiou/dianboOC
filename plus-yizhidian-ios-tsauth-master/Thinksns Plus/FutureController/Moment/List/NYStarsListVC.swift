@@ -115,6 +115,7 @@ class NYStarsListVC: UITableViewController,NYStarsListCellDelegate {
         let channelSelManageVC = NYChannelSelectManageVC()
         channelSelManageVC.title = starsHotModel.name
         channelSelManageVC.star_id = starsHotModel.id
+        channelSelManageVC.channel_id = starsHotModel.group_id
         self.navigationController?.pushViewController(channelSelManageVC, animated: true)
     }
     

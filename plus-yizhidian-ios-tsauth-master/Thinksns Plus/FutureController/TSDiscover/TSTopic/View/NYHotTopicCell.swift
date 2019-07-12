@@ -16,7 +16,9 @@ import UIKit
     /// 点击了图片上的数量蒙层按钮
     func feedCell(_ cell: NYHotTopicCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView)
     /// 更多操作
-   @objc optional func feedCellMore(_ cell: NYHotTopicCell)
+    @objc optional func feedCellMore(_ cell: NYHotTopicCell)
+    
+    @objc optional func detailsFeedCelldo(_ cell: NYHotTopicCell)
 }
 
 class NYHotTopicCell: UITableViewCell {
@@ -40,6 +42,10 @@ class NYHotTopicCell: UITableViewCell {
     var alltxtButton:UIButton?
     /// 视频内容
     var videoImageButton:UIButton?
+    /// 播放按钮
+    var playButton:UIButton?
+    /// 视频时间
+    var playTimeLabel:UILabel?
     /// 放9图 备用
     var contentImgView:UIView?
     /// 图片九宫格
@@ -105,17 +111,31 @@ class NYHotTopicCell: UITableViewCell {
         self.videoImageButton?.layer.cornerRadius = 10
         self.videoImageButton?.layer.masksToBounds = true
         videoImageButton?.setImage(UIImage(named: "tmp2"), for: .normal)
+        videoImageButton?.imageView?.contentMode = .scaleAspectFill
+        videoImageButton?.addTarget(self, action: #selector(detailsClickdo(_:)), for: .touchUpInside)
         bgView.addSubview(self.videoImageButton!)
+        /// 播放按钮
+        self.playButton = UIButton(type: .custom)
+        playButton?.setImage(UIImage(named: "com_player"), for: .normal)
+        playButton?.addTarget(self, action: #selector(detailsClickdo(_:)), for: .touchUpInside)
+        bgView.addSubview(self.playButton!)
+        /// 视频时间
+        self.playTimeLabel = TSLabel()
+        self.playTimeLabel?.textColor = UIColor.white
+        self.playTimeLabel?.font = UIFont.systemFont(ofSize: 12)
+        self.playTimeLabel?.textAlignment = .right
+        bgView.addSubview(self.playTimeLabel!)
         /// 查看全文
         self.alltxtButton = UIButton(type: .custom)
         alltxtButton?.setImage(UIImage(named: "com_allow"), for: .normal)
         alltxtButton?.setTitle("查看全文", for: .normal)
         alltxtButton?.setTitleColor(TSColor.main.themeZsColor, for: .normal)
         alltxtButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        alltxtButton?.addTarget(self, action: #selector(detailsClickdo(_:)), for: .touchUpInside)
         bgView.addSubview(self.alltxtButton!)
         ///分享
         self.shareButton = UIButton(type: .custom)
-        self.shareButton?.setImage(UIImage(named: "cell_share"), for: .normal)
+        self.shareButton?.setImage(UIImage(named: "com_browse"), for: .normal)
         self.shareButton?.setTitle("9999", for: .normal)
         self.shareButton?.setTitleColor(UIColor.white, for: .normal)
         self.shareButton?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -193,11 +213,14 @@ class NYHotTopicCell: UITableViewCell {
         self.contentLabel?.text = model?.moment.content
         self.contentImgView?.isHidden = true
         self.videoImageButton?.isHidden = true
+        self.playTimeLabel?.isHidden = true
+        self.playButton?.isHidden = true
         var topRecord: CGFloat = 19
         if (model?.moment.pictures.count)!>0
         {
 //            self.contentImgView!.subviews.forEach({ $0.removeFromSuperview()});
             self.contentImgView?.isHidden = false
+            
             /// 放9图 备用
 //            self.contentImgView?.removeAllSubViews()
             self.contentImgView?.frame = hotTopicFrame.imgListContentF!
@@ -220,9 +243,13 @@ class NYHotTopicCell: UITableViewCell {
         else
         {
             self.videoImageButton?.isHidden = false
+            self.playTimeLabel?.isHidden = false
+            self.playButton?.isHidden = false
             /// 视频内容
             self.videoImageButton?.frame = hotTopicFrame.videoViewF!
-            
+            self.playButton?.frame = hotTopicFrame.playButtonF!
+            self.playTimeLabel?.frame = hotTopicFrame.playTimeViewF!
+            self.playTimeLabel?.text = "01:30"
             if let url = model?.coverID?.imageUrl() {
                 self.videoImageButton?.setImageWith(URL(string: url), for: .normal)
             }
@@ -272,6 +299,11 @@ class NYHotTopicCell: UITableViewCell {
     ///更多操作
     func moreClickdo(_ btn:UIButton) {
         delegate?.feedCellMore!(self)
+    }
+    
+    ///点击详情
+    func detailsClickdo(_ btn:UIButton) {
+        delegate?.detailsFeedCelldo!(self)
     }
 }
 

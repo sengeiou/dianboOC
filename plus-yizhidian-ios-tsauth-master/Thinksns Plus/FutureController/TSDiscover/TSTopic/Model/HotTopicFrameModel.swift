@@ -26,7 +26,7 @@ class HotTopicFrameModel: Mappable
     var fromTxtViewF:CGRect?
     ///更多操作
     var moreButtonF:CGRect?
-
+    
     ///内容
     var contentViewF:CGRect?
     
@@ -35,6 +35,11 @@ class HotTopicFrameModel: Mappable
     
     ///视频
     var videoViewF:CGRect?
+    
+    /// 播放按钮
+    var playButtonF:CGRect?
+    /// 视频时间
+    var playTimeViewF:CGRect?
     
     ///分享
     var shareViewF:CGRect?
@@ -142,6 +147,17 @@ class HotTopicFrameModel: Mappable
         let videoX:CGFloat = maring
         videoViewF = CGRect(x:videoX,y:videoY,width:videoW,height:videoH)
         
+        /// 播放按钮
+        let playWH:CGFloat = 30
+        let playX:CGFloat = 25
+        let playY:CGFloat = (videoViewF?.maxY)! - playWH - 15
+        playButtonF = CGRect(x:playX,y:playY,width:playWH,height:playWH)
+        /// 视频时间
+        let playTimeW:CGFloat = 120
+        let playTimeH:CGFloat = 20
+        let playTimeX:CGFloat = (videoViewF?.maxX)! - playTimeW - 15
+        let playTimeY:CGFloat = (videoViewF?.maxY)! - playTimeH - 15
+        playTimeViewF = CGRect(x:playTimeX,y:playTimeY,width:playTimeW,height:playTimeH)
         ///分享
         let shareW:CGFloat = ScreenWidth/3.0
         let shareH:CGFloat = 40

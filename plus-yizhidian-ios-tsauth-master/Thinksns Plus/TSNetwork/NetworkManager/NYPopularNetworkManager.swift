@@ -214,13 +214,17 @@ extension NYPopularNetworkManager {
     
     /// 获取视频列表
     /// channel_id
-    class func getVideosListData(channel_id: Int,keyword:String ,tags:String ,tag_cates:String="",after: Int = 0, limit: Int =
+    class func getVideosListData(star_id:Int=0,channel_id: Int,keyword:String ,tags:String ,tag_cates:String="",after: Int = 0, limit: Int =
         TSAppConfig.share.localInfo.limit, complete: @escaping (([NYVideosModel]?,_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = PopularNetworkRequest().getVideosList
         request.urlPath = request.fullPathWith(replacers: [])
         // 2.配置参数
-        let parameters: [String: Any] = ["channel_id": channel_id, "tag_cates": tag_cates,"after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        var parameters: [String: Any] = ["channel_id": channel_id, "tag_cates": tag_cates,"after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        if star_id>0
+        {
+            parameters.updateValue(star_id, forKey: "star_id")
+        }
         request.parameter = parameters
         // 3.发起请求
         RequestNetworkData.share.text(request: request) { (networkResult) in

@@ -229,7 +229,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         sa_Field.frame = CGRect(x: 0, y:0, width:sa_ImageL.x, height:searchH)
         sa_Field.setTitle("精选_推荐搜索".localized, for: .normal)
         sa_Field.setTitleColor(UIColor.white, for: .normal)
-        sa_Field.titleLabel?.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
+        sa_Field.titleLabel?.font = UIFont.systemFont(ofSize: TSFont.SubInfo.footnote.rawValue)
         sa_Field.addTarget(self, action: #selector(searchClickdo(_:)), for: .touchUpInside)
         searchA.addSubview(sa_Field)
         

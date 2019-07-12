@@ -543,9 +543,23 @@ extension NYVideoDetailVC: UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headView = UIView()
-        headView.frame = CGRect(x:0,y:0,width:100,height:60)
-        headView.backgroundColor = UIColor.red
+        headView.frame = CGRect(x:0,y:0,width:ScreenWidth,height:40)
+        headView.backgroundColor = UIColor(red: 59, green: 59, blue: 61)
+        let title = UILabel(frame: CGRect(x:10,y:0,width:ScreenWidth-10,height:40))
+        var num = Float(0).combatValues
+        if _videosModel != nil
+        {
+            num = Float((_videosModel?.comment_count)!).combatValues
+        }
+        title.text = "评论（\(num)）"
+        title.textColor = TSColor.main.themeZsColor
+        title.font = UIFont.systemFont(ofSize: 12.0)
+        headView.addSubview(title)
         return headView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     

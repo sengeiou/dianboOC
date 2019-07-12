@@ -65,6 +65,27 @@ class NYSelMXCell: UITableViewCell {
         titleLabel.text = mx_video.star?.name
         let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: mx_video.star!.avatar)!)
         userImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
+        
+        self.tagsView.subviews.forEach({ $0.removeFromSuperview()})
+        if (mx_video.tags != nil)&&(mx_video.tags?.count)!>0
+        {
+            let itemW:CGFloat = 65
+            let itemH:CGFloat = 26
+            let itemY:CGFloat = (self.tagsView.height-itemH)*0.5
+            let margin:CGFloat = (ScreenWidth-16-itemW*5)/6
+            
+            for (index,item) in (mx_video.tags?.enumerated())!
+            {
+                let itemX:CGFloat = margin*CGFloat(index+1)+itemW*CGFloat(index)
+                let button = UIButton(type: .custom)
+                button.frame = CGRect(x: itemX,y:itemY, width: itemW, height: itemH)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+                button.setTitle(item.name, for: .normal)
+                button.setTitleColor(UIColor.white, for: .normal)
+                button.setBackgroundImage(UIImage(named: "com_bg"), for: .normal)
+                self.tagsView.addSubview(button)
+            }
+        }
     }
     
     @IBAction func starClickdo(_ sender: UIButton) {
@@ -78,25 +99,6 @@ class NYSelMXCell: UITableViewCell {
         let url = URL(string:video.cover.imageUrl())
         contentImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "tmp1"), options: nil, progressBlock: nil, completionHandler: nil)
         timeLabel.text = NYUtils.durationStringWithTime(time: video.duration)
-        self.tagsView.subviews.forEach({ $0.removeFromSuperview()})
-        if (video.tags != nil)&&(video.tags?.count)!>0
-        {
-            let itemW:CGFloat = 65
-            let itemH:CGFloat = 26
-            let itemY:CGFloat = (self.tagsView.height-itemH)*0.5
-            let margin:CGFloat = (ScreenWidth-16-itemW*5)/6
-            
-            for (index,item) in (video.tags?.enumerated())!
-            {
-                let itemX:CGFloat = margin*CGFloat(index+1)+itemW*CGFloat(index)
-                let button = UIButton(type: .custom)
-                button.frame = CGRect(x: itemX,y:itemY, width: itemW, height: itemH)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-                button.setTitle(item.name, for: .normal)
-                button.setTitleColor(UIColor.white, for: .normal)
-                button.setBackgroundImage(UIImage(named: "com_bg"), for: .normal)
-                self.tagsView.addSubview(button)
-            }
-        }
+        
     }
 }

@@ -19,10 +19,10 @@ enum FeedListType: String {
 }
 
 class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
-    /// 热门列表
-    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell",channel_id:1) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
-    /// 最新列表
-    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell",channel_id:2)
+    /// 短视频
+    let hotPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "hotpageCell",channel_id:2) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
+    /// 精选
+    let newPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "newpageCell",channel_id:1)
         //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.new.rawValue)
     /// 关注列表
     let followPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "follwpageCell",channel_id:3)
@@ -154,6 +154,8 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         add(childView: followPage, at: 2)
         add(childView: hotPage, at: 1)
         add(childView: newPage, at: 0)
+        
+        
 //        hotPage.feedListViewDelegate = self
 //        newPage.feedListViewDelegate = self
 //        followPage.feedListViewDelegate = self
@@ -522,15 +524,15 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     override func selectedPageChangedTo(index: Int) {
         var feedListView: NYSelFocusView?
         
-        tag_ABtn.isHidden = false
-        tag_BBtn.isHidden = false
-        tag_mxBtn.isHidden = true
-        if index == 2
-        {
-            tag_ABtn.isHidden = true
-            tag_BBtn.isHidden = true
-            tag_mxBtn.isHidden = false
-        }
+//        tag_ABtn.isHidden = false
+//        tag_BBtn.isHidden = false
+//        tag_mxBtn.isHidden = true
+//        if index == 2
+//        {
+//            tag_ABtn.isHidden = true
+//            tag_BBtn.isHidden = true
+//            tag_mxBtn.isHidden = false
+//        }
         
         switch index {
         case 0:
@@ -584,6 +586,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
         let aggregateSearchVC = TSAggregateSearchVC()
         self.navigationController?.pushViewController(aggregateSearchVC, animated: true)
     }
+    
     func zf_playerDownload(_ url: String!) {
         TSUtil.share().showDownloadVC(videoUrl: url)
     }
@@ -594,18 +597,20 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     }
     //分类
     override func sortClickdo(_ btn: UIButton) {
-        if btn.tag == 30 {//明星专属分类
-            let starsListVC = NYStarsListVC()
-            self.navigationController?.pushViewController(starsListVC, animated: true)
-//           VC = [AddressBookController1 new];
+        if btn.tag == 0
+        {
+            if currentShowPage?.channel_id==3 //明星
+            {
+                let starsListVC = NYStarsListVC()
+                self.navigationController?.pushViewController(starsListVC, animated: true)
+                return
+            }
         }
-        else
-        { //正常 频道管理
-            let channelSelManageVC = NYChannelSelectManageVC()
-            channelSelManageVC.title = btn.currentTitle
-            channelSelManageVC.channel_id = btn.tag
-            self.navigationController?.pushViewController(channelSelManageVC, animated: true)
-        }
+        //正常 频道管理
+        let channelSelManageVC = NYChannelSelectManageVC()
+        channelSelManageVC.title = btn.currentTitle
+        channelSelManageVC.channel_id = (currentShowPage?.channel_id)!
+        self.navigationController?.pushViewController(channelSelManageVC, animated: true)
     }
 }
 
@@ -698,17 +703,14 @@ extension FeedPagesController: FeedListActionViewDelegate {
 }
 
 // MARK: - FeedListViewRefreshDelegate: 列表刷新代理
-extension FeedPagesController: FeedListViewRefreshDelegate {
+extension FeedPagesController: NYSelFocusListViewRefreshDelegate {
 
     // MARK: 代理方法
     /// 下拉刷新
-    func feedListTable(_ table: FeedListActionView, refreshingDataOf tableIdentifier: String) {
-        // 0.获取列表的类型
-        guard let type = FeedListType(rawValue: tableIdentifier) else {
-            return
-        }
+    func feedListTable(_ table: NYSelFocusView, refreshingDataOf tableIdentifier: String) {
+   
         // 1.如果在游客模式下，不用请求关注列表的数据
-        if type == .follow && !TSCurrentUserInfo.share.isLogin {
+        if !TSCurrentUserInfo.share.isLogin {
             table.mj_header.endRefreshing()
             return
         }
@@ -718,59 +720,33 @@ extension FeedPagesController: FeedListViewRefreshDelegate {
             table.mj_header.endRefreshing()
             return
         }
-        // 重置广告数据
-        advertObjects = TSDatabaseManager().advert.getObjects(type: .feedListIn).map { FeedListCellModel(advert: $0) }
-        // 2.发起网络请求
-        FeedListNetworkManager.getTypeFeeds(type: tableIdentifier, after: nil) { [weak self] (model: FeedListResultsModel?, message: String?, status: Bool) in
-            // 3.根据列表类型，对数据进行不同的处理
-            var feedModels: [FeedListCellModel]?
-            switch type {
-            case .hot:
-                table.curentPage = 0
-                self?.processReloadHotDatas(model, complete: { (feedListCellModels, pinnedCounts) in
-                    feedModels = feedListCellModels
-                    table.pinnedCounts = pinnedCounts
-                    if feedModels?.isEmpty == false {
-                        self?.isFirstLoadSuccess = true
-                    }
-                    /// 请求成功的数据再刷新本地缓存
-                    if status {
-                        // 4.同步数据到数据库
-                        self?.save(models: feedModels, type: type)
-                    }
-                    // 5.刷新 table 的界面
-                    table.processRefresh(data: feedModels, message: message, status: status)
-                })
-            case .new:
-                self?.processReloadNewDatas(model, complete: { (feedListCellModels, pinnedCounts) in
-                    feedModels = feedListCellModels
-                    table.pinnedCounts = pinnedCounts
-                    /// 请求成功的数据再刷新本地缓存
-                    if status {
-                        // 4.同步数据到数据库
-                        self?.save(models: feedModels, type: type)
-                    }
-                    // 5.刷新 table 的界面
-                    table.processRefresh(data: feedModels, message: message, status: status)
-                })
-            case .follow:
-                self?.processReloadFollowDatas(model, complete: { (feedListCellModels, pinnedCounts) in
-                    feedModels = feedListCellModels
-                    table.pinnedCounts = pinnedCounts
-                    /// 请求成功的数据再刷新本地缓存
-                    if status {
-                        // 4.同步数据到数据库
-                        self?.save(models: feedModels, type: type)
-                    }
-                    // 5.刷新 table 的界面
-                    table.processRefresh(data: feedModels, message: message, status: status)
-                })
+        if  table.channel_id == 3
+        {
+            
+            //明星
+            NYPopularNetworkManager.getMXVideosListData(channel_id: table.channel_id, keyword: "", tags: "") { (list: [NYMXVideosModel]?,error,isobl) in
+                if let models = list {
+                    table.mx_datas = models
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
+            }
+        }else
+        {
+            //短视频
+            NYPopularNetworkManager.getVideosListData(channel_id: table.channel_id, keyword: "", tags: "") { (list: [NYVideosModel]?,error,isobl) in
+                if let models = list {
+                    table.datas = models
+                }
+                table.reloadData()
+                table.mj_header.endRefreshing()
             }
         }
+
     }
 
     /// 上拉加载
-    func feedListTable(_ table: FeedListView, loadMoreDataOf tableIdentifier: String) {
+    func feedListTable(_ table: NYSelFocusView, loadMoreDataOf tableIdentifier: String) {
         // 游客模式下不能加载
         if !TSCurrentUserInfo.share.isLogin {
             TSRootViewController.share.guestJoinLoginVC()
@@ -778,35 +754,35 @@ extension FeedPagesController: FeedListViewRefreshDelegate {
             table.mj_footer.isHidden = true
             return
         }
-
-        // 1.发起网络请求
-        var id: Int? = nil
-        if tableIdentifier == "hot" {
-            /// 热门的分页是hot字段分页,广告里边只有feedId
-            /// 找到最后一条不是广告的动态,并获取他的hot值
-            for model in table.datas.reversed() {
-                if let adLink = model.id.link, adLink.isEmpty == false {
-                    /// 广告
-                } else {
-                    id = model.hot
-                    break
+        if  table.channel_id == 3
+        {
+            //明星
+            NYPopularNetworkManager.getMXVideosListData(channel_id: table.channel_id, keyword: "", tags: "",after:table.after!) { (list: [NYMXVideosModel]?,error,isobl) in
+                if let models = list {
+                    for obj in models
+                    {
+                        table.mx_datas.append(obj)
+                    }
                 }
+                table.reloadData()
+                table.mj_header.endRefreshing()
             }
-        } else {
-            id = table.after
-        }
-        FeedListNetworkManager.getTypeFeeds(type: tableIdentifier, after: id) { [weak self] (model: FeedListResultsModel?, message: String?, status: Bool) in
-            // 2.处理数据
-            var feedModels: [FeedListCellModel]?
-            if let model = model {
-                feedModels = model.feeds.map { FeedListCellModel(feedListModel: $0) }
-                // 3.如果是热门，要显示列表内广告
-                if tableIdentifier == FeedListType.hot.rawValue {
-                    self?.addAdvert(to: &feedModels!)
+        }else
+        {
+            //短视频
+            NYPopularNetworkManager.getVideosListData(channel_id: table.channel_id, keyword: "", tags: "",after:table.after!) { (list: [NYVideosModel]?,error,isobl) in
+                if let models = list {
+                    for obj in models
+                    {
+                        table.datas.append(obj)
+                    }
                 }
+                table.reloadData()
+                table.mj_header.endRefreshing()
             }
-            table.processloadMore(data: feedModels, message: message, status: status)
         }
+//        table.after
+        
     }
 
     // MARK: 处理数据的方法。分开写，方便后面的人更改和理解

@@ -8,11 +8,14 @@
 
 import UIKit
 
-class NYPostTableView: NYSelFocusView {
+class NYPostTableView: NYSelFocusView ,NYHotTopicCellDelegate{
+    
+
+    
 
     /// 数据
     var post_datas: [HotTopicFrameModel] = []
-    
+  
     init(frame: CGRect, tableIdentifier identifier: String) {
         super.init(frame: frame, tableIdentifier: identifier, channel_id: 0)
         tableIdentifier = identifier
@@ -81,6 +84,7 @@ class NYPostTableView: NYSelFocusView {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableIdentifier, for: indexPath) as! NYHotTopicCell
+        cell.delegate = self
         cell.setHotTopicFrameModel(hotTopicFrame: self.post_datas[indexPath.row] as! HotTopicFrameModel)
         return cell
     }
@@ -93,6 +97,20 @@ class NYPostTableView: NYSelFocusView {
         interactDelegate?.postList!(self, didSelected: cell)
 
     }
+    /// MARK ---NYHotTopicCellDelegate
+    func detailsFeedCelldo(_ cell: NYHotTopicCell) {
+        interactDelegate?.postList!(self, didSelected: cell)
+    }
+    func cell(_ cell: TSTableViewCell, operateBtn: TSButton, indexPathRow: NSInteger) {
+        
+    }
     
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPictures pictureView: PicturesTrellisView, at index: Int) {
+        
+    }
+    
+    func feedCell(_ cell: NYHotTopicCell, didSelectedPicturesCountMaskButton pictureView: PicturesTrellisView) {
+        
+    }
 }
 

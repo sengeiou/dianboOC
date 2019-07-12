@@ -26,7 +26,9 @@ class NYMXVideosModel: Mappable {
     var star:StarsHotModel?
     /// 视频
     var video:NYVideosModel?
-
+    /// 标签
+    var tags:[NYtagModel]?
+    
     init() {
     }
     
@@ -41,6 +43,7 @@ class NYMXVideosModel: Mappable {
         updated_at <- (map["updated_at"], TSDateTransfrom())
         star <- map["star"]
         video <- map["video"]
+        tags <- map["tags"]
     }
     
 }

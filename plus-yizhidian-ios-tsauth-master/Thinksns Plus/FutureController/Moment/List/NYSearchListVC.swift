@@ -42,6 +42,7 @@ class NYSearchListVC: NYBaseViewController {
         //设置 nav
         searchBar.searchTextFiled.placeholder = "搜索_关键字".localized
         searchBar.searchTextFiled.text = TSAppConfig.share.channel_default_search
+        
 //        searchBar.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         self.navigationItem.titleView = searchBar
         searchBar.snp.makeConstraints { (make) in
@@ -116,6 +117,8 @@ class NYSearchListVC: NYBaseViewController {
         srlVC.keyword = keyword
         self.navigationController?.pushViewController(srlVC, animated: true)
     }
+    
+    
     
     
     // MARK: - refresh

@@ -187,15 +187,15 @@ extension NYMeCollectionVC: FeedListViewDelegate {
 }
 
 // MARK: - FeedListViewRefreshDelegate: 列表刷新代理
-extension NYMeCollectionVC: FeedListViewRefreshDelegate {
+extension NYMeCollectionVC: NYSelFocusListViewRefreshDelegate {
     
     // MARK: 代理方法
     /// 下拉刷新
-    func feedListTable(_ table: FeedListActionView, refreshingDataOf tableIdentifier: String) {
+    func feedListTable(_ table: NYSelFocusView, refreshingDataOf tableIdentifier: String) {
         
     }
     /// 上拉加载
-    func feedListTable(_ table: FeedListView, loadMoreDataOf tableIdentifier: String) {
+    func feedListTable(_ table: NYSelFocusView, loadMoreDataOf tableIdentifier: String) {
         
     }
 }
