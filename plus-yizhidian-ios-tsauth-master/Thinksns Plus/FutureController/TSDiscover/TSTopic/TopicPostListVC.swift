@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 import TZImagePickerController
-import ZFPlayer
+//import ZFPlayer
 
 class TopicPostListVC: UIViewController, TSBeforeReleaseViewDelegate, TZImagePickerControllerDelegate, ZFPlayerDelegate {
 

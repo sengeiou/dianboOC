@@ -1210,6 +1210,34 @@
 		B20C83D622D1F2A10048D75C /* NYMePostListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20C83D422D1F2A10048D75C /* NYMePostListVC.swift */; };
 		B20C83D722D1F2A10048D75C /* NYMePostListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20C83D522D1F2A10048D75C /* NYMePostListVC.xib */; };
 		B20EE83022B9342D00149BBF /* NYVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20EE82F22B9342D00149BBF /* NYVideosModel.swift */; };
+		B21FC7C222DB0950001C443B /* ZFPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC78C22DB094F001C443B /* ZFPlayerModel.m */; };
+		B21FC7C322DB0950001C443B /* CustomPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC78D22DB094F001C443B /* CustomPlayerControlView.m */; };
+		B21FC7C422DB0950001C443B /* UIWindow+CurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC79622DB094F001C443B /* UIWindow+CurrentViewController.m */; };
+		B21FC7C522DB0950001C443B /* UIView+CustomControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC79722DB094F001C443B /* UIView+CustomControlView.m */; };
+		B21FC7C622DB0950001C443B /* UIImageView+ZFCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC79822DB094F001C443B /* UIImageView+ZFCache.m */; };
+		B21FC7C722DB0950001C443B /* UIViewController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC79922DB094F001C443B /* UIViewController+ZFPlayerRotation.m */; };
+		B21FC7C822DB0950001C443B /* ZFBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC79E22DB094F001C443B /* ZFBrightnessView.m */; };
+		B21FC7C922DB0950001C443B /* ZFPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B21FC79F22DB094F001C443B /* ZFPlayer.bundle */; };
+		B21FC7CA22DB0950001C443B /* VIMediaCacheWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7A522DB094F001C443B /* VIMediaCacheWorker.m */; };
+		B21FC7CB22DB0950001C443B /* VICacheConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7AA22DB094F001C443B /* VICacheConfiguration.m */; };
+		B21FC7CC22DB0950001C443B /* VICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7AB22DB094F001C443B /* VICacheManager.m */; };
+		B21FC7CD22DB0950001C443B /* VICacheAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7AC22DB094F001C443B /* VICacheAction.m */; };
+		B21FC7CE22DB0950001C443B /* VICacheSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7AE22DB094F001C443B /* VICacheSessionManager.m */; };
+		B21FC7CF22DB0950001C443B /* NSString+VIMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7AF22DB094F001C443B /* NSString+VIMD5.m */; };
+		B21FC7D022DB0950001C443B /* VIContentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7B122DB094F001C443B /* VIContentInfo.m */; };
+		B21FC7D122DB0950001C443B /* VIResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7B222DB094F001C443B /* VIResourceLoader.m */; };
+		B21FC7D222DB0950001C443B /* VIMediaDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7B322DB094F001C443B /* VIMediaDownloader.m */; };
+		B21FC7D322DB0950001C443B /* VIResourceLoadingRequestWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7B822DB094F001C443B /* VIResourceLoadingRequestWorker.m */; };
+		B21FC7D422DB0950001C443B /* VIResourceLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7B922DB094F001C443B /* VIResourceLoaderManager.m */; };
+		B21FC7D522DB0950001C443B /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7BB22DB094F001C443B /* ASValuePopUpView.m */; };
+		B21FC7D622DB0950001C443B /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7BC22DB094F001C443B /* ZFPlayerControlView.m */; };
+		B21FC7D722DB0950001C443B /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7BE22DB094F001C443B /* ZFPlayerView.m */; };
+		B21FC7D822DB0950001C443B /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7BF22DB094F001C443B /* MMMaterialDesignSpinner.m */; };
+		B21FC7D922DB0950001C443B /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7C122DB094F001C443B /* ASValueTrackingSlider.m */; };
+		B21FC7E422DB1212001C443B /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = B21FC7DD22DB1212001C443B /* index.html */; };
+		B21FC7E522DB1212001C443B /* main.css in Resources */ = {isa = PBXBuildFile; fileRef = B21FC7DE22DB1212001C443B /* main.css */; };
+		B21FC7E622DB1212001C443B /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = B21FC7DF22DB1212001C443B /* main.js */; };
+		B21FC7E922DB1212001C443B /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21FC7E322DB1212001C443B /* MarkdownView.swift */; };
 		B22FD3C322CCA17A00D68791 /* NYMeHistoryVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */; };
 		B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */; };
 		B22FD3C722CCAE4500D68791 /* NYViewHisCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22FD3C522CCAE4500D68791 /* NYViewHisCollectionCell.xib */; };
@@ -2728,6 +2756,60 @@
 		B20C83D422D1F2A10048D75C /* NYMePostListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMePostListVC.swift; sourceTree = "<group>"; };
 		B20C83D522D1F2A10048D75C /* NYMePostListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYMePostListVC.xib; sourceTree = "<group>"; };
 		B20EE82F22B9342D00149BBF /* NYVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYVideosModel.swift; sourceTree = "<group>"; };
+		B21FC78C22DB094F001C443B /* ZFPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerModel.m; sourceTree = "<group>"; };
+		B21FC78D22DB094F001C443B /* CustomPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPlayerControlView.m; sourceTree = "<group>"; };
+		B21FC78E22DB094F001C443B /* ZFPlayerControlViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerControlViewDelegate.h; sourceTree = "<group>"; };
+		B21FC78F22DB094F001C443B /* ZFPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerControlView.h; sourceTree = "<group>"; };
+		B21FC79022DB094F001C443B /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
+		B21FC79222DB094F001C443B /* UIWindow+CurrentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+CurrentViewController.h"; sourceTree = "<group>"; };
+		B21FC79322DB094F001C443B /* UIView+CustomControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CustomControlView.h"; sourceTree = "<group>"; };
+		B21FC79422DB094F001C443B /* UIViewController+ZFPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZFPlayerRotation.h"; sourceTree = "<group>"; };
+		B21FC79522DB094F001C443B /* UIImageView+ZFCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ZFCache.h"; sourceTree = "<group>"; };
+		B21FC79622DB094F001C443B /* UIWindow+CurrentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+CurrentViewController.m"; sourceTree = "<group>"; };
+		B21FC79722DB094F001C443B /* UIView+CustomControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CustomControlView.m"; sourceTree = "<group>"; };
+		B21FC79822DB094F001C443B /* UIImageView+ZFCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ZFCache.m"; sourceTree = "<group>"; };
+		B21FC79922DB094F001C443B /* UIViewController+ZFPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZFPlayerRotation.m"; sourceTree = "<group>"; };
+		B21FC79A22DB094F001C443B /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
+		B21FC79B22DB094F001C443B /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
+		B21FC79C22DB094F001C443B /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
+		B21FC79D22DB094F001C443B /* ZFPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayer.h; sourceTree = "<group>"; };
+		B21FC79E22DB094F001C443B /* ZFBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBrightnessView.m; sourceTree = "<group>"; };
+		B21FC79F22DB094F001C443B /* ZFPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZFPlayer.bundle; sourceTree = "<group>"; };
+		B21FC7A022DB094F001C443B /* ZFPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerModel.h; sourceTree = "<group>"; };
+		B21FC7A222DB094F001C443B /* VIMediaCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIMediaCache.h; sourceTree = "<group>"; };
+		B21FC7A422DB094F001C443B /* VICacheAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VICacheAction.h; sourceTree = "<group>"; };
+		B21FC7A522DB094F001C443B /* VIMediaCacheWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIMediaCacheWorker.m; sourceTree = "<group>"; };
+		B21FC7A622DB094F001C443B /* VICacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VICacheManager.h; sourceTree = "<group>"; };
+		B21FC7A722DB094F001C443B /* VICacheConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VICacheConfiguration.h; sourceTree = "<group>"; };
+		B21FC7A822DB094F001C443B /* NSString+VIMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VIMD5.h"; sourceTree = "<group>"; };
+		B21FC7A922DB094F001C443B /* VICacheSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VICacheSessionManager.h; sourceTree = "<group>"; };
+		B21FC7AA22DB094F001C443B /* VICacheConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VICacheConfiguration.m; sourceTree = "<group>"; };
+		B21FC7AB22DB094F001C443B /* VICacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VICacheManager.m; sourceTree = "<group>"; };
+		B21FC7AC22DB094F001C443B /* VICacheAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VICacheAction.m; sourceTree = "<group>"; };
+		B21FC7AD22DB094F001C443B /* VIMediaCacheWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIMediaCacheWorker.h; sourceTree = "<group>"; };
+		B21FC7AE22DB094F001C443B /* VICacheSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VICacheSessionManager.m; sourceTree = "<group>"; };
+		B21FC7AF22DB094F001C443B /* NSString+VIMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VIMD5.m"; sourceTree = "<group>"; };
+		B21FC7B122DB094F001C443B /* VIContentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIContentInfo.m; sourceTree = "<group>"; };
+		B21FC7B222DB094F001C443B /* VIResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIResourceLoader.m; sourceTree = "<group>"; };
+		B21FC7B322DB094F001C443B /* VIMediaDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIMediaDownloader.m; sourceTree = "<group>"; };
+		B21FC7B422DB094F001C443B /* VIResourceLoaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIResourceLoaderManager.h; sourceTree = "<group>"; };
+		B21FC7B522DB094F001C443B /* VIResourceLoadingRequestWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIResourceLoadingRequestWorker.h; sourceTree = "<group>"; };
+		B21FC7B622DB094F001C443B /* VIResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIResourceLoader.h; sourceTree = "<group>"; };
+		B21FC7B722DB094F001C443B /* VIContentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIContentInfo.h; sourceTree = "<group>"; };
+		B21FC7B822DB094F001C443B /* VIResourceLoadingRequestWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIResourceLoadingRequestWorker.m; sourceTree = "<group>"; };
+		B21FC7B922DB094F001C443B /* VIResourceLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIResourceLoaderManager.m; sourceTree = "<group>"; };
+		B21FC7BA22DB094F001C443B /* VIMediaDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIMediaDownloader.h; sourceTree = "<group>"; };
+		B21FC7BB22DB094F001C443B /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
+		B21FC7BC22DB094F001C443B /* ZFPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerControlView.m; sourceTree = "<group>"; };
+		B21FC7BD22DB094F001C443B /* CustomPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPlayerControlView.h; sourceTree = "<group>"; };
+		B21FC7BE22DB094F001C443B /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
+		B21FC7BF22DB094F001C443B /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
+		B21FC7C022DB094F001C443B /* ZFBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBrightnessView.h; sourceTree = "<group>"; };
+		B21FC7C122DB094F001C443B /* ASValueTrackingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValueTrackingSlider.m; sourceTree = "<group>"; };
+		B21FC7DD22DB1212001C443B /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		B21FC7DE22DB1212001C443B /* main.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = main.css; sourceTree = "<group>"; };
+		B21FC7DF22DB1212001C443B /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		B21FC7E322DB1212001C443B /* MarkdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
 		B22FD3C222CCA17A00D68791 /* NYMeHistoryVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYMeHistoryVModel.swift; sourceTree = "<group>"; };
 		B22FD3C422CCAE4500D68791 /* NYViewHisCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYViewHisCollectionCell.swift; sourceTree = "<group>"; };
 		B22FD3C522CCAE4500D68791 /* NYViewHisCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NYViewHisCollectionCell.xib; sourceTree = "<group>"; };
@@ -7144,6 +7226,8 @@
 		83844ADA1E58306F00BDC3B2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B21FC7DA22DB1212001C443B /* MarkdownView */,
+				B21FC78B22DB094F001C443B /* ZFPlayer */,
 				B275BBF322C14B93002D7BD3 /* OCClass */,
 				38BA060420BED6070042673D /* AlipaySDK */,
 				38C929A02089C66D00A66F2A /* AiLiToolbox */,
@@ -8038,6 +8122,130 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B21FC78B22DB094F001C443B /* ZFPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC78C22DB094F001C443B /* ZFPlayerModel.m */,
+				B21FC7BD22DB094F001C443B /* CustomPlayerControlView.h */,
+				B21FC78D22DB094F001C443B /* CustomPlayerControlView.m */,
+				B21FC78E22DB094F001C443B /* ZFPlayerControlViewDelegate.h */,
+				B21FC78F22DB094F001C443B /* ZFPlayerControlView.h */,
+				B21FC79022DB094F001C443B /* ASValuePopUpView.h */,
+				B21FC79122DB094F001C443B /* Category */,
+				B21FC79A22DB094F001C443B /* MMMaterialDesignSpinner.h */,
+				B21FC79B22DB094F001C443B /* ZFPlayerView.h */,
+				B21FC79C22DB094F001C443B /* ASValueTrackingSlider.h */,
+				B21FC79D22DB094F001C443B /* ZFPlayer.h */,
+				B21FC79E22DB094F001C443B /* ZFBrightnessView.m */,
+				B21FC79F22DB094F001C443B /* ZFPlayer.bundle */,
+				B21FC7A022DB094F001C443B /* ZFPlayerModel.h */,
+				B21FC7A122DB094F001C443B /* VIMediaCache */,
+				B21FC7BB22DB094F001C443B /* ASValuePopUpView.m */,
+				B21FC7BC22DB094F001C443B /* ZFPlayerControlView.m */,
+				B21FC7BE22DB094F001C443B /* ZFPlayerView.m */,
+				B21FC7BF22DB094F001C443B /* MMMaterialDesignSpinner.m */,
+				B21FC7C022DB094F001C443B /* ZFBrightnessView.h */,
+				B21FC7C122DB094F001C443B /* ASValueTrackingSlider.m */,
+			);
+			path = ZFPlayer;
+			sourceTree = "<group>";
+		};
+		B21FC79122DB094F001C443B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC79222DB094F001C443B /* UIWindow+CurrentViewController.h */,
+				B21FC79322DB094F001C443B /* UIView+CustomControlView.h */,
+				B21FC79422DB094F001C443B /* UIViewController+ZFPlayerRotation.h */,
+				B21FC79522DB094F001C443B /* UIImageView+ZFCache.h */,
+				B21FC79622DB094F001C443B /* UIWindow+CurrentViewController.m */,
+				B21FC79722DB094F001C443B /* UIView+CustomControlView.m */,
+				B21FC79822DB094F001C443B /* UIImageView+ZFCache.m */,
+				B21FC79922DB094F001C443B /* UIViewController+ZFPlayerRotation.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		B21FC7A122DB094F001C443B /* VIMediaCache */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7A222DB094F001C443B /* VIMediaCache.h */,
+				B21FC7A322DB094F001C443B /* Cache */,
+				B21FC7B022DB094F001C443B /* ResourceLoader */,
+			);
+			path = VIMediaCache;
+			sourceTree = "<group>";
+		};
+		B21FC7A322DB094F001C443B /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7A422DB094F001C443B /* VICacheAction.h */,
+				B21FC7A522DB094F001C443B /* VIMediaCacheWorker.m */,
+				B21FC7A622DB094F001C443B /* VICacheManager.h */,
+				B21FC7A722DB094F001C443B /* VICacheConfiguration.h */,
+				B21FC7A822DB094F001C443B /* NSString+VIMD5.h */,
+				B21FC7A922DB094F001C443B /* VICacheSessionManager.h */,
+				B21FC7AA22DB094F001C443B /* VICacheConfiguration.m */,
+				B21FC7AB22DB094F001C443B /* VICacheManager.m */,
+				B21FC7AC22DB094F001C443B /* VICacheAction.m */,
+				B21FC7AD22DB094F001C443B /* VIMediaCacheWorker.h */,
+				B21FC7AE22DB094F001C443B /* VICacheSessionManager.m */,
+				B21FC7AF22DB094F001C443B /* NSString+VIMD5.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		B21FC7B022DB094F001C443B /* ResourceLoader */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7B122DB094F001C443B /* VIContentInfo.m */,
+				B21FC7B222DB094F001C443B /* VIResourceLoader.m */,
+				B21FC7B322DB094F001C443B /* VIMediaDownloader.m */,
+				B21FC7B422DB094F001C443B /* VIResourceLoaderManager.h */,
+				B21FC7B522DB094F001C443B /* VIResourceLoadingRequestWorker.h */,
+				B21FC7B622DB094F001C443B /* VIResourceLoader.h */,
+				B21FC7B722DB094F001C443B /* VIContentInfo.h */,
+				B21FC7B822DB094F001C443B /* VIResourceLoadingRequestWorker.m */,
+				B21FC7B922DB094F001C443B /* VIResourceLoaderManager.m */,
+				B21FC7BA22DB094F001C443B /* VIMediaDownloader.h */,
+			);
+			path = ResourceLoader;
+			sourceTree = "<group>";
+		};
+		B21FC7DA22DB1212001C443B /* MarkdownView */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7DB22DB1212001C443B /* webassets */,
+				B21FC7E222DB1212001C443B /* MarkdownView */,
+			);
+			path = MarkdownView;
+			sourceTree = "<group>";
+		};
+		B21FC7DB22DB1212001C443B /* webassets */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7DC22DB1212001C443B /* dist */,
+			);
+			path = webassets;
+			sourceTree = "<group>";
+		};
+		B21FC7DC22DB1212001C443B /* dist */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7DD22DB1212001C443B /* index.html */,
+				B21FC7DE22DB1212001C443B /* main.css */,
+				B21FC7DF22DB1212001C443B /* main.js */,
+			);
+			path = dist;
+			sourceTree = "<group>";
+		};
+		B21FC7E222DB1212001C443B /* MarkdownView */ = {
+			isa = PBXGroup;
+			children = (
+				B21FC7E322DB1212001C443B /* MarkdownView.swift */,
+			);
+			path = MarkdownView;
+			sourceTree = "<group>";
+		};
 		B23A135B227B462500805B85 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -8359,7 +8567,6 @@
 				368BEB431DFF9D0C0031379A /* Frameworks */,
 				368BEB441DFF9D0C0031379A /* Resources */,
 				3BF0D7699B116CB3356F3A3D /* [CP] Embed Pods Frameworks */,
-				6D01F19D7F6D428DDA8EA57A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -8475,8 +8682,10 @@
 				83ED63EC1E1E51CD002C7F37 /* Localizable.strings in Resources */,
 				B2DC1A9B22BFAF9C00E2B43C /* NYMomentDetailHeaderView.xib in Resources */,
 				B22FD3CF22CDCE0F00D68791 /* NYHistoryVideoCell.xib in Resources */,
+				B21FC7E522DB1212001C443B /* main.css in Resources */,
 				83313EF520104AF20054E3E0 /* IntegrationHomeController.storyboard in Resources */,
 				36B5081C1EA4A70E0015C67D /* LaunchScreen.storyboard in Resources */,
+				B21FC7C922DB0950001C443B /* ZFPlayer.bundle in Resources */,
 				36AFAC4C206CB23B00B20649 /* PreviewVideoVC.xib in Resources */,
 				88ECCB5321414622002CB601 /* emoji.json in Resources */,
 				83E964421E0B6F84001EFF71 /* ShareConfig.plist in Resources */,
@@ -8487,6 +8696,7 @@
 				B22FD3C722CCAE4500D68791 /* NYViewHisCollectionCell.xib in Resources */,
 				38BA060720BED64C0042673D /* AlipaySDK.bundle in Resources */,
 				83E5966A1E8107ED009FB064 /* TSCustomActionsheetTableViewCell.xib in Resources */,
+				B21FC7E622DB1212001C443B /* main.js in Resources */,
 				5314EBA3201C8ECF000A1A94 /* common_jsbeautifier.js in Resources */,
 				8814F8D62087663300151A8B /* HostDownViewController.xib in Resources */,
 				831B7B181FE3650F00405524 /* MoreTableViewCell.xib in Resources */,
@@ -8530,6 +8740,7 @@
 				83BE16021F0CDE0E00BB203C /* CameraVC.storyboard in Resources */,
 				8325B1561F5EA6830062024F /* QuoraSearchHistoryCell.xib in Resources */,
 				5314EBA1201C8ECF000A1A94 /* common_editor.js in Resources */,
+				B21FC7E422DB1212001C443B /* index.html in Resources */,
 				B20C83D322CFB8BB0048D75C /* NYGameViewController.xib in Resources */,
 				885FC3642192D19500684DE1 /* TSDownloadVC.xib in Resources */,
 				83549A1E202ACD9000590D81 /* TSWalletTransationDetailVC.storyboard in Resources */,
@@ -8582,7 +8793,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3BF0D7699B116CB3356F3A3D /* [CP] Embed Pods Frameworks */ = {
@@ -8604,7 +8815,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThinkSNS +Tests/Pods-ThinkSNS +Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThinkSNS +Tests/Pods-ThinkSNS +Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4F7E1BE42DBCC6A6973363FF /* [CP] Check Pods Manifest.lock */ = {
@@ -8622,22 +8833,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		6D01F19D7F6D428DDA8EA57A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThinkSNS +Tests/Pods-ThinkSNS +Tests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7854245D2008BB2800CB2E49 /* Run SwiftLint */ = {
@@ -8669,7 +8865,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThinkSNSPlus/Pods-ThinkSNSPlus-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThinkSNSPlus/Pods-ThinkSNSPlus-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AEC500DFAE86A89B574B86F4 /* [CP] Embed Pods Frameworks */ = {
@@ -8691,7 +8887,6 @@
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/MarkdownView/MarkdownView.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/MonkeyKing/MonkeyKing.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
@@ -8710,7 +8905,6 @@
 				"${BUILT_PRODUCTS_DIR}/Vivid/Vivid.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/objc-geohash/objc_geohash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -8727,7 +8921,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarkdownView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MonkeyKing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
@@ -8746,12 +8939,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Vivid.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZFPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/objc_geohash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThinkSNSPlus/Pods-ThinkSNSPlus-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThinkSNSPlus/Pods-ThinkSNSPlus-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -8782,6 +8974,7 @@
 				36E92874205A73F400EFDED0 /* MJRefreshBackNormalFooter.m in Sources */,
 				83E5F29B1EE7CDBC00D47A4F /* TSDatabaseSystem.swift in Sources */,
 				83AD1B281F666EB900831941 /* NewsListView.swift in Sources */,
+				B21FC7D522DB0950001C443B /* ASValuePopUpView.m in Sources */,
 				885C63D22108101F00CDCE13 /* TopicListNavView.swift in Sources */,
 				36BE84081F39BCD700794A89 /* NewsObject.swift in Sources */,
 				83B7B33E1E825A0000C3EA2A /* TSDatabaseManager.swift in Sources */,
@@ -8853,6 +9046,7 @@
 				837D0C641FC3DA8500B510C9 /* GroupListSectionViewModel.swift in Sources */,
 				53F0E5C71FE7A64800A5DD92 /* ReceivePendingController.swift in Sources */,
 				BB2F06B91F10D5E3002BA71E /* TSUserCustomizeTheAmountView.swift in Sources */,
+				B21FC7CA22DB0950001C443B /* VIMediaCacheWorker.m in Sources */,
 				83A423921E6A674000CA5EF5 /* TSPicturePreviewItem.swift in Sources */,
 				83B43EBA1F7DDF840082B906 /* TSMeTableViewHeader.swift in Sources */,
 				365795A81E63D75A00B8D409 /* TSTextButton.swift in Sources */,
@@ -8925,6 +9119,7 @@
 				1782443D1E7FBC2D00A20877 /* TSReleasePulseTool.swift in Sources */,
 				885A56C12088390B00068508 /* BlackListViewController.swift in Sources */,
 				365795D61E63FBE000B8D409 /* TSButton.swift in Sources */,
+				B21FC7D422DB0950001C443B /* VIResourceLoaderManager.m in Sources */,
 				835E892E1F789AA10090BFB4 /* AvatarType.swift in Sources */,
 				8306BD0A201EBDBB00E3737F /* TSImageViewExtension.swift in Sources */,
 				536152D71F31FC76004BD85B /* TSCommonNetworkManager.swift in Sources */,
@@ -8947,6 +9142,7 @@
 				36CA81CF1F32FC3F00F93A5D /* TSChoosePriceVCViewController.swift in Sources */,
 				8326B7991F340E480059CEC7 /* TSCertification.swift in Sources */,
 				36E928D3205A73F500EFDED0 /* EaseCallRecordMessageCell.m in Sources */,
+				B21FC7D122DB0950001C443B /* VIResourceLoader.m in Sources */,
 				36D80A8E1E680953008C5196 /* TSChatTaskManager.swift in Sources */,
 				837A1C401FD9428D0023A099 /* MyPostsView.swift in Sources */,
 				8801BE40210EB0A20018AA63 /* TopicFeedListView.swift in Sources */,
@@ -8954,6 +9150,7 @@
 				178243EE1E7FB9DE00A20877 /* TSNewsTagSettingVC.swift in Sources */,
 				83549A18202ACD9000590D81 /* TSRechargeModel.swift in Sources */,
 				36E92896205A73F400EFDED0 /* UIView+EMWebCacheOperation.m in Sources */,
+				B21FC7C822DB0950001C443B /* ZFBrightnessView.m in Sources */,
 				178243D11E7FB9DE00A20877 /* TSSongInfoModel.swift in Sources */,
 				8318A0691F0F5EBB00D2B619 /* TSPaidFeedObject.swift in Sources */,
 				836B94CB1F7F3DC30006E3DC /* TSQuoraTopicsJoinTableView.swift in Sources */,
@@ -9018,6 +9215,7 @@
 				83BF5ACF1FCE8FFF00EF8F14 /* PostListModel.swift in Sources */,
 				83549A1B202ACD9000590D81 /* TSTransationCellModel.swift in Sources */,
 				5306302C1F45A0B20064E90A /* TSImageTextAttachment.swift in Sources */,
+				B21FC7D222DB0950001C443B /* VIMediaDownloader.m in Sources */,
 				BB6A379A1F5011BD00B12FDA /* TSUnbindVC.swift in Sources */,
 				5315268D1FD8DDDA00FA5687 /* PostPublishNetworkModel.swift in Sources */,
 				36E9285E205A73F400EFDED0 /* EMAudioRecorderUtil.m in Sources */,
@@ -9053,6 +9251,7 @@
 				5314EBA6201C8ECF000A1A94 /* TSEditorTextStyleView.swift in Sources */,
 				832123531F4BDFDB0090C367 /* TSAdvertImageObject.swift in Sources */,
 				78BBE056201B134E0099CD4C /* TSSingleChatDataVC.swift in Sources */,
+				B21FC7D322DB0950001C443B /* VIResourceLoadingRequestWorker.m in Sources */,
 				B2A15818228C885D00A2AFD7 /* NYUtils.swift in Sources */,
 				83B8B6311E94D52700D454FA /* TSMomentDeleteTaskObject.swift in Sources */,
 				530D8B681F5D3E630022323C /* TSQuestionInvitationSearchController.swift in Sources */,
@@ -9066,12 +9265,14 @@
 				880C08C0211BD502003663F0 /* TSPopChatListVC.swift in Sources */,
 				36E928CA205A73F500EFDED0 /* EaseChatToolbarItem.m in Sources */,
 				836B94BE1F7F3DC30006E3DC /* QuoraStackBottomButtonsCellModel.swift in Sources */,
+				B21FC7C622DB0950001C443B /* UIImageView+ZFCache.m in Sources */,
 				388E515120A69C5200F6C159 /* EMConversation+TSMessage.m in Sources */,
 				8307CF411F2F366F004FAB3B /* TSAdverLaunchModel.swift in Sources */,
 				8326B7A51F34103B0059CEC7 /* TSEnterpriseBasicInfoVC.swift in Sources */,
 				53A23AD61FCEAFB400D30AAE /* TSMarkdownController.swift in Sources */,
 				831FD5A61F663D4D004712BC /* UnpublishedNewsCell.swift in Sources */,
 				83BE15F61F0CDE0E00BB203C /* AlbumCollectionVC+CollectionView.swift in Sources */,
+				B21FC7D022DB0950001C443B /* VIContentInfo.m in Sources */,
 				53EB773E206134F300A826AD /* TSCollectionAnswerCell.swift in Sources */,
 				8822656220DE15A400C1BCDA /* TSMessageLocationCell.swift in Sources */,
 				1765F3441E97685B0066FE03 /* TSMusicAlbumObject.swift in Sources */,
@@ -9115,6 +9316,7 @@
 				5306302A1F45997F0064E90A /* TSIndicatorPayNewsContributeView.swift in Sources */,
 				8307CF3F1F2F3639004FAB3B /* TSAdvertBannerModel.swift in Sources */,
 				8325B1431F5E545D0062024F /* TSQuoraSearchVC.swift in Sources */,
+				B21FC7E922DB1212001C443B /* MarkdownView.swift in Sources */,
 				172C9FD61E9F9A1B00806E7F /* TSMusicSongDigTaskObject.swift in Sources */,
 				53F7A4E51F58002E004AAE54 /* TSAnswerDetailController.swift in Sources */,
 				53F7A4D61F57F4FB004AAE54 /* TSIndicatorPayQuoraApplication.swift in Sources */,
@@ -9153,6 +9355,7 @@
 				5314EBA4201C8ECF000A1A94 /* TSEditorAnonymousSettingView.swift in Sources */,
 				36FB534E1F69326D00B25A8D /* MessageViewController.swift in Sources */,
 				83CF6C4B1F305DFF00165F8C /* TSAdSpaceObject.swift in Sources */,
+				B21FC7CF22DB0950001C443B /* NSString+VIMD5.m in Sources */,
 				839875EB1FCD313000747F35 /* PostListNavView.swift in Sources */,
 				837CC99A1F7262D5004DC81F /* TopicDetailQuoraListController.swift in Sources */,
 				36F9ECD21F41417A00EAB0EB /* TSNewsViewStatusController.swift in Sources */,
@@ -9172,6 +9375,7 @@
 				8383CC0420035F9E001D7081 /* DoubleCollectionsView.swift in Sources */,
 				B28D87E922A3C584003FE63A /* NYTopChannelView.swift in Sources */,
 				B2E04FD322BDCE8800323C79 /* NibLoadable.swift in Sources */,
+				B21FC7D622DB0950001C443B /* ZFPlayerControlView.m in Sources */,
 				83549A20202ACD9000590D81 /* TSWalletTransitionVC.swift in Sources */,
 				8307CF371F2F30A7004FAB3B /* TSAdvertNormal.swift in Sources */,
 				8814F8D52087663300151A8B /* HostDownViewController.swift in Sources */,
@@ -9271,11 +9475,13 @@
 				1731B2F91E8C9CC60098B605 /* TSNewsNavigationBar.swift in Sources */,
 				8306BD08201EBDBB00E3737F /* SizeExtension.swift in Sources */,
 				53A2D2481F503EEA00EDB501 /* TSQuoraTaskManager.swift in Sources */,
+				B21FC7C322DB0950001C443B /* CustomPlayerControlView.m in Sources */,
 				88C7EBB521181DB8009D5185 /* TSTopicSearchView.swift in Sources */,
 				830684F91E5BD36B00E2BC51 /* TSTableViewController.swift in Sources */,
 				832E5F151F72079E00F44BBA /* NormalPlaceholderView.swift in Sources */,
 				836B94C71F7F3DC30006E3DC /* TSQuoraTableView.swift in Sources */,
 				178243FB1E7FBB9D00A20877 /* TSMomentCommnetModel.swift in Sources */,
+				B21FC7D722DB0950001C443B /* ZFPlayerView.m in Sources */,
 				83313EF920109FB90054E3E0 /* IntegrationRecordController.swift in Sources */,
 				178243DB1E7FB9DE00A20877 /* TSMusicPlayVC.swift in Sources */,
 				534C02AF1FFE013F008E812C /* TSDraftRealmManager.swift in Sources */,
@@ -9285,6 +9491,7 @@
 				178244121E7FBBF300A20877 /* TSSimpleCommentModel.swift in Sources */,
 				365795B51E63D75B00B8D409 /* ConcernRankingListTableViewCellTableViewCell.swift in Sources */,
 				83E5F29A1EE7CDBC00D47A4F /* TSSystemMessageObject.swift in Sources */,
+				B21FC7CD22DB0950001C443B /* VICacheAction.m in Sources */,
 				535A4EE91FE3C43D00F764CE /* ReportTargetControl.swift in Sources */,
 				53F0B8F51F8DC1CE009A9A70 /* TSAnswerDraftModel.swift in Sources */,
 				83828E6A1FC6AC7800894F42 /* FeedListView.swift in Sources */,
@@ -9334,6 +9541,7 @@
 				8390EAF11FF09CBD008387DA /* StretchTableHeader.swift in Sources */,
 				1731B2EC1E8C9C560098B605 /* TSNewsCollectionTaskObject.swift in Sources */,
 				83549A24202ACD9000590D81 /* TSTransitionTypeView.swift in Sources */,
+				B21FC7C222DB0950001C443B /* ZFPlayerModel.m in Sources */,
 				83AB1AED1FD106DA00CC2952 /* PostsSearchView.swift in Sources */,
 				B248BDBC22C4F6720066DCE6 /* NYTagsMModel.swift in Sources */,
 				83B8B6331E94E49E00D454FA /* TSMomentTaskQueue+Delete.swift in Sources */,
@@ -9353,6 +9561,7 @@
 				83A3EAA2200F240E003CE99B /* WalletNetworkRequest.swift in Sources */,
 				36E928B1205A73F400EFDED0 /* EaseEmoji.m in Sources */,
 				836B94C21F7F3DC30006E3DC /* QuoraStackTitleCell.swift in Sources */,
+				B21FC7C722DB0950001C443B /* UIViewController+ZFPlayerRotation.m in Sources */,
 				53CA83EF1F7238AB00BD20A9 /* TSDownloadNetworkManager.swift in Sources */,
 				83BE15F71F0CDE0E00BB203C /* AlbumCollectionVC+Toolbar.swift in Sources */,
 				535275332058F15100066639 /* TSCollectionView.swift in Sources */,
@@ -9366,6 +9575,7 @@
 				BB09DE7E1F31704C002B77A0 /* TSUserLabelSetting.swift in Sources */,
 				36E9287F205A73F400EFDED0 /* MWGridCell.m in Sources */,
 				53A0FF8E1FE399600065C94B /* TSReportNetworkRequest.swift in Sources */,
+				B21FC7C422DB0950001C443B /* UIWindow+CurrentViewController.m in Sources */,
 				36CA81CD1F32F23E00F93A5D /* TSRewardButton.swift in Sources */,
 				888F5BD52133A2BD0009B553 /* TSAtMeListVCViewController.swift in Sources */,
 				83BE16061F0CDE0E00BB203C /* CameraMakeSureView.swift in Sources */,
@@ -9406,6 +9616,7 @@
 				83BF5AD31FCEAB8900EF8F14 /* FilterSectionViewModel.swift in Sources */,
 				36FB53481F69326D00B25A8D /* TSChatViewController+UI.swift in Sources */,
 				88DCFDA02138F1FF0032F50C /* TSRepostModel.swift in Sources */,
+				B21FC7CB22DB0950001C443B /* VICacheConfiguration.m in Sources */,
 				83BE160D1F0CDE0E00BB203C /* PHPreviewVC.swift in Sources */,
 				536152C11F31FA7E004BD85B /* TSAlbumMusicObject.swift in Sources */,
 				888F5BD72133A98B0009B553 /* TSAtMeListModel.swift in Sources */,
@@ -9545,6 +9756,7 @@
 				8897E01F21072FDF00016D84 /* TopicPostListVC.swift in Sources */,
 				53D751541F5FFDBC005EC667 /* TSQuestionPublishTopicAddCell.swift in Sources */,
 				8306BD13201EBDBB00E3737F /* UIView+Extension.swift in Sources */,
+				B21FC7D922DB0950001C443B /* ASValueTrackingSlider.m in Sources */,
 				83AD8DA01F4684D500D750B9 /* TSContactsDetailVC.swift in Sources */,
 				36E928B6205A73F400EFDED0 /* EaseConversationListViewController.m in Sources */,
 				36E928BF205A73F400EFDED0 /* EaseMessageCell.m in Sources */,
@@ -9652,6 +9864,7 @@
 				532276EC1F5A5C99005F4155 /* TSFollowControl.swift in Sources */,
 				53F0E5D11FE7B56800A5DD92 /* ReceivePendingGroupAuditModel.swift in Sources */,
 				83407D081F595F520076428B /* QuoraTopicDetailExpertsCellModel.swift in Sources */,
+				B21FC7CE22DB0950001C443B /* VICacheSessionManager.m in Sources */,
 				365795B11E63D75B00B8D409 /* TSTextToolBarView.swift in Sources */,
 				8392142B1E28D05C009FB02B /* TSHomeTabBar.swift in Sources */,
 				83BE160A1F0CDE0E00BB203C /* PreviewCollectionCell.swift in Sources */,
@@ -9766,6 +9979,7 @@
 				BB09DE7B1F316FF3002B77A0 /* TSUserLabelCollectionView.swift in Sources */,
 				1782440F1E7FBBF300A20877 /* TSDetailCommentTableViewCell.swift in Sources */,
 				53F0E5CD1FE7B02B00A5DD92 /* ReceivePendingTypeSelectPopView.swift in Sources */,
+				B21FC7C522DB0950001C443B /* UIView+CustomControlView.m in Sources */,
 				83CF6C3F1F30207E00165F8C /* TSAdvertNetworkManager.swift in Sources */,
 				83549A23202ACD9000590D81 /* TSTransationTitleButton.swift in Sources */,
 				53EB773C20612B9800A826AD /* TSCollectionAnswerModel.swift in Sources */,
@@ -9825,6 +10039,7 @@
 				532D1E18202C3E8700A9110F /* FileManager+Extension.swift in Sources */,
 				8328BE3B1F259605003658E2 /* DatabaseTask.swift in Sources */,
 				36E928BA205A73F400EFDED0 /* EaseUsersListViewController.m in Sources */,
+				B21FC7CC22DB0950001C443B /* VICacheManager.m in Sources */,
 				651389D41E665944008D8F6B /* TSFollowFansListDetailVC.swift in Sources */,
 				B22FD3C622CCAE4500D68791 /* NYViewHisCollectionCell.swift in Sources */,
 				832692371FD4EF0F00BFDAB7 /* GroupModel.swift in Sources */,
@@ -9896,6 +10111,7 @@
 				537A26101F56522400BA2EE5 /* TSQuestionCommentListController.swift in Sources */,
 				532F1F491F60EAAB00DB3064 /* TSQuestionSingleTopicSelectedView.swift in Sources */,
 				53B80D301FDA24B1007F02F8 /* PostDetailView.swift in Sources */,
+				B21FC7D822DB0950001C443B /* MMMaterialDesignSpinner.m in Sources */,
 				8314E01E1FE12ACD005B4BDA /* GroupBasicController.swift in Sources */,
 				36E928C8205A73F500EFDED0 /* EaseBubbleView.m in Sources */,
 				178243E01E7FB9DE00A20877 /* TSAlbumsListVC.swift in Sources */,

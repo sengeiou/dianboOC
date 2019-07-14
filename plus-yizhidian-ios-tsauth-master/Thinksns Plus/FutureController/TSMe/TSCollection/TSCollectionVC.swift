@@ -8,7 +8,7 @@
 //  收藏
 
 import UIKit
-import ZFPlayer
+//import ZFPlayer
 
 class TSCollectionVC: TSViewController, UIScrollViewDelegate, ZFPlayerDelegate {
     /// 滚动视图

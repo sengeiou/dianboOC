@@ -3,7 +3,7 @@ PODS:
   - Alamofire (4.7.3)
   - AMap3DMap-NO-IDFA (6.4.0):
     - AMapFoundation-NO-IDFA (~> 1.5)
-  - AMapFoundation-NO-IDFA (1.5.6)
+  - AMapFoundation-NO-IDFA (1.5.7)
   - AMapLocation-NO-IDFA (2.6.1):
     - AMapFoundation-NO-IDFA (~> 1.4)
   - AMapSearch-NO-IDFA (6.1.1):
@@ -24,12 +24,11 @@ PODS:
   - KeychainAccess (3.0.1)
   - Kingfisher (4.7.0)
   - KMPlaceholderTextView (1.3.0)
-  - MarkdownView (1.1.0)
   - Masonry (1.1.0)
   - MJRefresh (3.1.12)
   - mob_linksdk (2.2.6):
     - MOBFoundation
-  - MOBFoundation (3.2.2)
+  - MOBFoundation (3.2.3)
   - Mockingjay (2.0.0):
     - Mockingjay/Core (= 2.0.0)
     - Mockingjay/XCTest (= 2.0.0)
@@ -55,7 +54,7 @@ PODS:
   - SwiftDate (4.0.11)
   - SwiftyJSON (3.1.3)
   - TYAttributedLabel (2.6.6)
-  - TZImagePickerController (2.0.1)
+  - TZImagePickerController (3.2.0)
   - URITemplate (2.0.3)
   - Vivid (0.9)
   - WechatOpenSDK (1.8.2)
@@ -65,8 +64,6 @@ PODS:
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
-  - ZFPlayer (2.1.6):
-    - Masonry
 
 DEPENDENCIES:
   - ActiveLabel (from `https://github.com/customized-repos/ActiveLabel.swift.git`)
@@ -84,7 +81,6 @@ DEPENDENCIES:
   - KeychainAccess (= 3.0.1)
   - Kingfisher (= 4.7.0)
   - KMPlaceholderTextView (= 1.3.0)
-  - MarkdownView (from `https://github.com/customized-repos/MarkdownView.git`)
   - Masonry (= 1.1.0)
   - MJRefresh (= 3.1.12)
   - mob_linksdk (= 2.2.6)
@@ -108,7 +104,48 @@ DEPENDENCIES:
   - WechatOpenSDK (= 1.8.2)
   - XCGLogger (= 4.0.0)
   - YYKit (= 1.0.9)
-  - ZFPlayer (from `https://github.com/customized-repos/ZFPlayer.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AMap3DMap-NO-IDFA
+    - AMapFoundation-NO-IDFA
+    - AMapLocation-NO-IDFA
+    - AMapSearch-NO-IDFA
+    - Bugly
+    - CryptoSwift
+    - GCDWebServer
+    - Hyphenate
+    - IQKeyboardManagerSwift
+    - JCore
+    - JPush
+    - JSQSystemSoundPlayer
+    - KeychainAccess
+    - Kingfisher
+    - KMPlaceholderTextView
+    - Masonry
+    - MJRefresh
+    - mob_linksdk
+    - MOBFoundation
+    - Mockingjay
+    - MonkeyKing
+    - Nimble
+    - objc-geohash
+    - ObjectMapper
+    - PKHUD
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
+    - SnapKit
+    - Starscream
+    - STRegex
+    - SwiftDate
+    - SwiftyJSON
+    - URITemplate
+    - Vivid
+    - WechatOpenSDK
+    - XCGLogger
+    - YYKit
 
 EXTERNAL SOURCES:
   ActiveLabel:
@@ -116,16 +153,12 @@ EXTERNAL SOURCES:
   JSQMessagesViewController:
     :branch: 7.3.4
     :git: https://github.com/customized-repos/JSQMessagesViewController.git
-  MarkdownView:
-    :git: https://github.com/customized-repos/MarkdownView.git
   SCRecorder:
     :git: https://github.com/customized-repos/SCRecorder
   TYAttributedLabel:
     :git: https://github.com/customized-repos/TYAttributedLabel.git
   TZImagePickerController:
     :git: https://github.com/customized-repos/TZImagePickerController.git
-  ZFPlayer:
-    :git: https://github.com/customized-repos/ZFPlayer.git
 
 CHECKOUT OPTIONS:
   ActiveLabel:
@@ -134,9 +167,6 @@ CHECKOUT OPTIONS:
   JSQMessagesViewController:
     :commit: 0a6f77f9d6ab8caddb2f7af2e4c122f314489ca2
     :git: https://github.com/customized-repos/JSQMessagesViewController.git
-  MarkdownView:
-    :commit: f45c8139a5a76eddbd0b69c08e232922fa0318ee
-    :git: https://github.com/customized-repos/MarkdownView.git
   SCRecorder:
     :commit: f5f692f07ca4a898c3ae00530ae75db7806722ea
     :git: https://github.com/customized-repos/SCRecorder
@@ -144,17 +174,14 @@ CHECKOUT OPTIONS:
     :commit: d3626586e7077eabbbaa253d90bd02902774c6a4
     :git: https://github.com/customized-repos/TYAttributedLabel.git
   TZImagePickerController:
-    :commit: c51dd7a0ed345a3b35a14f4843a0486555600dc4
+    :commit: 9b6f9727be6e311f567abd03aa92dee4cf9285e2
     :git: https://github.com/customized-repos/TZImagePickerController.git
-  ZFPlayer:
-    :commit: 8e200ce4465ce15f9bd7885bb88224347b6a6949
-    :git: https://github.com/customized-repos/ZFPlayer.git
 
 SPEC CHECKSUMS:
   ActiveLabel: faa96b5f50507770536a3e48a4cf291ee88fb7db
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AMap3DMap-NO-IDFA: 8c3b4420b6f0520e44cab25e97ca9457e00dbba0
-  AMapFoundation-NO-IDFA: 40d723b352992d0f95abe2976f0c0ecda3c3ffc3
+  AMapFoundation-NO-IDFA: 9088085827c831811bb0fd3afd96b99963a7cf71
   AMapLocation-NO-IDFA: ffd69b8b88f553d0b252d4967bf301ad2afff9c0
   AMapSearch-NO-IDFA: 848e148a31876217a1094e6be3448e95d1688b6a
   Bugly: da3c02408c14838d498429320545a8e439392978
@@ -169,11 +196,10 @@ SPEC CHECKSUMS:
   KeychainAccess: 017ea25e313a49eda10bb19b0bb0760fb1edfe1a
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   KMPlaceholderTextView: 2bbcd19a273648a80a61e1e48f9743a24d8930e3
-  MarkdownView: 7ba5772f1038e39b957acd55694dc209b10c24d9
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   mob_linksdk: bd90e001752222a07f76a77606eb3b7a174d088f
-  MOBFoundation: b5ff4038ddb9a0f06b685b86408f905a10aa147c
+  MOBFoundation: 246159a97f5e6c8a271b674dd885dc4b0953e45e
   Mockingjay: 7122a3fc0597aa63438e4cd9b71b7bc8aac05b87
   MonkeyKing: 8e28bc2b2a93f67f8c3fcc08f41809b0e7ef848b
   Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
@@ -190,14 +216,13 @@ SPEC CHECKSUMS:
   SwiftDate: a36d5ce7c86bed3ed92b583ccbf15045f374ac65
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   TYAttributedLabel: cb8fc910d97eb5224936d4f692a78e042af691b2
-  TZImagePickerController: 34ecb53af8c349964394407e42b6e54e22589ebe
+  TZImagePickerController: 7850b158d025065b162a1a963d445040b828abc9
   URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
   Vivid: 0fde7409beac71224deb151dd78f98a5bb860497
   WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
-  ZFPlayer: 006aa31c550c2758ea54d34763a932aa3604e27a
 
-PODFILE CHECKSUM: a8aadb6ea73d2e2b1ec6457a7ea867419c52eb86
+PODFILE CHECKSUM: c8f77fb0471e3f9e7bbba7e7d7c9da32c3b52b94
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.6.1

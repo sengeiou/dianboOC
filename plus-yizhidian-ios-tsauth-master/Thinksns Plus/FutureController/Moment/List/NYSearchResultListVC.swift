@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
+class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate,UITextFieldDelegate {
 
     /// 视频
     let videoPage = NYSelFocusView.init(frame: .zero, tableIdentifier: "videoCell",channel_id:0) //FeedListActionView(frame: .zero, tableIdentifier: FeedListType.hot.rawValue)
@@ -25,6 +25,8 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
     @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var navgtionView: UIView!
+    
+    @IBOutlet weak var searchButton: UIButton!
     
     @IBOutlet weak var tabsView: UIView!
     /// 标签下方的蓝线
@@ -60,6 +62,7 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
         //设置 nav
         searchBar.searchTextFiled.placeholder = "搜索_关键字".localized
         searchBar.searchTextFiled.text = keyword
+        searchBar.searchTextFiled.delegate = self
         self.navgtionView.addSubview(searchBar)
         searchBar.snp.makeConstraints { (make) in
             make.width.equalTo(245.0)
@@ -287,7 +290,12 @@ class NYSearchResultListVC: NYBaseViewController,UIScrollViewDelegate {
         blueLine.centerX = btn.centerX
     }
     
-    
+    /// mark ---UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchClickdo(self.searchButton)
+        return true
+    }
+
     
 }
 

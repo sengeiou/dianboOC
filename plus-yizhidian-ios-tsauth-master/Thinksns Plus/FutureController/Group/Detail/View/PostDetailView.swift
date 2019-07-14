@@ -8,7 +8,7 @@
 //  圈子帖子详情视图 - 帖子详情页中上部分的帖子详情
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 
 protocol PostDetailViewProtocol: class {
     /// 打赏按钮点击响应

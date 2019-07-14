@@ -517,7 +517,7 @@ extension NYPopularNetworkManager {
     
     /// 提交视频播放进度
     ///
-    class func upVideoRecordprogress(video_id: Int, progress: String = "0",  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
+    class func upVideoRecordprogress(video_id: Int, progress: Int = 0,  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = PopularNetworkRequest().getVideoRecordList
         request.urlPath = request.fullPathWith(replacers: [])

@@ -10,7 +10,7 @@
 import UIKit
 import Photos
 import Kingfisher
-import ZFPlayer
+//import ZFPlayer
 import ObjectMapper
 import TZImagePickerController
 

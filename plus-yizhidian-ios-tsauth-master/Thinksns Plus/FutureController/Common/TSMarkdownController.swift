@@ -9,7 +9,7 @@
 //  当前主要用来显示注册协议
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 
 class TSMarkdownController: TSViewController {
     // MARK: - Internal Property

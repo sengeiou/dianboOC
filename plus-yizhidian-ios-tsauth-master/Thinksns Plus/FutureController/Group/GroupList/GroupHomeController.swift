@@ -11,8 +11,9 @@ import UIKit
 
 class GroupHomeController: UIViewController {
 
-    /// 广告视图
-    var advertView: TSAdvertNormal!
+
+    /// 广告 Banner
+    let banner = TSAdvertBanners(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
     /// 列表
     let table = UITableView(frame: UIScreen.main.bounds, style: .plain)
     /// 导航栏右边视图
@@ -47,14 +48,15 @@ class GroupHomeController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        banner.startAnimation()
+    }
     // MARK: - UI
     func setUI() {
         self.view.backgroundColor = TSColor.main.themeTB
         
         title = "圈子"
-
-        // 1.广告视图
-        loadAdvertView()
 
         // 2.列表
         view = table
@@ -72,24 +74,20 @@ class GroupHomeController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavView)
         // 2.2 导航栏左侧按钮
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "IMG_topbar_back"), style: .plain, target: self, action: #selector(backItemClick))
+        
+        // 1.广告视图
+        loadAdvertBanner()
     }
-
-    /// 加载广告视图
-    func loadAdvertView() {
-        // 1.从数据库获取广告数据
-        let adverts = TSDatabaseManager().advert.getObjects(type: .groupHomeTop)
-        if adverts.isEmpty {
+    
+    /// 增加一个广告的 Banner
+    func loadAdvertBanner() {
+        // 2.获取 banner 的广告
+        let bannerAdverts = TSDatabaseManager().advert.getObjects(spaceId:15)
+        if bannerAdverts.isEmpty {
             return
         }
-        // 2.获取广告视图的 view model
-        advertViewModels = adverts.map { TSAdvertViewModel(object: $0) }
-        // 3.限制广告的显示数量
-        let count = min(advertViewModels.count, 4)
-        advertViewModels = Array(advertViewModels[0..<count])
-        // 4.设置广告视图
-        advertView = TSAdvertNormal(itemCount: count)
-        advertView.set(models: advertViewModels)
-        table.tableHeaderView = advertView
+        banner.setModels(models: bannerAdverts.map { TSAdvertBannerModel(object: $0) })
+        table.tableHeaderView = banner
     }
 
     // MARK: - Action

@@ -27,8 +27,15 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var mcollectionView: UICollectionView!
     
+    @IBOutlet weak var allowButton: UIButton!
+    
+    @IBOutlet weak var layout_TopView_H: NSLayoutConstraint!
+    
+    @IBOutlet weak var layout_ContentView_H: NSLayoutConstraint!
+    
     weak var delegate : videoHeadViewDelegate?
     
+    var isShow:Bool = false
     /// 数据源
     var dataSource: [NYVideosModel] = []
     var _videoModel:NYVideosModel!
@@ -126,6 +133,45 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
     ///换一换
     @IBAction func changeClickdo(_ sender: UIButton) {
         refresh()
+    }
+    
+    @IBAction func showDesClickdo(_ sender: UIButton) {
+        
+        let com_size = contentLabel.text?.size(maxSize: CGSize(width:contentLabel.width,height:CGFloat(MAXFLOAT)), font: contentLabel.font)
+        if(dataSource.count>2)
+        {
+            self.mj_h = 320+130
+        }else
+        {
+            self.mj_h = 320
+        }
+//            commentModel.body.size(maxSize: CGSize(width:L1_W,height:CGFloat(MAXFLOAT)), font: UIFont.systemFont(ofSize: 12))
+        if !isShow
+        {
+            if  (com_size?.height)! > contentLabel.height
+            {
+                self.layout_ContentView_H.constant = (com_size?.height)!+15
+                self.layout_TopView_H.constant = 120 + self.layout_ContentView_H.constant - 38.0
+                self.mj_h = self.mj_h + self.layout_ContentView_H.constant - 38.0
+            }
+            //展开
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.allowButton.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+            }, completion: nil)
+            isShow = true
+        }
+        else
+        {
+            self.layout_ContentView_H.constant = 38.0
+            self.layout_TopView_H.constant = 120
+            //收缩
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+                self.allowButton.transform = CGAffineTransform.identity
+            }, completion:nil)
+            isShow = false
+        }
+
+        self.delegate?.updateUI(view: self)        
     }
     
 }

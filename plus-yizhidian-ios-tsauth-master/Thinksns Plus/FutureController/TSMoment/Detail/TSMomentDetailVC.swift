@@ -9,7 +9,7 @@
 
 import UIKit
 import RealmSwift
-import ZFPlayer
+//import ZFPlayer
 import Kingfisher
 
 class TSMomentDetailVC: TSViewController, NYMomentDetailHeaderViewDelegate/* headerView 代理 */, UITableViewDelegate, TSMomentDetailToolbarDelegate/* 工具栏点击代理事件 */, TSKeyboardToolbarDelegate, TSCustomAcionSheetDelegate/* 弹出视图的点击代理 */, TSChoosePriceVCDelegate, ZFPlayerDelegate {

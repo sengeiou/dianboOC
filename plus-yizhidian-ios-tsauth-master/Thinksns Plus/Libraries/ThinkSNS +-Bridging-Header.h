@@ -9,6 +9,7 @@
 
 #import <JPush/JPUSHService.h>
 #import "ZBTools.h"
+#import "ZFPlayer/ZFPlayer.h"
 
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>

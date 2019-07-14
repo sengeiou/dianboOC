@@ -11,6 +11,9 @@ import UIKit
 class NYHistoryVideoVC: NYBaseViewController {
 
     var rightItem:UIButton?
+  
+    /// 广告 Banner
+    let banner = TSAdvertBanners(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
     
     var table:TSTableView!
     
@@ -23,6 +26,7 @@ class NYHistoryVideoVC: NYBaseViewController {
     /// 数据源
     var dataSource: [[NYMeHistoryVModel]] = [[]]
     var dataHeadTitles:[String] = ["七天内","更早"]
+
     /// 是否编辑
     var isEdit:Bool = true
     override func viewDidLoad() {
@@ -54,7 +58,22 @@ class NYHistoryVideoVC: NYBaseViewController {
             make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         }
         table.mj_header.beginRefreshing()
+        loadAdvertBanner()
     }
+    
+    /// 增加一个广告的 Banner
+    func loadAdvertBanner() {
+        // 2.获取 banner 的广告
+        let bannerAdverts = TSDatabaseManager().advert.getObjects(spaceId:16)
+        if bannerAdverts.isEmpty {
+            return
+        }
+        banner.setModels(models: bannerAdverts.map { TSAdvertBannerModel(object: $0) })
+        banner.scrollView.contentSize = CGSize.zero
+        banner.pageControl.isHidden = true
+        table.tableHeaderView = banner
+    }
+    
     // MARK: - 设置编辑（设置右上角按钮）
     func setChatButton() {
         let rightItem = UIButton(type: .custom)

@@ -87,7 +87,8 @@ class TSAdvertTaskQueue {
             }
             // 2.过滤掉移动端不需要的广告位
             // 因为返回的所有广告位，不全是移动端的广告位，也有 PC 端特有而移动端不用的广告位，这里把移动端可用的广告过滤出来
-            let availableObjects = spaceObjects.flatMap { AdvertSpaceType(rawValue: $0.space) == nil ? nil : $0 }
+            let availableObjects = spaceObjects
+                //.flatMap { AdvertSpaceType(rawValue: $0.space) == nil ? nil : $0 }
             // 3.过滤一下广告位为空的情况
             if availableObjects.isEmpty {
                 // 清空所有本地的广告信息

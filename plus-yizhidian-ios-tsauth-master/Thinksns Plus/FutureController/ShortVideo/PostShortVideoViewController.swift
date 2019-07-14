@@ -112,7 +112,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
             let str = self.textView.text
             let indicator = TSIndicatorWindowTop(state: .loading, title: "视频处理中")
             indicator.show()
-            TZImageManager.default().getVideoOutputPath(withAsset: asset, presetName: AVAssetExportPreset640x480, success: { (url) in
+            TZImageManager.default()?.getVideoOutputPath(with: asset, presetName: AVAssetExportPreset640x480, success: { (url) in
                 indicator.dismiss()
                 self.navigationController?.dismiss(animated: true, completion: {
                     /// 判断到底是话题进入的发布页面还是其他情况进入的发布页面
@@ -270,7 +270,7 @@ class PostShortVideoViewController: UIViewController, UITextViewDelegate, UIGest
             return
         }
         if let asset = shortVideoAsset.asset {
-            TZImageManager.default().getVideoWithAsset(asset) { [weak self] item, dictionary in
+            TZImageManager.default().getVideoWith(asset) { [weak self] item, dictionary in
                 guard let `self` = self, let item = item else {
                     return
                 }

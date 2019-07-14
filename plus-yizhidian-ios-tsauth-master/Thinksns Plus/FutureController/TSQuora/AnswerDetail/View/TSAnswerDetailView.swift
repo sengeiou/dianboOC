@@ -8,7 +8,7 @@
 //  答案详情页的头视图 —— 答案详情部分
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 import SnapKit
 
 protocol TSAnswerDetailViewProtocol: class {

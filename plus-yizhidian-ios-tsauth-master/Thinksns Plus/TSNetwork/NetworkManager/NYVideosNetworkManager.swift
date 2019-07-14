@@ -117,6 +117,7 @@ extension NYVideosNetworkManager {
     class func delVideoCommentLike(comment_id:Int,  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = NYVideosNetworkRequest().videoCommentLike
+        request.urlPath = request.fullPathWith(replacers: [])
         let parameters: [String: Any] = ["comment_id": comment_id]
         try! RequestNetworkData.share.textRequest(method: .delete, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
             // 1. 网络请求失败
@@ -138,22 +139,20 @@ extension NYVideosNetworkManager {
     class func postVideoCommentLike(comment_id:Int,  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {
         // 1.请求 url
         var request = NYVideosNetworkRequest().videoCommentLike
-        let parameters: [String: Any] = ["comment_id": comment_id]
-        try! RequestNetworkData.share.textRequest(method: .post, path: request.urlPath, parameter: parameters, complete: { (data: NetworkResponse?, status: Bool) in
-            // 1. 网络请求失败
-            guard status else {
-                let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
+        request.urlPath = request.fullPathWith(replacers: [])
+        request.parameter = ["comment_id": comment_id]
+        request.method = .post
+        // 3.发起请求
+        RequestNetworkData.share.text(request: request) { (networkResult) in
+            switch networkResult {
+            case .error(_):
                 complete("网络请求错误", false)
-                return
+            case .failure(let failure):
+                complete(failure.message, false)
+            case .success(let data):
+                complete(data.message, true)
             }
-            // 2. 数据格式错误
-            guard let datas = data as? [String: Any] else {
-                complete( "服务器返回数据错误", false)
-                return
-            }
-            let message = datas["message"] as! String
-            complete(message, true)
-        })
+        }
     }
     /// 视频评论的更多回复
     class func getVideoCommentGetChildren(video_id:Int,comment_id:Int,  complete: @escaping ((_ msg: String?, _ status: Bool) -> Void)) -> Void {

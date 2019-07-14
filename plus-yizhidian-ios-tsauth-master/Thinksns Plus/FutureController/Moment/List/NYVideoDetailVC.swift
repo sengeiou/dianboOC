@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import ZFPlayer
+//import ZFPlayer
 import Kingfisher
 
 class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboardToolbarDelegate,NYCommentsCellDelegate,videoHeadViewDelegate{
@@ -130,7 +130,7 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated);
-        self.playerView?.removeObserver(self, forKeyPath: "state", context: &myContext)
+//        self.playerView?.removeObserver(self, forKeyPath: "state", context: &myContext)
         //移除监听
 //        self.removeObserver(self, forKeyPath: "state", context: &myContext);
         
@@ -267,7 +267,7 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
         playerView?.delegate = self
         
         //添加监听  KVO
-        playerView?.addObserver(self, forKeyPath: "state", options: NSKeyValueObservingOptions.new, context: &myContext)
+//        playerView?.addObserver(self, forKeyPath: "state", options: NSKeyValueObservingOptions.new, context: &myContext)
         
         playerView?.autoPlayTheVideo()
     }
@@ -294,20 +294,22 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
     func didClickShortVideoShareBtn(_ sender: Notification) {
 //        shareMoments()
     }
-    //KVO
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if (self.playerView?.state == ZFPlayerState.playing ||
-            self.playerView?.state == ZFPlayerState.stopped ||
-            self.playerView?.state == ZFPlayerState.pause)
-        {
-            let progress = "0.3"
-            
-            NYPopularNetworkManager.upVideoRecordprogress(video_id:self.video_id!, progress: progress) { (msg, osbol) in
-                print("\(keyPath) - -- -\(msg)")
-            }
-        }
-        
-    }
+//    //KVO
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        if (self.playerView?.state == ZFPlayerState.playing ||
+//            self.playerView?.state == ZFPlayerState.stopped ||
+//            self.playerView?.state == ZFPlayerState.pause)
+//        {
+//            print("observeValue===KVO")
+//            let progress = "15"
+//
+//            NYPopularNetworkManager
+//                .upVideoRecordprogress(video_id:self.video_id!, progress: progress) { (msg, osbol) in
+//                print("\(keyPath) - -- -\(msg)")
+//            }
+//        }
+//
+//    }
 
     
     // MARK: - Notification
@@ -501,9 +503,35 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
         self.sendCommentType = .send
         setTSKeyboard(placeholderText: "随便说说~", cell: cell)
     }
-    
+    /// 评论点赞
     func commentsLikeCell(cell: NYCommentsCell) {
+        let model = cell._listCommentFrameModel?._commentModel
+        if  (model?.has_like)!
+        {
+            //取消点赞
+            NYVideosNetworkManager.delVideoCommentLike(comment_id: (model?.id)!) { (msg, isbol) in
+                if isbol
+                {
+                    model?.has_like = false
+                    model?.comment_like_count -= 1
+                }
+                self.table.reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
+            }
+        }
+        else
+        {
+            //点赞
+            NYVideosNetworkManager.postVideoCommentLike(comment_id: (model?.id)!) { (msg, isbol) in
+                if isbol
+                {
+                    model?.has_like = true
+                    model?.comment_like_count += 1
+                }
+                self.table.reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
         
+            }
+        }
+
     }
     
 }
@@ -513,6 +541,14 @@ extension NYVideoDetailVC: ZFPlayerDelegate {
 
     func zf_playerDownload(_ url: String!) {
         TSUtil.share().showDownloadVC(videoUrl: url)
+    }
+    
+    func zf_playerCurrentTime(_ CurrentTime: Int) {
+        
+        NYPopularNetworkManager
+            .upVideoRecordprogress(video_id:self.video_id!, progress: CurrentTime) { (msg, osbol) in
+                print("\(msg)")
+        }
     }
 }
 

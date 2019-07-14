@@ -40,6 +40,7 @@ class NYSearchBarView: UIView
         searchTextFiled.placeholder = "Keyword"
         searchTextFiled.backgroundColor = UIColor.clear
         searchTextFiled.layer.cornerRadius = 5
+        searchTextFiled.returnKeyType = .search
         searchTextFiled.setValue(UIColor.white, forKeyPath: "_placeholderLabel.textColor")        
         
         rightButton.setImage(UIImage(named: "nav_close"), for: .normal)

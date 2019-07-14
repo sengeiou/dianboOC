@@ -17,7 +17,7 @@
 
 import Foundation
 import UIKit
-import MarkdownView
+//import MarkdownView
 
 protocol TSNewsDetailViewProtocol: class {
     // 打赏按钮点击响应

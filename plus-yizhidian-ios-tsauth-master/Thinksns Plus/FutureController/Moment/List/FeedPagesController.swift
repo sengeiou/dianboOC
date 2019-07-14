@@ -8,7 +8,7 @@
 //  动态首页 视图控制器
 
 import UIKit
-import ZFPlayer
+//import ZFPlayer
 import Kingfisher
 
 /// 动态列表的类型
@@ -178,7 +178,7 @@ class FeedPagesController: TSLabelViewController, ZFPlayerDelegate {
     /// 增加一个广告的 Banner
     func loadAdvertBanner() {
         // 2.获取 banner 的广告
-        let bannerAdverts = TSDatabaseManager().advert.getObjects(type: .feedListTop)
+        let bannerAdverts = TSDatabaseManager().advert.getObjects(spaceId:14)
         if bannerAdverts.isEmpty {
             return
         }

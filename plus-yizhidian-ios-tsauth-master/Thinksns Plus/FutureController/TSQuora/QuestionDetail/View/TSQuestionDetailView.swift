@@ -9,7 +9,7 @@
 //  注：应将该视图命名更正为TSQuestionDetailHeaderView, 而将TSQuestionDetailView给分离出来一个真正的问题详情视图，或者问题内容视图。
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 import YYKit
 
 protocol TSQuestionDetailViewProtocol: class {

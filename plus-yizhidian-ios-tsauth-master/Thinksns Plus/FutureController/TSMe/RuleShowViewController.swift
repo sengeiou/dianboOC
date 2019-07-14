@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 
 class RuleShowViewController: TSViewController {
     let markDownView: MarkdownView = MarkdownView()

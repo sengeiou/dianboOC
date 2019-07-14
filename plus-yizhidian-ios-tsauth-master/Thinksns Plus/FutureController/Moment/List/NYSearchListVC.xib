@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NYSearchListVC" customModule="ThinkSNSPlus" customModuleProvider="target">
             <connections>
+                <outlet property="bannerView" destination="brf-fb-Nzd" id="USJ-qL-aMd"/>
                 <outlet property="del_button" destination="bPq-tR-Q3o" id="luY-gP-5Td"/>
                 <outlet property="hot_contentView" destination="RMp-ey-bwA" id="AX3-It-YoJ"/>
                 <outlet property="hot_titleLabel" destination="ssk-Bd-rgY" id="3XE-iK-WZl"/>
@@ -78,7 +79,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZo-vP-Cup" userLabel="View-middle">
-                    <rect key="frame" x="0.0" y="100" width="414" height="340"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="300"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门搜索" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssk-Bd-rgY">
                             <rect key="frame" x="20" y="10" width="90" height="25"/>
@@ -99,7 +100,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMp-ey-bwA" userLabel="View-content">
-                            <rect key="frame" x="0.0" y="45" width="414" height="295"/>
+                            <rect key="frame" x="0.0" y="45" width="414" height="255"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -108,7 +109,7 @@
                         <constraint firstItem="RMp-ey-bwA" firstAttribute="top" secondItem="vBg-qd-bTa" secondAttribute="bottom" id="Aa6-1m-syQ"/>
                         <constraint firstItem="RMp-ey-bwA" firstAttribute="leading" secondItem="EZo-vP-Cup" secondAttribute="leading" id="GEg-c6-CVH"/>
                         <constraint firstItem="vBg-qd-bTa" firstAttribute="top" secondItem="ssk-Bd-rgY" secondAttribute="bottom" constant="8" id="JyB-jh-Int"/>
-                        <constraint firstAttribute="height" constant="340" id="Oc8-E2-AAd"/>
+                        <constraint firstAttribute="height" constant="300" id="Oc8-E2-AAd"/>
                         <constraint firstItem="vBg-qd-bTa" firstAttribute="leading" secondItem="EZo-vP-Cup" secondAttribute="leading" constant="35" id="ZtQ-Qh-zHu"/>
                         <constraint firstAttribute="trailing" secondItem="RMp-ey-bwA" secondAttribute="trailing" id="cbV-ba-6RK"/>
                         <constraint firstItem="ssk-Bd-rgY" firstAttribute="leading" secondItem="EZo-vP-Cup" secondAttribute="leading" constant="20" id="cs6-Pg-Oh4"/>
@@ -116,11 +117,33 @@
                         <constraint firstItem="ssk-Bd-rgY" firstAttribute="top" secondItem="EZo-vP-Cup" secondAttribute="top" constant="10" id="stl-Yf-KOl"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brf-fb-Nzd" userLabel="View-banner">
+                    <rect key="frame" x="0.0" y="496" width="414" height="240"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ZI-Qm-fNZ" userLabel="View-line">
+                            <rect key="frame" x="20" y="0.0" width="374" height="0.33333333333333331"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.33000000000000002" id="HPc-j5-ig1"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="5ZI-Qm-fNZ" secondAttribute="trailing" constant="20" id="4xg-kM-iR6"/>
+                        <constraint firstItem="5ZI-Qm-fNZ" firstAttribute="leading" secondItem="brf-fb-Nzd" secondAttribute="leading" constant="20" id="oPE-8q-ZmX"/>
+                        <constraint firstAttribute="height" constant="240" id="xVi-Ix-mhT"/>
+                        <constraint firstItem="5ZI-Qm-fNZ" firstAttribute="top" secondItem="brf-fb-Nzd" secondAttribute="top" id="yJ9-Cq-RBq"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="kgd-Yz-VlO" secondAttribute="trailing" id="1UL-Ck-yKw"/>
+                <constraint firstAttribute="bottom" secondItem="brf-fb-Nzd" secondAttribute="bottom" id="F0u-bO-INl"/>
                 <constraint firstItem="EZo-vP-Cup" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="a3b-bI-Mhc"/>
+                <constraint firstItem="brf-fb-Nzd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ax0-pT-mUP"/>
+                <constraint firstAttribute="trailing" secondItem="brf-fb-Nzd" secondAttribute="trailing" id="e3z-hR-sr3"/>
                 <constraint firstAttribute="trailing" secondItem="EZo-vP-Cup" secondAttribute="trailing" id="fal-Ch-8gP"/>
                 <constraint firstItem="kgd-Yz-VlO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qtQ-ts-FJN"/>
                 <constraint firstItem="EZo-vP-Cup" firstAttribute="top" secondItem="kgd-Yz-VlO" secondAttribute="bottom" id="vJV-WI-e13"/>

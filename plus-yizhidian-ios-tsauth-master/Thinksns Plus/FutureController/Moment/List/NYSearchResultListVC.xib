@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NYSearchResultListVC" customModule="ThinkSNSPlus" customModuleProvider="target">
             <connections>
                 <outlet property="navgtionView" destination="daC-uj-AWv" id="hVZ-XT-Kxu"/>
+                <outlet property="searchButton" destination="Dth-F7-Gcu" id="fzO-ln-Kw7"/>
                 <outlet property="tabsView" destination="2XV-K0-wDJ" id="kEi-vZ-U9D"/>
                 <outlet property="topView" destination="3dg-oz-sXA" id="8I2-TC-BGV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NYSearchListVC: NYBaseViewController {
+class NYSearchListVC: NYBaseViewController,UITextFieldDelegate {
     
     @IBOutlet weak var del_button: UIButton!
     
@@ -22,6 +22,11 @@ class NYSearchListVC: NYBaseViewController {
     
     @IBOutlet weak var topViewH: NSLayoutConstraint!
     
+    @IBOutlet weak var bannerView: UIView!
+    
+    
+    /// 广告 Banner
+    let banner = TSAdvertBanners(frame: CGRect(x: 20, y:20, width: UIScreen.main.bounds.width-40, height: (UIScreen.main.bounds.width-40) / 2))
     //数组
     lazy var keywordViews = [NYWordItem]()
     
@@ -41,6 +46,7 @@ class NYSearchListVC: NYBaseViewController {
         self.view.backgroundColor = TSColor.main.themeTB
         //设置 nav
         searchBar.searchTextFiled.placeholder = "搜索_关键字".localized
+        searchBar.searchTextFiled.delegate = self
         searchBar.searchTextFiled.text = TSAppConfig.share.channel_default_search
         
 //        searchBar.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
@@ -59,57 +65,26 @@ class NYSearchListVC: NYBaseViewController {
         
         self.top_titleLabel.text = "显示_搜索历史".localized
         self.hot_titleLabel.text = "显示_热门搜索".localized
-        
-//        let historyList = ["知否知否你是肥我是瘦","刀剑神域","奇葩说","AAAAAA","Avengers Assemble","VBBBBBB","历史搜索关键词","历史搜索关键词"]
-//        var row = 0
-//        for (index, title) in historyList.enumerated() {
-//            let item = NYWordItem(frame: CGRect(x:0,y:0,width:30,height:30))
-//            item.tag = index + 99
-//            let size = item.setWordTxt(word: title)
-//            var lastX:CGFloat = 20.0
-//            if(keywordViews.count>0){
-//                lastX = keywordViews.last?.frame.maxX ?? 0
-//                lastX = lastX + 10
-//            }
-//            var itemX:CGFloat = lastX
-//            if(itemX + size.width > UIScreen.main.bounds.size.width)
-//            {
-//                itemX = 20
-//                row = row+1;
-//            }
-//            let itemY:CGFloat = (CGFloat(10)+size.height)*CGFloat(row)
-//            item.frame = CGRect(x:itemX,y:itemY,width:size.width,height:size.height)
-//            top_contentView.addSubview(item)
-//            keywordViews.append(item)
-//        }
-//
-//        let lstBtn = keywordViews.last
-//        topViewH.constant = (lstBtn?.frame.maxY)! + 15
-        
-//        let hotwordList = ["热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词","热门搜索关键词"]
-//        let labW:CGFloat = (UIScreen.main.bounds.size.width-40)*0.5
-//        let labH:CGFloat = 20
-//        let column:CGFloat=2
-//        let margin:CGFloat=20
-//        for (index, title) in hotwordList.enumerated() {
-//            let row=index/Int(column)
-//            let col=index%Int(column)
-//            let labX:CGFloat  = margin+(labW+margin)*CGFloat(col)
-//            let labY:CGFloat  = 10+(labH+10)*CGFloat(row)
-//            let label = UILabel(frame: CGRect(x:labX,y:labY,width:labW,height:labH))
-//            let highlightedStr = "\(index+1)"
-//            let superString = "\(highlightedStr)  \(title)"
-//            label.textColor = UIColor.white
-//            if(index<3){
-//                label.attributedText = NYUtils.superStringAttributedString(superString: superString, highlightedStr: highlightedStr, color: UIColor(hex: 0xF2125A))
-//            }
-//            else{
-//                label.text = superString
-//            }
-//            label.font = UIFont.systemFont(ofSize: 12)
-//            hot_contentView.addSubview(label);
-//        }
+        loadAdvertBanner()
+
     }
+    
+    /// 增加一个广告的 Banner
+    func loadAdvertBanner() {
+        // 2.获取 banner 的广告
+        let bannerAdverts = TSDatabaseManager().advert.getObjects(spaceId:17)
+        if bannerAdverts.isEmpty {
+            return
+        }
+        banner.setModels(models: bannerAdverts.map { TSAdvertBannerModel(object: $0) })
+        banner.layer.cornerRadius = 10
+        banner.layer.masksToBounds = true
+        banner.scrollView.contentSize = CGSize.zero
+        banner.pageControl.isHidden = true
+        self.bannerView.addSubview(banner)
+//        banner.center = self.bannerView.center
+    }
+    
     ///搜索
     func searchClickdo(_ button:UIButton) {
         let keyword = searchBar.searchTextFiled.text
@@ -117,9 +92,6 @@ class NYSearchListVC: NYBaseViewController {
         srlVC.keyword = keyword
         self.navigationController?.pushViewController(srlVC, animated: true)
     }
-    
-    
-    
     
     // MARK: - refresh
     func refresh() {
@@ -203,6 +175,7 @@ class NYSearchListVC: NYBaseViewController {
     func hotClickdo(_ btn:UIButton)
     {
         self.searchBar.searchTextFiled.text = btn.currentTitle
+        searchClickdo(self.searchBtton)
     }
     
     ///清空历史数据
@@ -218,4 +191,10 @@ class NYSearchListVC: NYBaseViewController {
         })
     }
     
+    
+    /// mark ---UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchClickdo(self.searchBtton)
+        return true
+    }
 }

@@ -13,7 +13,7 @@
 import Foundation
 import UIKit
 import YYKit
-import MarkdownView
+//import MarkdownView
 
 protocol TSQuestionDetailContentViewProtocol: class {
     // 展示全部 点击回调

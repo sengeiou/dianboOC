@@ -15,7 +15,7 @@
  */
 
 import UIKit
-import MarkdownView
+//import MarkdownView
 
 protocol DetailHeaderViewControllerDelegate: class {
     func headerViewController(headrView view: UIView?, didFinishedLoadHtml successed: Bool)
