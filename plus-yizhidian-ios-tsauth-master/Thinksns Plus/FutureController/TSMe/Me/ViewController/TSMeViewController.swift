@@ -83,6 +83,13 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
                 weakSelf.meView.meTableView.reloadData()
             }
         }
+        NYPopularNetworkManager.getVideoRecordListData { (list, msg, isBol) in
+            if let models = list
+            {
+                self.meView.dataSourceHistory = models
+                self.meView.meTableView.reloadData()
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -232,6 +239,17 @@ class TSMeViewController: TSViewController, didMeSelectCellDelegate, SendSuccess
         let extensionVC = NYExtensionTableViewController()
         navigationController?.pushViewController(extensionVC, animated: true)
     }
+    
+    func didExtMessage()
+    {
+        
+    }
+    
+    func didExtSetting()
+    {
+        navigationController?.pushViewController(TSSettingVC(nibName: "TSSettingVC", bundle: nil), animated: true)
+    }
+    
     //历史 topcell
     func topViewHistoryCellTB(view: NYViewHistoryCell) {
         let historyVC = NYHistoryVideoVC()

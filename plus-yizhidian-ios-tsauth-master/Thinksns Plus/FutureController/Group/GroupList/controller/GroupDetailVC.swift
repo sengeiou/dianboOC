@@ -149,9 +149,10 @@ class GroupDetailVC: NYBaseViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     func setUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = TSColor.main.themeTB
         // 1.加载左边视图
         leftView.frame = UIScreen.main.bounds
+        leftView.backgroundColor = TSColor.main.themeTB
         leftView.addSubview(table)
 //        leftView.addSubview(navView)
         leftView.addSubview(buttonForRelease)
@@ -159,19 +160,20 @@ class GroupDetailVC: NYBaseViewController, UITableViewDelegate, UITableViewDataS
         leftView.addSubview(photoForButton)
 
         view.addSubview(leftView)
-        view.addSubview(rightView)
+//        view.addSubview(rightView)
 
         table.delegate = self
         table.dataSource = self
-        table.rowHeight = ScreenHeight - TSUserInterfacePrinciples.share.getTSNavigationBarHeight()
+        table.rowHeight = ScreenHeight
         table.showsVerticalScrollIndicator = false
-        table.backgroundColor = TSColor.inconspicuous.background
+        table.backgroundColor = TSColor.main.themeTB
+        table.backgroundView?.backgroundColor = TSColor.main.themeTB
         // 1.3 header 视图
         headerView.set(taleView: table)
         headerView.delegate = self
 //        navView.delegate = self
 
-        bgScrollView.frame = CGRect(x: 0, y: styleSelectedBarHeight, width: ScreenWidth, height: ScreenHeight - TSUserInterfacePrinciples.share.getTSNavigationBarHeight() - styleSelectedBarHeight)
+        bgScrollView.frame = CGRect(x: 0, y: styleSelectedBarHeight, width: ScreenWidth, height: ScreenHeight - TSUserInterfacePrinciples.share.getTSNavigationBarHeight())
         bgScrollView.contentSize = CGSize(width: ScreenWidth * 3, height: 0)
         bgScrollView.showsVerticalScrollIndicator = false
         bgScrollView.showsHorizontalScrollIndicator = false
@@ -344,7 +346,7 @@ class GroupDetailVC: NYBaseViewController, UITableViewDelegate, UITableViewDataS
         headerView.load(contentModel: model)
 
         // 2.加载抽屉视图
-        loadRightView()
+//        loadRightView()
 
         // 3.table
         lastPostTable.role = model.role
@@ -395,24 +397,24 @@ class GroupDetailVC: NYBaseViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll----%f",scrollView.contentOffset.y)
         /// 需要确保已经加载了header的内容监听才有意义
         if scrollView == self.table && headerView.contentModel.id > 0 {
             // 1.更新 header view 的动画效果
-            headerView.updateChildviews(tableOffset: scrollView.contentOffset.y)
+          
             let offset = -(scrollView.contentOffset.y + headerView.stretchModel.headerHeightMin)
+            headerView.updateChildviews(tableOffset: offset)
+//            print("scrollViewDidScroll--offset--%f",offset)
 //            navView.updateChildView(offset: offset)
-            if scrollView.contentOffset.y > -TSUserInterfacePrinciples.share.getTSNavigationBarHeight() {
-                scrollView.contentOffset.y = -TSUserInterfacePrinciples.share.getTSNavigationBarHeight()
+            if scrollView.contentOffset.y > 0 {
+                scrollView.contentOffset.y = 0
                 if self.bgTableViewCanScroll == true {
                     self.bgTableViewCanScroll = false
                     self.childrenTableCouldScroll = true
                 }
-            } else {
-                if self.bgTableViewCanScroll == false {
-                    scrollView.contentOffset.y = -TSUserInterfacePrinciples.share.getTSNavigationBarHeight()
-                }
-            }
+            } 
         } else if scrollView == bgScrollView {
+            print("bgScrollView--offset--%f",scrollView.contentOffset.y)
             if scrollView.contentOffset.x < ScreenWidth {
                 if lastPostTable.datas.count == 0 && lastPostTable.isRequestList == false {
                     refresh(table: lastPostTable)
@@ -947,6 +949,7 @@ extension GroupDetailVC: NYFeedListViewScrollowDelegate {
         // 2.更新导航视图的动画效果
         // 这里需要把 offset 处理一下，移除 headerView 引起的 table inset 偏移的影响
         let offset = -(scrollView.contentOffset.y + headerView.stretchModel.headerHeightMin)
+        print("offset=%f",offset)
         // 3.当下拉到一定程度的时候，发起下拉刷新操作
         if offset > (TSStatusBarHeight + 25) {
 //            // 如果下拉刷新正在进行，就什么都不做
@@ -965,6 +968,10 @@ extension GroupDetailVC: NYFeedListViewScrollowDelegate {
                 refresh(table: recommendTable)
             }
         }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print(" scrollViewDidEndDecelerating offset=%f",scrollView.contentOffset.y)
     }
 }
 // MARK: - MoreTableViewDelegate

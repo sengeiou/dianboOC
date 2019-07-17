@@ -168,10 +168,7 @@ class PostListFixedHeaderView: UIView {
             //已经加入就没有加入按钮，圈名可以多显示一点
             nameLabel.width = UIScreen.main.bounds.width - 85 - 20
         }
-//        /// 设置阴影颜色
-//        nameLabel.shadowColor = UIColor.black
-//        ///设置阴影大小
-//        nameLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
+
     }
 
     /// 加载成员数
@@ -200,44 +197,25 @@ class PostListFixedHeaderView: UIView {
         memberButton.frame = CGRect(origin: CGPoint(x: postButton.frame.maxX+10, y: nameLabel.frame.maxY + 8), size: CGSize(width: (memSize?.width)!+45, height: 25))
     }
 
-    /// 加载地址
-//    func loadLocationLabel() {
-//        locationLabel.font = UIFont.systemFont(ofSize: 12)
-//        locationLabel.textColor = UIColor(hex: 0xf4f5f5)
-//        var locationStr: String
-//        if model.location.isEmpty {
-//           let defautLocations = ["金星", "水星", "火星", "土星", "地球"]
-//           let romandIndex = Int(arc4random_uniform(5))
-//           locationStr = "位置: \(defautLocations[romandIndex])"
-//        } else {
-//           locationStr = "位置: \(model.location)"
-//        }
-//        locationLabel.text = locationStr
-//        let localWidth = UIScreen.main.bounds.width - 85 - 95
-//        locationLabel.frame = CGRect(x: 85, y: postButton.frame.maxY + 5, width: localWidth, height: 15)
-//        /// 设置阴影颜色
-//        locationLabel.shadowColor = UIColor.black
-//        ///设置阴影大小
-//        locationLabel.shadowOffset = CGSize(width: 0.4, height: 0.4)
 //    }
 
     /// 加载加入按钮
     func loadJoinButton() {
         let isJoin = model.isJoin
         let title = isJoin ? "已加入" : "加入"
-        let image =  "IMG_channel_ico_added_wihte"
-        joinButton.layer.cornerRadius = 4
-        joinButton.layer.borderColor = UIColor(red: 244.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0).cgColor
-        joinButton.layer.borderWidth = 1
-        joinButton.clipsToBounds = true
+        let image =  "com_bg_sel"
+//        joinButton.layer.cornerRadius = 4
+//        joinButton.layer.borderColor = UIColor(red: 244.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0).cgColor
+//        joinButton.layer.borderWidth = 1
+//        joinButton.clipsToBounds = true
         joinButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         joinButton.setTitle(title, for: .normal)
         joinButton.setTitleColor(UIColor.white, for: .normal)
-        joinButton.setImage(UIImage(named: image), for: .normal)
+        joinButton.setBackgroundImage(UIImage(named: image), for: .normal)
         joinButton.addTarget(self, action: #selector(joinButtonTaped(_:)), for: .touchUpInside)
         joinButton.sizeToFit()
-        let joinX = UIScreen.main.bounds.width - 63 - 13
-        joinButton.frame = CGRect(x: joinX, y: 97, width: 63, height: 25)
+        let joinX = UIScreen.main.bounds.width - 65 - 13
+        joinButton.frame = CGRect(x: joinX, y: 35, width: 65, height: 30)
         joinButton.isHidden = isJoin
     }
 
@@ -297,7 +275,9 @@ class PostListFixedHeaderView: UIView {
         introLabel.numberOfLines = 2
         introLabel.textVerticalAlignment = .top
         introLabel.size = CGSize(width: UIScreen.main.bounds.width - 65, height: 1_000)
-        introLabel.attributedText = model.intro.attributonString().setTextFont(15).setlineSpacing(6)
+//        introLabel.text = model.intro
+        introLabel.textColor = UIColor.white
+        introLabel.attributedText = model.intro.attributonString().setTextFont(13).setlineSpacing(3)
         
 
         // 计算 frame
@@ -311,15 +291,16 @@ class PostListFixedHeaderView: UIView {
         paragraphStyle.headIndent = 0.000_1
         paragraphStyle.tailIndent = -0.000_1
         var labelHeight: CGFloat = 0
-        let heightLine = self.heightOfLines(line: 2, font: UIFont.systemFont(ofSize: 15))
-        let maxHeight = self.heightOfAttributeString(contentWidth: introLabel.width, attributeString: introLabel.attributedText!, font: UIFont.systemFont(ofSize: 15), paragraphstyle: paragraphStyle)
+        let heightLine = self.heightOfLines(line: 2, font: UIFont.systemFont(ofSize: 13))
+        let maxHeight = self.heightOfAttributeString(contentWidth: introLabel.width, attributeString: introLabel.attributedText!, font: UIFont.systemFont(ofSize: 13), paragraphstyle: paragraphStyle)
         if heightLine >= maxHeight {
             labelHeight = maxHeight
         } else {
             labelHeight = heightLine
         }
-        introLabel.frame = CGRect(x: 50, y: seperatorLine.frame.maxY + 12, width: introLabel.width, height: labelHeight)
-        addUnfoldButton()
+        introLabel.textColor = UIColor.white
+        introLabel.frame = CGRect(x: 50, y: seperatorLine.frame.maxY + 12, width: introLabel.width, height: labelHeight+15)
+//        addUnfoldButton()
 
 //        // 更新 yRecord
 //        yRecord = introLabel.frame.maxY
@@ -358,8 +339,10 @@ class PostListFixedHeaderView: UIView {
         foldTitle.setTextHighlight(hi, range: NSRange(location: ("..." as NSString).length - 1, length: ("查看更多" as NSString).length))
         // 2.3 配置按钮
         let foldButton = YYLabel()
+        foldButton.isHidden = true
         foldButton.attributedText = foldTitle
         foldButton.sizeToFit()
+        introLabel.textColor = UIColor.white
         // 2.4 设置 token
         let truncationToken = NSAttributedString.attachmentString(withContent: foldButton, contentMode: .bottomRight, attachmentSize: foldButton.size, alignTo: foldTitle.font!, alignment: .center)
         introLabel.truncationToken = truncationToken
@@ -419,7 +402,7 @@ class PostListFixedHeaderView: UIView {
         paragraphStyle.paragraphSpacing = 3
         paragraphStyle.headIndent = 0.000_1
         paragraphStyle.tailIndent = -0.000_1
-        let attribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSParagraphStyleAttributeName: paragraphStyle.copy(), NSStrokeColorAttributeName: UIColor.black]
+        let attribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSParagraphStyleAttributeName: paragraphStyle.copy(), NSStrokeColorAttributeName: UIColor.white]
         let tSize = mutStr.size(attributes: attribute)
         return tSize.height
     }

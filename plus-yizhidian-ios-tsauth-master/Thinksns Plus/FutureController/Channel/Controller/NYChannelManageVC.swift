@@ -28,7 +28,7 @@ class NYChannelManageVC: UIViewController {
     func setUI() {
         self.view.backgroundColor = TSColor.main.themeTB
         setChatButton()
-        NYPopularNetworkManager.getChannelsListData(complete: { (user_list: [ChannelsModel]?,other_list: [ChannelsModel]?, error,isobl) in
+        NYPopularNetworkManager.getChannelsListData { (default_list, user_list, other_list, error, Boolisobl) in
             self._myTags = NSMutableArray()
             self._recommandTags = NSMutableArray()
             if let u_arr = user_list {
@@ -62,8 +62,7 @@ class NYChannelManageVC: UIViewController {
             }
             
             self.view.addSubview((self.channelTagsVC?.view)!)
-        })
-        
+        }
         
     }
 

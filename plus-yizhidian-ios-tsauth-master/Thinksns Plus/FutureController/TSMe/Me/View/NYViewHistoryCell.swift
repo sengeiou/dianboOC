@@ -21,7 +21,7 @@ class NYViewHistoryCell: UITableViewCell,UICollectionViewDataSource, UICollectio
     
     static let identifier = "NYViewHistoryCell_Item"
     
-    static let cellHeight:CGFloat = 140
+    var cellHeight:CGFloat = 140
     
     @IBOutlet weak var iconImageView: UIImageView!
     
@@ -78,6 +78,23 @@ class NYViewHistoryCell: UITableViewCell,UICollectionViewDataSource, UICollectio
 //            }
 //            self.collectionView.reloadData()
 //        })
+    }
+    
+    func setDataSourceList(datas:[NYMeHistoryVModel])
+    {
+        dataSource = datas
+        if dataSource.count==0
+        {
+            self.collectionView.isHidden = true
+            self.mj_h = 44
+            cellHeight = 44
+        }
+        else
+        {
+            self.collectionView.isHidden = false
+            self.mj_h = 140
+            cellHeight = 140
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

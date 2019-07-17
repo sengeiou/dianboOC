@@ -242,19 +242,19 @@ class GroupListCell: UITableViewCell {
         positionTag.isHidden = true
         joinButton.isHidden = false
 
-        let titleColor = TSColor.main.theme
-        joinButton.layer.borderColor = titleColor.cgColor
-        joinButton.layer.borderWidth = 1
-        joinButton.layer.cornerRadius = 4
-        joinButton.clipsToBounds = true
+        let titleColor = UIColor.white
+//        joinButton.layer.borderColor = titleColor.cgColor
+//        joinButton.layer.borderWidth = 1
+//        joinButton.layer.cornerRadius = 4
+//        joinButton.clipsToBounds = true
         joinButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         joinButton.setTitle("加入", for: .normal)
         joinButton.setTitleColor(titleColor, for: .normal)
-        joinButton.setImage(UIImage(named: "IMG_channel_ico_add_blue"), for: .normal)
+        joinButton.setBackgroundImage(UIImage(named: "com_bg_sel"), for: .normal)
         joinButton.addTarget(self, action: #selector(joinButtonTaped(_:)), for: .touchUpInside)
         joinButton.sizeToFit()
-        let joinX = UIScreen.main.bounds.width - 63 - 10
-        joinButton.frame = CGRect(x: joinX, y: 32, width: 63, height: 25)
+        let joinX = UIScreen.main.bounds.width - 65 - 10
+        joinButton.frame = CGRect(x: joinX, y: 38, width: 65, height: 30)
     }
 
     // 点击了加入按钮

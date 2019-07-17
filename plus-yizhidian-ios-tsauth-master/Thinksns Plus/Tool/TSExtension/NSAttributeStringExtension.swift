@@ -78,7 +78,7 @@ extension NSMutableAttributedString {
         // 2.将需要付费的范围进行模糊
         let blurRange = NSRange(location: normalString.length, length: attributeString.length - normalString.length)
         let shadow = NSShadow()
-        shadow.shadowColor = UIColor.black
+        shadow.shadowColor = UIColor.white
         shadow.shadowBlurRadius = 6
         attributeString.addAttributes([NSShadowAttributeName: shadow, NSStrokeWidthAttributeName: 1, NSStrokeColorAttributeName: UIColor.white], range:blurRange)
         return attributeString

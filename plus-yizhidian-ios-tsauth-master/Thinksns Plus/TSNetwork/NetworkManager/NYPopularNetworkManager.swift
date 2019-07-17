@@ -119,7 +119,7 @@ extension NYPopularNetworkManager {
     /// 热门内容- 批量获取频道
     /// PopularNetworkRequest
     ///   - complete: 结果
-    class func getChannelsListData(complete: @escaping ([ChannelsModel]?,[ChannelsModel]?, String?, Bool) -> Void) {
+    class func getChannelsListData(complete: @escaping ([ChannelsModel]?,[ChannelsModel]?,[ChannelsModel]?, String?, Bool) -> Void) {
         // 1.请求 url
         var request = PopularNetworkRequest().channelsList
         request.urlPath = request.fullPathWith(replacers: [])
@@ -127,19 +127,30 @@ extension NYPopularNetworkManager {
             // 1. 网络请求失败
             guard status else {
                 let message = TSCommonNetworkManager.getNetworkErrorMessage(with: data)
-                 complete(nil,nil, "网络请求错误", false)
+                 complete(nil,nil,nil, "网络请求错误", false)
                 return
             }
             // 2. 数据格式错误
             guard let datas = data as? [String: Any] else {
-                complete(nil,nil, "服务器返回数据错误", false)
+                complete(nil,nil,nil, "服务器返回数据错误", false)
                 return
             }
             // 3. 正常解析数据
+            let defaults = datas["default_channels"] as? [[String: Any]]
             let users = datas["user_channels"] as? [[String: Any]]
             let others = datas["other_channels"] as? [[String: Any]]
+            var default_list:[ChannelsModel]? = nil
             var users_list:[ChannelsModel]? = nil
             var other_list:[ChannelsModel]? = nil
+            if (defaults != nil)&&defaults!.count>0
+            {
+                default_list = NSMutableArray() as! [ChannelsModel]
+                for obj in defaults!
+                {
+                    let channel = ChannelsModel(JSON: (obj as? [String: Any])! )
+                    default_list?.append(channel!)
+                }
+            }
             if (users != nil)&&users!.count>0
             {
                 users_list = NSMutableArray() as! [ChannelsModel]
@@ -158,7 +169,7 @@ extension NYPopularNetworkManager {
                     other_list?.append(channel!)
                 }
             }
-            complete(users_list,other_list, "ok", false)
+            complete(default_list,users_list,other_list, "ok", false)
         })
     }
     

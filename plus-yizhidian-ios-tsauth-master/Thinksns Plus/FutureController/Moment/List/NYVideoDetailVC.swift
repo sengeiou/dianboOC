@@ -515,7 +515,8 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
                     model?.has_like = false
                     model?.comment_like_count -= 1
                 }
-                self.table.reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
+                self.table.reloadData()
+//                    .reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
             }
         }
         else
@@ -527,7 +528,8 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
                     model?.has_like = true
                     model?.comment_like_count += 1
                 }
-                self.table.reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
+                self.table.reloadData()
+//                self.table.reloadRow(at: self.table.indexPath(for: cell)!, with: .none)
         
             }
         }
@@ -601,6 +603,7 @@ extension NYVideoDetailVC: UITableViewDelegate,UITableViewDataSource
     
     // MARK: - tableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let cell = tableView.cellForRow(at: indexPath) as? NYCommentsCell
         
 //        let userId = self.commentDatas[indexPath.row].userInfo?.userIdentity

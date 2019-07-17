@@ -33,7 +33,7 @@ class StretchTableHeaderModel {
     var tableView = UITableView()
 
     /// header 视图最小高度
-    var headerHeightMin: CGFloat = 300
+    var headerHeightMin: CGFloat = 170
     /// 背景视图最小高度
     var bgHeightMin: CGFloat = 150
     /// 背景图显示效果
@@ -194,6 +194,7 @@ extension StretchTableHeader {
     ///
     /// - Parameter offset: table 在 y 轴上的偏移量
     open func updateChildviews(tableOffset offset: CGFloat) {
+        print("updateChildviews=%f",offset)
         // 由于scrollView 向下拖拽的content
         let offset = -(stretchModel.headerHeightMin + offset)
         // 如果是向上拖动 返回.

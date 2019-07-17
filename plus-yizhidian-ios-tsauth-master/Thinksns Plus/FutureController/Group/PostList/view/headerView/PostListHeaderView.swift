@@ -66,7 +66,7 @@ class PostListHeaderView: StretchTableHeader {
         // 由于scrollView 向下拖拽的content
         let offset = -(stretchModel.headerHeightMin + offset)
         // 如果是向上拖动 返回.
-        if offset < 0 {
+        if offset < -106 {
             return
         }
         let orignalWidth = UIScreen.main.bounds.width

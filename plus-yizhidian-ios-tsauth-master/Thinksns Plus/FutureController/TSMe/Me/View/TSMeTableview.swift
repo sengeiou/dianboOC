@@ -16,6 +16,10 @@ protocol didMeSelectCellDelegate: NSObjectProtocol {
     func didHeader(index: MeHeaderView)
     /// 推广
     func didExtension()
+    /// 消息
+    func didExtMessage()
+    /// 设置
+    func didExtSetting()
     //历史 top
     func topViewHistoryCellTB(view: NYViewHistoryCell)
     // item 视频
@@ -27,6 +31,7 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     // MARK: - CELL显示的配置
     /// 所有cell的高度
     let cellHeight: CGFloat = 60
+    var cell_Height: CGFloat = 140
     /// section = 0 的头视图高度
     let cellHeaderZero: CGFloat = 303
     /// 需要显示【钱】的IndexPath
@@ -47,6 +52,9 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     let cellid = "meStaticCellID"
     /// tableview头视图
     let showMeHeader = TSMeTableViewHeader()
+    
+    /// 数据源
+    var dataSourceHistory: [NYMeHistoryVModel] = []
 
     weak var didMeSelectCellDelegate: didMeSelectCellDelegate? = nil
 
@@ -105,7 +113,11 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0
         {
-            return NYViewHistoryCell.cellHeight
+            if dataSourceHistory.count>0
+            {
+                return cell_Height
+            }
+            return cellHeight
         }
         return cellHeight
     }
@@ -128,13 +140,8 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
             let imageRowData = imageDataSource[indexPath.section]
             cell?.iconImageView?.image = imageRowData[indexPath.row]
             cell?.nameLabel.text = rowData[indexPath.row]
-            NYPopularNetworkManager.getVideoRecordListData { (list, msg, isBol) in
-                if let models = list
-                {
-                    cell?.dataSource = models
-                    cell?.collectionView.reloadData()
-                }
-            }
+            cell?.setDataSourceList(datas: dataSourceHistory)
+            cell?.collectionView.reloadData()
             cell?.selectionStyle = .none
             return cell!
         }
@@ -214,6 +221,14 @@ class TSMeTableview: UIView, UITableViewDataSource, UITableViewDelegate, didHead
     
     func didExtension() {
         self.didMeSelectCellDelegate?.didExtension()
+    }
+    
+    func didMessagedo() {
+        self.didMeSelectCellDelegate?.didExtMessage()
+    }
+    
+    func didSettingdo() {
+        self.didMeSelectCellDelegate?.didExtSetting()
     }
     
     /// mark -------NYViewHistoryCellDelegate

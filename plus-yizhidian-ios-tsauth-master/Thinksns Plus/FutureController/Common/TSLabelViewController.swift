@@ -28,6 +28,8 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
     var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.size.width), height: Int(UIScreen.main.bounds.size.height)))
     /// 标签视图
     let labelView = UIView()
+    /// 标签滚动视图
+    let label_scrollView = UIScrollView()
     /// 标签下方的蓝线
     let blueLine = UIView()
     /// 提示用的小红点
@@ -81,6 +83,7 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         if let scrollViewFrame = scrollViewFrame {
             scrollView.frame = scrollViewFrame
         }
+        
         titleArray = labelTitleArray
         for _ in labelTitleArray {
             let badge = UIView()
@@ -93,6 +96,62 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
 
         setSuperUX()
         setSearchUX()
+    }
+    
+    /// 更新 title label
+    func updateTitleArray(labelTitleArray: [String])
+    {
+        titleArray = labelTitleArray
+        badges.removeAll()
+        for _ in labelTitleArray {
+            let badge = UIView()
+            badge.backgroundColor = TSColor.main.warn
+            badge.clipsToBounds = true
+            badge.layer.cornerRadius = SizeDesign().badgeSize.height * 0.5
+            badge.isHidden = true
+            badges.append(badge)
+        }
+        let labelButtonWidth:CGFloat = 65.0
+        
+        //30 + (titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))).width // 单边间距，参见 TS 设计文档第二版第 7 页
+        let buttonTitleSize = titleArray![0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))
+        let labelHeight: CGFloat = 44
+        
+        //重新 计算labelView
+        self.labelView.subviews.forEach({ $0.removeFromSuperview()});
+        // labelView button
+        var buttonCX:CGFloat = 0.0
+        for (index, title) in titleArray!.enumerated() {
+            let button = UIButton(type: .custom)
+            button.frame = CGRect(x: CGFloat(index) * labelButtonWidth, y: CGFloat(0), width: labelButtonWidth, height: labelHeight)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: TSFont.Title.pulse.rawValue)
+            button.setTitle(title, for: .normal)
+            button.setTitleColor( index == 0 ? UIColor.white : UIColor(hex:0xffffff,alpha:0.5), for: .normal)
+            button.addTarget(self, action: #selector(buttonTaped(sender:)), for: .touchUpInside)
+            button.tag = tagBasicForButton + index
+            
+            let badge = badges[index]
+            let badgeX = CGFloat(index) * labelView.frame.width / CGFloat(titleArray!.count) + labelButtonWidth - 13
+            badge.frame = CGRect(x: badgeX, y: 10, width: SizeDesign().badgeSize.width, height: SizeDesign().badgeSize.height)
+            button.addSubview(badge)
+            if index==0 {
+                buttonCX = button.centerX;
+            }
+            labelView.addSubview(button)
+        }
+        // blue line
+        let blueLineHeight: CGFloat = 2.0
+        blueLineLeading = (labelButtonWidth - buttonTitleSize.width) / 2 - 7
+        blueLine.frame = CGRect(x: blueLineLeading, y: labelHeight - blueLineHeight-6, width: buttonTitleSize.width-8, height: blueLineHeight)
+        blueLine.centerX = buttonCX
+        blueLine.backgroundColor = UIColor.white
+        labelView.addSubview(blueLine)
+        // labelView
+        labelView.mj_w = labelButtonWidth * CGFloat(titleArray!.count)
+        label_scrollView.contentSize = labelView.size
+        
+        // scrollView contentSize
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(titleArray!.count), height: scrollView.frame.size.height)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -142,14 +201,23 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
             right_munButton.addTarget(self, action: #selector(rightMunClickdo(_:)), for: .touchUpInside)
             right_munButton.isHidden = true
             topContentView.addSubview(right_munButton)
+        
+            // label 滚动视图
+            let labelHeight: CGFloat = 44
+            let label_scrollW = right_munButton.frame.minX - logoButton.frame.maxX
+            label_scrollView.frame = CGRect(x: logoButton.width, y:topY, width:label_scrollW, height: labelHeight)
+            label_scrollView.backgroundColor = UIColor.clear
+            label_scrollView.isPagingEnabled = true
+            label_scrollView.showsVerticalScrollIndicator = false
+            label_scrollView.showsHorizontalScrollIndicator = false
+            label_scrollView.bounces = false
+            topContentView.addSubview(label_scrollView)
             
-            let labelButtonWidth = (topContentView.width - 88)/CGFloat(titleArray.count);
+            let labelButtonWidth:CGFloat = 65.0 //(topContentView.width - 88)/CGFloat(titleArray.count);
                 
                 //30 + (titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))).width // 单边间距，参见 TS 设计文档第二版第 7 页
             let buttonTitleSize = titleArray[0].sizeOfString(usingFont: UIFont.systemFont(ofSize: TSFont.Title.headline.rawValue))
-            let labelHeight: CGFloat = 44
-
-            
+        
             // labelView button
             var buttonCX:CGFloat = 0.0
             for (index, title) in titleArray.enumerated() {
@@ -174,15 +242,15 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
             // blue line
             let blueLineHeight: CGFloat = 2.0
             blueLineLeading = (labelButtonWidth - buttonTitleSize.width) / 2 - 7
-            blueLine.frame = CGRect(x: blueLineLeading, y: labelHeight - blueLineHeight, width: buttonTitleSize.width-8, height: blueLineHeight)
+            blueLine.frame = CGRect(x: blueLineLeading, y: labelHeight - blueLineHeight-6, width: buttonTitleSize.width-8, height: blueLineHeight)
             blueLine.centerX = buttonCX
                 blueLine.backgroundColor = UIColor.white
             labelView.addSubview(blueLine)
             
             // labelView
-            labelView.frame = CGRect(x: logoButton.width, y:topY, width: labelButtonWidth * CGFloat(titleArray.count), height: labelHeight)
-            
-            topContentView.addSubview(labelView)
+            labelView.frame = CGRect(x: 0, y:0, width: labelButtonWidth * CGFloat(titleArray.count), height: labelHeight)
+            label_scrollView.contentSize = labelView.size
+            label_scrollView.addSubview(labelView)
 
             // scrollView
             
@@ -287,7 +355,28 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
     // MARK: - Button click
     func buttonTaped(sender: UIButton) {
         let index = sender.tag - tagBasicForButton
+//        updateLabelScrollView(sender:sender)
         scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width * CGFloat(index), y: 0), animated: true)
+    }
+    
+    func updateLabelScrollView(sender: UIButton) {
+        let shouldX = sender.frame.origin.x - self.label_scrollView.frame.size.width / 2.0 + sender.frame.size.width / 2.0;
+        // 右侧的补偿x，offsetRight意味着 scrollview右侧被隐藏部分的宽度。
+        let offsetRight = (+self.label_scrollView.contentSize.width) - self.label_scrollView.frame.size.width - shouldX;
+        var shouldPoint = CGPoint(x: 0, y: 0)
+        
+        if (shouldX > 0) && (offsetRight>0) {
+            shouldPoint = CGPoint(x:shouldX,y:CGFloat(0))
+        }else {
+            if shouldX <= 0 {
+                shouldPoint = CGPoint(x:0, y:0)
+            }else {
+                if offsetRight <= 0 {
+                    shouldPoint = CGPoint(x:self.label_scrollView.contentSize.width - self.label_scrollView.frame.size.width, y:0)
+                }
+            }
+        }
+        label_scrollView.setContentOffset(shouldPoint, animated:true)
     }
 
     // MARK: - Public
@@ -386,11 +475,28 @@ class TSLabelViewController: TSViewController, UIScrollViewDelegate {
         let i = round(index)
         updateButton(Int(i))
         let btn:UIButton = labelView.viewWithTag(tagBasicForButton + Int(i)) as! UIButton
+        
         blueLine.centerX = btn.centerX
        
 //        frame = CGRect(x: CGFloat(index) * labelView.frame.width / CGFloat(titleArray!.count) + blueLineLeading, y: blueLine.frame.origin.y, width: blueLine.frame.width, height: blueLine.frame.height)
         
          TSKeyboardToolbar.share.keyboarddisappear()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        var index = scrollView.contentOffset.x / scrollView.frame.width
+        if index < 0 {
+            index = CGFloat(0)
+        }
+        if Int(index) > titleArray!.count {
+            index = CGFloat(titleArray!.count)
+        }
+        let btn:UIButton = labelView.viewWithTag(tagBasicForButton + Int(index)) as! UIButton
+        updateLabelScrollView(sender: btn)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        scrollViewDidEndDragging(scrollView,willDecelerate: true)
     }
     
 }

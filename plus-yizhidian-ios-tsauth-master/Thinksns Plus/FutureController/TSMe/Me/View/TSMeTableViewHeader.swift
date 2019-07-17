@@ -15,6 +15,10 @@ protocol didHeaderViewDelegate: NSObjectProtocol {
     func didHeaderIndex(index: MeHeaderView)
     /// 推广
     func didExtension()
+    /// 消息
+    func didMessagedo()
+    /// 设置
+    func didSettingdo()
 }
 
 enum MeHeaderView: Int {
@@ -137,7 +141,9 @@ class TSMeTableViewHeader: UIView {
         logoView.setImage(UIImage(named: "me_logo"), for: .normal)
 //        logoView.contentEdgeInsets = UIEdgeInsetsMake(20, 15, 20, 15)
         msgView.setImage(UIImage(named: "me_msg"), for: .normal)
+        msgView.addTarget(self, action: #selector(tapMessage(_:)), for: .touchUpInside)
         settingView.setImage(UIImage(named: "me_setting"), for: .normal)
+        settingView.addTarget(self, action: #selector(tapSetings(_:)), for: .touchUpInside)
         
         self.addSubview(headbgimgView)
         self.addSubview(topView)
@@ -473,5 +479,13 @@ class TSMeTableViewHeader: UIView {
 
     func tapFriend() {
         self.didHeaderViewDelegate?.didHeaderIndex(index: .friend)
+    }
+    
+    func tapMessage(_ btn:UIButton){
+        self.didHeaderViewDelegate?.didMessagedo()
+    }
+    
+    func tapSetings(_ btn:UIButton){
+        self.didHeaderViewDelegate?.didSettingdo()
     }
 }

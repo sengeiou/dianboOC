@@ -20,7 +20,7 @@ class NYSelCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    static let cellHeight:CGFloat = 280.0
+    static let cellHeight:CGFloat = 300.0
     
     var videoModel:NYVideosModel?
     

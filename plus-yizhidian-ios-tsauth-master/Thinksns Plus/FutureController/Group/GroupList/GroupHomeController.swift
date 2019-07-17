@@ -15,7 +15,7 @@ class GroupHomeController: UIViewController {
     /// 广告 Banner
     let banner = TSAdvertBanners(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 2))
     /// 列表
-    let table = UITableView(frame: UIScreen.main.bounds, style: .plain)
+    let table = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:ScreenHeight-119), style: .plain)
     /// 导航栏右边视图
     let rightNavView = GroupListRightNavView()
 
@@ -336,8 +336,10 @@ extension GroupHomeController: UITableViewDelegate, UITableViewDataSource {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupListCell.identifier, for: indexPath) as! GroupListCell
         cell.delegate = self
+        let count = datas[indexPath.section - 1].cellModels.count
         let model = datas[indexPath.section - 1].cellModels[indexPath.row]
         cell.model = model
+        cell.seperator.isHidden = (count-1) == indexPath.row
         return cell
     }
 
