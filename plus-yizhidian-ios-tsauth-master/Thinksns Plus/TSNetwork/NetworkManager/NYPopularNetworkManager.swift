@@ -231,10 +231,18 @@ extension NYPopularNetworkManager {
         var request = PopularNetworkRequest().getVideosList
         request.urlPath = request.fullPathWith(replacers: [])
         // 2.配置参数
-        var parameters: [String: Any] = ["channel_id": channel_id, "tag_cates": tag_cates,"after": after, "limit": limit, "keyword": keyword, "tags": tags]
+        var parameters: [String: Any] = ["channel_id": channel_id, "after": after, "limit": limit, "keyword": keyword]
         if star_id>0
         {
             parameters.updateValue(star_id, forKey: "star_id")
+        }
+        if tags.count > 0
+        {
+            parameters.updateValue(tags, forKey: "tags")
+        }
+        if tag_cates.count > 0
+        {
+            parameters.updateValue(tag_cates, forKey: "tag_cates")
         }
         request.parameter = parameters
         // 3.发起请求

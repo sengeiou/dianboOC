@@ -346,12 +346,12 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (currentOrientation == UIDeviceOrientationPortrait) {
-        [self setOrientationPortraitConstraint];
-    } else {
-        [self setOrientationLandscapeConstraint];
-    }
+//    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+//    if (currentOrientation == UIDeviceOrientationPortrait) {
+//        [self setOrientationPortraitConstraint];
+//    } else {
+//        [self setOrientationLandscapeConstraint];
+//    }
 }
 - (void)setHiddenFullScreenBtn:(BOOL)hiddenFullScreenBtn {
     _hiddenFullScreenBtn = hiddenFullScreenBtn;
@@ -427,6 +427,10 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     if ([self.zfDelegate respondsToSelector:@selector(zf_controlView:fullScreenAction:)]) {
         [self.zfDelegate zf_controlView:self fullScreenAction:sender];
     }
+    if ([self currentIsFullScreen])
+    {
+         [self rotateFullScreen];
+    }
 }
 
 - (void)lockScrrenBtnClick:(UIButton *)sender {
@@ -461,9 +465,42 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     if ([self.zfDelegate respondsToSelector:@selector(zf_controlView:fullScreenAction:)]) {
         [self.zfDelegate zf_controlView:self fullScreenAction:sender];
     }
+    [self rotateFullScreen];
     if (self.hiddenBackBtn) {
         self.backBtn.hidden = YES;
     }
+    
+}
+//旋转
+- (void)rotateFullScreen
+{
+    UIDeviceOrientation orient = [UIDevice currentDevice].orientation;
+    if (orient == UIDeviceOrientationPortrait ||
+        orient == UIDeviceOrientationPortraitUpsideDown)//竖屏
+    {
+        NSLog(@"竖屏->横屏");
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationUnknown] forKey:@"orientation"];
+        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+        self.fastView.frame = [UIScreen mainScreen].bounds;
+        [self setOrientationPortraitConstraint];
+    }
+    else if(orient == UIDeviceOrientationLandscapeLeft ||
+            orient == UIDeviceOrientationLandscapeRight)//横屏
+    {
+        NSLog(@"横屏->竖屏");
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationUnknown] forKey:@"orientation"];
+        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIDeviceOrientationPortrait];
+        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+        [self setOrientationLandscapeConstraint];
+    }
+    
+    //    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    //    if (currentOrientation == UIDeviceOrientationPortrait) {
+    //        [self setOrientationPortraitConstraint];
+    //    } else {
+    //        [self setOrientationLandscapeConstraint];
+    //    }
 }
 
 - (void)repeatBtnClick:(UIButton *)sender {

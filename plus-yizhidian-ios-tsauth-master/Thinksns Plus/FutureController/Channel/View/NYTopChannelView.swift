@@ -23,7 +23,8 @@ class NYTopChannelView: UIView,UICollectionViewDataSource, UICollectionViewDeleg
     
     //内容
     let contentView = UIView()
-    
+    /// 选择标题标签
+    var selectTitle = ""
     /// tags view
     var collectionViewList: [UICollectionView] = []
     /// 选中的 model
@@ -144,7 +145,26 @@ class NYTopChannelView: UIView,UICollectionViewDataSource, UICollectionViewDeleg
                     let collectionY:CGFloat = 8 + (collectionH+8)*CGFloat(index)
                     let collectionView = self.createCollectionView(cF: CGRect(x:0,y:collectionY,width:ScreenWidth,height:collectionH), tag: index)
                     self.collectionViewList.append(collectionView)
-                    self.selectTagModel.append(oneTag)
+                    
+                    //判断 tages 是否存在 selecttitle
+                    var selModel:NYtagModel?
+                    for item in data.tags!
+                    {
+                        if self.selectTitle.isEqual(item.name)
+                        {
+                            selModel = item
+                            break
+                        }
+                    }
+                    if selModel != nil
+                    {
+                        self.selectTagModel.append(selModel!)
+                    }
+                    else
+                    {
+                        self.selectTagModel.append(oneTag)
+                    }
+
                 }
                 self.dataSource = tagList as! [[NYtagModel]]
                 //刷新

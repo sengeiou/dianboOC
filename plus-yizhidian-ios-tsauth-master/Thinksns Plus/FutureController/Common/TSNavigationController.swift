@@ -176,6 +176,29 @@ class TSNavigationController: UINavigationController, TSIndicatorAProrocol {
         let vc = TSBindingVC(.phone, isSettingPwdOrAccount: true, isAutoBack: true)
         pushViewController(vc, animated: true)
     }
+    /// 旋转 -----
+    /// 是否支持旋转
+    override var shouldAutorotate: Bool{
+        get {
+            return topViewController?.shouldAutorotate ?? false
+        }
+    }
+    
+    /// 支持的方向
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+        {
+        get {
+            return topViewController?.supportedInterfaceOrientations ?? .portrait
+        }
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation
+        {
+        get{
+            return (topViewController?.preferredInterfaceOrientationForPresentation)!
+        }
+    }
+    
 }
 
 extension TSNavigationController {

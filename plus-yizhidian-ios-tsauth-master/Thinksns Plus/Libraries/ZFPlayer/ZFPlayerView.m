@@ -789,17 +789,17 @@ typedef NS_ENUM(NSInteger, PanDirection){
             [[UIApplication sharedApplication].keyWindow bringSubviewToFront:brightnessView];
             [[UIApplication sharedApplication].keyWindow insertSubview:self belowSubview:brightnessView];
             [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                if (self.forcePortrait) {
+                if (self.forcePortrait) {
                     make.width.equalTo(@(ScreenWidth));
                     make.center.equalTo([UIApplication sharedApplication].keyWindow);
                     make.top.equalTo(@0);
                     make.height.equalTo(@(ScreenHeight));
-//                } else {
-//                    // 竖着布局一次?
-//                    make.width.equalTo(@(ScreenHeight));
-//                    make.height.equalTo(@(ScreenWidth));
-//                    make.center.equalTo([UIApplication sharedApplication].keyWindow);
-//                }
+                } else {
+                    // 竖着布局一次?
+                    make.width.equalTo(@(ScreenHeight));
+                    make.height.equalTo(@(ScreenWidth));
+                    make.center.equalTo([UIApplication sharedApplication].keyWindow);
+                }
             }];
         }
     }

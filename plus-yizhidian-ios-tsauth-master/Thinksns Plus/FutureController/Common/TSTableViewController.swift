@@ -73,6 +73,7 @@ class TSTableViewController: UITableViewController {
             occupiedView.removeFromSuperview()
         }
     }
+    
 }
 
 // MARK: - 指示器A的处理逻辑

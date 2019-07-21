@@ -63,7 +63,7 @@ class HotListHeadView: UIView,UICollectionViewDataSource, UICollectionViewDelega
 //        topicCollectionView.mj_footer = TSRefreshFooter(refreshingTarget: self, refreshingAction: #selector(loadMore))
 //        topicCollectionView.mj_header.beginRefreshing()
         
-        refresh()
+//        refresh()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

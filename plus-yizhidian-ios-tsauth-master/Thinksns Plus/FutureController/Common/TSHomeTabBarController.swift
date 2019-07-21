@@ -538,6 +538,22 @@ extension TSHomeTabBarController: TZImagePickerControllerDelegate {
             return true
         }
     }
+    
+    /// 旋转 -----
+    /// 是否支持旋转
+    override var shouldAutorotate: Bool{
+        get {
+            return selectedViewController?.shouldAutorotate ?? false
+        }
+    }
+    
+    /// 支持的方向
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+        {
+        get {
+            return selectedViewController?.supportedInterfaceOrientations ?? .portrait
+        }
+    }
 }
 
 extension TSHomeTabBarController: RecorderVCDelegate {
@@ -562,6 +578,7 @@ extension TSHomeTabBarController {
         childController.tabBarItem.image = UIImage(named: normalImageName)?.withRenderingMode(.alwaysOriginal)
         childController.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -3)
         childController.tabBarItem.selectedImage = UIImage(named: selectedImageName)?.withRenderingMode(.alwaysOriginal)
+        
         let nav = TSNavigationController(rootViewController: childController)
         self.addChildViewController(nav)
     }

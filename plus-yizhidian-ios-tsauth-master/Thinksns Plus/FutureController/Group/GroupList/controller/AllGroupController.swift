@@ -37,7 +37,7 @@ class AllGroupController: UIViewController {
     let doubleCollection = DoubleCollectionsView(origin: .zero)
 
     /// tag数据
-    var tagInfos: [ATagModel] = []
+//    var tagInfos: [ATagModel] = []
     /// 滚动视图上的子视图数据
     var tableInfos: [[GroupListCellModel]?] = []
 
@@ -59,11 +59,13 @@ class AllGroupController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavView)
 
         // 2.滚动视图
-        doubleCollection.rightButton.addTarget(self, action: #selector(showTagChooseVC), for: .touchUpInside)
+//        doubleCollection.rightButton.addTarget(self, action: #selector(showTagChooseVC), for: .touchUpInside)
         doubleCollection.bottomCollcetion.register(GroupListCollectionCell.self, forCellWithReuseIdentifier: GroupListCollectionCell.identifier)
         doubleCollection.bottomCollcetion.dataSource = self
         doubleCollection.doubleCollectionsDelegate = self
         view.addSubview(doubleCollection)
+        
+        
     }
 
     /// 点击了创建圈子按钮
@@ -116,8 +118,8 @@ class AllGroupController: UIViewController {
         }
         let chooseTagController = SingleTagChooseController()
         chooseTagController.title = "全部圈子"
-        let titles = tagInfos.map { $0.name }
-        chooseTagController.set(titles: titles, selected: doubleCollection.currentIndex)
+//        let titles = tagInfos.map { $0.name }
+//        chooseTagController.set(titles: titles, selected: doubleCollection.currentIndex)
         chooseTagController.selectedBlock = { [weak self] (selectedIndex) in
             self?.doubleCollection.setSelected(at: selectedIndex)
         }
@@ -136,7 +138,7 @@ class AllGroupController: UIViewController {
                 model.index = index + 1
                 models.append(model)
             }
-            self?.tagInfos = models
+//            self?.tagInfos = models
             self?.tableInfos = [[GroupListCellModel]?](repeating: nil, count: models.count)
             self?.doubleCollection.set(titles: models.map { $0.name })
             self?.doubleCollection.bottomCollcetion.reloadData()
@@ -155,7 +157,7 @@ extension AllGroupController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GroupListCollectionCell.identifier, for: indexPath) as! GroupListCollectionCell
         cell.table.refreshDelegate = self
-        cell.reset(tableIdentifier: tagInfos[indexPath.row].tagID)
+        cell.reset(tableIdentifier: 0)
         return cell
     }
 
@@ -190,60 +192,56 @@ extension AllGroupController: GroupListViewRefreshDelegate {
     /// 下拉刷新
     func groupListView(_ view: GroupListView, didRefreshWithIdentidier identifier: String) {
 
-        guard let categoriesId = Int(view.tableIdentifier), let index = tagInfos.index(where: { $0.tagID == categoriesId }) else {
-            return
-        }
+         let categoriesId = Int(view.tableIdentifier)
 
         // 1.如果是推荐类型
-        let isRecommend = categoriesId == -9999
-        if isRecommend {
-            GroupNetworkManager.getRecommendGroups(offset: 0, complete: { [weak self] (models, message, status) in
-                var cellModels: [GroupListCellModel]?
-                if let models = models {
-                    cellModels = models.map { GroupListCellModel(model: $0) }
-                }
-                view.processRefresh(newDatas: cellModels, errorMessage: message)
-                self?.tableInfos[0] = view.datas
-            })
-            return
-        }
+//        let isRecommend = categoriesId == -9999
+//        if isRecommend {
+//            GroupNetworkManager.getRecommendGroups(offset: 0, complete: { [weak self] (models, message, status) in
+//                var cellModels: [GroupListCellModel]?
+//                if let models = models {
+//                    cellModels = models.map { GroupListCellModel(model: $0) }
+//                }
+//                view.processRefresh(newDatas: cellModels, errorMessage: message)
+//                self?.tableInfos[0] = view.datas
+//            })
+//            return
+//        }
         // 2.其他类型
-        GroupNetworkManager.getAllGroups(categoriesId: categoriesId, keyword: nil, offset: 0) { [weak self] (models, message, status) in
+        GroupNetworkManager.getAllGroups(categoriesId: 0, keyword: nil, offset: 0) { [weak self] (models, message, status) in
             var cellModels: [GroupListCellModel]?
             if let models = models {
                 cellModels = models.map { GroupListCellModel(model: $0) }
             }
             view.processRefresh(newDatas: cellModels, errorMessage: message)
-            self?.tableInfos[index] = view.datas
+            self?.tableInfos[0] = view.datas
         }
     }
 
     /// 上拉加载
     func groupListView(_ view: GroupListView, didLoadMoreWithIdentidier identifier: String) {
-        guard let categoriesId = Int(view.tableIdentifier), let index = tagInfos.index(where: { $0.tagID == categoriesId }) else {
-            return
-        }
-        // 1.如果是推荐类型
-        let isRecommend = categoriesId == -9999
-        if isRecommend {
-            GroupNetworkManager.getRecommendGroups(offset: view.datas.count, complete: { [weak self] (models, message, status) in
-                var cellModels: [GroupListCellModel]?
-                if let models = models {
-                    cellModels = models.map { GroupListCellModel(model: $0) }
-                }
-                view.processLoadMore(newDatas: cellModels, errorMessage: message)
-                self?.tableInfos[0] = view.datas
-            })
-            return
-        }
+        let categoriesId = Int(view.tableIdentifier)
+//        // 1.如果是推荐类型
+//        let isRecommend = categoriesId == -9999
+//        if isRecommend {
+//            GroupNetworkManager.getRecommendGroups(offset: view.datas.count, complete: { [weak self] (models, message, status) in
+//                var cellModels: [GroupListCellModel]?
+//                if let models = models {
+//                    cellModels = models.map { GroupListCellModel(model: $0) }
+//                }
+//                view.processLoadMore(newDatas: cellModels, errorMessage: message)
+//                self?.tableInfos[0] = view.datas
+//            })
+//            return
+//        }
         // 2.其他类型
-        GroupNetworkManager.getAllGroups(categoriesId: categoriesId, keyword: nil, offset: view.datas.count) { [weak self] (models, message, status) in
+        GroupNetworkManager.getAllGroups(categoriesId: 0, keyword: nil, offset: view.datas.count) { [weak self] (models, message, status) in
             var cellModels: [GroupListCellModel]?
             if let models = models {
                 cellModels = models.map { GroupListCellModel(model: $0) }
             }
             view.processLoadMore(newDatas: cellModels, errorMessage: message)
-            self?.tableInfos[index] = view.datas
+            self?.tableInfos[0] = view.datas
         }
     }
 }

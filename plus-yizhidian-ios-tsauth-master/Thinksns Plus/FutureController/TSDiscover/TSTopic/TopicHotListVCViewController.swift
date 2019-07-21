@@ -55,7 +55,7 @@ class TopicHotListVCViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     func refresh() {
-        
+        starHead.refresh()//刷新 热门圈子
         TSMomentNetworkManager().getfeedList(hot: "", search: "", type: "hot",after:0 ,complete:{(data: [TSMomentListModel]?, error) in
             if let models = data {
                 for obj in models {

@@ -11,6 +11,8 @@ import UIKit
 protocol videoHeadViewDelegate: class {
     /// 选中
     func updateUI(view:videoHeadView)
+    /// 选择 coll
+    func selectCollVideosModel(videosModel:NYVideosModel)
 }
 
 class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollectionViewDelegate {
@@ -118,7 +120,9 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: NYVideoColl = collectionView.dequeueReusableCell(withReuseIdentifier: NYVideoColl.identifier, for: indexPath) as! NYVideoColl
-        cell.setVideosModel(video: dataSource[indexPath.row])
+        let model =  dataSource[indexPath.row]
+        cell.setVideosModel(video:model)
+        
         return cell
     }
     
@@ -128,7 +132,8 @@ class videoHeadView: UIView,NibLoadable,UICollectionViewDataSource, UICollection
             TSRootViewController.share.guestJoinLoginVC()
             return
         }
-        
+        let model =  dataSource[indexPath.row]
+        self.delegate?.selectCollVideosModel(videosModel: model)
     }
     ///换一换
     @IBAction func changeClickdo(_ sender: UIButton) {

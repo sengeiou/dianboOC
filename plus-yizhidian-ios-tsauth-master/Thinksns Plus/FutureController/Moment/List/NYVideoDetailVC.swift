@@ -11,7 +11,7 @@ import RealmSwift
 //import ZFPlayer
 import Kingfisher
 
-class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboardToolbarDelegate,NYCommentsCellDelegate,videoHeadViewDelegate{
+class NYVideoDetailVC: NYBaseViewController ,TSMomentDetailToolbarDelegate,TSKeyboardToolbarDelegate,NYCommentsCellDelegate,videoHeadViewDelegate{
     /// 记录当前Y轴坐标
     private var yAxis: CGFloat = 0
     
@@ -207,10 +207,17 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
         
     }
     
+    /// MARK --- videoHeadViewDelegate
     func updateUI(view: videoHeadView) {
         table.tableHeaderView = headView
     }
     
+    func selectCollVideosModel(videosModel: NYVideosModel)
+    {
+        let videoDetailVC = NYVideoDetailVC()
+        videoDetailVC.video_id = videosModel.id
+        self.navigationController?.pushViewController(videoDetailVC, animated: true)
+    }
     
     /// 网络变化回调处理视频自动暂停
     func notiNetstatesChange(noti: NSNotification) {
@@ -272,24 +279,32 @@ class NYVideoDetailVC: UIViewController ,TSMomentDetailToolbarDelegate,TSKeyboar
         playerView?.autoPlayTheVideo()
     }
     
-//    //视频 方向问题
-//    override var shouldAutorotate: Bool
-//    {
-//        get {
-//            return true
-//        }
-//    }
-//
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
-//        {
-//        if  self.playerView!.isFullScreen
-//        {
-//            return UIInterfaceOrientationMask.landscape // UIInterfaceOrientationIsLandscape
-//        }else
-//        {
-//            return UIInterfaceOrientationMask.portrait
-//        }
-//    }
+    //旋转方向
+    override var shouldAutorotate: Bool
+    {
+        get {
+            return true
+        }
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+        {
+        if self.playerView != nil
+        {
+            if  self.playerView!.isFullScreen
+            {
+                return UIInterfaceOrientationMask.landscape // UIInterfaceOrientationIsLandscape
+            }else
+            {
+                return UIInterfaceOrientationMask.portrait
+            }
+        }
+        else
+        {
+            return UIInterfaceOrientationMask.portrait
+        }
+    }
+    
 
     func didClickShortVideoShareBtn(_ sender: Notification) {
 //        shareMoments()

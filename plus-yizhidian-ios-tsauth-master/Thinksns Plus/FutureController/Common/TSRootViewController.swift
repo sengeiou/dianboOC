@@ -322,4 +322,17 @@ class TSRootViewController: UIViewController {
         let alert = TSIndicatorWindowTop(state: .success, title: "用户已删除")
         alert.show(timeInterval: TSIndicatorWindowTop.defaultShowTimeInterval)
     }
+    
+    override var shouldAutorotate: Bool
+        {
+        get {
+            return true
+        }
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+    {
+        return tabbarVC?.supportedInterfaceOrientations ?? .portrait
+    }
+    
 }

@@ -18,13 +18,15 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
     let topChannelView = NYTopChannelView()
     
     var me_tablview :TSTableView!
-
     /// 数据源
     var datas: [NYVideosModel] = []
     /// 占位图
     let occupiedView = UIImageView()
     /// table 区分标识符，当多个 TSQuoraTableView 同时存在同一个界面时区分彼此
     var tableIdentifier = "NYChannelSelCell_Item"
+    
+    var tags = String()
+    var tag_cates = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,8 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
         me_tablview.backgroundColor = TSColor.main.themeTB
         me_tablview.backgroundView?.backgroundColor = TSColor.main.themeTB
 //        me_tablview.tableHeaderView = starHead
+        me_tablview.mj_header = TSRefreshHeader(refreshingTarget: self, refreshingAction: #selector(refreshdo))
+        me_tablview.mj_footer = TSRefreshFooter(refreshingTarget: self, refreshingAction: #selector(loadMore))
         me_tablview.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
         }
@@ -53,9 +57,20 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
         //topview
         topChannelView.frame = CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:40)
         topChannelView.delegate = self
+        topChannelView.selectTitle = self.title!
         self.view.addSubview(topChannelView)
         topChannelView.refresh()
         
+    }
+    
+    func refreshdo()
+    {
+        refresh(tags: tags, tag_cates: tag_cates)
+    }
+    
+    func loadMore()
+    {
+        me_tablview.mj_footer.endRefreshing()
     }
     
     func refresh(tags:String,tag_cates:String) {
@@ -155,8 +170,8 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
     /// Mark ----NYTopChannelViewDelegate
     
     func selectViewModelList(view: NYTopChannelView, tsgList: [NYtagModel]) {
-        var tags = String()
-        var tag_cates = String()
+        tags = String()
+        tag_cates = String()
         for obj in tsgList
         {
             if obj.tag_category_id>0
@@ -181,17 +196,29 @@ class NYChannelSelectManageVC: NYBaseViewController , UITableViewDelegate, UITab
     }
     
     func firstViewModelList(view: NYTopChannelView, tsgList: [NYtagModel]) {
-        var tag_cates = String()
+        tags = String()
+        tag_cates = String()
         for obj in tsgList
         {
-            tag_cates.append("\(obj.id),")
+            if obj.tag_category_id>0
+            {
+                tags.append("\(obj.id),")
+            }else
+            {
+                tag_cates.append("\(obj.id),")
+            }
+        }
+        if tags.count>0
+        {
+            tags.remove(at: tags.index(before: tags.endIndex))
+            tags = "[\(tags)]"
         }
         if tag_cates.count>0
         {
             tag_cates.remove(at: tag_cates.index(before: tag_cates.endIndex))
             tag_cates = "[\(tag_cates)]"
         }
-        refresh(tags: "", tag_cates: tag_cates)
+        refresh(tags: tags, tag_cates: tag_cates)
     }
     
 }

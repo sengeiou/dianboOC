@@ -33,6 +33,7 @@ class GroupListRightNavView: UIView {
 
         // 2.创建圈子按钮
         buildButton.setImage(UIImage(named: "IMG_ico_createcircle"), for: .normal)
+        buildButton.isHidden = true
         buildButton.sizeToFit()
 
         // 3.计算 frame

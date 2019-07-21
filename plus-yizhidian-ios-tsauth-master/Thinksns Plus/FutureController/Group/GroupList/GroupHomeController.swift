@@ -67,7 +67,8 @@ class GroupHomeController: UIViewController {
         table.register(GroupListCell.self, forCellReuseIdentifier: GroupListCell.identifier)
         table.register(UINib(nibName: "GroupHomeCountCell", bundle: nil), forCellReuseIdentifier: "GroupHomeCountCell")
         table.register(GroupListSectionView.self, forHeaderFooterViewReuseIdentifier: GroupListSectionView.identifier)
-
+        table.mj_header = TSRefreshHeader(refreshingTarget: self, refreshingAction: #selector(refresh))// 添加刷新控件
+        
         // 2.1导航栏右边视图
         rightNavView.searchButton.addTarget(self, action: #selector(searchButtonTaped), for: .touchUpInside)
         rightNavView.buildButton.addTarget(self, action: #selector(buildButtonTaped), for: .touchUpInside)
@@ -145,6 +146,7 @@ class GroupHomeController: UIViewController {
 
     // MARK: - Data
     func loadData() {
+        self.datas.removeAll()
         let group = DispatchGroup()
         var results: (GroupsInfoModel?, [GroupListCellModel]?, [GroupListCellModel]?) = (nil, nil, nil)
         // 1.获取总的圈子数
@@ -212,6 +214,7 @@ class GroupHomeController: UIViewController {
                 model.cellModels = recommendGroups
                 self?.datas.append(model)
             }
+            self?.table.mj_header.endRefreshing()
             self?.table.reloadData()
         }
     }
@@ -220,6 +223,12 @@ class GroupHomeController: UIViewController {
     func setNotification() {
         // 1.用户在其他页面，加入或退出了某个圈子
         NotificationCenter.default.addObserver(self, selector: #selector(processJoinedNotification(_:)), name: NSNotification.Name.Group.joined, object: nil)
+    }
+    
+    // refresh
+    func refresh()
+    {
+        loadData()
     }
 
     /// 收到通知，处理用户加入或退出某个圈子
@@ -267,8 +276,6 @@ class GroupHomeController: UIViewController {
         table.reloadData()
     }
 }
-
-
 
 extension GroupHomeController: UITableViewDelegate, UITableViewDataSource {
 

@@ -29,7 +29,7 @@ class NYSelMXCell: UITableViewCell {
     @IBOutlet weak var userImageView: UIImageView!
     
     
-    static let cellHeight:CGFloat = 360.0
+    static let cellHeight:CGFloat = 340.0
     
     var videoModel:NYVideosModel?
     
@@ -63,6 +63,7 @@ class NYSelMXCell: UITableViewCell {
         
         setVideosModel(video: mx_video.video!)
         titleLabel.text = mx_video.star?.name
+        contentLabel.text = mx_video.video?.name
         let url = URL(string:TSUtil.praseTSNetFileUrl(netFile: mx_video.star!.avatar)!)
         userImageView.kf.setImage(with:url, placeholder: #imageLiteral(resourceName: "IMG_pic_default_secret"), options: nil, progressBlock: nil, completionHandler: nil)
         
